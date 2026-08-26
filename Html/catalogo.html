@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altoidss | Catálogo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/catalogo.css?v=22">
+    <link rel="stylesheet" href="../css/site-shared.css?v=8">
+</head>
+<body>
+    <!-- Encabezado del catálogo: conserva la marca y navegación superior. -->
+    <header class="topbar navbar navbar-dark navbar-expand-xl">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html"><span class="brand-mark">AL</span>Altoidss</a>
+            <button class="navbar-toggler nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#site-navigation" aria-controls="site-navigation" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="top-nav collapse navbar-collapse" id="site-navigation" aria-label="Navegación del sitio">
+                <a href="index.html">Inicio</a>
+                <a class="is-active" href="catalogo.html">Catálogo</a>
+                <a href="catalogo.html?category=movies">Películas</a>
+                <a href="catalogo.html?category=series">Series</a>
+                <a href="catalogo.html?category=anime">Anime</a>
+                <a href="noticias.html">Noticias</a>
+                <a href="favoritos.html">Mi lista</a>
+                <a href="dashboard.html">Dashboard</a>
+            </nav>
+            <a class="search-icon" href="catalogo.html" aria-label="Buscar contenido" title="Buscar contenido">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </a>
+            <a class="login-icon" href="login.html" aria-label="Iniciar sesión" title="Iniciar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="app-shell">
+        <!-- Sidebar especializado: en catálogo funciona como panel de filtros. -->
+        <aside class="sidebar" aria-label="Filtros del catálogo">
+            <div class="mobile-filter-heading">
+                <h2>Filtros</h2>
+                <button class="mobile-filter-toggle" id="mobileFilterToggle" type="button" aria-expanded="false" aria-controls="catalogFilterForm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .4.8L10 7.667V12.5a.5.5 0 0 1-.276.447l-3 1.5A.5.5 0 0 1 6 14V7.667L1.6 1.8a.5.5 0 0 1-.1-.3m1.5.5 4 5.333V13.19l2-1V7.333L13 2z"/>
+                    </svg>
+                    <span>Mostrar filtros</span>
+                </button>
+            </div>
+
+            <form class="filter-panel" id="catalogFilterForm">
+                <div class="filter-group">
+                    <label class="filter-label" for="sidebar-search">Buscar</label>
+                    <input class="form-control form-control-sm" id="sidebar-search" type="search" placeholder="Título" autocomplete="off">
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-initial">Inicial</label>
+                    <select class="form-select form-select-sm" id="filter-initial">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-genre">Género</label>
+                    <select class="form-select form-select-sm" id="filter-genre">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-format">Tipo</label>
+                    <select class="form-select form-select-sm" id="filter-format">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-group" id="filter-seasons-group">
+                    <label class="filter-label" for="filter-seasons">Número de temporadas</label>
+                    <select class="form-select form-select-sm" id="filter-seasons">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-status">Estado</label>
+                    <select class="form-select form-select-sm" id="filter-status">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-group filter-year-group">
+                    <div class="filter-range-heading">
+                        <span class="filter-label">Año</span>
+                        <output id="filter-year-output">Todos</output>
+                    </div>
+                    <label class="filter-range-label" for="filter-year-min">Desde <span id="filter-year-min-value">—</span></label>
+                    <input id="filter-year-min" type="range" min="0" max="0" value="0">
+                    <label class="filter-range-label" for="filter-year-max">Hasta <span id="filter-year-max-value">—</span></label>
+                    <input id="filter-year-max" type="range" min="0" max="0" value="0">
+                </div>
+
+                <p class="filter-results" id="filter-results" aria-live="polite">0 resultados</p>
+                <div class="filter-actions">
+                    <button class="btn btn-primary btn-sm" type="submit">Aplicar filtros</button>
+                    <button class="btn btn-outline-light btn-sm" id="clearCatalogFilters" type="button">Limpiar</button>
+                </div>
+                <a class="back-link" href="index.html">Volver al inicio</a>
+            </form>
+            <div class="sidebar-social" aria-label="Redes sociales">
+                <a href="#" aria-label="Instagram" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.318.92.598s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.598.92 2.5 2.5 0 0 1-.92.598c-.282.11-.705.24-1.485.275-.843.039-1.096.047-3.232.047s-2.39-.008-3.233-.047c-.78-.035-1.203-.166-1.485-.275a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.598-.92c-.11-.282-.24-.705-.275-1.485-.038-.843-.046-1.097-.046-3.233s.008-2.388.046-3.231c.035-.78.166-1.204.275-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.275.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="YouTube" title="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="GitHub" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 3.89c.68.003 1.36.092 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+                    </svg>
+                </a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <!-- Título y descripción de la página del catálogo. -->
+            <div class="section-heading">
+                <p class="eyebrow">Catálogo</p>
+                <h1>Contenido destacado</h1>
+                <p>Explora películas, series y anime cargados desde la colección JSON de Altoidss.</p>
+            </div>
+
+            <!-- Vista preliminar de películas. Es la categoría activa por defecto. -->
+            <section class="catalog-panel is-active" id="catalog-movies">
+                <div class="catalog-controls">
+                    <div class="catalog-mode" aria-label="Categoría general del catálogo">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-primary" type="button" data-category-view="movies">Películas</button>
+                            <button class="btn btn-outline-light" type="button" data-category-view="series">Series TV</button>
+                            <button class="btn btn-outline-light" type="button" data-category-view="anime">Anime</button>
+                        </div>
+                    </div>
+                    <div class="catalog-preview">
+                        <h2>Películas</h2>
+                    </div>
+                    <div class="catalog-toolbar">
+                        <div class="btn-group btn-group-sm view-selector" role="group" aria-label="Modo de visualización">
+                            <button class="btn btn-primary" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" title="Tarjetas">
+                                <span aria-hidden="true">▦</span>
+                            </button>
+                            <button class="btn btn-outline-light" type="button" data-catalog-view="list" aria-label="Ver como lista" title="Lista">
+                                <span aria-hidden="true">☷</span>
+                            </button>
+                        </div>
+                        <div class="btn-group btn-group-sm grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
+                            <button class="btn btn-outline-light" type="button" data-grid="3">3</button>
+                            <button class="btn btn-primary" type="button" data-grid="5">5</button>
+                            <button class="btn btn-outline-light" type="button" data-grid="7">7</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="catalog-grid">
+                    <article class="anime-card">
+                        <div class="poster poster-one">
+                            <img src="https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg" alt="Póster de Dune" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-action">Acción</span>
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-fantasy">Fantasía</span>
+                                <span class="tag tag-new">2024</span>
+                            </div>
+                            <h2>Dune</h2>
+                            <p>Película de ciencia ficción con conflictos políticos y aventura.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-two">
+                            <img src="https://image.tmdb.org/t/p/w500/qhb1qOilapbapxWQn9jtRCMwXJF.jpg" alt="Póster de Wonka" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-adventure">Aventura</span>
+                                <span class="tag tag-comedy">Comedia</span>
+                                <span class="tag tag-family">Familiar</span>
+                                <span class="tag tag-new">2023</span>
+                            </div>
+                            <h2>Wonka</h2>
+                            <p>Historia musical y familiar con tono fantástico.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-three">
+                            <img src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg" alt="Póster de Your Name" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-romance">Romance</span>
+                                <span class="tag tag-fantasy">Fantasía</span>
+                                <span class="tag tag-new">2022</span>
+                            </div>
+                            <h2>Your Name</h2>
+                            <p>Película emotiva con intercambio de vidas y misterio.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-four">
+                            <img src="https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg" alt="Póster de Matrix" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-action">Acción</span>
+                                <span class="tag tag-adventure">Aventura</span>
+                                <span class="tag tag-fantasy">Sci-Fi</span>
+                                <span class="tag tag-new">2021</span>
+                            </div>
+                            <h2>Matrix</h2>
+                            <p>Realidad simulada, tecnología y combate visual.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-five">
+                            <img src="https://image.tmdb.org/t/p/w500/kf456ZqeC45XTvo6W9pW5clYKfQ.jpg" alt="Póster de Soul" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-family">Familiar</span>
+                                <span class="tag tag-romance">Vida</span>
+                                <span class="tag tag-new">2020</span>
+                            </div>
+                            <h2>Soul</h2>
+                            <p>Película animada sobre propósito, música y crecimiento.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Vista preliminar de series de televisión. -->
+            <section class="catalog-panel" id="catalog-series">
+                <div class="catalog-controls">
+                    <div class="catalog-mode" aria-label="Categoría general del catálogo">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-outline-light" type="button" data-category-view="movies">Películas</button>
+                            <button class="btn btn-primary" type="button" data-category-view="series">Series TV</button>
+                            <button class="btn btn-outline-light" type="button" data-category-view="anime">Anime</button>
+                        </div>
+                    </div>
+                    <div class="catalog-preview">
+                        <h2>Series TV</h2>
+                    </div>
+                    <div class="catalog-toolbar">
+                        <div class="btn-group btn-group-sm view-selector" role="group" aria-label="Modo de visualización">
+                            <button class="btn btn-primary" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" title="Tarjetas"><span aria-hidden="true">▦</span></button>
+                            <button class="btn btn-outline-light" type="button" data-catalog-view="list" aria-label="Ver como lista" title="Lista"><span aria-hidden="true">☷</span></button>
+                        </div>
+                        <div class="btn-group btn-group-sm grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
+                            <button class="btn btn-outline-light" type="button" data-grid="3">3</button>
+                            <button class="btn btn-primary" type="button" data-grid="5">5</button>
+                            <button class="btn btn-outline-light" type="button" data-grid="7">7</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="catalog-grid">
+                    <article class="anime-card">
+                        <div class="poster poster-six">
+                            <img src="https://image.tmdb.org/t/p/w500/30erzlzIOtOK3k3T3BAl1GiVMP1.jpg" alt="Póster de Breaking Bad" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-action">Crimen</span>
+                                <span class="tag tag-new">5 temp.</span>
+                                <span class="tag tag-family">TV</span>
+                            </div>
+                            <h2>Breaking Bad</h2>
+                            <p>Serie dramática centrada en decisiones extremas.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-seven">
+                            <img src="https://image.tmdb.org/t/p/w500/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg" alt="Póster de Game of Thrones" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-fantasy">Fantasía</span>
+                                <span class="tag tag-adventure">Aventura</span>
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-new">8 temp.</span>
+                            </div>
+                            <h2>Game of Thrones</h2>
+                            <p>Conflictos de poder, reinos y elementos fantásticos.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-eight">
+                            <img src="https://image.tmdb.org/t/p/w500/7buCWBTpiPrCF5Lt023dSC60rgS.jpg" alt="Póster de Friends" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-comedy">Comedia</span>
+                                <span class="tag tag-family">Sitcom</span>
+                                <span class="tag tag-romance">Amistad</span>
+                                <span class="tag tag-new">10 temp.</span>
+                            </div>
+                            <h2>Friends</h2>
+                            <p>Comedia de grupo sobre amistad y vida cotidiana.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-nine">
+                            <img src="https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg" alt="Póster de Stranger Things" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-fantasy">Sci-Fi</span>
+                                <span class="tag tag-drama">Misterio</span>
+                                <span class="tag tag-action">Suspenso</span>
+                                <span class="tag tag-new">4 temp.</span>
+                            </div>
+                            <h2>Stranger Things</h2>
+                            <p>Misterio, ciencia ficción y aventura juvenil.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-ten">
+                            <img src="https://image.tmdb.org/t/p/w500/bQLrHIRNEkE3PdIWQrZHynQZazu.jpg" alt="Póster de Vikings" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-action">Histórica</span>
+                                <span class="tag tag-adventure">Épica</span>
+                                <span class="tag tag-new">6 temp.</span>
+                            </div>
+                            <h2>Vikings</h2>
+                            <p>Serie histórica con guerras, viajes y liderazgo.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Vista preliminar de anime. -->
+            <section class="catalog-panel" id="catalog-anime">
+                <div class="catalog-controls">
+                    <div class="catalog-mode" aria-label="Categoría general del catálogo">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-outline-light" type="button" data-category-view="movies">Películas</button>
+                            <button class="btn btn-outline-light" type="button" data-category-view="series">Series TV</button>
+                            <button class="btn btn-primary" type="button" data-category-view="anime">Anime</button>
+                        </div>
+                    </div>
+                    <div class="catalog-preview">
+                        <h2>Anime</h2>
+                    </div>
+                    <div class="catalog-toolbar">
+                        <div class="btn-group btn-group-sm view-selector" role="group" aria-label="Modo de visualización">
+                            <button class="btn btn-primary" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" title="Tarjetas"><span aria-hidden="true">▦</span></button>
+                            <button class="btn btn-outline-light" type="button" data-catalog-view="list" aria-label="Ver como lista" title="Lista"><span aria-hidden="true">☷</span></button>
+                        </div>
+                        <div class="btn-group btn-group-sm grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
+                            <button class="btn btn-outline-light" type="button" data-grid="3">3</button>
+                            <button class="btn btn-primary" type="button" data-grid="5">5</button>
+                            <button class="btn btn-outline-light" type="button" data-grid="7">7</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="catalog-grid">
+                    <article class="anime-card">
+                        <div class="poster poster-eleven">
+                            <img src="https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg" alt="Póster de Demon Slayer" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-action">Acción</span>
+                                <span class="tag tag-fantasy">Shonen</span>
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-new">TV</span>
+                            </div>
+                            <h2>Demon Slayer</h2>
+                            <p>Cazadores de demonios y batallas intensas.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-twelve">
+                            <img src="https://image.tmdb.org/t/p/w500/fcXdJlbSdUEeMSJFsXKsznGwwok.jpg" alt="Póster de One Piece" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-adventure">Aventura</span>
+                                <span class="tag tag-comedy">Comedia</span>
+                                <span class="tag tag-action">Acción</span>
+                                <span class="tag tag-new">TV</span>
+                            </div>
+                            <h2>One Piece</h2>
+                            <p>Viaje pirata en busca de un gran tesoro.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-thirteen">
+                            <img src="https://image.tmdb.org/t/p/w500/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg" alt="Póster de Jujutsu Kaisen" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-action">Acción</span>
+                                <span class="tag tag-fantasy">Fantasía</span>
+                                <span class="tag tag-drama">Oscuro</span>
+                                <span class="tag tag-new">TV</span>
+                            </div>
+                            <h2>Jujutsu Kaisen</h2>
+                            <p>Hechicería moderna y criaturas malditas.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-fourteen">
+                            <img src="https://image.tmdb.org/t/p/w500/xppeysfvDKVx775MFuH8Z9BlpMk.jpg" alt="Póster de Naruto" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-action">Acción</span>
+                                <span class="tag tag-adventure">Aventura</span>
+                                <span class="tag tag-drama">Ninja</span>
+                                <span class="tag tag-new">TV</span>
+                            </div>
+                            <h2>Naruto</h2>
+                            <p>Ninjas, entrenamiento y superación.</p>
+                        </div>
+                    </article>
+                    <article class="anime-card">
+                        <div class="poster poster-fifteen">
+                            <img src="https://image.tmdb.org/t/p/w500/qNKaeunuUdL0smnowVVgShCkWZ4.jpg" alt="Póster de Haikyuu" loading="lazy">
+                        </div>
+                        <div class="anime-card-body">
+                            <div class="tag-list">
+                                <span class="tag tag-comedy">Deporte</span>
+                                <span class="tag tag-adventure">Equipo</span>
+                                <span class="tag tag-drama">Drama</span>
+                                <span class="tag tag-new">TV</span>
+                            </div>
+                            <h2>Haikyuu</h2>
+                            <p>Voleibol, equipo y competencia.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bootstrap controla componentes como botones y el JS local cambia la densidad de tarjetas. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../js/site-search.js?v=3"></script>
+    <script src="../js/excel-seed.js?v=4"></script>
+    <script src="../js/api-client.js?v=1"></script>
+    <script src="../js/auth.js?v=5"></script>
+    <script src="../js/site-account.js?v=1"></script>
+    <script src="../js/data-store.js?v=10"></script>
+    <script src="../js/catalogo.js?v=17"></script>
+</body>
+</html>
+
+
+
