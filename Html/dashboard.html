@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altoidss | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/dashboard.css?v=10">
+    <link rel="stylesheet" href="../css/site-shared.css?v=8">
+</head>
+<body class="layout-no-sidebar">
+    <!-- Encabezado del dashboard. -->
+    <header class="topbar navbar navbar-dark navbar-expand-xl">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html"><span class="brand-mark">AL</span>Altoidss</a>
+            <button class="navbar-toggler nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#site-navigation" aria-controls="site-navigation" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="top-nav collapse navbar-collapse" id="site-navigation" aria-label="Navegación del sitio">
+                <a href="index.html">Inicio</a>
+                <a href="catalogo.html">Catálogo</a>
+                <a href="catalogo.html?category=movies">Películas</a>
+                <a href="catalogo.html?category=series">Series</a>
+                <a href="catalogo.html?category=anime">Anime</a>
+                <a href="noticias.html">Noticias</a>
+                <a href="favoritos.html">Mi lista</a>
+                <a class="is-active" href="dashboard.html">Dashboard</a>
+            </nav>
+            <a class="search-icon" href="catalogo.html" aria-label="Buscar contenido" title="Buscar contenido">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </a>
+            <a class="login-icon" href="login.html" aria-label="Iniciar sesión" title="Iniciar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="app-shell">
+
+        <main class="content">
+            <div class="section-heading">
+                <p class="eyebrow" id="dashboardRoleLabel">Usuario</p>
+                <h1>Dashboard</h1>
+                <p id="dashboardIntro">Resumen del perfil activo y herramientas disponibles según el rol de la cuenta.</p>
+            </div>
+
+            <section class="profile-switcher" aria-label="Perfil activo">
+                <div>
+                    <span>Perfil activo</span>
+                    <strong id="activeProfileName">Usuario</strong>
+                </div>
+            </section>
+
+            <!-- Flujo principal del dashboard: resumen, perfil, configuración y herramientas admin. -->
+            <section class="dashboard-workspace" aria-label="Secciones del dashboard">
+                <div class="dashboard-submenu">
+                    <button class="btn btn-primary" type="button" data-dashboard-tab="overview">Dashboard</button>
+                    <button class="btn btn-outline-light admin-only-control" type="button" data-dashboard-tab="crud">Agregar</button>
+                    <button class="btn btn-outline-light admin-only-control" type="button" data-dashboard-tab="json">JSON</button>
+                    <button class="btn btn-outline-light admin-only-control" type="button" data-dashboard-tab="table">Contenido</button>
+                    <button class="btn btn-outline-light" type="button" data-dashboard-tab="profile">Perfil</button>
+                    <button class="btn btn-outline-light" type="button" data-dashboard-tab="settings">Configuración</button>
+                </div>
+
+                <div class="dashboard-tab-shell">
+                    <div class="dashboard-tab-track" id="dashboardTabTrack">
+                        <section class="dashboard-tab-panel">
+                            <section class="dashboard-grid mb-4">
+                                <div>
+                                    <article class="metric-card">
+                                        <span>Series vistas</span>
+                                        <strong id="metricSeriesSeen">0</strong>
+                                    </article>
+                                </div>
+                                <div>
+                                    <article class="metric-card">
+                                        <span>Películas vistas</span>
+                                        <strong id="metricMoviesSeen">0</strong>
+                                    </article>
+                                </div>
+                                <div>
+                                    <article class="metric-card">
+                                        <span>Anime visto</span>
+                                        <strong id="metricAnimeSeen">0</strong>
+                                    </article>
+                                </div>
+                                <div>
+                                    <article class="metric-card">
+                                        <span>Favoritos</span>
+                                        <strong id="metricFavorites">0</strong>
+                                    </article>
+                                </div>
+                            </section>
+
+                            <section class="insight-grid">
+                                <article class="insight-card">
+                                    <span>Género más visto</span>
+                                    <strong id="metricTopGenre">Sin datos</strong>
+                                </article>
+                                <article class="insight-card">
+                                    <span>Última visita</span>
+                                    <strong id="metricLastVisit">Hoy</strong>
+                                </article>
+                                <article class="insight-card">
+                                    <span>Tiempo de visualización</span>
+                                    <strong id="metricWatchTime">0 h</strong>
+                                </article>
+                            </section>
+
+                            <section class="dashboard-visual-grid" aria-label="Gráficos del perfil">
+                                <article class="chart-card chart-card-wide">
+                                    <div class="chart-card-head">
+                                        <div>
+                                            <span class="chart-kicker">Colección</span>
+                                            <h2>Favoritos por tipo</h2>
+                                        </div>
+                                        <strong id="chartTotalContent">0</strong>
+                                    </div>
+                                    <div class="bar-chart" id="typeBarChart">
+                                        <div class="bar-item">
+                                            <span>Películas</span>
+                                            <div class="bar-track"><i data-type-bar="movies"></i></div>
+                                            <strong id="barMoviesValue">0</strong>
+                                        </div>
+                                        <div class="bar-item">
+                                            <span>Series</span>
+                                            <div class="bar-track"><i data-type-bar="series"></i></div>
+                                            <strong id="barSeriesValue">0</strong>
+                                        </div>
+                                        <div class="bar-item">
+                                            <span>Anime</span>
+                                            <div class="bar-track"><i data-type-bar="anime"></i></div>
+                                            <strong id="barAnimeValue">0</strong>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="chart-card">
+                                    <div class="chart-card-head">
+                                        <div>
+                                            <span class="chart-kicker">Progreso</span>
+                                            <h2>Visto vs pendiente</h2>
+                                        </div>
+                                    </div>
+                                    <div class="donut-chart" id="watchDonut">
+                                        <span id="donutSeenValue">0%</span>
+                                    </div>
+                                    <div class="mini-legend">
+                                        <span><i class="legend-seen"></i>Visto</span>
+                                        <span><i class="legend-pending"></i>Pendiente</span>
+                                    </div>
+                                </article>
+
+                                <article class="chart-card">
+                                    <div class="chart-card-head">
+                                        <div>
+                                            <span class="chart-kicker">Estructura</span>
+                                            <h2>Radar de gustos</h2>
+                                        </div>
+                                    </div>
+                                    <div class="radar-chart">
+                                        <svg viewBox="0 0 180 180" role="img" aria-label="Radar de preferencias">
+                                            <polygon class="radar-grid" points="90,18 158,67 132,146 48,146 22,67"></polygon>
+                                            <polygon class="radar-grid radar-grid-inner" points="90,48 129,76 114,122 66,122 51,76"></polygon>
+                                            <polygon class="radar-fill" id="genreRadarPolygon" points="90,40 130,76 118,128 62,122 46,74"></polygon>
+                                            <circle cx="90" cy="18" r="3"></circle>
+                                            <circle cx="158" cy="67" r="3"></circle>
+                                            <circle cx="132" cy="146" r="3"></circle>
+                                            <circle cx="48" cy="146" r="3"></circle>
+                                            <circle cx="22" cy="67" r="3"></circle>
+                                        </svg>
+                                        <div class="radar-labels">
+                                            <span>Acción</span>
+                                            <span>Drama</span>
+                                            <span>Aventura</span>
+                                            <span>Comedia</span>
+                                            <span>Fantasía</span>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="chart-card chart-card-wide">
+                                    <div class="chart-card-head">
+                                        <div>
+                                            <span class="chart-kicker">Tendencia</span>
+                                            <h2>Actividad mensual</h2>
+                                        </div>
+                                        <strong id="activityPeakLabel">Demo</strong>
+                                    </div>
+                                    <div class="line-chart">
+                                        <svg viewBox="0 0 640 160" preserveAspectRatio="none" role="img" aria-label="Línea de actividad mensual">
+                                            <polyline class="line-area" id="activityAreaLine" points="0,120 80,104 160,92 240,74 320,88 400,56 480,44 560,70 640,50"></polyline>
+                                            <polyline class="line-stroke" id="activityLine" points="0,120 80,104 160,92 240,74 320,88 400,56 480,44 560,70 640,50"></polyline>
+                                        </svg>
+                                        <div class="line-months">
+                                            <span>Ene</span>
+                                            <span>Mar</span>
+                                            <span>May</span>
+                                            <span>Jul</span>
+                                            <span>Sep</span>
+                                            <span>Nov</span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </section>
+
+                            <section class="profile-note" id="profileNote">
+                                El usuario registrado puede ver sus favoritos, contenido visto y tiempo estimado de visualización.
+                            </section>
+                        </section>
+
+                        <section class="dashboard-tab-panel admin-tool-panel">
+                            <div class="crud-form-card">
+                                <div class="section-heading compact-heading">
+                                    <p class="eyebrow">Gestión de contenido</p>
+                                    <h2>Administración CRUD</h2>
+                                    <p>Administra el catálogo y las noticias mediante el backend PHP con persistencia JSON.</p>
+                                </div>
+
+                                <div class="crud-mode-switch btn-group btn-group-sm" role="group" aria-label="Tipo de CRUD">
+                                    <button class="btn btn-primary" type="button" data-crud-mode="content">Contenido</button>
+                                    <button class="btn btn-outline-light" type="button" data-crud-mode="news">Noticias</button>
+                                </div>
+
+                                <div class="crud-mode-panel is-active" data-crud-panel="content">
+                                    <form class="crud-form" id="contentForm">
+                                        <input id="contentId" type="hidden">
+
+                                        <div>
+                                            <label class="form-label" for="contentTitle">Título</label>
+                                            <input class="form-control" id="contentTitle" type="text" placeholder="Ejemplo: Demon Slayer" required>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentType">Categoría general</label>
+                                            <select class="form-select" id="contentType" required>
+                                                <option value="movies">Películas</option>
+                                                <option value="series">Series TV</option>
+                                                <option value="anime">Anime</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentFormat">Tipo de contenido</label>
+                                            <select class="form-select" id="contentFormat" required>
+                                                <option value="Serie">Serie</option>
+                                                <option value="Película">Película</option>
+                                                <option value="OVA">OVA</option>
+                                                <option value="Especial">Especial</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentProductionStatus">Estado producción</label>
+                                            <select class="form-select" id="contentProductionStatus" required>
+                                                <option value="Emisión">Emisión</option>
+                                                <option value="Finalizado">Finalizado</option>
+                                                <option value="Pausado">Pausado</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentGenre">Género principal</label>
+                                            <input class="form-control" id="contentGenre" type="text" placeholder="Acción, Drama, Aventura" required>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentYear">Año de emisión</label>
+                                            <input class="form-control" id="contentYear" type="number" min="1900" max="2100" required>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentSeason">Temporada emisión</label>
+                                            <select class="form-select" id="contentSeason" required>
+                                                <option value="">Seleccione una temporada</option>
+                                                <option value="Winter">Winter / Invierno</option>
+                                                <option value="Spring">Spring / Primavera</option>
+                                                <option value="Summer">Summer / Verano</option>
+                                                <option value="Fall">Fall / Otoño</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentChapters">Capítulos</label>
+                                            <input class="form-control" id="contentChapters" type="number" min="0" placeholder="12">
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="contentSeasonsCount">N. temporada</label>
+                                            <input class="form-control" id="contentSeasonsCount" type="number" min="1" placeholder="Ejemplo: 5" required>
+                                        </div>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="contentTags">Tags secundarios</label>
+                                            <input class="form-control" id="contentTags" type="text" placeholder="Sci-Fi, Misterio, Estreno">
+                                        </div>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="contentImage">URL de imagen real/oficial opcional</label>
+                                            <input class="form-control" id="contentImage" type="url" placeholder="Si se deja vacía, se usará una imagen placeholder">
+                                        </div>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="contentDescription">Descripción</label>
+                                            <textarea class="form-control" id="contentDescription" rows="3" placeholder="Descripción breve para mostrar en catálogo." required></textarea>
+                                        </div>
+
+                                        <div class="crud-actions form-span-2">
+                                            <button class="btn btn-primary" id="saveContentButton" type="submit">Guardar contenido</button>
+                                            <button class="btn btn-outline-light" id="cancelEditButton" type="button">Cancelar edición</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="crud-mode-panel" data-crud-panel="news">
+                                    <form class="crud-form" id="newsForm">
+                                        <input id="newsId" type="hidden">
+
+                                        <div>
+                                            <label class="form-label" for="newsTitle">Título de noticia</label>
+                                            <input class="form-control" id="newsTitle" type="text" placeholder="Ejemplo: Nuevo estreno llega al catálogo" required>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="newsCategory">Categoría</label>
+                                            <select class="form-select" id="newsCategory" required>
+                                                <option value="Estrenos">Estrenos</option>
+                                                <option value="Cine">Cine</option>
+                                                <option value="Anime">Anime</option>
+                                                <option value="Series">Series</option>
+                                                <option value="Reseñas">Reseñas</option>
+                                                <option value="Recomendaciones">Recomendaciones</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="newsStatus">Estado</label>
+                                            <select class="form-select" id="newsStatus" required>
+                                                <option value="borrador">Borrador</option>
+                                                <option value="publicada">Publicada</option>
+                                                <option value="archivada">Archivada</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="newsDate">Fecha publicación</label>
+                                            <input class="form-control" id="newsDate" type="date">
+                                        </div>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="newsSummary">Resumen</label>
+                                            <textarea class="form-control" id="newsSummary" rows="2" placeholder="Resumen corto para tarjetas de noticias." required></textarea>
+                                        </div>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="newsImage">Imagen portada</label>
+                                            <input class="form-control" id="newsImage" type="url" placeholder="URL de imagen oficial o foto de prensa" required>
+                                        </div>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="newsTrailerUrl">URL del tráiler oficial</label>
+                                            <input class="form-control" id="newsTrailerUrl" type="url" placeholder="https://www.youtube.com/watch?v=...">
+                                            <div class="form-text text-light-emphasis">Opcional. Se admite un enlace oficial de YouTube.</div>
+                                        </div>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="newsRelated">Contenido relacionado</label>
+                                            <input class="form-control" id="newsRelated" type="text" placeholder="Dune: Parte Dos, Demon Slayer">
+                                        </div>
+
+                                        <label class="settings-check form-span-2">
+                                            <input id="newsFeatured" type="checkbox">
+                                            <span>Marcar como noticia destacada</span>
+                                        </label>
+
+                                        <div class="form-span-2">
+                                            <label class="form-label" for="newsBody">Contenido del artículo</label>
+                                            <textarea class="form-control" id="newsBody" rows="5" placeholder="Texto principal de la publicación." required></textarea>
+                                        </div>
+
+                                        <div class="crud-actions form-span-2">
+                                            <button class="btn btn-primary" id="saveNewsButton" type="submit">Guardar noticia</button>
+                                            <button class="btn btn-outline-light" id="cancelNewsEditButton" type="button">Cancelar edición</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="dashboard-tab-panel admin-tool-panel">
+                            <div class="json-card">
+                                <div class="section-heading compact-heading">
+                                    <p class="eyebrow">Persistencia</p>
+                                    <h2>Datos JSON</h2>
+                                    <p>Vista administrativa de los datos gestionados por la API PHP.</p>
+                                </div>
+                                <pre id="jsonPreview">[]</pre>
+                            </div>
+                        </section>
+
+                        <section class="dashboard-tab-panel admin-tool-panel">
+                            <div class="admin-table-tools btn-group btn-group-sm" role="group" aria-label="Vista de tabla">
+                                <button class="btn btn-primary" type="button" data-table-mode="content">Contenido</button>
+                                <button class="btn btn-outline-light" type="button" data-table-mode="news">Noticias</button>
+                            </div>
+                            <div class="table-responsive admin-table">
+                                <table class="table table-dark table-hover align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Año emisión</th>
+                                            <th>Categoría</th>
+                                            <th>Estado</th>
+                                            <th class="text-end">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contentTableBody">
+                                        <tr>
+                                            <td colspan="5">No hay contenido JSON agregado todavía.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="dashboard-tab-panel">
+                            <div class="profile-editor-card">
+                                <div class="section-heading compact-heading">
+                                    <p class="eyebrow">Perfil</p>
+                                    <h2>Información del usuario</h2>
+                                    <p>Datos personales guardados para el perfil activo.</p>
+                                </div>
+
+                                <form class="profile-form" id="profileForm">
+                                    <div class="avatar-preview" id="avatarPreview">AL</div>
+
+                                    <div>
+                                        <label class="form-label" for="profileName">Nombre de usuario</label>
+                                        <input class="form-control" id="profileName" type="text" required>
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="profileEmail">Correo</label>
+                                        <input class="form-control" id="profileEmail" type="email">
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="profileSocial">Redes</label>
+                                        <input class="form-control" id="profileSocial" type="text" placeholder="@usuario, GitHub, Instagram">
+                                    </div>
+
+                                    <div class="form-span-2">
+                                        <label class="form-label" for="profileAvatar">Foto de perfil</label>
+                                        <input class="form-control" id="profileAvatar" type="url" placeholder="https://...">
+                                    </div>
+
+                                    <div class="form-span-2">
+                                        <label class="form-label" for="profileAbout">About me</label>
+                                        <textarea class="form-control" id="profileAbout" rows="4"></textarea>
+                                    </div>
+
+                                    <div class="crud-actions form-span-2">
+                                        <button class="btn btn-primary" type="submit">Guardar perfil</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+
+                        <section class="dashboard-tab-panel">
+                            <div class="settings-card">
+                                <div class="section-heading compact-heading">
+                                    <p class="eyebrow">Configuración</p>
+                                    <h2>Preferencias de visualización</h2>
+                                    <p>Estas preferencias se guardan mediante el backend y se aplican a las vistas de contenido.</p>
+                                </div>
+
+                                <form class="settings-form" id="settingsForm">
+                                    <div>
+                                        <label class="form-label" for="settingCardsPerRow">Tarjetas por línea</label>
+                                        <select class="form-select" id="settingCardsPerRow">
+                                            <option value="3">3 tarjetas</option>
+                                            <option value="5">5 tarjetas</option>
+                                            <option value="7">7 tarjetas</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="settingPreferredView">Vista preferida</label>
+                                        <select class="form-select" id="settingPreferredView">
+                                            <option value="cards">Tarjetas</option>
+                                            <option value="detailed">Lista detallada</option>
+                                            <option value="simple">Lista sencilla</option>
+                                        </select>
+                                    </div>
+
+                                    <label class="settings-check form-span-2">
+                                        <input id="settingCompactMode" type="checkbox">
+                                        <span>Activar modo compacto en interfaces de contenido</span>
+                                    </label>
+
+                                    <div class="crud-actions form-span-2">
+                                        <button class="btn btn-primary" type="submit">Guardar configuración</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../js/site-search.js?v=3"></script>
+    <script src="../js/excel-seed.js?v=4"></script>
+    <script src="../js/api-client.js?v=1"></script>
+    <script src="../js/auth.js?v=5"></script>
+    <script src="../js/site-account.js?v=1"></script>
+    <script src="../js/data-store.js?v=10"></script>
+    <script src="../js/dashboard.js?v=10"></script>
+</body>
+</html>
+
+

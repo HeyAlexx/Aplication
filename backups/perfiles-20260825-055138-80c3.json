@@ -1,0 +1,20 @@
+[
+  {
+    "userId": "usuario-final",
+    "displayName": "Usuario Altoidss",
+    "email": "usuario@altoidss.com",
+    "socialLinks": "@altoidss",
+    "about": "Perfil de usuario para gestionar favoritos, contenido visto y preferencias visuales.",
+    "avatar": "",
+    "lastVisit": "Hoy"
+  },
+  {
+    "userId": "admin-final",
+    "displayName": "Administrador Altoidss",
+    "email": "admin@altoidss.com",
+    "socialLinks": "@adminaltoidss",
+    "about": "Perfil administrativo para gestionar el contenido, las noticias y la configuración de Altoidss.",
+    "avatar": "",
+    "lastVisit": "Hoy"
+  }
+]

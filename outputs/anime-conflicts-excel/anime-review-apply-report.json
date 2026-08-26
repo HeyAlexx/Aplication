@@ -1,0 +1,2552 @@
+{
+  "mode": "apply",
+  "generatedAt": "2026-08-23T22:11:44.681364-06:00",
+  "approvedFromExcel": 50,
+  "manualCorrections": 15,
+  "totalUpdated": 65,
+  "changes": [
+    {
+      "id": "anime-excel-42-3716",
+      "before": {
+        "id": "anime-excel-42-3716",
+        "title": "Isekai Quartet Movie Another World",
+        "alternativeTitles": null,
+        "format": "Película",
+        "emissionYear": 2023,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-42-3716",
+        "title": "Isekai Quartet: Another World",
+        "alternativeTitles": [
+          "Isekai Quartet Movie Another World",
+          "Isekai Quartet The Movie: Another World",
+          "異世界かるてっと ～あなざーわーるど～"
+        ],
+        "format": "Película",
+        "emissionYear": 2022,
+        "emissionSeason": "Spring",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx117074-kgucq8a1ZeOw.jpg",
+        "sourceUrl": "https://anilist.co/anime/117074",
+        "metadataProvider": "anilist",
+        "anilistId": "117074",
+        "jikanId": "41567",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-61-3739",
+      "before": {
+        "id": "anime-excel-61-3739",
+        "title": "Maou Gakuin no Futekigousha II",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-61-3739",
+        "title": "Maou Gakuin no Futekigousha: Shijou Saikyou no Maou no Shiso, Tensei shite Shison-tachi no Gakkou e Kayou II",
+        "alternativeTitles": [
+          "Maou Gakuin no Futekigousha II",
+          "The Misfit of Demon King Academy Ⅱ: History's Strongest Demon King Reincarnates and Goes to School with His Descendants",
+          "魔王学院の不適合者 ～史上最強の魔王の始祖、転生して子孫たちの学校へ通う～ Ⅱ"
+        ],
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx130588-zYz8Gp2kZfTm.jpg",
+        "sourceUrl": "https://anilist.co/anime/130588",
+        "metadataProvider": "anilist",
+        "anilistId": "130588",
+        "jikanId": "48417",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-138-3815",
+      "before": {
+        "id": "anime-excel-138-3815",
+        "title": "5-toubun no Hanayome Movie",
+        "alternativeTitles": null,
+        "format": "Película",
+        "emissionYear": 2023,
+        "emissionSeason": "Spring",
+        "activeSeason": "S02",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-138-3815",
+        "title": "Go-toubun no Hanayome Movie",
+        "alternativeTitles": [
+          "5-toubun no Hanayome Movie",
+          "The Quintessential Quintuplets Movie",
+          "映画 五等分の花嫁"
+        ],
+        "format": "Película",
+        "emissionYear": 2022,
+        "emissionSeason": "Spring",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx131520-89Qfo8JnGHI3.png",
+        "sourceUrl": "https://anilist.co/anime/131520",
+        "metadataProvider": "anilist",
+        "anilistId": "131520",
+        "jikanId": "48548",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-156-3835",
+      "before": {
+        "id": "anime-excel-156-3835",
+        "title": "LasTame",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-156-3835",
+        "title": "Higeki no Genkyou to Naru Saikyou Gedou Last Boss Joou wa Tami no Tame ni Tsukushimasu.",
+        "alternativeTitles": [
+          "LasTame",
+          "The Most Heretical Last Boss Queen: From Villainess to Savior",
+          "悲劇の元凶となる最強外道ラスボス女王は民の為に尽くします。"
+        ],
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx156040-qWlfbAk6GJJR.png",
+        "sourceUrl": "https://anilist.co/anime/156040",
+        "metadataProvider": "anilist",
+        "anilistId": "156040",
+        "jikanId": "53438",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-174-3852",
+      "before": {
+        "id": "anime-excel-174-3852",
+        "title": "Tonikaku Kawaii: Joshikou-hen",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 4,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-174-3852",
+        "title": "Tonikaku Kawaii: Joshikou-hen",
+        "alternativeTitles": [
+          "Tonikaku Kawaii: Joshikou-hen",
+          "TONIKAWA: Over The Moon For You ~High School Days~",
+          "トニカクカワイイ 女子高編"
+        ],
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 4,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx166104-0oRQjclE7X3S.jpg",
+        "sourceUrl": "https://anilist.co/anime/166104",
+        "metadataProvider": "anilist",
+        "anilistId": "166104",
+        "jikanId": "55651",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-186-3865",
+      "before": {
+        "id": "anime-excel-186-3865",
+        "title": "Shangri-La Frontier Kusoge Hunter, Kamige ni Idoman to su",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 49,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-186-3865",
+        "title": "Shangri-La Frontier",
+        "alternativeTitles": [
+          "Shangri-La Frontier Kusoge Hunter, Kamige ni Idoman to su",
+          "Shangri-La Frontier",
+          "シャングリラ・フロンティア"
+        ],
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 49,
+        "image": "https://media.kitsu.app/anime/46241/poster_image/c211ce3a0a2a9738ac821bba5b6b055c.jpg",
+        "sourceUrl": "https://kitsu.app/anime/shangri-la-frontier",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "46241"
+      }
+    },
+    {
+      "id": "anime-excel-219-3904",
+      "before": {
+        "id": "anime-excel-219-3904",
+        "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-219-3904",
+        "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo",
+        "alternativeTitles": [
+          "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo",
+          "The 100 Girlfriends Who Really, Really, Really, Really, REALLY Love You",
+          "君のことが大大大大大好きな100人の彼女"
+        ],
+        "format": "Serie",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx162694-QFBei5pbjSh8.png",
+        "sourceUrl": "https://anilist.co/anime/162694",
+        "metadataProvider": "anilist",
+        "anilistId": "162694",
+        "jikanId": "54714",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-225-3912",
+      "before": {
+        "id": "anime-excel-225-3912",
+        "title": "Psycho-Pass Movie Providence",
+        "alternativeTitles": null,
+        "format": "Película",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-225-3912",
+        "title": "PSYCHO-PASS PROVIDENCE",
+        "alternativeTitles": [
+          "Psycho-Pass Movie Providence",
+          "PSYCHO-PASS: Providence",
+          "劇場版 PSYCHO-PASS サイコパス PROVIDENCE"
+        ],
+        "format": "Película",
+        "emissionYear": 2023,
+        "emissionSeason": "Spring",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx153687-xB2x4toOz5MB.jpg",
+        "sourceUrl": "https://anilist.co/anime/153687",
+        "metadataProvider": "anilist",
+        "anilistId": "153687",
+        "jikanId": "52747",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-226-3913",
+      "before": {
+        "id": "anime-excel-226-3913",
+        "title": "Jashin-chan Dropkick Seikimatsu-hen",
+        "alternativeTitles": null,
+        "format": "OVA",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-226-3913",
+        "title": "Jashin-chan Dropkick [Seikimatsu-hen]",
+        "alternativeTitles": [
+          "Jashin-chan Dropkick Seikimatsu-hen",
+          "Dropkick on My Devil!!: Apocalypse Day",
+          "邪神ちゃんドロップキック【世紀末編】"
+        ],
+        "format": "OVA",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx164551-QysYBZwUrpYv.png",
+        "sourceUrl": "https://anilist.co/anime/164551",
+        "metadataProvider": "anilist",
+        "anilistId": "164551",
+        "jikanId": "55237",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-244-3931",
+      "before": {
+        "id": "anime-excel-244-3931",
+        "title": "Loop 7-kaime no Akuyaku Reijou wa",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-244-3931",
+        "title": "Loop 7-kaime no Akuyaku Reijou wa, Moto Tekikoku de Jiyuu Kimama na Hanayome Seikatsu wo Mankitsu Suru",
+        "alternativeTitles": [
+          "Loop 7-kaime no Akuyaku Reijou wa",
+          "7th Time Loop: The Villainess Enjoys a Carefree Life Married to Her Worst Enemy!",
+          "ループ7回目の悪役令嬢は、元敵国で自由気ままな花嫁生活を満喫する"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx168374-WAEBeVAegRnw.jpg",
+        "sourceUrl": "https://anilist.co/anime/168374",
+        "metadataProvider": "anilist",
+        "anilistId": "168374",
+        "jikanId": "56352",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-245-3933",
+      "before": {
+        "id": "anime-excel-245-3933",
+        "title": "Shin no Nakama S2",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Winter",
+        "activeSeason": "S02",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-245-3933",
+        "title": "Shin no Nakama ja Nai to Yuusha no Party wo Oidasareta node, Henkyou de Slow Life suru Koto ni shimashita 2nd Season",
+        "alternativeTitles": [
+          "Shin no Nakama S2",
+          "Shin no Nakama ja Nai to Yuusha no Party wo Oidasareta node, Henkyou de Slow Life suru Koto ni shimashita 2nd Season",
+          "Banished from the Hero’s Party, I Decided to Live a Quiet Life in the Countryside Season 2",
+          "真の仲間じゃないと勇者のパーティーを追い出されたので、辺境でスローライフすることにしました 第2期",
+          "ผมโดนกลุ่มผู้กล้าขับไส เลยต้องไปสโลว์ไลฟ์ที่ชายแดน ภาค 2"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Winter",
+        "activeSeason": "S02",
+        "chapters": 12,
+        "image": "https://media.kitsu.app/anime/46686/poster_image/b8b3f80e7cc4556b3cf3d7587d981786.jpg",
+        "sourceUrl": "https://kitsu.app/anime/shin-no-nakama-ja-nai-to-yuusha-no-party-wo-oidasareta-node-henkyou-de-slow-life-suru-koto-ni-shimashita-2nd-season",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "46686"
+      }
+    },
+    {
+      "id": "anime-excel-302-3955",
+      "before": {
+        "id": "anime-excel-302-3955",
+        "title": "ReMonster",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-302-3955",
+        "title": "Re:Monster",
+        "alternativeTitles": [
+          "ReMonster",
+          "Re:Monster"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169417-izsfKg0hasRd.png",
+        "sourceUrl": "https://anilist.co/anime/169417",
+        "metadataProvider": "anilist",
+        "anilistId": "169417",
+        "jikanId": "56690",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-307-3999",
+      "before": {
+        "id": "anime-excel-307-3999",
+        "title": "Code Geass Dakkan no Rozé",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-307-3999",
+        "title": "Code Geass: Dakkan no Rozé",
+        "alternativeTitles": [
+          "Code Geass Dakkan no Rozé",
+          "Code Geass: Dakkan no Rozé",
+          "Code Geass: Rozé of the Recapture",
+          "コードギアス 奪還のロゼ"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "https://media.kitsu.app/anime/43855/poster_image/572167cb7c18135123f4ad1af33f4716.png",
+        "sourceUrl": "https://kitsu.app/anime/code-geass-dakkan-no-z",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "43855"
+      }
+    },
+    {
+      "id": "anime-excel-346-4039",
+      "before": {
+        "id": "anime-excel-346-4039",
+        "title": "Kinnikuman Kanpeki Chоujin Shiso-hen",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-346-4039",
+        "title": "Kinnikuman: Kanpeki Chоujin Shiso-hen Episode 0",
+        "alternativeTitles": [
+          "Kinnikuman Kanpeki Chоujin Shiso-hen",
+          "Kinnikuman: Kanpeki Chоujin Shiso-hen Episode 0",
+          "Kinnikuman: Perfect Origin Arc Episode 0",
+          "キン肉マン 完璧超人始祖編 第0話"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://media.kitsu.app/anime/49022/poster_image/8e1afbd28fa1395ab37f2e1c9002c0c6.jpg",
+        "sourceUrl": "https://kitsu.app/anime/kinnikuman-kanpeki-ch-ujin-shiso-hen-episode-0",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "49022"
+      }
+    },
+    {
+      "id": "anime-excel-347-4040",
+      "before": {
+        "id": "anime-excel-347-4040",
+        "title": "Kimi ni Todoke 3rd Season",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Summer",
+        "activeSeason": "S03",
+        "chapters": 6,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-347-4040",
+        "title": "Kimi ni Todoke 3RD SEASON",
+        "alternativeTitles": [
+          "Kimi ni Todoke 3rd Season",
+          "Kimi ni Todoke: From Me to You Season 3",
+          "君に届け 3RD SEASON"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Summer",
+        "activeSeason": "S03",
+        "chapters": 6,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx168872-ls6UwxFAw212.jpg",
+        "sourceUrl": "https://anilist.co/anime/168872",
+        "metadataProvider": "anilist",
+        "anilistId": "168872",
+        "jikanId": "56538",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-349-4042",
+      "before": {
+        "id": "anime-excel-349-4042",
+        "title": "Spy x Family Movie Code White",
+        "alternativeTitles": null,
+        "format": "Película",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-349-4042",
+        "title": "SPY×FAMILY CODE: White",
+        "alternativeTitles": [
+          "Spy x Family Movie Code White",
+          "SPY x FAMILY CODE: White",
+          "SPY×FAMILY CODE: White"
+        ],
+        "format": "Película",
+        "emissionYear": 2023,
+        "emissionSeason": "Fall",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx158928-xqE0euKlQMnY.jpg",
+        "sourceUrl": "https://anilist.co/anime/158928",
+        "metadataProvider": "anilist",
+        "anilistId": "158928",
+        "jikanId": "53888",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-350-4043",
+      "before": {
+        "id": "anime-excel-350-4043",
+        "title": "Hitoribocchi no Isekai Kouryaku",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-350-4043",
+        "title": "Hitoribocchi no Isekai Kouryaku",
+        "alternativeTitles": [
+          "Hitoribocchi no Isekai Kouryaku",
+          "Loner Life in Another World",
+          "ひとりぼっちの異世界攻略"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx173693-tRLdDE1BieXe.png",
+        "sourceUrl": "https://anilist.co/anime/173693",
+        "metadataProvider": "anilist",
+        "anilistId": "173693",
+        "jikanId": "57891",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-357-4050",
+      "before": {
+        "id": "anime-excel-357-4050",
+        "title": "ReZero kara Hajimeru Isekai Seikatsu 3rd",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S03",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-357-4050",
+        "title": "Re:Zero kara Hajimeru Isekai Seikatsu 3rd Season",
+        "alternativeTitles": [
+          "ReZero kara Hajimeru Isekai Seikatsu 3rd",
+          "Re:ZERO -Starting Life in Another World- Season 3",
+          "Re:ゼロから始める異世界生活 3rd season"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S03",
+        "chapters": 16,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx163134-yieRFbvUOH9a.jpg",
+        "sourceUrl": "https://anilist.co/anime/163134",
+        "metadataProvider": "anilist",
+        "anilistId": "163134",
+        "jikanId": "54857",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-361-4054",
+      "before": {
+        "id": "anime-excel-361-4054",
+        "title": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka V",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S05",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-361-4054",
+        "title": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka V: Houjou no Megami-hen",
+        "alternativeTitles": [
+          "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka V",
+          "Is It Wrong To Try To Pick Up Girls in a Dungeon? V",
+          "ダンジョンに出会いを求めるのは間違っているだろうかⅤ 豊穣の女神篇"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S05",
+        "chapters": 15,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170732-PwCMhnnOKdBu.jpg",
+        "sourceUrl": "https://anilist.co/anime/170732",
+        "metadataProvider": "anilist",
+        "anilistId": "170732",
+        "jikanId": "57066",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-372-4065",
+      "before": {
+        "id": "anime-excel-372-4065",
+        "title": "Goukon ni Ittara Onna ga Inakatta Hanashi",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-372-4065",
+        "title": "Goukon ni Ittara Onna ga Inakatta Hanashi",
+        "alternativeTitles": [
+          "Goukon ni Ittara Onna ga Inakatta Hanashi",
+          "How I Attended an All-Guy's Mixer",
+          "合コンに行ったら女がいなかった話"
+        ],
+        "format": "Serie",
+        "emissionYear": 2024,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169931-tPgDEKaHNkFr.jpg",
+        "sourceUrl": "https://anilist.co/anime/169931",
+        "metadataProvider": "anilist",
+        "anilistId": "169931",
+        "jikanId": "56843",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-395-4091",
+      "before": {
+        "id": "anime-excel-395-4091",
+        "title": "Hazure Skill Kinomi Master",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-395-4091",
+        "title": "Hazure Skill «Kinomi Master»: Skill no Mi (Tabetara Shinu) wo Mugen ni Taberareru You ni Natta Ken Nitsuite",
+        "alternativeTitles": [
+          "Hazure Skill Kinomi Master",
+          "Bogus Skill <<Fruitmaster>> ~About that time I became able to eat unlimited numbers of Skill Fruits (that kill you)~",
+          "外れスキル《木の実マスター》~スキルの実(食べたら死ぬ)を無限に食べられるようになった件について~"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178100-GF4dKSrkdByJ.jpg",
+        "sourceUrl": "https://anilist.co/anime/178100",
+        "metadataProvider": "anilist",
+        "anilistId": "178100",
+        "jikanId": "59002",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-427-4124",
+      "before": {
+        "id": "anime-excel-427-4124",
+        "title": "Girumasu",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-427-4124",
+        "title": "Guild no Uketsukejou desu ga, Zangyou wa Iya nanode Boss wo Solo Toubatsu Shiyou to Omoimasu",
+        "alternativeTitles": [
+          "Girumasu",
+          "I May Be a Guild Receptionist, but I’ll Solo Any Boss to Clock Out on Time",
+          "ギルドの受付嬢ですが、残業は嫌なのでボスをソロ討伐しようと思います"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx167143-iY2ho0I0KnYF.jpg",
+        "sourceUrl": "https://anilist.co/anime/167143",
+        "metadataProvider": "anilist",
+        "anilistId": "167143",
+        "jikanId": "55997",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-428-4125",
+      "before": {
+        "id": "anime-excel-428-4125",
+        "title": "Sakamoto Days",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-428-4125",
+        "title": "SAKAMOTO DAYS",
+        "alternativeTitles": [
+          "Sakamoto Days"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx177709-e5Qx6RlsBgD5.png",
+        "sourceUrl": "https://anilist.co/anime/177709",
+        "metadataProvider": "anilist",
+        "anilistId": "177709",
+        "jikanId": "58939",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-442-4140",
+      "before": {
+        "id": "anime-excel-442-4140",
+        "title": "Yami Healer",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-442-4140",
+        "title": "Isshun de Chiryou Shiteita no ni Yakutatazu to Tsuihou Sareta Tensai Chiyushi, Yami Healer Toshite Tanoshiku Ikiru",
+        "alternativeTitles": [
+          "Yami Healer",
+          "The Brilliant Healer's New Life in the Shadows",
+          "一瞬で治療していたのに役立たずと追放された天才治癒師、闇ヒーラーとして楽しく生きる"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx175872-d55nfiC4WWHO.jpg",
+        "sourceUrl": "https://anilist.co/anime/175872",
+        "metadataProvider": "anilist",
+        "anilistId": "175872",
+        "jikanId": "58359",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-471-4171",
+      "before": {
+        "id": "anime-excel-471-4171",
+        "title": "Mono Weekend Animation",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-471-4171",
+        "title": "mono",
+        "alternativeTitles": [
+          "Mono Weekend Animation",
+          "mono"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx176246-ndH8bKh7cmzf.jpg",
+        "sourceUrl": "https://anilist.co/anime/176246",
+        "metadataProvider": "anilist",
+        "anilistId": "176246",
+        "jikanId": "58492",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-474-4174",
+      "before": {
+        "id": "anime-excel-474-4174",
+        "title": "Shirohiyo",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-474-4174",
+        "title": "Shirobuta Kizoku desu ga Zense no Kioku ga Haeta node Hiyoko na Otouto Sodatemasu",
+        "alternativeTitles": [
+          "Shirohiyo",
+          "SHIROHIYO - Reincarnated as a Neglected Noble: Raising My Baby Brother With Memories From My Past Life",
+          "白豚貴族ですが前世の記憶が生えたので ひよこな弟育てます"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx179541-lZwENMAHZS9Y.jpg",
+        "sourceUrl": "https://anilist.co/anime/179541",
+        "metadataProvider": "anilist",
+        "anilistId": "179541",
+        "jikanId": "59322",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-475-4175",
+      "before": {
+        "id": "anime-excel-475-4175",
+        "title": "Boku no Hero Academia the Movie 4 You're Next",
+        "alternativeTitles": null,
+        "format": "Película",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S04",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-475-4175",
+        "title": "Boku no Hero Academia THE MOVIE: YOU'RE NEXT",
+        "alternativeTitles": [
+          "Boku no Hero Academia the Movie 4 You're Next",
+          "Boku no Hero Academia THE MOVIE: YOU'RE NEXT",
+          "My Hero Academia the Movie 4: You're Next",
+          "My Hero Academia: You're Next",
+          "僕のヒーローアカデミア THE MOVIE: ユア ネクスト"
+        ],
+        "format": "Película",
+        "emissionYear": 2024,
+        "emissionSeason": "Spring",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://media.kitsu.app/anime/47844/poster_image/9ba1e4c54a8d071453273822fa4cbb7d.jpg",
+        "sourceUrl": "https://kitsu.app/anime/boku-no-hero-academia-the-movie-4",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "47844"
+      }
+    },
+    {
+      "id": "anime-excel-476-4176",
+      "before": {
+        "id": "anime-excel-476-4176",
+        "title": "Overlord Movie 3 Sei Oukoku-hen",
+        "alternativeTitles": null,
+        "format": "Película",
+        "emissionYear": 2025,
+        "emissionSeason": "Spring",
+        "activeSeason": "S03",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-476-4176",
+        "title": "Overlord: Sei Oukoku-hen",
+        "alternativeTitles": [
+          "Overlord Movie 3 Sei Oukoku-hen",
+          "Overlord: Sei Oukoku-hen",
+          "Overlord: The Sacred Kingdom",
+          "劇場版 オーバーロード 聖王国編"
+        ],
+        "format": "Película",
+        "emissionYear": 2024,
+        "emissionSeason": "Spring",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://media.kitsu.app/anime/44530/poster_image/e8110521c373fc222a9c65fc69f1148d.jpg",
+        "sourceUrl": "https://kitsu.app/anime/overlord-sei-oukoku-hen",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "44530"
+      }
+    },
+    {
+      "id": "anime-excel-478-4178",
+      "before": {
+        "id": "anime-excel-478-4178",
+        "title": "Koujo Denka no Kateikyoushi",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-478-4178",
+        "title": "Koujo Denka no Kateikyoushi",
+        "alternativeTitles": [
+          "Koujo Denka no Kateikyoushi",
+          "Private Tutor to the Duke's Daughter",
+          "公女殿下の家庭教師"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170113-dk9h9ybZnGnZ.jpg",
+        "sourceUrl": "https://anilist.co/anime/170113",
+        "metadataProvider": "anilist",
+        "anilistId": "170113",
+        "jikanId": "56907",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-479-4179",
+      "before": {
+        "id": "anime-excel-479-4179",
+        "title": "Kanojo, Okarishimasu 4th Season",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-479-4179",
+        "title": "Kanojo, Okarishimasu 4th Season",
+        "alternativeTitles": [
+          "Kanojo, Okarishimasu 4th Season",
+          "Rent-a-Girlfriend Season 4",
+          "彼女、お借りします 第4期"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx179344-GQzJfehpQI72.png",
+        "sourceUrl": "https://anilist.co/anime/179344",
+        "metadataProvider": "anilist",
+        "anilistId": "179344",
+        "jikanId": "59277",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-483-4183",
+      "before": {
+        "id": "anime-excel-483-4183",
+        "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 2nd",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-483-4183",
+        "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 2nd Season",
+        "alternativeTitles": [
+          "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 2nd",
+          "Reborn as a Vending Machine, I Now Wander the Dungeon Season 2",
+          "自動販売機に生まれ変わった俺は迷宮を彷徨う 2nd Season"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169440-MhlOxaIyASRu.jpg",
+        "sourceUrl": "https://anilist.co/anime/169440",
+        "metadataProvider": "anilist",
+        "anilistId": "169440",
+        "jikanId": "56700",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-488-4188",
+      "before": {
+        "id": "anime-excel-488-4188",
+        "title": "Dandadan 2nd",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-488-4188",
+        "title": "Dandadan 2nd Season",
+        "alternativeTitles": [
+          "Dandadan 2nd",
+          "DAN DA DAN Season 2",
+          "ダンダダン 第2期"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S04",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185660-uB8RUMBGovGr.jpg",
+        "sourceUrl": "https://anilist.co/anime/185660",
+        "metadataProvider": "anilist",
+        "anilistId": "185660",
+        "jikanId": "60543",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-496-4196",
+      "before": {
+        "id": "anime-excel-496-4196",
+        "title": "Yofukashi no Uta  2nd",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-496-4196",
+        "title": "Yofukashi no Uta 2nd Season",
+        "alternativeTitles": [
+          "Yofukashi no Uta  2nd",
+          "Yofukashi no Uta 2nd Season",
+          "Call of the Night Season 2",
+          "よふかしのうた 第2期"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://media.kitsu.app/anime/48611/poster_image/6c565ad3b85aae20d978e48e053ad5a6.jpg",
+        "sourceUrl": "https://kitsu.app/anime/Yofukashi-no-Uta-2nd-Season",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "48611"
+      }
+    },
+    {
+      "id": "anime-excel-497-4197",
+      "before": {
+        "id": "anime-excel-497-4197",
+        "title": "Kizetsu Yuusha to Ansatsu Hime",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-497-4197",
+        "title": "Kizetsu Yuusha to Ansatsu Hime",
+        "alternativeTitles": [
+          "Kizetsu Yuusha to Ansatsu Hime",
+          "The Shy Hero and the Assassin Princesses",
+          "気絶勇者と暗殺姫"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx186561-9qIZCSTYkAfw.jpg",
+        "sourceUrl": "https://anilist.co/anime/186561",
+        "metadataProvider": "anilist",
+        "anilistId": "186561",
+        "jikanId": "60951",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-498-4198",
+      "before": {
+        "id": "anime-excel-498-4198",
+        "title": "Yuusha Party wo Tsuihou sareta Shiromadoushi",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-498-4198",
+        "title": "Yuusha Party wo Tsuihou Sareta Shiro Madoushi, S Rank Boukensha ni Hirowareru: Kono Shiro Madoushi ga Kikakugaisugiru",
+        "alternativeTitles": [
+          "Yuusha Party wo Tsuihou sareta Shiromadoushi",
+          "Yuusha Party wo Tsuihou Sareta Shiro Madoushi, S Rank Boukensha ni Hirowareru: Kono Shiro Madoushi ga Kikakugaisugiru",
+          "Scooped Up by an S-Rank Adventurer!",
+          "勇者パーティーを追放された白魔導師、Sランク冒険者に拾われる ～この白魔導師が規格外すぎる～"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://media.kitsu.app/anime/49896/poster_image/d5773522310139993386e79143985894.jpg",
+        "sourceUrl": "https://kitsu.app/anime/yuusha-party-wo-tsuihou-sareta-shiro-madoushi-s-rank-boukensha-ni-hirowareru-kono-shiro-madoushi-ga-kikakugaisugiru",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "49896"
+      }
+    },
+    {
+      "id": "anime-excel-506-4207",
+      "before": {
+        "id": "anime-excel-506-4207",
+        "title": "Nyaight of the Living Cat",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-506-4207",
+        "title": "Nyaight of the Living Cat",
+        "alternativeTitles": [
+          "Nyaight of the Living Cat",
+          "ニャイト・オブ・ザ・リビングキャット"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx175124-eDYbn0W5F4to.jpg",
+        "sourceUrl": "https://anilist.co/anime/175124",
+        "metadataProvider": "anilist",
+        "anilistId": "175124",
+        "jikanId": "58197",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-528-4232",
+      "before": {
+        "id": "anime-excel-528-4232",
+        "title": "Kakuriyo no Yadomeshi Ni",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-528-4232",
+        "title": "Kakuriyo no Yadomeshi Ni",
+        "alternativeTitles": [
+          "Kakuriyo no Yadomeshi Ni",
+          "Kakuriyo -Bed & Breakfast for Spirits- 2",
+          "かくりよの宿飯 第２期",
+          "Kakuriyo no Yadomeshi 2nd Season"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Fall",
+        "activeSeason": "S02",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx177271-anyazmpWyX3m.jpg",
+        "sourceUrl": "https://anilist.co/anime/177271",
+        "metadataProvider": "anilist",
+        "anilistId": "177271",
+        "jikanId": "58772",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-535-4239",
+      "before": {
+        "id": "anime-excel-535-4239",
+        "title": "Saigo ni Hitotsu dake Onegai shitemo Yoroshii deshou ka",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-535-4239",
+        "title": "Saigo ni Hitotsu dake Onegai Shite mo Yoroshii Deshou ka",
+        "alternativeTitles": [
+          "Saigo ni Hitotsu dake Onegai shitemo Yoroshii deshou ka",
+          "May I Ask for One Final Thing?",
+          "最後にひとつだけお願いしてもよろしいでしょうか"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 13,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx181447-aCmaQmtdwuU5.jpg",
+        "sourceUrl": "https://anilist.co/anime/181447",
+        "metadataProvider": "anilist",
+        "anilistId": "181447",
+        "jikanId": "59846",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-540-4244",
+      "before": {
+        "id": "anime-excel-540-4244",
+        "title": "Mikata ga Yowasugite Hojo Mahou",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-540-4244",
+        "title": "Mikata ga Yowasugite Hojo Mahou ni Tesshiteita Kyuutei Mahoushi, Tsuihou Sarete Saikyou wo Mezasu",
+        "alternativeTitles": [
+          "Mikata ga Yowasugite Hojo Mahou",
+          "The Banished Court Magician Aims to Become the Strongest",
+          "味方が弱すぎて補助魔法に徹していた宮廷魔法師、追放されて最強を目指す"
+        ],
+        "format": "Serie",
+        "emissionYear": 2025,
+        "emissionSeason": "Fall",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx188487-kkeu3cMpHtup.jpg",
+        "sourceUrl": "https://anilist.co/anime/188487",
+        "metadataProvider": "anilist",
+        "anilistId": "188487",
+        "jikanId": "61276",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-575-4279",
+      "before": {
+        "id": "anime-excel-575-4279",
+        "title": "Yuusha Party wo Oidasareta Kiyoubinbou",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-575-4279",
+        "title": "Yuusha Party wo Oidasareta Kiyou Binbou",
+        "alternativeTitles": [
+          "Yuusha Party wo Oidasareta Kiyoubinbou",
+          "Jack-of-All-Trades, Party of None",
+          "勇者パーティを追い出された器用貧乏"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187264-wjwbVdnynbbu.jpg",
+        "sourceUrl": "https://anilist.co/anime/187264",
+        "metadataProvider": "anilist",
+        "anilistId": "187264",
+        "jikanId": "61128",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-576-4280",
+      "before": {
+        "id": "anime-excel-576-4280",
+        "title": "Tamon-kun Ima Docchi!",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-576-4280",
+        "title": "Tamon-kun Ima Docchi!?",
+        "alternativeTitles": [
+          "Tamon-kun Ima Docchi!",
+          "Tamon's B-Side",
+          "多聞くん今どっち！？"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178005-pCEReATswrup.jpg",
+        "sourceUrl": "https://anilist.co/anime/178005",
+        "metadataProvider": "anilist",
+        "anilistId": "178005",
+        "jikanId": "59047",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-578-4283",
+      "before": {
+        "id": "anime-excel-578-4283",
+        "title": "Hanazakari no Kimitachi e",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-578-4283",
+        "title": "Hanazakari no Kimitachi e",
+        "alternativeTitles": [
+          "Hanazakari no Kimitachi e",
+          "Hana-Kimi",
+          "花ざかりの君たちへ"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx177580-ujQw6Ws3oVCi.jpg",
+        "sourceUrl": "https://anilist.co/anime/177580",
+        "metadataProvider": "anilist",
+        "anilistId": "177580",
+        "jikanId": "58861",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-584-4289",
+      "before": {
+        "id": "anime-excel-584-4289",
+        "title": "Vigilante Boku no Hero Academia Illegals 2nd",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S05",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-584-4289",
+        "title": "Vigilante: Boku no Hero Academia ILLEGALS 2nd Season",
+        "alternativeTitles": [
+          "Vigilante Boku no Hero Academia Illegals 2nd",
+          "My Hero Academia: Vigilantes Season 2",
+          "ヴィジランテ -僕のヒーローアカデミア ILLEGALS- 第2期"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S05",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx195322-hqBf19mBtM5K.jpg",
+        "sourceUrl": "https://anilist.co/anime/195322",
+        "metadataProvider": "anilist",
+        "anilistId": "195322",
+        "jikanId": "61942",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-594-4299",
+      "before": {
+        "id": "anime-excel-594-4299",
+        "title": "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-594-4299",
+        "title": "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+        "alternativeTitles": [
+          "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+          "Easygoing Territory Defense by the Optimistic Lord",
+          "お気楽領主の楽しい領地防衛"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://media.kitsu.app/anime/50432/poster_image/fe78e0102077193ca8650bfb17033734.jpg",
+        "sourceUrl": "https://kitsu.app/anime/okiraku-ryoushu-no-tanoshii-ryouchi-bouei",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "50432"
+      }
+    },
+    {
+      "id": "anime-excel-600-4305",
+      "before": {
+        "id": "anime-excel-600-4305",
+        "title": "Omagoto",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-600-4305",
+        "title": "\"Omae Gotoki ga Maou ni Kateru to Omou na\" to Yuusha Party wo Tsuihou Sareta node, Outo de Kimama ni Kurashitai",
+        "alternativeTitles": [
+          "Omagoto",
+          "ROLL OVER AND DIE: I Will Fight for an Ordinary Life with My Love and Cursed Sword!",
+          "「お前ごときが魔王に勝てると思うな」と勇者パーティを追放されたので、王都で気ままに暮らしたい",
+          "ROLL OVER AND DIE"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx191718-FeR6bnlkqF0J.png",
+        "sourceUrl": "https://anilist.co/anime/191718",
+        "metadataProvider": "anilist",
+        "anilistId": "191718",
+        "jikanId": "61587",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-602-4307",
+      "before": {
+        "id": "anime-excel-602-4307",
+        "title": "Jujutsu Kaisen Shimetsu Kaiyuu - Zenpen",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-602-4307",
+        "title": "Jujutsu Kaisen: Shimetsu Kaiyuu - Zenpen",
+        "alternativeTitles": [
+          "Jujutsu Kaisen Shimetsu Kaiyuu - Zenpen",
+          "JUJUTSU KAISEN Season 3: The Culling Game Part 1",
+          "呪術廻戦 死滅回游 前編"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx172463-LnXqHzt74SJL.jpg",
+        "sourceUrl": "https://anilist.co/anime/172463",
+        "metadataProvider": "anilist",
+        "anilistId": "172463",
+        "jikanId": "57658",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-605-4310",
+      "before": {
+        "id": "anime-excel-605-4310",
+        "title": "Hell Mode Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-605-4310",
+        "title": "Hell Mode: Yarikomi-zuki no Gamer wa Haisettei no Isekai de Musou Suru",
+        "alternativeTitles": [
+          "Hell Mode Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru",
+          "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+          "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Winter",
+        "activeSeason": "S01",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185262-95wbx3Y9hCwm.jpg",
+        "sourceUrl": "https://anilist.co/anime/185262",
+        "metadataProvider": "anilist",
+        "anilistId": "185262",
+        "jikanId": "60460",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-624-4330",
+      "before": {
+        "id": "anime-excel-624-4330",
+        "title": "Maid-san wa Taberu dake",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-624-4330",
+        "title": "Maid-san wa Taberu dake",
+        "alternativeTitles": [
+          "Maid-san wa Taberu dake",
+          "The Food Diary of Miss Maid",
+          "メイドさんは食べるだけ"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx197868-sm5jcjPKWhNL.png",
+        "sourceUrl": "https://anilist.co/anime/197868",
+        "metadataProvider": "anilist",
+        "anilistId": "197868",
+        "jikanId": "62342",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-625-4331",
+      "before": {
+        "id": "anime-excel-625-4331",
+        "title": "Saikyou no Shokugyou wa Yuusha demo Kenja demo Naku Kanteishi (Kari) Rashii desu yo",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-625-4331",
+        "title": "Saikyou no Shokugyou wa Yuusha demo Kenja demo Naku Kanteishi (Kari) Rashii desu yo?",
+        "alternativeTitles": [
+          "Saikyou no Shokugyou wa Yuusha demo Kenja demo Naku Kanteishi (Kari) Rashii desu yo",
+          "The strongest job is apparently not a hero or a sage, but an appraiser (provisional)!",
+          "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx200769-8WkFkoFxc2fw.jpg",
+        "sourceUrl": "https://anilist.co/anime/200769",
+        "metadataProvider": "anilist",
+        "anilistId": "200769",
+        "jikanId": "62825",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-630-4336",
+      "before": {
+        "id": "anime-excel-630-4336",
+        "title": "Ganbare! Nakamura-kun!!",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-630-4336",
+        "title": "Ganbare! Nakamura-kun!!",
+        "alternativeTitles": [
+          "Ganbare! Nakamura-kun!!",
+          "Go For It, Nakamura-kun!!",
+          "ガンバレ！中村くん！！"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180228-MuZ7adbGiYVj.jpg",
+        "sourceUrl": "https://anilist.co/anime/180228",
+        "metadataProvider": "anilist",
+        "anilistId": "180228",
+        "jikanId": "59551",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-649-4355",
+      "before": {
+        "id": "anime-excel-649-4355",
+        "title": "Mao (2026)",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-649-4355",
+        "title": "MAO",
+        "alternativeTitles": [
+          "Mao (2026)",
+          "MAO",
+          "マオ"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://media.kitsu.app/anime/50035/poster_image/f1e9992571f2d69be763e2720cd8762b.jpg",
+        "sourceUrl": "https://kitsu.app/anime/mao-2026",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "50035"
+      }
+    },
+    {
+      "id": "anime-excel-651-4357",
+      "before": {
+        "id": "anime-excel-651-4357",
+        "title": "Nippon Sangoku",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-651-4357",
+        "title": "Nippon Sangoku",
+        "alternativeTitles": [
+          "Nippon Sangoku",
+          "NIPPON SANGOKU: The Three Nations of the Crimson Sun",
+          "日本三國"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Spring",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx206914-SHKX08LarRzB.jpg",
+        "sourceUrl": "https://anilist.co/anime/206914",
+        "metadataProvider": "anilist",
+        "anilistId": "206914",
+        "jikanId": "63375",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-683-4388",
+      "before": {
+        "id": "anime-excel-683-4388",
+        "title": "Heroine Seijo Iie, All Works Maid desu (Hokori)!",
+        "alternativeTitles": null,
+        "format": "OVA",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 1,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-683-4388",
+        "title": "Heroine? Seijo? Iie, All Works Maid desu (Ko)!",
+        "alternativeTitles": [
+          "Heroine Seijo Iie, All Works Maid desu (Hokori)!",
+          "Heroine? Seijo? Iie, All Works Maid desu (Ko)!",
+          "ヒロイン？聖女？いいえ、オールワークスメイドです（誇）！"
+        ],
+        "format": "OVA",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S00",
+        "chapters": 1,
+        "image": "https://media.kitsu.app/anime/49913/poster_image/276bbd58a55fb68fe3933147836d6910.jpg",
+        "sourceUrl": "https://kitsu.app/anime/heroine-seijo-iie-all-works-maid-desu-ko",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "49913"
+      }
+    },
+    {
+      "id": "anime-excel-684-4389",
+      "before": {
+        "id": "anime-excel-684-4389",
+        "title": "Rakudai Kenja no Gakuin Musou Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-684-4389",
+        "title": "Rakudai Kenja no Gakuin Musou: Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+        "alternativeTitles": [
+          "Rakudai Kenja no Gakuin Musou Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+          "Rakudai Kenja no Gakuin Musou: Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+          "From Overshadowed to Overpowered: Second Reincarnation of a Talentless Sage",
+          "落第賢者の学院無双～二度目の転生、Sランクチート魔術師冒険録～"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://media.kitsu.app/anime/50793/poster_image/585ce0b43dcc91c0dcf650f895abd51a.jpg",
+        "sourceUrl": "https://kitsu.app/anime/rakudai-kenja-no-gakuin-musou-nidome-no-tensei-s-rank-cheat-majutsushi-boukenroku",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "50793"
+      }
+    },
+    {
+      "id": "anime-excel-688-4393",
+      "before": {
+        "id": "anime-excel-688-4393",
+        "title": "Lv999 no Murabito",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-688-4393",
+        "title": "LV999 no Murabito",
+        "alternativeTitles": [
+          "Lv999 no Murabito",
+          "The Villager of Level 999",
+          "LV999の村人"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://media.kitsu.app/anime/50109/poster_image/d5fdf7e2b3e971cda58477af2c2184b4.jpg",
+        "sourceUrl": "https://kitsu.app/anime/lv999-no-murabito",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "50109"
+      }
+    },
+    {
+      "id": "anime-excel-692-4397",
+      "before": {
+        "id": "anime-excel-692-4397",
+        "title": "Ryoumin 0-nin Start no Henkyou Ryoushu-sama",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-692-4397",
+        "title": "Ryoumin 0-Nin Start no Henkyou Ryoushu-sama",
+        "alternativeTitles": [
+          "Ryoumin 0-nin Start no Henkyou Ryoushu-sama",
+          "領民0人スタートの辺境領主様"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://media.kitsu.app/anime/50049/poster_image/af5f7feadc83d52faabca75038ebca2d.jpg",
+        "sourceUrl": "https://kitsu.app/anime/ryoumin-0-nin-start-no-henkyou-ryoushu-sama",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "50049"
+      }
+    },
+    {
+      "id": "anime-excel-696-4401",
+      "before": {
+        "id": "anime-excel-696-4401",
+        "title": "Hell Mode: Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru 2nd",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-696-4401",
+        "title": "Hell Mode: Yarikomi-zuki no Gamer wa Haisettei no Isekai de Musou Suru 2nd Season",
+        "alternativeTitles": [
+          "Hell Mode: Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru 2nd",
+          "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing Season 2",
+          "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～ 2nd Season"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S02",
+        "chapters": 13,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx209983-sFOcKyqMufxb.jpg",
+        "sourceUrl": "https://anilist.co/anime/209983",
+        "metadataProvider": "anilist",
+        "anilistId": "209983",
+        "jikanId": "63817",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-717-4422",
+      "before": {
+        "id": "anime-excel-717-4422",
+        "title": "Mushoku Tensei III: Isekai Ittara Honki Dasu",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-717-4422",
+        "title": "Mushoku Tensei III: Isekai Ittara Honki Dasu",
+        "alternativeTitles": [
+          "Mushoku Tensei III: Isekai Ittara Honki Dasu",
+          "Mushoku Tensei: Jobless Reincarnation Season 3",
+          "無職転生Ⅲ ～異世界行ったら本気だす～"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178789-hNXjKFzUq7mk.jpg",
+        "sourceUrl": "https://anilist.co/anime/178789",
+        "metadataProvider": "anilist",
+        "anilistId": "178789",
+        "jikanId": "59193",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-720-1001",
+      "before": {
+        "id": "anime-excel-720-1001",
+        "title": "Bai Ri Cheng Wang",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-720-1001",
+        "title": "Bai Ri Cheng Wang",
+        "alternativeTitles": [
+          "Bai Ri Cheng Wang",
+          "Crowned in a Hundred Days",
+          "百日成王"
+        ],
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213484-FIyYH43ASHgB.png",
+        "sourceUrl": "https://anilist.co/anime/213484",
+        "metadataProvider": "anilist",
+        "anilistId": "213484",
+        "jikanId": "62957",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-724-1005",
+      "before": {
+        "id": "anime-excel-724-1005",
+        "title": "Koukaku Kidoutai (TV)",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-724-1005",
+        "title": "Koukaku Kidoutai (TV, 2026)",
+        "alternativeTitles": [
+          "Koukaku Kidoutai (TV)",
+          "THE GHOST IN THE SHELL",
+          "攻殻機動隊 THE GHOST IN THE SHELL",
+          "Koukaku Kidoutai: THE GHOST IN THE SHELL"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 10,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx177699-hnzc1CS5ZSM2.png",
+        "sourceUrl": "https://anilist.co/anime/177699",
+        "metadataProvider": "anilist",
+        "anilistId": "177699",
+        "jikanId": "58929",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-726-1007",
+      "before": {
+        "id": "anime-excel-726-1007",
+        "title": "Yoroi Shin Den Samurai Troopers P2",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-726-1007",
+        "title": "Yoroi Shinden Samurai Troopers Part 2",
+        "alternativeTitles": [
+          "Yoroi Shin Den Samurai Troopers P2",
+          "Yoroi-Shinden Samurai Troopers Cour 2",
+          "鎧真伝サムライトルーパー 第2クール"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S02",
+        "chapters": 12,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx209800-v3TIdNz1AV0X.jpg",
+        "sourceUrl": "https://anilist.co/anime/209800",
+        "metadataProvider": "anilist",
+        "anilistId": "209800",
+        "jikanId": "63047",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-727-1008",
+      "before": {
+        "id": "anime-excel-727-1008",
+        "title": "Clevatess II Majuu no Ou to Itsuwari no Yuusha Denshou",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-727-1008",
+        "title": "Clevatess II: Majuu no Ou to Itsuwari no Yuusha Denshou",
+        "alternativeTitles": [
+          "Clevatess II Majuu no Ou to Itsuwari no Yuusha Denshou",
+          "Clevatess Season 2",
+          "クレバテスⅡ-魔獣の王と偽りの勇者伝承-"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx198946-IGXmbqBEYRYD.jpg",
+        "sourceUrl": "https://anilist.co/anime/198946",
+        "metadataProvider": "anilist",
+        "anilistId": "198946",
+        "jikanId": "62513",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-728-1009",
+      "before": {
+        "id": "anime-excel-728-1009",
+        "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-728-1009",
+        "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd Season",
+        "alternativeTitles": [
+          "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd",
+          "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd Season",
+          "The 100 Girlfriends Who Really, Really, Really, Really, REALLY Love You Season 3",
+          "君のことが大大大大大好きな100人の彼女 3期"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://media.kitsu.app/anime/50272/poster_image/062147e4f3c886aac8ed1f0f2aca688c.jpg",
+        "sourceUrl": "https://kitsu.app/anime/kimi-no-koto-ga-daidaidaidaidaisuki-na-100-nin-no-kanojo-3rd-season",
+        "metadataProvider": "kitsu",
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": "50272"
+      }
+    },
+    {
+      "id": "anime-excel-730-1012",
+      "before": {
+        "id": "anime-excel-730-1012",
+        "title": "Otome Game Sekai wa Mob ni Kibishii Sekai desu 2",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-730-1012",
+        "title": "Otomege Sekai wa Mob ni Kibishii Sekai desu 2",
+        "alternativeTitles": [
+          "Otome Game Sekai wa Mob ni Kibishii Sekai desu 2",
+          "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs Season 2",
+          "乙女ゲー世界はモブに厳しい世界です2"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx159309-wRfh9O1odrDJ.jpg",
+        "sourceUrl": "https://anilist.co/anime/159309",
+        "metadataProvider": "anilist",
+        "anilistId": "159309",
+        "jikanId": "54000",
+        "kitsuId": null
+      }
+    },
+    {
+      "id": "anime-excel-736-1018",
+      "before": {
+        "id": "anime-excel-736-1018",
+        "title": "Saikyou Degarashi Ouji no Anyaku Teii Arasoi",
+        "alternativeTitles": null,
+        "format": "Serie",
+        "emissionYear": null,
+        "emissionSeason": "",
+        "activeSeason": "",
+        "chapters": 0,
+        "image": "",
+        "sourceUrl": null,
+        "metadataProvider": null,
+        "anilistId": null,
+        "jikanId": null,
+        "kitsuId": null
+      },
+      "after": {
+        "id": "anime-excel-736-1018",
+        "title": "Saikyou Degarashi Ouji no Anyaku Teii Arasoi: Munou wo Enjiru SS Rank Ouji wa Koui Keishou-sen wo Kage kara Shihai suru",
+        "alternativeTitles": [
+          "Saikyou Degarashi Ouji no Anyaku Teii Arasoi",
+          "The Insipid Prince's Furtive Grab for the Throne",
+          "最強出涸らし皇子の暗躍帝位争い 無能を演じるSSランク皇子は皇位継承戦を影から支配する"
+        ],
+        "format": "Serie",
+        "emissionYear": 2026,
+        "emissionSeason": "Summer",
+        "activeSeason": "S01",
+        "chapters": 0,
+        "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169582-quL8VMg45fcu.png",
+        "sourceUrl": "https://anilist.co/anime/169582",
+        "metadataProvider": "anilist",
+        "anilistId": "169582",
+        "jikanId": "56736",
+        "kitsuId": null
+      }
+    }
+  ]
+}

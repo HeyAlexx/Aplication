@@ -1,0 +1,18 @@
+[
+    {
+        "id": "usuario-final",
+        "name": "Usuario Altoidss",
+        "email": "usuario@altoidss.com",
+        "passwordHash": "sha256$altoidss-final-user$1eb0647c210f59af1b9468b6e8b348054a93e0ce596ec14a7b476ef1a80b987f",
+        "role": "usuario",
+        "status": "Activo"
+    },
+    {
+        "id": "admin-final",
+        "name": "Administrador Altoidss",
+        "email": "admin@altoidss.com",
+        "passwordHash": "$2y$12$1nGG5xvxDcu/ECyTJ0fxsOZdt93izlU21tRwnZY9rqPY0/YDk7dWu",
+        "role": "admin",
+        "status": "Activo"
+    }
+]

@@ -1,0 +1,150 @@
+[
+    {
+        "id": "series-stranger-things",
+        "title": "Stranger Things",
+        "type": "series",
+        "categoryGeneral": "Series TV",
+        "format": "Serie",
+        "productionStatus": "Emisión",
+        "genre": "Ciencia ficción",
+        "year": "2016",
+        "emissionYear": 2016,
+        "emissionSeason": "Summer",
+        "chapters": 34,
+        "seasonsCount": 4,
+        "tags": [
+            "Misterio",
+            "Terror",
+            "Aventura"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+        "description": "Un grupo de jóvenes enfrenta fuerzas sobrenaturales en Hawkins.",
+        "rating": "8.6",
+        "featured": true,
+        "status": "Activo"
+    },
+    {
+        "id": "series-the-last-of-us",
+        "title": "The Last of Us",
+        "type": "series",
+        "categoryGeneral": "Series TV",
+        "format": "Serie",
+        "productionStatus": "Emisión",
+        "genre": "Drama",
+        "year": "2023",
+        "emissionYear": 2023,
+        "emissionSeason": "Winter",
+        "chapters": 9,
+        "seasonsCount": 1,
+        "tags": [
+            "Aventura",
+            "Suspenso",
+            "Postapocalíptico"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg",
+        "description": "Joel y Ellie cruzan un mundo devastado buscando una oportunidad de supervivencia.",
+        "rating": "8.7",
+        "featured": true,
+        "status": "Activo"
+    },
+    {
+        "id": "series-breaking-bad",
+        "title": "Breaking Bad",
+        "type": "series",
+        "categoryGeneral": "Series TV",
+        "format": "Serie",
+        "productionStatus": "Finalizado",
+        "genre": "Drama",
+        "year": "2008",
+        "emissionYear": 2008,
+        "emissionSeason": "Winter",
+        "chapters": 62,
+        "seasonsCount": 5,
+        "tags": [
+            "Crimen",
+            "Suspenso",
+            "Clásico"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/3xnWaLQjelJDDF7LT1WBo6f4BRe.jpg",
+        "description": "Un profesor de química entra al mundo criminal después de un diagnóstico médico.",
+        "rating": "9.0",
+        "featured": false,
+        "status": "Activo"
+    },
+    {
+        "id": "watchmode-372371",
+        "watchmodeId": "372371",
+        "title": "Lost",
+        "type": "series",
+        "format": "Serie TV",
+        "genre": "Serie",
+        "year": "2004",
+        "emissionYear": 2004,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/og6S0aTZU6YUJAbqxeKjCa3kY1E.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Series TV",
+        "importedAt": "2026-08-24T04:29:51+02:00"
+    },
+    {
+        "id": "watchmode-372446",
+        "watchmodeId": "372446",
+        "title": "Lost in Space",
+        "type": "series",
+        "format": "Serie TV",
+        "genre": "Serie",
+        "year": "2018",
+        "emissionYear": 2018,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/y8NJnTXzb4rio9uvVYFVrXEMofU.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Series TV",
+        "importedAt": "2026-08-24T04:29:54+02:00"
+    },
+    {
+        "id": "watchmode-326122",
+        "watchmodeId": "326122",
+        "title": "Criminal Minds",
+        "type": "series",
+        "format": "Serie TV",
+        "genre": "Serie",
+        "year": "2005",
+        "emissionYear": 2005,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/hWSb4UnIjlTvnvrP98NbFSO60HA.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Series TV",
+        "importedAt": "2026-08-24T04:30:10+02:00"
+    },
+    {
+        "id": "watchmode-330948",
+        "watchmodeId": "330948",
+        "title": "Dexter",
+        "type": "series",
+        "format": "Serie TV",
+        "genre": "Serie",
+        "year": "2006",
+        "emissionYear": 2006,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/q8dWfc4JwQuv3HayIZeO84jAXED.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Series TV",
+        "importedAt": "2026-08-24T04:30:23+02:00"
+    }
+]

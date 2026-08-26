@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <style>
+      .bg { fill: #04151A; }
+      .card { fill: #092828; stroke: rgba(111,148,135,.58); stroke-width: 1.4; }
+      .card-strong { fill: #163E3C; stroke: #6F9487; stroke-width: 1.6; }
+      .title { fill: #f4f7f5; font: 700 24px Calibri, Arial, sans-serif; }
+      .subtitle { fill: #b8cbc5; font: 16px Calibri, Arial, sans-serif; }
+      .entity-title { fill: #f4f7f5; font: 700 18px Calibri, Arial, sans-serif; }
+      .field { fill: #b8cbc5; font: 14px Calibri, Arial, sans-serif; }
+      .key { fill: #26d7cf; font: 700 14px Calibri, Arial, sans-serif; }
+      .line { stroke: #6F9487; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .link-label { fill: #dffefb; font: 13px Calibri, Arial, sans-serif; }
+      .pill { fill: rgba(38,215,207,.12); stroke: rgba(38,215,207,.45); stroke-width: 1; }
+      .pill-text { fill: #dffefb; font: 700 13px Calibri, Arial, sans-serif; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6F9487"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1400" height="900"/>
+  <text class="title" x="60" y="56">Altoidss - Diagrama temporal de base de datos</text>
+  <text class="subtitle" x="60" y="86">Modelo actual basado en JSON/localStorage antes de integrar PHP y MySQL.</text>
+
+  <rect class="pill" x="60" y="112" width="230" height="34" rx="8"/>
+  <text class="pill-text" x="78" y="134">altoidss_content_json</text>
+  <rect class="pill" x="306" y="112" width="230" height="34" rx="8"/>
+  <text class="pill-text" x="324" y="134">altoidss_user_profiles</text>
+  <rect class="pill" x="552" y="112" width="210" height="34" rx="8"/>
+  <text class="pill-text" x="570" y="134">altoidss_auth_users</text>
+  <rect class="pill" x="778" y="112" width="220" height="34" rx="8"/>
+  <text class="pill-text" x="796" y="134">altoidss_auth_session</text>
+  <rect class="pill" x="1014" y="112" width="220" height="34" rx="8"/>
+  <text class="pill-text" x="1032" y="134">altoidss_active_profile</text>
+
+  <g id="usuario">
+    <rect class="card-strong" x="70" y="205" width="260" height="230" rx="10"/>
+    <text class="entity-title" x="94" y="236">USUARIO_TEMPORAL</text>
+    <text class="key" x="94" y="272">PK id</text>
+    <text class="field" x="94" y="300">name</text>
+    <text class="field" x="94" y="328">email</text>
+    <text class="field" x="94" y="356">password</text>
+    <text class="field" x="94" y="384">role</text>
+    <text class="field" x="94" y="412">profileMode</text>
+  </g>
+
+  <g id="sesion">
+    <rect class="card" x="420" y="205" width="260" height="230" rx="10"/>
+    <text class="entity-title" x="444" y="236">SESION_TEMPORAL</text>
+    <text class="key" x="444" y="272">FK id</text>
+    <text class="field" x="444" y="300">name</text>
+    <text class="field" x="444" y="328">email</text>
+    <text class="field" x="444" y="356">role</text>
+    <text class="field" x="444" y="384">profileMode</text>
+    <text class="field" x="444" y="412">isAuthenticated</text>
+  </g>
+
+  <g id="perfil">
+    <rect class="card-strong" x="770" y="205" width="280" height="286" rx="10"/>
+    <text class="entity-title" x="794" y="236">PERFIL_USUARIO</text>
+    <text class="key" x="794" y="272">PK id</text>
+    <text class="field" x="794" y="300">role</text>
+    <text class="field" x="794" y="328">displayName</text>
+    <text class="field" x="794" y="356">email</text>
+    <text class="field" x="794" y="384">socialLinks</text>
+    <text class="field" x="794" y="412">about</text>
+    <text class="field" x="794" y="440">avatar</text>
+    <text class="field" x="794" y="468">watchTimeMinutes</text>
+  </g>
+
+  <g id="config">
+    <rect class="card" x="1110" y="205" width="240" height="174" rx="10"/>
+    <text class="entity-title" x="1134" y="236">CONFIG_VISUAL</text>
+    <text class="key" x="1134" y="272">FK profileId</text>
+    <text class="field" x="1134" y="300">cardsPerRow</text>
+    <text class="field" x="1134" y="328">preferredView</text>
+    <text class="field" x="1134" y="356">compactMode</text>
+  </g>
+
+  <g id="contenido">
+    <rect class="card-strong" x="420" y="575" width="300" height="274" rx="10"/>
+    <text class="entity-title" x="444" y="606">CONTENIDO</text>
+    <text class="key" x="444" y="642">PK id</text>
+    <text class="field" x="444" y="670">title</text>
+    <text class="field" x="444" y="698">type: movies | series | anime</text>
+    <text class="field" x="444" y="726">genre</text>
+    <text class="field" x="444" y="754">year</text>
+    <text class="field" x="444" y="782">tags</text>
+    <text class="field" x="444" y="810">image, imageSource</text>
+    <text class="field" x="444" y="838">description, status</text>
+  </g>
+
+  <g id="favorito">
+    <rect class="card" x="820" y="575" width="240" height="174" rx="10"/>
+    <text class="entity-title" x="844" y="606">FAVORITO</text>
+    <text class="key" x="844" y="642">FK profileId</text>
+    <text class="key" x="844" y="670">FK contentId</text>
+    <text class="field" x="844" y="698">favoriteAt</text>
+  </g>
+
+  <g id="visto">
+    <rect class="card" x="1110" y="575" width="240" height="146" rx="10"/>
+    <text class="entity-title" x="1134" y="606">VISTO</text>
+    <text class="key" x="1134" y="642">FK profileId</text>
+    <text class="key" x="1134" y="670">FK contentId</text>
+  </g>
+
+  <path class="line" d="M330 320 C365 320 385 320 420 320"/>
+  <text class="link-label" x="350" y="304">inicia sesion</text>
+
+  <path class="line" d="M680 320 C714 320 736 320 770 320"/>
+  <text class="link-label" x="698" y="304">activa perfil</text>
+
+  <path class="line" d="M1050 292 C1075 292 1088 292 1110 292"/>
+  <text class="link-label" x="1058" y="276">define</text>
+
+  <path class="line" d="M910 491 C910 535 910 548 910 575"/>
+  <text class="link-label" x="925" y="535">guarda favoritos</text>
+
+  <path class="line" d="M985 491 C1060 535 1124 548 1198 575"/>
+  <text class="link-label" x="1048" y="535">marca visto</text>
+
+  <path class="line" d="M720 666 C764 666 784 666 820 666"/>
+  <text class="link-label" x="735" y="650">aparece en</text>
+
+  <path class="line" d="M720 730 C900 760 1035 704 1110 672"/>
+  <text class="link-label" x="872" y="760">aparece en</text>
+
+  <text class="subtitle" x="70" y="830">Nota: FAVORITO y VISTO son relaciones logicas. En el JSON actual se guardan como arrays dentro de cada perfil.</text>
+</svg>

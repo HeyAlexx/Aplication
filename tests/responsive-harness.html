@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Altoidss | Prueba responsive</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 16px; background: #202322; }
+        iframe { display: block; height: 900px; border: 0; background: #04151a; }
+    </style>
+</head>
+<body>
+    <iframe id="viewport" title="Vista responsive de Altoidss"></iframe>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const allowedPages = ["index", "catalogo", "favoritos", "noticias", "dashboard", "login"];
+        const requestedPage = params.get("page") || "index";
+        const page = allowedPages.includes(requestedPage) ? requestedPage : "index";
+        const width = Math.min(1440, Math.max(320, Number(params.get("width")) || 390));
+        const category = ["movies", "series", "anime"].includes(params.get("category"))
+            ? `?category=${params.get("category")}`
+            : "";
+        const viewport = document.querySelector("#viewport");
+        viewport.style.width = `${width}px`;
+        viewport.src = `../Html/${page}.html${category}`;
+    </script>
+</body>
+</html>

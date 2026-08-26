@@ -1,0 +1,153 @@
+[
+    {
+        "userId": "admin-final",
+        "contentId": "movie-00d7b21c62ee38a7",
+        "watched": true,
+        "minutes": 0,
+        "updatedAt": "2026-08-19T18:01:37+00:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-7-3544",
+        "watched": true,
+        "minutes": 0,
+        "updatedAt": "2026-08-24T04:09:29+02:00",
+        "watchedAt": "2026-08-24T04:09:29+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-144-3822",
+        "watched": false,
+        "minutes": 0,
+        "watchedAt": null,
+        "updatedAt": "2026-08-24T04:13:52+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "movie-inside-out-2",
+        "watched": false,
+        "minutes": 0,
+        "watchedAt": null,
+        "updatedAt": "2026-08-24T04:27:15+02:00"
+    },
+    {
+        "userId": "usuario-final",
+        "contentId": "movie-dune-part-two",
+        "watched": false,
+        "minutes": 0,
+        "watchedAt": null,
+        "updatedAt": "2026-08-25T03:58:26+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-2-3302",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:04+02:00",
+        "updatedAt": "2026-08-25T06:47:04+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-3-3261",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:05+02:00",
+        "updatedAt": "2026-08-25T06:47:05+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-4-3578",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:06+02:00",
+        "updatedAt": "2026-08-25T06:47:06+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-5-1623",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:07+02:00",
+        "updatedAt": "2026-08-25T06:47:07+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-6-3405",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:08+02:00",
+        "updatedAt": "2026-08-25T06:47:08+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-8-3633",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:10+02:00",
+        "updatedAt": "2026-08-25T06:47:10+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-15-1141",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:18+02:00",
+        "updatedAt": "2026-08-25T06:47:18+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-14-3481",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:21+02:00",
+        "updatedAt": "2026-08-25T06:47:21+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-13-3293",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:22+02:00",
+        "updatedAt": "2026-08-25T06:47:22+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-12-3595",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:23+02:00",
+        "updatedAt": "2026-08-25T06:47:23+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-11-3706",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:25+02:00",
+        "updatedAt": "2026-08-25T06:47:25+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-16-3651",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:30+02:00",
+        "updatedAt": "2026-08-25T06:47:30+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-17-3676",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:32+02:00",
+        "updatedAt": "2026-08-25T06:47:32+02:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-19-3714",
+        "watched": true,
+        "minutes": 0,
+        "watchedAt": "2026-08-25T06:47:35+02:00",
+        "updatedAt": "2026-08-25T06:47:35+02:00"
+    }
+]

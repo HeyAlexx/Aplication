@@ -1,0 +1,2510 @@
+[
+  {
+    "id": "anime-excel-42-3716",
+    "classification": "Revisión recomendada",
+    "score": 0.7444,
+    "local": {
+      "title": "Isekai Quartet Movie Another World",
+      "emissionYear": 2023,
+      "emissionSeason": "Winter",
+      "format": "Película",
+      "activeSeason": "S01",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Isekai Quartet: Another World",
+      "alternativeTitle": "Isekai Quartet The Movie: Another World",
+      "alternativeTitles": [
+        "異世界かるてっと ～あなざーわーるど～"
+      ],
+      "format": "MOVIE",
+      "emissionYear": 2022,
+      "emissionSeason": "Spring",
+      "genre": "Comedy",
+      "tags": [
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx117074-kgucq8a1ZeOw.jpg",
+      "description": "The homeroom class gets sucked through a wormhole into - you guessed it! - another world where they encounter a desolate environment dominated by a rampaging magical automaton. There they meet a girl-type golem with mannerisms similar to Megumin, a woman dressed in the same military uniform as Tanya, and a man with a cane who seems to know Subaru, and hijinks ensue.\n\n(Source: Crunchyroll)",
+      "rating": 7.3,
+      "sourceUrl": "https://anilist.co/anime/117074",
+      "source": "anilist",
+      "anilistId": "117074",
+      "jikanId": "41567"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2023 / API 2022.",
+      "Temporada de emisión distinta: local Winter / API Spring."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-61-3739",
+    "classification": "Revisión recomendada",
+    "score": 0.6712,
+    "local": {
+      "title": "Maou Gakuin no Futekigousha II",
+      "emissionYear": 2023,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Maou Gakuin no Futekigousha: Shijou Saikyou no Maou no Shiso, Tensei shite Shison-tachi no Gakkou e Kayou II",
+      "alternativeTitle": "The Misfit of Demon King Academy Ⅱ: History's Strongest Demon King Reincarnates and Goes to School with His Descendants",
+      "alternativeTitles": [
+        "魔王学院の不適合者 ～史上最強の魔王の始祖、転生して子孫たちの学校へ通う～ Ⅱ"
+      ],
+      "format": "TV",
+      "emissionYear": 2023,
+      "emissionSeason": "Winter",
+      "genre": "Action",
+      "tags": [
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx130588-zYz8Gp2kZfTm.jpg",
+      "description": "As peace returns to the demon realm, Anos Voldigoad wishes nothing more than to put his reputation as the Demon King of Tyranny to rest and go back to being a misfit at the prestigious Demon King Academy. Unfortunately, any tranquility is fleeting: sinister demons, kings, and deities plot Anos's demise from the shadows.\n\nRumors spread about the \"Child of God,\" a being whose power may rival that of Anos. To uncover the truth and eliminate the potential threat, Anos must journey deep into the land of spirits. However, the spirit world is shrouded in mystery, and it may only be entered after undergoing a series of difficult trials.\n\nWith unrivaled power and confidence, Anos braces himself to defeat various formidable enemies with grandiose titles. But he—with the assistance of his trusted allies—will barely have to break a sweat as the true Demon King of Tyranny.\n\n(Source: MAL Rewrite)",
+      "rating": 6.8,
+      "sourceUrl": "https://anilist.co/anime/130588",
+      "source": "anilist",
+      "anilistId": "130588",
+      "jikanId": "48417"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-138-3815",
+    "classification": "Revisión recomendada",
+    "score": 0.6734,
+    "local": {
+      "title": "5-toubun no Hanayome Movie",
+      "emissionYear": 2023,
+      "emissionSeason": "Spring",
+      "format": "Película",
+      "activeSeason": "S02",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Go-toubun no Hanayome Movie",
+      "alternativeTitle": "The Quintessential Quintuplets Movie",
+      "alternativeTitles": [
+        "映画 五等分の花嫁"
+      ],
+      "format": "MOVIE",
+      "emissionYear": 2022,
+      "emissionSeason": "Spring",
+      "genre": "Comedy",
+      "tags": [
+        "Drama",
+        "Romance",
+        "Slice of Life"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx131520-89Qfo8JnGHI3.png",
+      "description": "A sequel film to Go-toubun no Hanayome ∬. \nWhen five lovely young girls who hate studying hire part-time tutor Futaro, he guides not only their education but also their hearts. Time spent has brought them all closer, with feelings growing within the girls and Futaro. As they finish their third year of high school and their last school festival approaches, they set their sights on what’s next. Is there a future with one of them and Futaro?   \n(Source: Crunchyroll)",
+      "rating": 7.8,
+      "sourceUrl": "https://anilist.co/anime/131520",
+      "source": "anilist",
+      "anilistId": "131520",
+      "jikanId": "48548"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2023 / API 2022.",
+      "El Excel indica S02, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-156-3835",
+    "classification": "Alias o título distinto",
+    "score": 0.4091,
+    "local": {
+      "title": "LasTame",
+      "emissionYear": 2023,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Higeki no Genkyou to Naru Saikyou Gedou Last Boss Joou wa Tami no Tame ni Tsukushimasu.",
+      "alternativeTitle": "The Most Heretical Last Boss Queen: From Villainess to Savior",
+      "alternativeTitles": [
+        "悲劇の元凶となる最強外道ラスボス女王は民の為に尽くします。"
+      ],
+      "format": "TV",
+      "emissionYear": 2023,
+      "emissionSeason": "Summer",
+      "genre": "Comedy",
+      "tags": [
+        "Fantasy",
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx156040-qWlfbAk6GJJR.png",
+      "description": "It’s one thing to get reincarnated as a righteous hero. It’s another thing entirely to get reincarnated as a villain! Our protagonist was just reincarnated into the body of Princess Pride Royal Ivy, the last boss and ultimate villain of her favorite otome game. But evil just isn’t her style, so she’ll use Pride’s powerful abilities to sow peace and love instead of discord! Can she change the fate of this vile villainess, or is her role in the story already rotten to the core?\n\n(Source: HIDIVE)",
+      "rating": 6.9,
+      "sourceUrl": "https://anilist.co/anime/156040",
+      "source": "anilist",
+      "anilistId": "156040",
+      "jikanId": "53438"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-174-3852",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Tonikaku Kawaii: Joshikou-hen",
+      "emissionYear": 2023,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 4
+    },
+    "candidate": {
+      "title": "Tonikaku Kawaii: Joshikou-hen",
+      "alternativeTitle": "TONIKAWA: Over The Moon For You ~High School Days~",
+      "alternativeTitles": [
+        "トニカクカワイイ 女子高編"
+      ],
+      "format": "ONA",
+      "emissionYear": 2023,
+      "emissionSeason": "Summer",
+      "genre": "Comedy",
+      "tags": [
+        "Romance",
+        "Slice of Life"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx166104-0oRQjclE7X3S.jpg",
+      "description": "The new anime centers on the series' protagonist Nasa, who is asked by his junior high teacher to hold a class in an all-girls high school. The students end up seeking Nasa's advice about their love problems. On the other hand, Tsukasa pretends to be cool, but is actually nervous knowing that Nasa is surrounded by young high school girls.\n\n(Source: Anime News Network)",
+      "rating": 7.8,
+      "sourceUrl": "https://anilist.co/anime/166104",
+      "source": "anilist",
+      "anilistId": "166104",
+      "jikanId": "55651"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-186-3865",
+    "classification": "Revisión recomendada",
+    "score": 0.6867,
+    "local": {
+      "title": "Shangri-La Frontier Kusoge Hunter, Kamige ni Idoman to su",
+      "emissionYear": 2023,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 49
+    },
+    "candidate": {
+      "title": "Shangri-La Frontier",
+      "alternativeTitle": "Shangri-La Frontier",
+      "alternativeTitles": [
+        "Shangri-La Frontier",
+        "シャングリラ・フロンティア"
+      ],
+      "format": "TV",
+      "emissionYear": 2023,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/46241/poster_image/c211ce3a0a2a9738ac821bba5b6b055c.jpg",
+      "description": "\"When was the last time I played a game that wasn't crap?\" This is a world in the near future where games that use display screens are classified as retro. Anything that can't keep up with state-of-the-art VR technology is called a \"crap game,\" and you see a large number of crap games coming out. Those who devote their lives to clearing these games are called \"crap-game hunters,\" and Rakuro Hizutome is one of them. The game he's chosen to tackle next is Shangri-La Frontier, a \"god-tier game\" that has a total of thirty million players. Online friends... An expansive world... Encounters with rivals... These are changing Rakuro and all the other players' fates! The best game adventure tale by the strongest \"crap game\" player begins now!\n\n(Source: Crunchyroll)",
+      "rating": 8.1,
+      "sourceUrl": "https://kitsu.app/anime/shangri-la-frontier",
+      "source": "kitsu",
+      "kitsuId": "46241"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-219-3904",
+    "classification": "Alias o título distinto",
+    "score": 0.1206,
+    "local": {
+      "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo",
+      "emissionYear": 2023,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 2nd Season",
+      "alternativeTitle": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 2nd Season",
+      "alternativeTitles": [
+        "The 100 Girlfriends Who Really, Really, Really, Really, REALLY Love You Season 2",
+        "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 2nd Season",
+        "君のことが大大大大大好きな100人の彼女 2期"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/48348/poster_image/dcdbd132426bc26d517f8109f743250c.jpg",
+      "description": "The second season of Kimi no Koto ga Dai Dai Dai Dai Daisuki na 100-nin no Kanojo.\n\nRentaro meets new soulmates, balancing comedic chaos and heartfelt moments as his relationships deepen.\n\n(Source: Crunchyroll News)",
+      "rating": 8.1,
+      "sourceUrl": "https://kitsu.app/anime/kimi-no-koto-ga-daidaidaidaidaisuki-na-100-nin-no-kanojo-2nd-season",
+      "source": "kitsu",
+      "kitsuId": "48348"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2023 / API 2025."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-225-3912",
+    "classification": "Alias o título distinto",
+    "score": 0.5956,
+    "local": {
+      "title": "Psycho-Pass Movie Providence",
+      "emissionYear": 2023,
+      "emissionSeason": "Fall",
+      "format": "Película",
+      "activeSeason": "S00",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Psycho-Pass Movie",
+      "alternativeTitle": "Psycho-Pass Movie",
+      "alternativeTitles": [
+        "Psycho-Pass: The Movie",
+        "Psycho-Pass Movie",
+        "Psycho-Pass: The Movie",
+        "劇場版 サイコパス"
+      ],
+      "format": "movie",
+      "emissionYear": 2015,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/7986/poster_image/1835c6e0c76decb32a4191ef8a198cea.jpg",
+      "description": "Due to the incredible success of the Sibyl System, Japan has begun exporting the technology to other countries with the hope that it will one day be used all around the world. In order to test its effectiveness in a foreign location, the war-torn state of the South East Asian Union (SEAUn) decides to implement the system, hoping to bring peace and stability to the town of Shambala Float and keep the population in check.\nHowever, a group of anti-Sibyl terrorists arrive in Japan, and the Ministry of Welfare's Public Safety Bureau discovers significant evidence that the invaders are being aided by Shinya Kougami, a former Enforcer who went rogue. Because of their past relationship, Akane Tsunemori is sent to SEAUn to bring him back, but with their last meeting years in the past, their reunion might not go quite as planned.\n[Written by MAL Rewrite]",
+      "rating": 7.8,
+      "sourceUrl": "https://kitsu.app/anime/psycho-pass-movie",
+      "source": "kitsu",
+      "kitsuId": "7986"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2023 / API 2015."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-226-3913",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Jashin-chan Dropkick Seikimatsu-hen",
+      "emissionYear": 2023,
+      "emissionSeason": "Fall",
+      "format": "OVA",
+      "activeSeason": "S00",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Jashin-chan Dropkick [Seikimatsu-hen]",
+      "alternativeTitle": "Dropkick on My Devil!!: Apocalypse Day",
+      "alternativeTitles": [
+        "邪神ちゃんドロップキック【世紀末編】"
+      ],
+      "format": "SPECIAL",
+      "emissionYear": 2023,
+      "emissionSeason": "Fall",
+      "genre": "Comedy",
+      "tags": [
+        "Slice of Life",
+        "Supernatural"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx164551-QysYBZwUrpYv.png",
+      "description": "Thanks to a successful crowdfunding campaign supported by its loyal fans, this single-episode special of Dropkick on My Devil! is being made in support of Takamori, a town located in Kumamoto Prefecture's Aso District.\n\nJimbocho has been turned into ruins by a flying object from outer space. Jashin-chan is guided by the stars to the south in order to defeat Yurine Hanazono, the ruler of this town where only violence rules. In Takamori-cho, a town rich in nature at the foot of the Aso Mountains, she encounters...  \n(Source: Crunchyroll News, edited)",
+      "rating": 6.8,
+      "sourceUrl": "https://anilist.co/anime/164551",
+      "source": "anilist",
+      "anilistId": "164551",
+      "jikanId": "55237"
+    },
+    "conflicts": [
+      "Formato distinto: local OVA / API SPECIAL."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-244-3931",
+    "classification": "Alias o título distinto",
+    "score": 0.3725,
+    "local": {
+      "title": "Loop 7-kaime no Akuyaku Reijou wa",
+      "emissionYear": 2024,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Loop 7-kaime no Akuyaku Reijou wa, Moto Tekikoku de Jiyuu Kimama na Hanayome Seikatsu wo Mankitsu Suru",
+      "alternativeTitle": "7th Time Loop: The Villainess Enjoys a Carefree Life Married to Her Worst Enemy!",
+      "alternativeTitles": [
+        "ループ7回目の悪役令嬢は、元敵国で自由気ままな花嫁生活を満喫する"
+      ],
+      "format": "TV",
+      "emissionYear": 2024,
+      "emissionSeason": "Winter",
+      "genre": "Fantasy",
+      "tags": [
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx168374-WAEBeVAegRnw.jpg",
+      "description": "Rishe Irmgard Weitzner, a duke's daughter, has a secret: she died at the age of 20 and returned to the moment five years prior when her engagement was called off. She has already experienced this time loop six times and lived out those five years a different way each time, as a merchant, a doctor, a maid, a knight, and more. Now, on her seventh go-around, she's determined to live to a ripe old age and spend it relaxing. But the moment she flees the castle with that decision in her heart, she runs into the infamously cruel crown prince of a rival kingdom, Arnold Hein. He happens to be the one who killed her during her life as a knight, but now, he seems to have taken a bizarre liking to her... and begs her to become his wife. Thus, in order to stay alive and prevent a war, Rishe utilizes her previous experiences to kick off her seventh life as the bride of an enemy nation's crown prince.\n\n(Source: Crunchyroll)",
+      "rating": 7.5,
+      "sourceUrl": "https://anilist.co/anime/168374",
+      "source": "anilist",
+      "anilistId": "168374",
+      "jikanId": "56352"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-245-3933",
+    "classification": "Alias o título distinto",
+    "score": 0.2876,
+    "local": {
+      "title": "Shin no Nakama S2",
+      "emissionYear": 2024,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S02",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Shin no Nakama ja Nai to Yuusha no Party wo Oidasareta node, Henkyou de Slow Life suru Koto ni shimashita 2nd Season",
+      "alternativeTitle": "Shin no Nakama ja Nai to Yuusha no Party wo Oidasareta node, Henkyou de Slow Life suru Koto ni shimashita 2nd Season",
+      "alternativeTitles": [
+        "Banished from the Hero’s Party, I Decided to Live a Quiet Life in the Countryside Season 2",
+        "Shin no Nakama ja Nai to Yuusha no Party wo Oidasareta node, Henkyou de Slow Life suru Koto ni shimashita 2nd Season",
+        "真の仲間じゃないと勇者のパーティーを追い出されたので、辺境でスローライフすることにしました 第2期",
+        "ผมโดนกลุ่มผู้กล้าขับไส เลยต้องไปสโลว์ไลฟ์ที่ชายแดน ภาค 2"
+      ],
+      "format": "TV",
+      "emissionYear": 2024,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/46686/poster_image/b8b3f80e7cc4556b3cf3d7587d981786.jpg",
+      "description": "The second season of Shin no Nakama ja Nai to Yuusha no Party wo Oidasareta node, Henkyou de Slow Life suru Koto ni shimashita.",
+      "rating": 6.9,
+      "sourceUrl": "https://kitsu.app/anime/shin-no-nakama-ja-nai-to-yuusha-no-party-wo-oidasareta-node-henkyou-de-slow-life-suru-koto-ni-shimashita-2nd-season",
+      "source": "kitsu",
+      "kitsuId": "46686"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-302-3955",
+    "classification": "Revisión recomendada",
+    "score": 0.715,
+    "local": {
+      "title": "ReMonster",
+      "emissionYear": 2024,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Monster",
+      "alternativeTitle": "Monster",
+      "alternativeTitles": [
+        "Monster",
+        "Monster",
+        "モンスター"
+      ],
+      "format": "TV",
+      "emissionYear": 2004,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/poster_images/10/original.jpg",
+      "description": "Dr. Kenzou Tenma is a renowned brain surgeon of Japanese descent working in Europe. Highly lauded by his peers as one of the great young minds that will revolutionize the field, he is blessed with a beautiful fiancée and is on the cusp of a big promotion in the hospital he works at. But all of that is about to change with a grave dilemma that Kenzou faces one night—whether to save the life of a small boy or that of the town's mayor. Despite being pressured by his superiors to perform surgery on the mayor, his morals force him to perform the surgery on the other critical patient, saving his life and forfeiting the mayor's. A doctor is taught to believe that all life is equal; however, when a series of murders occur in the surgeon's vicinity, all of the evidence pointing to the boy he saved, Kenzou's beliefs are shaken. Along his journey to unravel the true identity of his little patient, Kenzou discovers that the fate of the world may be intertwined with the mysterious child.\n[Written by MAL Rewrite]",
+      "rating": 8.2,
+      "sourceUrl": "https://kitsu.app/anime/monster",
+      "source": "kitsu",
+      "kitsuId": "10"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2024 / API 2004."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-307-3999",
+    "classification": "Conflicto probable",
+    "score": 0.52,
+    "local": {
+      "title": "Code Geass Dakkan no Rozé",
+      "emissionYear": 2024,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S04",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Code Geass: Dakkan no Rozé",
+      "alternativeTitle": "Code Geass: Dakkan no Rozé",
+      "alternativeTitles": [
+        "Code Geass: Rozé of the Recapture",
+        "Code Geass: Dakkan no Rozé",
+        "コードギアス 奪還のロゼ"
+      ],
+      "format": "OVA",
+      "emissionYear": 2024,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/43855/poster_image/572167cb7c18135123f4ad1af33f4716.png",
+      "description": "Year Seven of the Kowa Period, in the former Hokkaido Block occupied by the Neo-Britannian Empire, live mercenary brothers known as the Nameless Mercenaries. The eldest, Ash, has excellent athletic ability and advanced Knightmare Frame controlling skills, while the youngest, Rozé, is clearheaded and oversees intel gathering and devising strategies. Due to an impregnable wall of energy called the Situmpe Wall, for four years the 100th emperor who stopped the Black Knights' liberation plan, Callis al Britannia, has been trying to plunge the world into chaos once again with the help of his servant, Norland, and his Einberg Knights. Upon receiving a request, Rozé and Ash, along with the Seven Shining Stars resistance group confront the Empire to recapture Princess Sakuya.\n\n(Source: Hulu)\n\nNote: The series had a four-part theatrical pre-screening in Japan starting in May 2024. Streaming worldwide release begins in June 2024.\n\n• Part 1 releasing theatrically on May 10, 2024.\n• Part 2 releasing theatrically on June 7, 2024.\n• Part 3 releasing theatrically on July 5, 2024.\n• Final Part releasing theatrically on August 2, 2024.",
+      "rating": 6.7,
+      "sourceUrl": "https://kitsu.app/anime/code-geass-dakkan-no-z",
+      "source": "kitsu",
+      "kitsuId": "43855"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API OVA.",
+      "El Excel indica S04, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-346-4039",
+    "classification": "Alias o título distinto",
+    "score": 0.348,
+    "local": {
+      "title": "Kinnikuman Kanpeki Chоujin Shiso-hen",
+      "emissionYear": 2024,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Kinnikuman: Kanpeki Chоujin Shiso-hen Episode 0",
+      "alternativeTitle": "Kinnikuman: Kanpeki Chоujin Shiso-hen Episode 0",
+      "alternativeTitles": [
+        "Kinnikuman: Perfect Origin Arc Episode 0",
+        "Kinnikuman: Kanpeki Chоujin Shiso-hen Episode 0",
+        "キン肉マン 完璧超人始祖編 第0話"
+      ],
+      "format": "special",
+      "emissionYear": 2024,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/49022/poster_image/8e1afbd28fa1395ab37f2e1c9002c0c6.jpg",
+      "description": "Episode 0 of Kinnikuman: Kanpeki Chоujin Shiso-hen.",
+      "rating": "",
+      "sourceUrl": "https://kitsu.app/anime/kinnikuman-kanpeki-ch-ujin-shiso-hen-episode-0",
+      "source": "kitsu",
+      "kitsuId": "49022"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Formato distinto: local Serie / API special."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-347-4040",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Kimi ni Todoke 3rd Season",
+      "emissionYear": 2024,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S03",
+      "chapters": 6
+    },
+    "candidate": {
+      "title": "Kimi ni Todoke 3RD SEASON",
+      "alternativeTitle": "Kimi ni Todoke: From Me to You Season 3",
+      "alternativeTitles": [
+        "君に届け 3RD SEASON"
+      ],
+      "format": "ONA",
+      "emissionYear": 2024,
+      "emissionSeason": "Summer",
+      "genre": "Comedy",
+      "tags": [
+        "Drama",
+        "Romance",
+        "Slice of Life"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx168872-ls6UwxFAw212.jpg",
+      "description": "The third season of Kimi ni Todoke. \nWhat do you do once you're a couple?\n\nAlthough she struggles with her blossoming feelings, Sawako comes to terms with herself and tells Kazehaya how she feels about him. Attracted by Sawako's unnoticed efforts and genuine personality, Kazehaya also candidly makes his feelings known.\nThus, their new relationship begins.\n\nTheir first date, their school life together, joy, embarrassment and new struggles — everything is fresh and new as the couple awkwardly and gradually learns more about one another, all while their friends' love stories begin to take shape as well. This bittersweet and poignant story of young people, woven from their romantic feelings and dear friendships, begins once more.\n(Source: Netflix Anime)",
+      "rating": 8.4,
+      "sourceUrl": "https://anilist.co/anime/168872",
+      "source": "anilist",
+      "anilistId": "168872",
+      "jikanId": "56538"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-349-4042",
+    "classification": "Alias o título distinto",
+    "score": 0.2043,
+    "local": {
+      "title": "Spy x Family Movie Code White",
+      "emissionYear": 2023,
+      "emissionSeason": "Fall",
+      "format": "Película",
+      "activeSeason": "S01",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Ayataka Spy x Family Movie Campaign Ayataka de Hotto Hitoiki",
+      "alternativeTitle": "Ayataka Spy x Family Movie Campaign Ayataka de Hotto Hitoiki",
+      "alternativeTitles": [
+        "Ayataka Spy x Family Movie Campaign Ayataka de Hotto Hitoiki",
+        "綾鷹・劇場版SPY×FAMILYキャンペーン　綾鷹でほっとひと息"
+      ],
+      "format": "ONA",
+      "emissionYear": 2024,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/48477/poster_image/79ad6ff63c80142af32cc7dfc560a235.jpg",
+      "description": "A commercial between Spy x Family Movie: Code: White and Ayataka featuring the Forger family having a picnic under the cherry blossoms while drinking Ayataka tea.",
+      "rating": 7.0,
+      "sourceUrl": "https://kitsu.app/anime/ayataka-spy-x-family-movie-campaign-ayataka-de-hotto-hitoiki",
+      "source": "kitsu",
+      "kitsuId": "48477"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Formato distinto: local Película / API ONA.",
+      "Año distinto: local 2023 / API 2024."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-350-4043",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Hitoribocchi no Isekai Kouryaku",
+      "emissionYear": 2024,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Hitoribocchi no Isekai Kouryaku",
+      "alternativeTitle": "Loner Life in Another World",
+      "alternativeTitles": [
+        "ひとりぼっちの異世界攻略"
+      ],
+      "format": "ONA",
+      "emissionYear": 2024,
+      "emissionSeason": "Fall",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx173693-tRLdDE1BieXe.png",
+      "description": "Haruka has been living his high school life as a loner, but all of a sudden, he and his classmates are summoned into another world. A God gives him a list of skills he can freely pick... Or at least that was how it was supposed to be, as all the valuable skills have been taken by the other classmates first. After Haruka scolded God, he snapped back and gave all the remaining bad skills to Haruka. Thanks to the \"Loner\" skill, Haruka begins his lonely adventure in another world.\n\n(Source: Muse Asia)\nNote: Each episode streamed a week early on some streaming services. The original TV broadcast started on October 4th, 2024.",
+      "rating": 6.5,
+      "sourceUrl": "https://anilist.co/anime/173693",
+      "source": "anilist",
+      "anilistId": "173693",
+      "jikanId": "57891"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-357-4050",
+    "classification": "Alias o título distinto",
+    "score": 0.4751,
+    "local": {
+      "title": "ReZero kara Hajimeru Isekai Seikatsu 3rd",
+      "emissionYear": 2024,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S03",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Re:Zero kara Hajimeru Isekai Seikatsu",
+      "alternativeTitle": "Re:Zero kara Hajimeru Isekai Seikatsu",
+      "alternativeTitles": [
+        "Re:ZERO -Starting Life in Another World-",
+        "Re:Zero kara Hajimeru Isekai Seikatsu",
+        "Re:ZERO -Starting Life in Another World-",
+        "Re：ゼロから始める異世界生活"
+      ],
+      "format": "TV",
+      "emissionYear": 2016,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/poster_images/11209/original.jpg",
+      "description": "When Subaru Natsuki leaves the convenience store, the last thing he expects is to be wrenched from his everyday life and dropped into a fantasy world. Things aren't looking good for the bewildered teenager; however, not long after his arrival, he is attacked by some thugs. Armed with only a bag of groceries and a now useless cell phone, he is quickly beaten to a pulp. Fortunately, a mysterious beauty named Satella, in hot pursuit after the one who stole her insignia, happens upon Subaru and saves him. In order to thank the honest and kindhearted girl, Subaru offers to help in her search, and later that night, he even finds the whereabouts of that which she seeks. But unbeknownst to them, a much darker force stalks the pair from the shadows, and just minutes after locating the insignia, Subaru and Satella are brutally murdered.\n\nHowever, Subaru immediately reawakens to a familiar scene—confronted by the same group of thugs, meeting Satella all over again—the enigma deepens as history inexplicably repeats itself.\n\n(Source: MAL Rewrite)",
+      "rating": 8.2,
+      "sourceUrl": "https://kitsu.app/anime/re-zero-kara-hajimeru-isekai-seikatsu",
+      "source": "kitsu",
+      "kitsuId": "11209"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2024 / API 2016.",
+      "El Excel indica S03, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-361-4054",
+    "classification": "Revisión recomendada",
+    "score": 0.7515,
+    "local": {
+      "title": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka V",
+      "emissionYear": 2024,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S05",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka VI",
+      "alternativeTitle": "",
+      "alternativeTitles": [
+        "ダンジョンに出会いを求めるのは間違っているだろうかⅤI"
+      ],
+      "format": "TV",
+      "emissionYear": 0,
+      "emissionSeason": "",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Comedy",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx207385-hyeDUEGGUxeV.jpg",
+      "description": "The sixth season of Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka.",
+      "rating": "",
+      "sourceUrl": "https://anilist.co/anime/207385",
+      "source": "anilist",
+      "anilistId": "207385",
+      "jikanId": "63442"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "El Excel indica S05, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-372-4065",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Goukon ni Ittara Onna ga Inakatta Hanashi",
+      "emissionYear": 2024,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Goukon ni Ittara Onna ga Inakatta Hanashi",
+      "alternativeTitle": "How I Attended an All-Guy's Mixer",
+      "alternativeTitles": [
+        "合コンに行ったら女がいなかった話"
+      ],
+      "format": "ONA",
+      "emissionYear": 2024,
+      "emissionSeason": "Fall",
+      "genre": "Comedy",
+      "tags": [
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169931-tPgDEKaHNkFr.jpg",
+      "description": "College student Tokiwa gets invited to a mixer by his female classmate Suo. But when he arrives with his friends, they're greeted by three dazzlingly handsome men?! But as the two groups get to know each other, they find themselves getting closer in unexpected ways.\n(Source: MANGA UP!)\nNote: Each episode streamed 1 week early on ABEMA. The original TV broadcast started on October 4th 2024.",
+      "rating": 7.2,
+      "sourceUrl": "https://anilist.co/anime/169931",
+      "source": "anilist",
+      "anilistId": "169931",
+      "jikanId": "56843"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-395-4091",
+    "classification": "Alias o título distinto",
+    "score": 0.6362,
+    "local": {
+      "title": "Hazure Skill Kinomi Master",
+      "emissionYear": 2025,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Hazure Skill «Kinomi Master»: Skill no Mi (Tabetara Shinu) wo Mugen ni Taberareru You ni Natta Ken Nitsuite",
+      "alternativeTitle": "Bogus Skill <<Fruitmaster>> ~About that time I became able to eat unlimited numbers of Skill Fruits (that kill you)~",
+      "alternativeTitles": [
+        "外れスキル《木の実マスター》~スキルの実(食べたら死ぬ)を無限に食べられるようになった件について~"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "Winter",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178100-GF4dKSrkdByJ.jpg",
+      "description": "In a world where eating “Skill Fruits” grants special powers, Light, a boy who seeks to become the world’s greatest adventurer, obtains the > skill, a bogus skill specializing in fruit cultivation that is completely useless in combat.\n\nEating a second “Skill Fruit” results in death, so there are no do-overs. Meanwhile, his childhood friend Rena, who promised to become an adventurer with him, achieves S Rank in record time, and the gap between them widens.\n\nLight spends his days farming and training with a sword, but one day, he accidentally eats a second “Skill Fruit.”\n\n“Why am I not dying?!”\n\nLight avoids certain death and learns the incredible true power of the > skill: he can eat as many “Skill Fruits” as he wants! His overpowered ability allows him to gain an ability every time he eats one, for an unlimited number of times!! The worst skill ever is actually the best skill ever!!!\n\n(Source: Crunchyroll)\nNote: Each episode streamed 1 week early on ABEMA and Crunchyroll. The original TV broadcast started on January 7, 2025.",
+      "rating": 5.7,
+      "sourceUrl": "https://anilist.co/anime/178100",
+      "source": "anilist",
+      "anilistId": "178100",
+      "jikanId": "59002"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-427-4124",
+    "classification": "Alias o título distinto",
+    "score": 0.3714,
+    "local": {
+      "title": "Girumasu",
+      "emissionYear": 2025,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Guild no Uketsukejou desu ga, Zangyou wa Iya nanode Boss wo Solo Toubatsu Shiyou to Omoimasu",
+      "alternativeTitle": "I May Be a Guild Receptionist, but I’ll Solo Any Boss to Clock Out on Time",
+      "alternativeTitles": [
+        "ギルドの受付嬢ですが、残業は嫌なのでボスをソロ討伐しようと思います"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "Winter",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Comedy",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx167143-iY2ho0I0KnYF.jpg",
+      "description": "Alina thought she had found the perfect job as a guild receptionist. It’s stable, safe, and has a super cute uniform. But this dream gig turns into an overtime nightmare whenever adventurers get stuck clearing a dungeon. Tired of the long nights, Alina starts taking down the bosses herself! She even earns the name Executioner for her impressive skills. Can she keep her identity a secret?\n\n(Source: Crunchyroll)",
+      "rating": 6.6,
+      "sourceUrl": "https://anilist.co/anime/167143",
+      "source": "anilist",
+      "anilistId": "167143",
+      "jikanId": "55997"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-428-4125",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Sakamoto Days",
+      "emissionYear": 2025,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "SAKAMOTO DAYS",
+      "alternativeTitle": "SAKAMOTO DAYS",
+      "alternativeTitles": [
+        "SAKAMOTO DAYS"
+      ],
+      "format": "ONA",
+      "emissionYear": 2025,
+      "emissionSeason": "Winter",
+      "genre": "Action",
+      "tags": [
+        "Comedy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx177709-e5Qx6RlsBgD5.png",
+      "description": "When Sakamoto meets Aoi, the convenience store clerk, it’s love at first sight — and just like that, he retires.\n\nSakamoto gets married, has a daughter, opens a mom-and-pop store in a quiet town, and completely transforms … into a plus-size man. To ensure a peaceful life with his beloved family, the legendary ex–hit man bands together with comrades to face off against the looming threat of assassins.\n\n(Source: Netflix TUDUM)\n\nNote: The series streamed a week in advance on Netflix Japan starting with episode 2 released alongside episode 1.",
+      "rating": 7.6,
+      "sourceUrl": "https://anilist.co/anime/177709",
+      "source": "anilist",
+      "anilistId": "177709",
+      "jikanId": "58939"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-442-4140",
+    "classification": "Alias o título distinto",
+    "score": 0.5107,
+    "local": {
+      "title": "Yami Healer",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Isshun de Chiryou Shiteita no ni Yakutatazu to Tsuihou Sareta Tensai Chiyushi, Yami Healer Toshite Tanoshiku Ikiru",
+      "alternativeTitle": "The Brilliant Healer's New Life in the Shadows",
+      "alternativeTitles": [
+        "一瞬で治療していたのに役立たずと追放された天才治癒師、闇ヒーラーとして楽しく生きる"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "genre": "Action",
+      "tags": [
+        "Comedy",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx175872-d55nfiC4WWHO.jpg",
+      "description": "Banished as “useless,” Zenos, a self-taught healer from the slums, turns despair into defiance and opens a secret clinic in the city’s shadows. With unlicensed, unmatched magic, he cures, comforts, and rights wrongs, quietly becoming a legend. But as his power grows, even the royal palace takes notice. Can he buck the odds and heal a world that cast him aside?\n\n(Source: Crunchyroll)",
+      "rating": 6.8,
+      "sourceUrl": "https://anilist.co/anime/175872",
+      "source": "anilist",
+      "anilistId": "175872",
+      "jikanId": "58359"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-471-4171",
+    "classification": "Alias o título distinto",
+    "score": 0.5377,
+    "local": {
+      "title": "Mono Weekend Animation",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "mono",
+      "alternativeTitle": "mono",
+      "alternativeTitles": [
+        "mono"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "genre": "Comedy",
+      "tags": [
+        "Slice of Life"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx176246-ndH8bKh7cmzf.jpg",
+      "description": "Satsuki Amamiya was feeling down due to the graduation of the high school Photography Club’s president. However, her best friend and fellow member An Kiriyama encourages Satsuki to dedicate herself to the newly merged Cinephoto Club. Join Satsuki and An as they set out to track down a missing camera, meet new faces, and capture stunning photos and videos along the way.  (Source: Crunchyroll)",
+      "rating": 7.6,
+      "sourceUrl": "https://anilist.co/anime/176246",
+      "source": "anilist",
+      "anilistId": "176246",
+      "jikanId": "58492"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-474-4174",
+    "classification": "Alias o título distinto",
+    "score": 0.07,
+    "local": {
+      "title": "Shirohiyo",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Shirobuta Kizoku desu ga Zense no Kioku ga Haeta node Hiyoko na Otouto Sodatemasu",
+      "alternativeTitle": "SHIROHIYO - Reincarnated as a Neglected Noble: Raising My Baby Brother With Memories From My Past Life",
+      "alternativeTitles": [
+        "白豚貴族ですが前世の記憶が生えたので ひよこな弟育てます"
+      ],
+      "format": "ONA",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "genre": "Comedy",
+      "tags": [
+        "Fantasy",
+        "Slice of Life"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx179541-lZwENMAHZS9Y.jpg",
+      "description": "Ageha Kikunoi was a spoiled 5-year-old before he suddenly recalled memories from a past life. Then, he loved to cook, sew, and sing above all else. In this world, Ageha and his younger brother, Regulus, try to navigate the Kikunoi house as corruption among the aristocracy deepens. They’ll need skills from Ageha’s past life, blessings of gods and elves, and magic spells to help them on their way!\n(Source: Crunchyroll)",
+      "rating": 6.4,
+      "sourceUrl": "https://anilist.co/anime/179541",
+      "source": "anilist",
+      "anilistId": "179541",
+      "jikanId": "59322"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-475-4175",
+    "classification": "Revisión recomendada",
+    "score": 0.6573,
+    "local": {
+      "title": "Boku no Hero Academia the Movie 4 You're Next",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "format": "Película",
+      "activeSeason": "S04",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Boku no Hero Academia THE MOVIE: YOU'RE NEXT",
+      "alternativeTitle": "Boku no Hero Academia THE MOVIE: YOU'RE NEXT",
+      "alternativeTitles": [
+        "My Hero Academia the Movie 4: You're Next",
+        "Boku no Hero Academia THE MOVIE: YOU'RE NEXT",
+        "My Hero Academia: You're Next",
+        "僕のヒーローアカデミア THE MOVIE: ユア ネクスト"
+      ],
+      "format": "movie",
+      "emissionYear": 2024,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/47844/poster_image/9ba1e4c54a8d071453273822fa4cbb7d.jpg",
+      "description": "“Next, it's your turn!”\n\nIn a society where heroes and villains continuously battle in the name of peace and chaos, Deku, a U.A. High School student who aspires to be the best hero he can be, confronts the villain who imitates the hero he's long admired. Can Deku and the rest of U.A. High Class 1-A protect the world by putting an end to Dark Might, the man claiming to be the new Symbol of Peace?\n\n(Source: Toho)",
+      "rating": 7.7,
+      "sourceUrl": "https://kitsu.app/anime/boku-no-hero-academia-the-movie-4",
+      "source": "kitsu",
+      "kitsuId": "47844"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2025 / API 2024.",
+      "El Excel indica S04, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-476-4176",
+    "classification": "Alias o título distinto",
+    "score": 0.5319,
+    "local": {
+      "title": "Overlord Movie 3 Sei Oukoku-hen",
+      "emissionYear": 2025,
+      "emissionSeason": "Spring",
+      "format": "Película",
+      "activeSeason": "S03",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Overlord: Sei Oukoku-hen",
+      "alternativeTitle": "Overlord: Sei Oukoku-hen",
+      "alternativeTitles": [
+        "Overlord: The Sacred Kingdom",
+        "Overlord: Sei Oukoku-hen",
+        "劇場版 オーバーロード 聖王国編"
+      ],
+      "format": "movie",
+      "emissionYear": 2024,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/44530/poster_image/e8110521c373fc222a9c65fc69f1148d.jpg",
+      "description": "Theatrical follow-up to Overlord IV. The film will cover the \"Holy Kingdom\" arc.\n\nAfter twelve years of playing his favorite MMORPG game, Momonga logs in for the last time only to find himself transported into its world playing it indefinitely. Throughout his adventures, his avatar ascends to the title of Sorcerer King Ains Ooal Gown.\n\nOnce prosperous but now on the brink of ruin, The Sacred Kingdom enjoyed years of peace after the construction of an enormous wall protecting them from neighboring invasions. But, one day this comes to an end when the Demon Emperor Jaldabaoth arrives with an army of villainous demi-humans.\n\nFearing an invasion of their lands, the neighboring territory of the Slane Theocracy is forced to beg their enemies at the Sorcerer Kingdom for help. Heeding the call, Momonga, now known as the Sorcerer King Ains Ooal Gown, rallies the Sorcerer Kingdom and its undead army to join the fight alongside the Sacred Kingdom and the Slane Theocracy in hopes of defeating the Demon Emperor.\n\n(Source: Crunchyroll, edited)",
+      "rating": 7.9,
+      "sourceUrl": "https://kitsu.app/anime/overlord-sei-oukoku-hen",
+      "source": "kitsu",
+      "kitsuId": "44530"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2025 / API 2024.",
+      "El Excel indica S03, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-478-4178",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Koujo Denka no Kateikyoushi",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Koujo Denka no Kateikyoushi",
+      "alternativeTitle": "Private Tutor to the Duke's Daughter",
+      "alternativeTitles": [
+        "公女殿下の家庭教師"
+      ],
+      "format": "ONA",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "genre": "Drama",
+      "tags": [
+        "Fantasy",
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170113-dk9h9ybZnGnZ.jpg",
+      "description": "After Allen failed the court sorcerer exam, he couldn’t return home even if he wanted to. While searching for a job, an unexpected offer comes his way to be the private tutor of the duke’s daughter. Just as he lowers his guard, he faces a girl who can’t use magic at all! But what is preventing her magic from working? Allen’s unconventional lessons gently shine a light on the girl’s future.\n\n(Source: Crunchyroll)\nNote: Each episode streamed 1 week early on ABEMA and dAnimeStore. The original TV broadcast started on July 6, 2025.",
+      "rating": 6.2,
+      "sourceUrl": "https://anilist.co/anime/170113",
+      "source": "anilist",
+      "anilistId": "170113",
+      "jikanId": "56907"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-479-4179",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Kanojo, Okarishimasu 4th Season",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S04",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Kanojo, Okarishimasu 4th Season",
+      "alternativeTitle": "Rent-a-Girlfriend Season 4",
+      "alternativeTitles": [
+        "彼女、お借りします 第4期"
+      ],
+      "format": "ONA",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "genre": "Comedy",
+      "tags": [
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx179344-GQzJfehpQI72.png",
+      "description": "The fourth season of  Kanojo, Okarishimasu.\nKazuya’s ready to confess with the lush paradise of Hawaii as a backdrop. But renting Chizuru for the dream trip turns into a war zone of love due to Ruka’s aggressive advances and Mami’s scheming. Despite the chaos, this is Kazuya’s moment to bare his heart. Will his words reach Chizuru? And if they do, what will she even say?\n\n(Source: Crunchyroll)\n\nNote: Kanojo, Okarishimasu 4th Season was streamed 4 days in advance of the TV broadcast on DMM TV, dAnimestore, and Crunchyroll beginning July 1, 2025. Regular broadcasting began on July 5, 2025.",
+      "rating": 6.0,
+      "sourceUrl": "https://anilist.co/anime/179344",
+      "source": "anilist",
+      "anilistId": "179344",
+      "jikanId": "59277"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-483-4183",
+    "classification": "Alias o título distinto",
+    "score": 0.4449,
+    "local": {
+      "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 2nd",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S04",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 2nd Season",
+      "alternativeTitle": "Reborn as a Vending Machine, I Now Wander the Dungeon Season 2",
+      "alternativeTitles": [
+        "自動販売機に生まれ変わった俺は迷宮を彷徨う 2nd Season"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "genre": "Adventure",
+      "tags": [
+        "Comedy",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169440-MhlOxaIyASRu.jpg",
+      "description": "The second season of Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou.",
+      "rating": 6.4,
+      "sourceUrl": "https://anilist.co/anime/169440",
+      "source": "anilist",
+      "anilistId": "169440",
+      "jikanId": "56700"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "El Excel indica S04, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-488-4188",
+    "classification": "Alias o título distinto",
+    "score": 0.2742,
+    "local": {
+      "title": "Dandadan 2nd",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S04",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Dandadan 2nd Season",
+      "alternativeTitle": "DAN DA DAN Season 2",
+      "alternativeTitles": [
+        "ダンダダン 第2期"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "genre": "Action",
+      "tags": [
+        "Comedy",
+        "Drama",
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185660-uB8RUMBGovGr.jpg",
+      "description": "While the mission to exorcise Jin \"Jiji\" Enjouji's family home is underway, things are not going as expected. Momo Ayase narrowly evades an attempted abduction while Ken \"Okarun\" Takakura and Jiji are ambushed by the Kitou family—the unsettling landlords of the cursed estate. The trio's efforts threaten the foundation of this enigmatic town shrouded in legends and mysteries.\n\nAs Momo, Okarun, and Jiji are drawn deeper into the maze of folklore and supernatural entities, they must each utilize their unique powers if they want to survive and unravel the secrets of the uncanny town.\n\n(Source: MAL Rewrite)\n\nNote: Worldwide premiere of Episodes 1-3 titled as DAN DA DAN: EVIL EYE before the Japanese premiere was pre-screened in advance in theaters on June 6, 2025 in North America by GKIDS Films and June 7 and 8 in Europe by Piece of Magic Entertainment and Animation Digital Network.",
+      "rating": 8.3,
+      "sourceUrl": "https://anilist.co/anime/185660",
+      "source": "anilist",
+      "anilistId": "185660",
+      "jikanId": "60543"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "El Excel indica S04, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-496-4196",
+    "classification": "Alias o título distinto",
+    "score": 0.3011,
+    "local": {
+      "title": "Yofukashi no Uta  2nd",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Yofukashi no Uta 2nd Season",
+      "alternativeTitle": "Yofukashi no Uta 2nd Season",
+      "alternativeTitles": [
+        "Call of the Night Season 2",
+        "Yofukashi no Uta 2nd Season",
+        "よふかしのうた 第2期"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/48611/poster_image/6c565ad3b85aae20d978e48e053ad5a6.jpg",
+      "description": "The second season of Yofukashi no Uta.\n\nKo overcomes his confusion about becoming a vampire and decides to \"like\" Nazuna, while Nazuna resolves to make Ko \"fall in love\" with her. Without understanding what \"love\" even is, the two of them spend their nights together in a frenzy. Meanwhile, Detective Uguisu Anko is closing in on her plot to kill vampires, not just Nazuna. A vampire's weakness is \"anything they were attached to when they were human\" and so they all try to get rid of this weakness before it's too late. But, Nazuna has no memory of her human life. What is Nazuna's hidden past? Why did Anko start killing vampires? And what is the \"secret\" that Nazuna and Anko share? For Ko, Nazuna, and Anko, a fun \"late night\" doesn't end here... a new \"night\" begins!\n\n(Source: HIDIVE, edited)",
+      "rating": 8.3,
+      "sourceUrl": "https://kitsu.app/anime/Yofukashi-no-Uta-2nd-Season",
+      "source": "kitsu",
+      "kitsuId": "48611"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-497-4197",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Kizetsu Yuusha to Ansatsu Hime",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Kizetsu Yuusha to Ansatsu Hime",
+      "alternativeTitle": "The Shy Hero and the Assassin Princesses",
+      "alternativeTitles": [
+        "気絶勇者と暗殺姫"
+      ],
+      "format": "ONA",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "genre": "Action",
+      "tags": [
+        "Comedy",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx186561-9qIZCSTYkAfw.jpg",
+      "description": "Hero Toto possesses great skills, but his extreme shyness has left him unable to form a party, causing him to remain stuck in the town where his journey began.\n\nOne day, he is suddenly invited to join a party by three beautiful women—Ciel, Anemone, and Gore. Overjoyed at finally setting off on an adventure, Toto is filled with excitement... but little does he know, these women are dead set on killing him!\n\nA deathly harem romcom unfolds as the socially anxious hero, who faints from mere flustered excitement around women, finds himself the target of three deadly companions, each with their own reasons for wanting him gone!\n\nNote: Each episode streamed 1 week early on ABEMA. The original TV broadcast started on July 12th 2025.",
+      "rating": 6.4,
+      "sourceUrl": "https://anilist.co/anime/186561",
+      "source": "anilist",
+      "anilistId": "186561",
+      "jikanId": "60951"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-498-4198",
+    "classification": "Revisión recomendada",
+    "score": 0.7335,
+    "local": {
+      "title": "Yuusha Party wo Tsuihou sareta Shiromadoushi",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Yuusha Party wo Tsuihou Sareta Shiro Madoushi, S Rank Boukensha ni Hirowareru: Kono Shiro Madoushi ga Kikakugaisugiru",
+      "alternativeTitle": "Yuusha Party wo Tsuihou Sareta Shiro Madoushi, S Rank Boukensha ni Hirowareru: Kono Shiro Madoushi ga Kikakugaisugiru",
+      "alternativeTitles": [
+        "Scooped Up by an S-Rank Adventurer!",
+        "Yuusha Party wo Tsuihou Sareta Shiro Madoushi, S Rank Boukensha ni Hirowareru: Kono Shiro Madoushi ga Kikakugaisugiru",
+        "勇者パーティーを追放された白魔導師、Sランク冒険者に拾われる ～この白魔導師が規格外すぎる～"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/49896/poster_image/d5773522310139993386e79143985894.jpg",
+      "description": "Lloyd is a white mage who was unexpectedly banished from a hero’s party. Lost and uncertain, he crosses paths with an S-rank adventurer party in need of a white mage and joins them. Little did anyone know, the hero’s party would fall apart and Lloyd would rise to fame. This is a story about an unmatched support magic user who believes himself to be ordinary, becoming an unstoppable adventurer.\n\n(Source: Crunchyroll, edited)",
+      "rating": 6.4,
+      "sourceUrl": "https://kitsu.app/anime/yuusha-party-wo-tsuihou-sareta-shiro-madoushi-s-rank-boukensha-ni-hirowareru-kono-shiro-madoushi-ga-kikakugaisugiru",
+      "source": "kitsu",
+      "kitsuId": "49896"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-506-4207",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Nyaight of the Living Cat",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 12
+    },
+    "candidate": {
+      "title": "Nyaight of the Living Cat",
+      "alternativeTitle": "Nyaight of the Living Cat",
+      "alternativeTitles": [
+        "ニャイト・オブ・ザ・リビングキャット"
+      ],
+      "format": "ONA",
+      "emissionYear": 2025,
+      "emissionSeason": "Summer",
+      "genre": "Action",
+      "tags": [
+        "Comedy",
+        "Horror"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx175124-eDYbn0W5F4to.jpg",
+      "description": "In the near future, a unique disease has swept across the planet: a virus that transforms humans into cats! And the horde is expanding, since if these adorable kitties snuggle with a human, the human is transformed into yet another cat. A small group of cat-loving survivors is trying to escape the madness, but how can you defend yourself against a threat you just want to cuddle and pet?! This wild new take on a post-apocalyptic survival tale will make you roll over and purr with delight!\n\n(Source: Seven Seas Entertainment)",
+      "rating": 6.1,
+      "sourceUrl": "https://anilist.co/anime/175124",
+      "source": "anilist",
+      "anilistId": "175124",
+      "jikanId": "58197"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-528-4232",
+    "classification": "Revisión recomendada",
+    "score": 0.7733,
+    "local": {
+      "title": "Kakuriyo no Yadomeshi Ni",
+      "emissionYear": 2025,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Kakuriyo no Yadomeshi",
+      "alternativeTitle": "Kakuriyo no Yadomeshi",
+      "alternativeTitles": [
+        "Kakuriyo: Bed & Breakfast for Spirits",
+        "Kakuriyo no Yadomeshi",
+        "かくりよの宿飯"
+      ],
+      "format": "TV",
+      "emissionYear": 2018,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/poster_images/40580/original.jpg",
+      "description": "After losing her grandfather, Aoi—a girl who can see spirits known as ayakashi—is suddenly approached by an ogre. Demanding she pay her grandfather’s debt, he makes a huge request: her hand in marriage! Refusing this absurd offer, Aoi decides to work at the Tenjin-ya bed and breakfast for the ayakashi to pay back what her family owes.\n\n(Source: Crunchyroll)",
+      "rating": 7.6,
+      "sourceUrl": "https://kitsu.app/anime/kakuriyo-no-yadomeshi",
+      "source": "kitsu",
+      "kitsuId": "40580"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2025 / API 2018."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-535-4239",
+    "classification": "Alias o título distinto",
+    "score": 0.3387,
+    "local": {
+      "title": "Saigo ni Hitotsu dake Onegai shitemo Yoroshii deshou ka",
+      "emissionYear": 2025,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Inferior",
+      "alternativeTitle": "Inferior",
+      "alternativeTitles": [
+        "Inferior",
+        "インフェリア"
+      ],
+      "format": "music",
+      "emissionYear": 2025,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50405/poster_image/6cde2076508976bdd4bc5fe987d89d7c.jpg",
+      "description": "Music video for the song Inferior by Shiyui. The song was used as the ending theme of the anime Saigo ni Hitotsu dake Onegai shitemo Yoroshii deshou ka.",
+      "rating": "",
+      "sourceUrl": "https://kitsu.app/anime/inferior",
+      "source": "kitsu",
+      "kitsuId": "50405"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-540-4244",
+    "classification": "Revisión recomendada",
+    "score": 0.7182,
+    "local": {
+      "title": "Mikata ga Yowasugite Hojo Mahou",
+      "emissionYear": 2025,
+      "emissionSeason": "Fall",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Mikata ga Yowasugite Hojo Mahou ni Tesshiteita Kyuutei Mahoushi, Tsuihou Sarete Saikyou wo Mezasu",
+      "alternativeTitle": "The Banished Court Magician Aims to Become the Strongest",
+      "alternativeTitles": [
+        "味方が弱すぎて補助魔法に徹していた宮廷魔法師、追放されて最強を目指す"
+      ],
+      "format": "TV",
+      "emissionYear": 2025,
+      "emissionSeason": "Fall",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx188487-kkeu3cMpHtup.jpg",
+      "description": "\"This party does not need a useless magician who can only use support magic. You are fired, Alec Huguette.\"\n\nOne day, Alec, a court magician who had been chaperoning the Crown Prince's dungeon-crawling party, was suddenly fired and banished from the court by the prince. The only one who reached out to him is Yoruha, his former party member from their Academy of Magic days, that had split up four years ago. \n\n\"Hey Alec— would you like to come explore dungeons with us again?\"\n\nThus the legendary \"Lasting Period\" party was revived, and the name will soon became known all over the world once again.\n\n(Source: Lanove Bunko, translated)",
+      "rating": 6.3,
+      "sourceUrl": "https://anilist.co/anime/188487",
+      "source": "anilist",
+      "anilistId": "188487",
+      "jikanId": "61276"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-575-4279",
+    "classification": "Estreno futuro o sin publicar",
+    "score": 0.6,
+    "local": {
+      "title": "Yuusha Party wo Oidasareta Kiyoubinbou",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Jack-of-All-Trades, Party of None",
+      "alternativeTitle": "Yuusha Party wo Oidasareta Kiyou Binbou",
+      "alternativeTitles": [
+        "Jack-of-All-Trades, Party of None",
+        "Yuusha Party wo Oidasareta Kiyou Binbou",
+        "勇者パーティを追い出された器用貧乏"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50423/poster_image/cc16e8f355a47d16086e630ac1470885.jpg",
+      "description": "Betrayed by his childhood friend and cast out of the Hero Party, Orhun Dura—once their loyal Enchanter—is branded by his former comrades as “a jack-of-all-trades but a master of none.” Alone, he sets out to forge a new path as a solo adventurer. His journey sparks explosive battles, deadly rivals, and unexpected allies—and he’ll rise to shatter every expectation. The ultimate solo comeback begins!\n\n(Source: Crunchyroll)",
+      "rating": 6.9,
+      "sourceUrl": "https://kitsu.app/anime/jack-of-all-trades-party-of-none",
+      "source": "kitsu",
+      "kitsuId": "50423"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-576-4280",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Tamon-kun Ima Docchi!",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Tamon-kun Ima Docchi!?",
+      "alternativeTitle": "Tamon's B-Side",
+      "alternativeTitles": [
+        "多聞くん今どっち！？"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "genre": "Comedy",
+      "tags": [
+        "Music",
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178005-pCEReATswrup.jpg",
+      "description": "Utage Kinoshita is a high school girl who works part-time as a housekeeper. She has devoted her life to her favorite idol, Tamon Fukuhara, from the group F/ACE. Then one day, Utage ends up being assigned to Tamon’s house! There she discovers that off-stage, he is nothing like his wild idol persona. A gloomy, introverted boy with no self-confidence, Utage still finds herself falling for him anyway.\n\n(Source: Crunchyroll)",
+      "rating": 7.8,
+      "sourceUrl": "https://anilist.co/anime/178005",
+      "source": "anilist",
+      "anilistId": "178005",
+      "jikanId": "59047"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-578-4283",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Hanazakari no Kimitachi e",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Hanazakari no Kimitachi e",
+      "alternativeTitle": "Hana-Kimi",
+      "alternativeTitles": [
+        "花ざかりの君たちへ"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "genre": "Comedy",
+      "tags": [
+        "Drama",
+        "Romance",
+        "Slice of Life"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx177580-ujQw6Ws3oVCi.jpg",
+      "description": "Mizuki Ashiya is on a mission: disguise herself as a boy and enroll in a male boarding school to meet her idol, high jump star Izumi Sano. But after successfully infiltrating the school, she discovers he’s suddenly quit the sport! Now Mizuki must dodge suspicion, protect her cover, and somehow reach the boy she came all this way for—all while surviving the chaos of an all-boys dorm!\n\n(Source: Crunchyroll)",
+      "rating": 6.9,
+      "sourceUrl": "https://anilist.co/anime/177580",
+      "source": "anilist",
+      "anilistId": "177580",
+      "jikanId": "58861"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-584-4289",
+    "classification": "Estreno futuro o sin publicar",
+    "score": 0.4263,
+    "local": {
+      "title": "Vigilante Boku no Hero Academia Illegals 2nd",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S05",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Vigilante: Boku no Hero Academia ILLEGALS 2nd Season",
+      "alternativeTitle": "My Hero Academia: Vigilantes Season 2",
+      "alternativeTitles": [
+        "ヴィジランテ -僕のヒーローアカデミア ILLEGALS- 第2期"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Drama",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx195322-hqBf19mBtM5K.jpg",
+      "description": "The second season of Vigilante: Boku no Hero Academia ILLEGALS.",
+      "rating": 7.4,
+      "sourceUrl": "https://anilist.co/anime/195322",
+      "source": "anilist",
+      "anilistId": "195322",
+      "jikanId": "61942"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "El Excel indica S05, pero el candidato no identifica esa temporada."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-594-4299",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+      "alternativeTitle": "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+      "alternativeTitles": [
+        "Easygoing Territory Defense by the Optimistic Lord",
+        "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+        "お気楽領主の楽しい領地防衛"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50432/poster_image/fe78e0102077193ca8650bfb17033734.jpg",
+      "description": "Van, fourth son of a marquis, is just a toddler when he realizes he’s been reincarnated. Thanks to his literal lifetime of knowledge, he’s raised as a child prodigy—until his production magic manifests, and it’s the last thing his snooty mage family wants to see! His disappointed father banishes him to a podunk town on the verge of collapse, yet Van can only see the place’s potential. Can our hero’s bastion of battlements build a better life than battle magic ever could?!\n\n(Source: Crunchyroll)",
+      "rating": 7.3,
+      "sourceUrl": "https://kitsu.app/anime/okiraku-ryoushu-no-tanoshii-ryouchi-bouei",
+      "source": "kitsu",
+      "kitsuId": "50432"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-600-4305",
+    "classification": "Estreno futuro o sin publicar",
+    "score": 0.5543,
+    "local": {
+      "title": "Omagoto",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Noragami Aragoto",
+      "alternativeTitle": "Noragami Aragoto",
+      "alternativeTitles": [
+        "Noragami Aragoto",
+        "Noragami Aragoto",
+        "Noragami Aragoto",
+        "ノラガミ ARAGOTO"
+      ],
+      "format": "TV",
+      "emissionYear": 2015,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/poster_images/10800/original.jpg",
+      "description": "Yato and Yukine have finally mended their relationship as god and Regalia, and everyone has returned to their daily life. Yato remains a minor and unknown deity who continues taking odd jobs for five yen apiece in the hopes of one day having millions of worshippers and his own grand shrine. Hiyori Iki has yet to have her loose soul fixed by Yato, but she enjoys life and prepares to attend high school nonetheless.\nTaking place immediately after the first season, Noragami Aragoto delves into the complicated past between Yato and the god of war Bishamon. The female god holds a mysterious grudge against Yato, which often results in violent clashes between them. It doesn't help that Bishamon's most trusted and beloved Regalia, Kazuma, appears to be indebted to Yato. When lives are on the line, unraveling these mysteries and others may be the only way to correct past mistakes.\n[Written by MAL Rewrite]",
+      "rating": 8.2,
+      "sourceUrl": "https://kitsu.app/anime/noragami-aragoto",
+      "source": "kitsu",
+      "kitsuId": "10800"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Año distinto: local 2026 / API 2015."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-602-4307",
+    "classification": "Conflicto probable",
+    "score": 0.15,
+    "local": {
+      "title": "Jujutsu Kaisen Shimetsu Kaiyuu - Zenpen",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Jujutsu Kaisen: Shimetsu Kaiyuu - Zenpen",
+      "alternativeTitle": "JUJUTSU KAISEN Season 3: The Culling Game Part 1",
+      "alternativeTitles": [
+        "呪術廻戦 死滅回游 前編"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "genre": "Action",
+      "tags": [
+        "Drama",
+        "Supernatural"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx172463-LnXqHzt74SJL.jpg",
+      "description": "The third season of Jujutsu Kaisen.\nAfter the Shibuya Incident, a deadly jujutsu battle known as the Culling Game orchestrated by Noritoshi Kamo erupts across ten colonies in Japan.\nHaunted by guilt over the mass killings in Shibuya and wary of Sukuna’s interest in Fushiguro, Itadori chooses not to return to Jujutsu High. Instead, he teams up with Choso to exorcise the countless cursed spirits unleashed by Noritoshi Kamo.\nAmid this chaos, the Jujutsu Headquarters revokes Yuji Itadori’s suspended death sentence and appoints special-grade sorcerer Yuta Okkotsu as his executioner. \nNewly awakened modern sorcerers and resurrected ancient ones,  now fighting as players in the Culling Game, collide with conflicting motives, driving the world once more toward an age ruled by jujutsu.\n(Source: TOHO Animation)",
+      "rating": 8.6,
+      "sourceUrl": "https://anilist.co/anime/172463",
+      "source": "anilist",
+      "anilistId": "172463",
+      "jikanId": "57658"
+    },
+    "conflicts": [
+      "La coincidencia es cercana, pero no alcanzó el umbral conservador de 0.80."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-605-4310",
+    "classification": "Estreno futuro o sin publicar",
+    "score": 0.6154,
+    "local": {
+      "title": "Hell Mode Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru",
+      "emissionYear": 2026,
+      "emissionSeason": "Winter",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+      "alternativeTitle": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+      "alternativeTitles": [
+        "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+        "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+        "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50444/poster_image/3ab5798f9ee19f473212240ccd67f03f.jpg",
+      "description": "Thirty-five-year-old Kenichi Yamada has spent his life playing every single MMORPG he can get his hands on. Tired of new games that cater to casual players, he leaps at the chance to try out a never-ending game with an intimidating “Hell Mode” that raises the difficulty (and chances to level up) to impossible heights. But, as soon as he selects the “Summoner,” Kenichi finds himself transported into the world of the game and reborn to a family of serfs as a baby named Allen! With nothing but his memories and wits to guide him, Allen sets off to conquer Hell Mode, unearth the secrets of the Summoner class, and free his newfound family from their fate.\n\n(Source: HIDIVE)",
+      "rating": 7.5,
+      "sourceUrl": "https://kitsu.app/anime/hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing",
+      "source": "kitsu",
+      "kitsuId": "50444"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-624-4330",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Maid-san wa Taberu dake",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Maid-san wa Taberu dake",
+      "alternativeTitle": "The Food Diary of Miss Maid",
+      "alternativeTitles": [
+        "メイドさんは食べるだけ"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "genre": "Slice of Life",
+      "tags": [],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx197868-sm5jcjPKWhNL.png",
+      "description": "What’s a maid to do when she finds herself suddenly stuck in Japan for a year? Eat, of course! Follow maid-in-training Suzume Tachibana as she tries all sorts of Japanese food, from sweets like taiyaki and melon bread to savory snacks like takoyaki and onigiri! Be warned, though-while Suzume sates her appetite through delicious treat after delicious treat, she might just end up whetting yours!\n\n(Source: Crunchyroll)\n\nNote: Maid-san wa Taberu dake was streamed a week in advance on dAnimestore, ABEMA, and U-Next starting with episode 2. Episode 1 was streamed on April 1, 2026. Regular broadcasting began on April 5, 2026.",
+      "rating": 6.7,
+      "sourceUrl": "https://anilist.co/anime/197868",
+      "source": "anilist",
+      "anilistId": "197868",
+      "jikanId": "62342"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-625-4331",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Saikyou no Shokugyou wa Yuusha demo Kenja demo Naku Kanteishi (Kari) Rashii desu yo",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Saikyou no Shokugyou wa Yuusha demo Kenja demo Naku Kanteishi (Kari) Rashii desu yo?",
+      "alternativeTitle": "The strongest job is apparently not a hero or a sage, but an appraiser (provisional)!",
+      "alternativeTitles": [
+        "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Comedy",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx200769-8WkFkoFxc2fw.jpg",
+      "description": "Hibiki, a high school student who was suddenly transferred to another world, wanders alone in a vast grassland of a fantasy world where monsters inhabit. All he has are non-combat skills such as \"Appraisal\"! From a hopeless situation, he is saved by encounters, and his all-powerful abilities blossom! An another world adventure tale of miraculous reversal cheats burst forth!\n\n(Source: Alpha Manga)\n\nNote: Saikyou no Shokugyou wa Yuusha demo Kenja demo Naku Kanteishi (Kari) Rashii desu yo? was streamed a week in advance of the TV broadcast on dAnimestore, and ABEMA starting with episode 2. The first episode was released on April 1, 2026. Regular broadcasting began on April 4, 2026.",
+      "rating": 5.7,
+      "sourceUrl": "https://anilist.co/anime/200769",
+      "source": "anilist",
+      "anilistId": "200769",
+      "jikanId": "62825"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-630-4336",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Ganbare! Nakamura-kun!!",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Ganbare! Nakamura-kun!!",
+      "alternativeTitle": "Go For It, Nakamura-kun!!",
+      "alternativeTitles": [
+        "ガンバレ！中村くん！！"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "genre": "Comedy",
+      "tags": [
+        "Romance",
+        "Slice of Life"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx180228-MuZ7adbGiYVj.jpg",
+      "description": "Love at first sight is no myth—just ask Okuto Nakamura. Whenever his dreamy classmate Aiki Hirose enters the room, his heart skips a beat, despite the fact that they’ve never actually spoken. Not to mention, Nakamura is a complete klutz with zero friends. Will he ruin his chance at love before it even begins?\n\n(Source: Crunchyroll)\n\nNote: The series streamed a week in advance on Hulu Japan starting with episode 2 released alongside episode 1.",
+      "rating": 8.1,
+      "sourceUrl": "https://anilist.co/anime/180228",
+      "source": "anilist",
+      "anilistId": "180228",
+      "jikanId": "59551"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-649-4355",
+    "classification": "Revisión recomendada",
+    "score": 0.7255,
+    "local": {
+      "title": "Mao (2026)",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "MAO",
+      "alternativeTitle": "MAO",
+      "alternativeTitles": [
+        "Mao",
+        "MAO",
+        "マオ"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50035/poster_image/f1e9992571f2d69be763e2720cd8762b.jpg",
+      "description": "Nanoka passes through a portal into the Taisho era, where exorcist Mao reluctantly rescues her from the jaws of a grotesque yokai. When Nanoka gets back to the present, she discovers she has some new, incredible abilities. She returns to the past looking for answers, only to get caught up in Mao’s investigation of a series of gruesome murders. As her questions about herself multiply, Nanoka learns that Mao is cursed by a cat demon named Byoki—and so is his sword. If anyone but Mao attempts to wield it, they are doomed. But when Mao’s life is in jeopardy, Nanoka picks up his blade and swings!\n\n(Source: VIZ Media)",
+      "rating": "",
+      "sourceUrl": "https://kitsu.app/anime/mao-2026",
+      "source": "kitsu",
+      "kitsuId": "50035"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-651-4357",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Nippon Sangoku",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "format": "Serie",
+      "activeSeason": "S01",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Nippon Sangoku",
+      "alternativeTitle": "NIPPON SANGOKU: The Three Nations of the Crimson Sun",
+      "alternativeTitles": [
+        "日本三國"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "Spring",
+      "genre": "Action",
+      "tags": [
+        "Drama",
+        "Sci-Fi"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx206914-SHKX08LarRzB.jpg",
+      "description": "A revolution sparked by nuclear war, natural disaster, and misrule leads to the collapse of Japanese society. The country splits into three nations vying for hegemony, and the Sangoku era begins. Aoteru Misumi, a former agricultural officer, vows to reunify Japan. He rises through the ranks with only his knowledge and eloquence. Witness the legend of the man later hailed as a genius strategist.\n\n(Source: Amazon Prime Video)",
+      "rating": 8.4,
+      "sourceUrl": "https://anilist.co/anime/206914",
+      "source": "anilist",
+      "anilistId": "206914",
+      "jikanId": "63375"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-683-4388",
+    "classification": "Estreno futuro o sin publicar",
+    "score": 0.6,
+    "local": {
+      "title": "Heroine Seijo Iie, All Works Maid desu (Hokori)!",
+      "emissionYear": 2026,
+      "emissionSeason": "Summer",
+      "format": "OVA",
+      "activeSeason": "S01",
+      "chapters": 1
+    },
+    "candidate": {
+      "title": "Heroine? Seijo? Iie, All Works Maid desu (Ko)!",
+      "alternativeTitle": "Heroine? Seijo? Iie, All Works Maid desu (Ko)!",
+      "alternativeTitles": [
+        "Heroine? Seijo? Iie, All Works Maid desu (Ko)!",
+        "ヒロイン？聖女？いいえ、オールワークスメイドです（誇）！"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/49913/poster_image/276bbd58a55fb68fe3933147836d6910.jpg",
+      "description": "“I will become the world’s most wonderful maid!”\n\nWith her skirt fluttering in black and white, the girl shouted. Her name is Melody. A reincarnated former Japanese girl, she now pursues her dream in her new life, working as an all-purpose maid for a poor count’s family in the kingdom of Théolas. When she makes it, even cheap tea turns into a luxury brew, and a dilapidated mansion is quickly restored to new! Cleaning, serving, hunting, DIY—leave it all to her and her powerful magic. Unbeknownst to Melody, this world is actually an otome game, and she is the most powerful and invincible heroine, the saint! Yet, she remains oblivious to this fact. Romance with handsome men? Attacks by the Demon Lord? Work comes first! A fantasy of misunderstood work that unknowingly shatters destiny!\n\n(Source: Seven Seas Entertainment)",
+      "rating": "",
+      "sourceUrl": "https://kitsu.app/anime/heroine-seijo-iie-all-works-maid-desu-ko",
+      "source": "kitsu",
+      "kitsuId": "49913"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API.",
+      "Formato distinto: local OVA / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-684-4389",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Rakudai Kenja no Gakuin Musou Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Rakudai Kenja no Gakuin Musou: Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+      "alternativeTitle": "Rakudai Kenja no Gakuin Musou: Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+      "alternativeTitles": [
+        "From Overshadowed to Overpowered: Second Reincarnation of a Talentless Sage",
+        "Rakudai Kenja no Gakuin Musou: Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+        "落第賢者の学院無双～二度目の転生、Sランクチート魔術師冒険録～"
+      ],
+      "format": "ONA",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50793/poster_image/585ce0b43dcc91c0dcf650f895abd51a.jpg",
+      "description": "Ephtal is reincarnated as a human, coming from modern Earth. In this new world where magic is real, he decides to devote the entirety of his life in the pursuit of magic. Despite his efforts, though, he discovers that he is absolutely talentless in magic, and breathed his last in anguish....But it isn't the end for him just yet! He reincarnates once again bearing the same name, Ephtal, 400 years later. Having retained his knowledge and power, he steals his resolve and once again sets his sights for the peak of magic!\n\n(Source: Comikey)\n\nNote: Rakudai Kenja no Gakuin Musou: Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku is streaming a week in advance of the TV broadcast on dAnimeStore, ABEMA, U-NEXT, and Anime Hodai beginning June 26th, 2026. Regular broadcasting begins on July 2nd, 2026.",
+      "rating": 6.9,
+      "sourceUrl": "https://kitsu.app/anime/rakudai-kenja-no-gakuin-musou-nidome-no-tensei-s-rank-cheat-majutsushi-boukenroku",
+      "source": "kitsu",
+      "kitsuId": "50793"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-688-4393",
+    "classification": "Conflicto probable",
+    "score": 0.71,
+    "local": {
+      "title": "Lv999 no Murabito",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "LV999 no Murabito",
+      "alternativeTitle": "LV999 no Murabito",
+      "alternativeTitles": [
+        "The Villager of Level 999",
+        "LV999 no Murabito",
+        "LV999の村人"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50109/poster_image/d5fdf7e2b3e971cda58477af2c2184b4.jpg",
+      "description": "Monsters did not always exist in the island country of Hexaldoria, once known as Japan. But, once monsters appeared, their numbers grew in an instant. Eighty percent of the world is now too dangerous for people to live in. With the monsters' arrival, the world bestowed \"Classes\" upon its people.\n\nClasses are assigned at birth, and most people live according to them. There are eight COMPETENT classes: FIGHTER, HUNTER, CLERIC, WARRIOR, MAGE, MERCHANT, THEIF. And three special ORACLE classes: KING, SAGE, HERO.\n\nThe weakest Class of all is VILLAGER.\n\nHowever, Kouji Kagami became \"LEVEL 999\"--the highest level that no one had reached before.\n\nWhen he met the daughter of the Demon King, the world started to change!\n\n(Source: BookWalker)",
+      "rating": 7.1,
+      "sourceUrl": "https://kitsu.app/anime/lv999-no-murabito",
+      "source": "kitsu",
+      "kitsuId": "50109"
+    },
+    "conflicts": [
+      "La coincidencia es cercana, pero no alcanzó el umbral conservador de 0.80."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-692-4397",
+    "classification": "Conflicto probable",
+    "score": 0.71,
+    "local": {
+      "title": "Ryoumin 0-nin Start no Henkyou Ryoushu-sama",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Ryoumin 0-Nin Start no Henkyou Ryoushu-sama",
+      "alternativeTitle": "Ryoumin 0-Nin Start no Henkyou Ryoushu-sama",
+      "alternativeTitles": [
+        "Ryoumin 0-Nin Start no Henkyou Ryoushu-sama",
+        "領民0人スタートの辺境領主様"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50049/poster_image/af5f7feadc83d52faabca75038ebca2d.jpg",
+      "description": "Dias finally returns home after decades of war. He's hailed as a hero and promptly rewarded with his own domain...which turns out to be little more than empty plains. Population: zero. Dias, who has only ever known battle, finds himself at a loss. How is he supposed to survive, let alone cultivate his territory into a thriving, prosperous dominion when there's nothing but grass as far as can see?\n\nFortunately for Dias, a horned girl by the name of Alna is about to show him there's more to the plains than meets the eye!\n\n(Source: J-Novel Club)\n\nNote: Ryoumin 0-Nin Start no Henkyou Ryoushu-sama is streaming a week advance of the TV broadcast on Prime Video beginning July 3rd, 2026. Regular broadcasting begins on July 10th, 2026.",
+      "rating": 7.4,
+      "sourceUrl": "https://kitsu.app/anime/ryoumin-0-nin-start-no-henkyou-ryoushu-sama",
+      "source": "kitsu",
+      "kitsuId": "50049"
+    },
+    "conflicts": [
+      "La coincidencia es cercana, pero no alcanzó el umbral conservador de 0.80."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-696-4401",
+    "classification": "Alias o título distinto",
+    "score": 0.4971,
+    "local": {
+      "title": "Hell Mode: Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru 2nd",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+      "alternativeTitle": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+      "alternativeTitles": [
+        "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+        "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+        "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50444/poster_image/3ab5798f9ee19f473212240ccd67f03f.jpg",
+      "description": "Thirty-five-year-old Kenichi Yamada has spent his life playing every single MMORPG he can get his hands on. Tired of new games that cater to casual players, he leaps at the chance to try out a never-ending game with an intimidating “Hell Mode” that raises the difficulty (and chances to level up) to impossible heights. But, as soon as he selects the “Summoner,” Kenichi finds himself transported into the world of the game and reborn to a family of serfs as a baby named Allen! With nothing but his memories and wits to guide him, Allen sets off to conquer Hell Mode, unearth the secrets of the Summoner class, and free his newfound family from their fate.\n\n(Source: HIDIVE)",
+      "rating": 7.5,
+      "sourceUrl": "https://kitsu.app/anime/hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing",
+      "source": "kitsu",
+      "kitsuId": "50444"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-717-4422",
+    "classification": "Conflicto probable",
+    "score": 0.33,
+    "local": {
+      "title": "Mushoku Tensei III: Isekai Ittara Honki Dasu",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Mushoku Tensei III: Isekai Ittara Honki Dasu",
+      "alternativeTitle": "Mushoku Tensei: Jobless Reincarnation Season 3",
+      "alternativeTitles": [
+        "無職転生Ⅲ ～異世界行ったら本気だす～"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "Summer",
+      "genre": "Adventure",
+      "tags": [
+        "Drama",
+        "Ecchi",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx178789-hNXjKFzUq7mk.jpg",
+      "description": "The third season of Mushoku Tensei: Isekai Ittara Honki Dasu.",
+      "rating": 8.4,
+      "sourceUrl": "https://anilist.co/anime/178789",
+      "source": "anilist",
+      "anilistId": "178789",
+      "jikanId": "59193"
+    },
+    "conflicts": [
+      "La coincidencia es cercana, pero no alcanzó el umbral conservador de 0.80."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-720-1001",
+    "classification": "Conflicto probable",
+    "score": 0.6,
+    "local": {
+      "title": "Bai Ri Cheng Wang",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Bai Ri Cheng Wang",
+      "alternativeTitle": "Crowned in a Hundred Days",
+      "alternativeTitles": [
+        "百日成王"
+      ],
+      "format": "ONA",
+      "emissionYear": 0,
+      "emissionSeason": "",
+      "genre": "Action",
+      "tags": [
+        "Adventure",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx213484-FIyYH43ASHgB.png",
+      "description": "Driven to the brink of despair, restaurant owner Ming forms an unlikely bond with the soul of the true King Lie after swallowing it to save his loved one. Bound together by fate, the two embark on a perilous journey to challenge the tyrant who has usurped the throne.\nWith only one hundred days to change their destiny, Ming uses his extraordinary memory to master long-lost magic, gathering allies and winning the support of the people along the way. As their strength grows, so does their resolve to overthrow a corrupt regime, reclaim the rightful king's throne, and restore peace to the realm.\n(Source: Bilibili TV)",
+      "rating": 6.2,
+      "sourceUrl": "https://anilist.co/anime/213484",
+      "source": "anilist",
+      "anilistId": "213484",
+      "jikanId": "62957"
+    },
+    "conflicts": [
+      "Formato distinto: local Serie / API ONA."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-724-1005",
+    "classification": "Alias o título distinto",
+    "score": 0.2365,
+    "local": {
+      "title": "Koukaku Kidoutai (TV)",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Ghost in the Shell: Arise - Alternative Architecture",
+      "alternativeTitle": "Ghost in the Shell: Arise - Alternative Architecture",
+      "alternativeTitles": [
+        "Ghost in the Shell: Arise - Alternative Architecture",
+        "Ghost in the Shell: Arise - Alternative Architecture",
+        "Ghost in the Shell: Arise - Alternative Architecture",
+        "攻殻機動隊 ARISE ALTERNATIVE ARCHITECTURE"
+      ],
+      "format": "TV",
+      "emissionYear": 2015,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/poster_images/10229/original.jpg",
+      "description": "A TV anime version of Ghost in the Shell: Arise. The first eight episodes are an edited version of the four movies while the last two features a new arc called \"Pyrophoric Cult.\"\nThe plot involves the \"Fire Starter\" virus explored previously, and introduces the new character Pyromania. The episode will have ties to the upcoming film.\n(Source: Wikipedia)",
+      "rating": 7.2,
+      "sourceUrl": "https://kitsu.app/anime/ghost-in-the-shell-arise-tv",
+      "source": "kitsu",
+      "kitsuId": "10229"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-726-1007",
+    "classification": "Alias o título distinto",
+    "score": 0.435,
+    "local": {
+      "title": "Yoroi Shin Den Samurai Troopers P2",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Shinsekai yori",
+      "alternativeTitle": "Shinsekai yori",
+      "alternativeTitles": [
+        "From the New World",
+        "Shinsekai yori",
+        "From the New World",
+        "新世界より"
+      ],
+      "format": "TV",
+      "emissionYear": 2012,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/poster_images/6887/original.png",
+      "description": "Following a sudden outbreak of psychokinesis in 0.1% of the population, a rapid transformation swept the world. The godlike ability to manipulate matter remotely turned many power wielders to violence, inciting a long period of upheaval. Finally, after a chaotic era shaped by the rise and fall of oppressive regimes, the psychic humans were able to achieve a fragile peace by isolating their society, creating a new world bound by complex rules.\nIn the town of Kamisu 66, 12-year-old Saki Watanabe has just awakened to her powers and is relieved to rejoin her friends—the mischievous Satoru Asahina, the shy Mamoru Itou, the cheerful Maria Akizuki, and Shun Aonuma, a mysterious boy whom Saki admires—at Sage Academy, a special school for psychics. However, unease looms as Saki begins to question the fate of those unable to awaken to their powers, and the children begin to get involved with secretive matters such as the rumored Tainted Cats said to abduct children.Shinsekai yori tells the unique coming-of-age story of Saki and her friends as they journey to grow into their roles in the supposed utopia. Accepting these roles, however, might not come easy when faced with the dark and shocking truths of society, and the impending havoc born from the new world.\n[Written by MAL Rewrite]",
+      "rating": 8.2,
+      "sourceUrl": "https://kitsu.app/anime/shinsekai-yori",
+      "source": "kitsu",
+      "kitsuId": "6887"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-727-1008",
+    "classification": "Conflicto probable",
+    "score": 0.33,
+    "local": {
+      "title": "Clevatess II Majuu no Ou to Itsuwari no Yuusha Denshou",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Clevatess II: Majuu no Ou to Itsuwari no Yuusha Denshou",
+      "alternativeTitle": "Clevatess Season 2",
+      "alternativeTitles": [
+        "クレバテスⅡ-魔獣の王と偽りの勇者伝承-"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "Summer",
+      "genre": "Action",
+      "tags": [
+        "Drama",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx198946-IGXmbqBEYRYD.jpg",
+      "description": "The second season of Clevatess: Majuu no Ou to Akago to Kabane no Yuusha.",
+      "rating": 7.5,
+      "sourceUrl": "https://anilist.co/anime/198946",
+      "source": "anilist",
+      "anilistId": "198946",
+      "jikanId": "62513"
+    },
+    "conflicts": [
+      "La coincidencia es cercana, pero no alcanzó el umbral conservador de 0.80."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-728-1009",
+    "classification": "Alias o título distinto",
+    "score": 0.2749,
+    "local": {
+      "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd Season",
+      "alternativeTitle": "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd Season",
+      "alternativeTitles": [
+        "The 100 Girlfriends Who Really, Really, Really, Really, REALLY Love You Season 3",
+        "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo 3rd Season",
+        "君のことが大大大大大好きな100人の彼女 3期"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "",
+      "genre": "Anime",
+      "tags": [],
+      "image": "https://media.kitsu.app/anime/50272/poster_image/062147e4f3c886aac8ed1f0f2aca688c.jpg",
+      "description": "The third season of Kimi no Koto ga Dai Dai Dai Dai Daisuki na 100-nin no Kanojo.",
+      "rating": 8.1,
+      "sourceUrl": "https://kitsu.app/anime/kimi-no-koto-ga-daidaidaidaidaisuki-na-100-nin-no-kanojo-3rd-season",
+      "source": "kitsu",
+      "kitsuId": "50272"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-730-1012",
+    "classification": "Alias o título distinto",
+    "score": 0.6477,
+    "local": {
+      "title": "Otome Game Sekai wa Mob ni Kibishii Sekai desu 2",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Otomege Sekai wa Mob ni Kibishii Sekai desu 2",
+      "alternativeTitle": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs Season 2",
+      "alternativeTitles": [
+        "乙女ゲー世界はモブに厳しい世界です2"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "Summer",
+      "genre": "Action",
+      "tags": [
+        "Fantasy",
+        "Mecha",
+        "Romance"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx159309-wRfh9O1odrDJ.jpg",
+      "description": "The second season of Otomege Sekai wa Mob ni Kibishii Sekai desu.",
+      "rating": 6.8,
+      "sourceUrl": "https://anilist.co/anime/159309",
+      "source": "anilist",
+      "anilistId": "159309",
+      "jikanId": "54000"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  },
+  {
+    "id": "anime-excel-736-1018",
+    "classification": "Alias o título distinto",
+    "score": 0.6032,
+    "local": {
+      "title": "Saikyou Degarashi Ouji no Anyaku Teii Arasoi",
+      "emissionYear": null,
+      "emissionSeason": "",
+      "format": "Serie",
+      "activeSeason": "",
+      "chapters": 0
+    },
+    "candidate": {
+      "title": "Saikyou Degarashi Ouji no Anyaku Teii Arasoi: Munou wo Enjiru SS Rank Ouji wa Koui Keishou-sen wo Kage kara Shihai suru",
+      "alternativeTitle": "The Insipid Prince's Furtive Grab for the Throne",
+      "alternativeTitles": [
+        "最強出涸らし皇子の暗躍帝位争い 無能を演じるSSランク皇子は皇位継承戦を影から支配する"
+      ],
+      "format": "TV",
+      "emissionYear": 2026,
+      "emissionSeason": "Summer",
+      "genre": "Action",
+      "tags": [
+        "Comedy",
+        "Drama",
+        "Fantasy"
+      ],
+      "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169582-quL8VMg45fcu.png",
+      "description": "To the empire, Prince Arnold is one big joke, a completely inept prince outshone by his more talented twin, Leonard. But in secret, Arnold operates as Silver, one of only five magic-wielding SS-rank adventurers on the continent. As the bloody battle for the throne intensifies after the crown prince’s death, Arnold pulls the strings from the shadows to crown his twin emperor to his own advantage.\n\n(Source: Crunchyroll)",
+      "rating": 5.9,
+      "sourceUrl": "https://anilist.co/anime/169582",
+      "source": "anilist",
+      "anilistId": "169582",
+      "jikanId": "56736"
+    },
+    "conflicts": [
+      "El título local no coincide exactamente con los títulos o alias de la API."
+    ],
+    "providerErrors": []
+  }
+]

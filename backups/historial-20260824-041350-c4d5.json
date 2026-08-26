@@ -1,0 +1,17 @@
+[
+    {
+        "userId": "admin-final",
+        "contentId": "movie-00d7b21c62ee38a7",
+        "watched": true,
+        "minutes": 0,
+        "updatedAt": "2026-08-19T18:01:37+00:00"
+    },
+    {
+        "userId": "admin-final",
+        "contentId": "anime-excel-7-3544",
+        "watched": true,
+        "minutes": 0,
+        "updatedAt": "2026-08-24T04:09:29+02:00",
+        "watchedAt": "2026-08-24T04:09:29+02:00"
+    }
+]

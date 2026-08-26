@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altoidss | Noticias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/noticias.css?v=4">
+    <link rel="stylesheet" href="../css/site-shared.css?v=8">
+</head>
+<body class="layout-no-sidebar">
+    <header class="topbar navbar navbar-dark navbar-expand-xl">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html"><span class="brand-mark">AL</span>Altoidss</a>
+            <button class="navbar-toggler nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#site-navigation" aria-controls="site-navigation" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="top-nav collapse navbar-collapse" id="site-navigation" aria-label="Navegación del sitio">
+                <a href="index.html">Inicio</a>
+                <a href="catalogo.html">Catálogo</a>
+                <a href="catalogo.html?category=movies">Películas</a>
+                <a href="catalogo.html?category=series">Series</a>
+                <a href="catalogo.html?category=anime">Anime</a>
+                <a class="is-active" href="noticias.html">Noticias</a>
+                <a href="favoritos.html">Mi lista</a>
+                <a href="dashboard.html">Dashboard</a>
+            </nav>
+            <a class="search-icon" href="catalogo.html" aria-label="Buscar contenido" title="Buscar contenido">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </a>
+            <a class="login-icon" href="login.html" aria-label="Iniciar sesión" title="Iniciar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="app-shell">
+
+        <main class="content">
+            <section class="news-hero">
+                <img src="https://www.sonypictures.com/sites/default/files/email-backgrounds/spidermanbrandnewday_register_1400x380_v2_0.jpg" alt="Imagen promocional de Spider-Man: Brand New Day">
+                <div class="news-hero-shade"></div>
+                <div class="news-hero-content">
+                    <p class="eyebrow">Noticias destacadas</p>
+                    <h1>Actualidad de películas, series y anime</h1>
+                    <p>Sección preparada para publicar novedades, próximos estrenos, reseñas breves y comunicados del catálogo.</p>
+                    <a class="btn btn-primary" href="catalogo.html">Explorar catálogo</a>
+                </div>
+            </section>
+
+            <section class="headline-grid" id="featuredNewsGrid" aria-label="Noticias principales">
+                <article class="headline-card headline-large">
+                    <img src="https://dx35vtwkllhj9.cloudfront.net/universalstudios/the-odyssey/images/regions/ca/updates1/onesheet.jpg" alt="Imagen promocional de The Odyssey">
+                    <div class="headline-body">
+                        <span class="news-chip">Estrenos</span>
+                        <h2>The Odyssey mantiene alta expectativa entre los próximos lanzamientos</h2>
+                        <p>La página de noticias permite conectar los estrenos con el catálogo y las futuras publicaciones del administrador.</p>
+                    </div>
+                </article>
+                <article class="headline-card">
+                    <img src="https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" alt="Póster de Intensamente 2">
+                    <div class="headline-body">
+                        <span class="news-chip chip-soft">Animación</span>
+                        <h2>La animación sigue liderando la conversación familiar</h2>
+                    </div>
+                </article>
+                <article class="headline-card">
+                    <img src="https://image.tmdb.org/t/p/w500/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg" alt="Póster de Oppenheimer">
+                    <div class="headline-body">
+                        <span class="news-chip chip-dark">Cine</span>
+                        <h2>Los dramas biográficos mantienen fuerza en el catálogo</h2>
+                    </div>
+                </article>
+            </section>
+
+            <dialog class="news-detail-dialog" id="newsDetailDialog" aria-labelledby="newsDetailTitle">
+                <button class="news-detail-close" type="button" aria-label="Cerrar noticia" title="Cerrar noticia" data-close-news>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div id="newsDetailContent"></div>
+            </dialog>
+
+            <section class="news-section" aria-labelledby="latestNewsTitle">
+                <div class="content-section-head">
+                    <div>
+                        <p class="eyebrow">Altoidss News</p>
+                        <h2 id="latestNewsTitle">Últimas publicaciones</h2>
+                    </div>
+                    <a href="dashboard.html">Gestionar noticias</a>
+                </div>
+
+                <div class="news-list-grid" id="newsListGrid">
+                    <article class="news-list-card">
+                        <img src="https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg" alt="Póster de Dune: Parte Dos">
+                        <div>
+                            <span>Películas · 12 agosto, 2026</span>
+                            <h3>Dune: Parte Dos se mantiene entre los títulos más consultados</h3>
+                            <p>Ejemplo de nota breve para alimentar la sección de noticias desde el panel administrativo.</p>
+                        </div>
+                    </article>
+                    <article class="news-list-card">
+                        <img src="https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg" alt="Póster de Demon Slayer">
+                        <div>
+                            <span>Anime · 12 agosto, 2026</span>
+                            <h3>Demon Slayer destaca dentro de las búsquedas de anime</h3>
+                            <p>La publicación conecta las novedades de anime con el catálogo administrado mediante PHP y JSON.</p>
+                        </div>
+                    </article>
+                    <article class="news-list-card">
+                        <img src="https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg" alt="Póster de Stranger Things">
+                        <div>
+                            <span>Series · 11 agosto, 2026</span>
+                            <h3>Las series de misterio mantienen un espacio propio en Altoidss</h3>
+                            <p>El diseño conserva imágenes oficiales o relacionadas con el contenido presentado.</p>
+                        </div>
+                    </article>
+                    <article class="news-list-card">
+                        <img src="https://icecreammanmovie2026.com/_astro/ice-hero-desktop-poster_etj8vz_Z1BW4Fy.webp" alt="Imagen promocional de Ice Cream Man">
+                        <div>
+                            <span>Próximamente · 10 agosto, 2026</span>
+                            <h3>Nuevos estrenos se preparan para entrar al catálogo</h3>
+                            <p>La sección funciona como avance visual para el CRUD final de noticias.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <footer class="site-footer">
+                <div class="footer-grid">
+                    <section class="footer-col">
+                        <div class="footer-brand">Altoidss<span>.</span></div>
+                        <p>Tu fuente de información sobre películas, series, anime y próximos estrenos.</p>
+                        <div class="footer-social" aria-label="Redes sociales">
+                            <a href="#" aria-label="Facebook">f</a>
+                            <a href="#" aria-label="X">x</a>
+                            <a href="#" aria-label="Instagram">ig</a>
+                            <a href="#" aria-label="YouTube">yt</a>
+                        </div>
+                    </section>
+                    <section class="footer-col">
+                        <h2>Navegación</h2>
+                        <nav class="footer-links">
+                            <a href="index.html">Inicio</a>
+                            <a href="catalogo.html">Catálogo</a>
+                            <a href="favoritos.html">Mi lista</a>
+                            <a href="noticias.html">Noticias</a>
+                            <a href="dashboard.html">Dashboard</a>
+                        </nav>
+                    </section>
+                    <section class="footer-col">
+                        <h2>Géneros</h2>
+                        <nav class="footer-links">
+                            <a href="catalogo.html">Acción</a>
+                            <a href="catalogo.html">Aventura</a>
+                            <a href="catalogo.html">Ciencia ficción</a>
+                            <a href="catalogo.html">Drama</a>
+                        </nav>
+                    </section>
+                    <section class="footer-col">
+                        <h2>Soporte</h2>
+                        <nav class="footer-links">
+                            <a href="login.html">Cuenta</a>
+                            <a href="dashboard.html">Perfil</a>
+                            <a href="dashboard.html">Configuración</a>
+                            <a href="index.html">Contacto</a>
+                        </nav>
+                    </section>
+                    <section class="footer-col">
+                        <h2>Newsletter</h2>
+                        <p>Suscríbete para recibir novedades de ejemplo en tu correo.</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico">
+                            <button type="button">Suscribirme</button>
+                        </form>
+                    </section>
+                </div>
+                <div class="footer-bottom">© 2026 Altoidss. Proyecto académico de Programación Internet.</div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../js/site-search.js?v=3"></script>
+    <script src="../js/api-client.js?v=1"></script>
+    <script src="../js/auth.js?v=5"></script>
+    <script src="../js/site-account.js?v=1"></script>
+    <script src="../js/data-store.js?v=10"></script>
+    <script src="../js/noticias.js?v=4"></script>
+</body>
+</html>

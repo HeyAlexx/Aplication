@@ -1,0 +1,15 @@
+[
+    {
+        "userId": "usuario-final",
+        "cardsPerRow": 5,
+        "preferredView": "cards",
+        "compactMode": false
+    },
+    {
+        "userId": "admin-final",
+        "cardsPerRow": 7,
+        "preferredView": "list",
+        "compactMode": false,
+        "updatedAt": "2026-08-24T03:01:09+02:00"
+    }
+]

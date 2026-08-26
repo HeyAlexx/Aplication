@@ -1,0 +1,237 @@
+[
+    {
+        "id": "movie-dune-part-two",
+        "title": "Dune: Parte Dos",
+        "type": "movies",
+        "categoryGeneral": "Películas",
+        "format": "Película",
+        "productionStatus": "Finalizado",
+        "genre": "Ciencia ficción",
+        "year": "2024",
+        "emissionYear": 2024,
+        "emissionSeason": "",
+        "chapters": 0,
+        "seasonsCount": 0,
+        "tags": [
+            "Aventura",
+            "Drama",
+            "Épica"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+        "description": "Paul Atreides une fuerzas con Chani y los Fremen mientras busca venganza y enfrenta su destino.",
+        "rating": "8.5",
+        "featured": true,
+        "status": "Activo"
+    },
+    {
+        "id": "movie-deadpool-wolverine",
+        "title": "Deadpool y Wolverine",
+        "type": "movies",
+        "categoryGeneral": "Películas",
+        "format": "Película",
+        "productionStatus": "Finalizado",
+        "genre": "Acción",
+        "year": "2024",
+        "emissionYear": 2024,
+        "emissionSeason": "",
+        "chapters": 0,
+        "seasonsCount": 0,
+        "tags": [
+            "Comedia",
+            "Superhéroes",
+            "Aventura"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+        "description": "Deadpool se une a Wolverine en una aventura caótica que mezcla acción, humor y multiverso.",
+        "rating": "8.1",
+        "featured": true,
+        "status": "Activo"
+    },
+    {
+        "id": "movie-inside-out-2",
+        "title": "Intensamente 2",
+        "type": "movies",
+        "categoryGeneral": "Películas",
+        "format": "Película",
+        "productionStatus": "Finalizado",
+        "genre": "Animación",
+        "year": "2024",
+        "emissionYear": 2024,
+        "emissionSeason": "",
+        "chapters": 0,
+        "seasonsCount": 0,
+        "tags": [
+            "Familia",
+            "Comedia",
+            "Aventura"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+        "description": "Riley entra en una nueva etapa y sus emociones deben convivir con nuevas sensaciones.",
+        "rating": "7.8",
+        "featured": true,
+        "status": "Activo"
+    },
+    {
+        "id": "movie-oppenheimer",
+        "title": "Oppenheimer",
+        "type": "movies",
+        "categoryGeneral": "Películas",
+        "format": "Película",
+        "productionStatus": "Finalizado",
+        "genre": "Drama",
+        "year": "2023",
+        "emissionYear": 2023,
+        "emissionSeason": "",
+        "chapters": 0,
+        "seasonsCount": 0,
+        "tags": [
+            "Biografía",
+            "Historia",
+            "Suspenso"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg",
+        "description": "La historia de J. Robert Oppenheimer y el desarrollo de la bomba atómica.",
+        "rating": "8.7",
+        "featured": true,
+        "status": "Activo"
+    },
+    {
+        "id": "movie-the-matrix",
+        "title": "Matrix",
+        "type": "movies",
+        "categoryGeneral": "Películas",
+        "format": "Película",
+        "productionStatus": "Finalizado",
+        "genre": "Ciencia ficción",
+        "year": "1999",
+        "emissionYear": 1999,
+        "emissionSeason": "",
+        "chapters": 0,
+        "seasonsCount": 0,
+        "tags": [
+            "Acción",
+            "Cyberpunk",
+            "Clásico"
+        ],
+        "image": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+        "description": "Neo descubre que la realidad que conoce es una simulación controlada por máquinas.",
+        "rating": "8.0",
+        "featured": false,
+        "status": "Activo"
+    },
+    {
+        "id": "watchmode-1496273",
+        "watchmodeId": "1496273",
+        "title": "Dune: Part One",
+        "type": "movies",
+        "format": "Película",
+        "genre": "Película",
+        "year": "2021",
+        "emissionYear": 2021,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/v1tRXZ4JtD2Iv6fjkPvT4GiwslV.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Películas",
+        "importedAt": "2026-08-24T01:56:24+02:00"
+    },
+    {
+        "id": "watchmode-2680683",
+        "watchmodeId": "2680683",
+        "title": "The Bodyguard",
+        "type": "movies",
+        "format": "Película",
+        "genre": "Película",
+        "year": "1944",
+        "emissionYear": 1944,
+        "tags": [
+            "Watchmode",
+            "1944"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/2Q1CqIY3jtvZcvuPwbfb9In9Knx.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Películas",
+        "importedAt": "2026-08-24T02:37:16+02:00"
+    },
+    {
+        "id": "watchmode-1357314",
+        "watchmodeId": "1357314",
+        "title": "Spider-Man: Far from Home",
+        "type": "movies",
+        "format": "Película",
+        "genre": "Película",
+        "year": "2019",
+        "emissionYear": 2019,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Películas",
+        "importedAt": "2026-08-24T04:32:41+02:00"
+    },
+    {
+        "id": "watchmode-1357316",
+        "watchmodeId": "1357316",
+        "title": "Spider-Man: Homecoming",
+        "type": "movies",
+        "format": "Película",
+        "genre": "Película",
+        "year": "2017",
+        "emissionYear": 2017,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Películas",
+        "importedAt": "2026-08-24T04:32:45+02:00"
+    },
+    {
+        "id": "watchmode-1357304",
+        "watchmodeId": "1357304",
+        "title": "Spider-Man",
+        "type": "movies",
+        "format": "Película",
+        "genre": "Película",
+        "year": "2002",
+        "emissionYear": 2002,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/nXdAh5vUwERL4WGVMaee8RoDEAS.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Películas",
+        "importedAt": "2026-08-24T04:32:52+02:00"
+    },
+    {
+        "id": "watchmode-1589918",
+        "watchmodeId": "1589918",
+        "title": "Spider-Man: No Way Home",
+        "type": "movies",
+        "format": "Película",
+        "genre": "Película",
+        "year": "2021",
+        "emissionYear": 2021,
+        "tags": [
+            "Watchmode"
+        ],
+        "image": "https://image.tmdb.org/t/p/w185/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+        "description": "Resultado externo obtenido mediante Watchmode.",
+        "source": "watchmode",
+        "status": "Activo",
+        "categoryGeneral": "Películas",
+        "importedAt": "2026-08-24T04:32:53+02:00"
+    }
+]

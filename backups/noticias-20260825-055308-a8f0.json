@@ -1,0 +1,58 @@
+[
+  {
+    "id": "news-spiderman-brand-new-day",
+    "title": "Spider-Man: Brand New Day domina la conversación",
+    "slug": "spiderman-brand-new-day-domina-la-conversacion",
+    "category": "Cine",
+    "status": "publicada",
+    "publishedAt": "2026-08-12",
+    "summary": "El estreno sirve como ejemplo de noticia destacada para conectar el inicio con el catálogo.",
+    "image": "https://www.sonypictures.com/sites/default/files/email-backgrounds/spidermanbrandnewday_register_1400x380_v2_0.jpg",
+    "relatedContent": ["Spider-Man: Brand New Day"],
+    "featured": true,
+    "body": "Altoidss prepara esta noticia como muestra del flujo editorial que luego podrá administrarse desde el panel.",
+    "views": 0
+  },
+  {
+    "id": "news-the-odyssey",
+    "title": "The Odyssey mantiene presencia fuerte en cartelera",
+    "slug": "the-odyssey-mantiene-presencia-fuerte-en-cartelera",
+    "category": "Estrenos",
+    "status": "publicada",
+    "publishedAt": "2026-08-11",
+    "summary": "La sección puede utilizarse para publicar novedades, reseñas breves y anuncios del sistema.",
+    "image": "https://dx35vtwkllhj9.cloudfront.net/universalstudios/the-odyssey/images/regions/ca/updates1/onesheet.jpg",
+    "relatedContent": ["The Odyssey"],
+    "featured": true,
+    "body": "Esta publicación funciona como ejemplo de artículo relacionado con un contenido del catálogo.",
+    "views": 0
+  },
+  {
+    "id": "news-dune-popular",
+    "title": "Dune: Parte Dos se mantiene entre los títulos más consultados",
+    "slug": "dune-parte-dos-se-mantiene-entre-los-titulos-mas-consultados",
+    "category": "Películas",
+    "status": "publicada",
+    "publishedAt": "2026-08-10",
+    "summary": "Ejemplo de nota breve para alimentar la sección de noticias desde el panel administrativo.",
+    "image": "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+    "relatedContent": ["Dune: Parte Dos"],
+    "featured": false,
+    "body": "La noticia queda vinculada al catálogo para demostrar la relación entre blog y contenido.",
+    "views": 0
+  },
+  {
+    "id": "news-demon-slayer",
+    "title": "Demon Slayer destaca dentro de las búsquedas de anime",
+    "slug": "demon-slayer-destaca-dentro-de-las-busquedas-de-anime",
+    "category": "Anime",
+    "status": "publicada",
+    "publishedAt": "2026-08-09",
+    "summary": "Esta estructura puede integrarse luego con una tabla MySQL de noticias y categorías.",
+    "image": "https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg",
+    "relatedContent": ["Demon Slayer"],
+    "featured": false,
+    "body": "La publicación ejemplifica cómo Altoidss puede cubrir noticias específicas de anime.",
+    "views": 0
+  }
+]
