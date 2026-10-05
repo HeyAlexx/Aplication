@@ -5,12 +5,14 @@ final class JikanService
     private string $baseUrl;
     private string $anilistBaseUrl;
     private string $kitsuBaseUrl;
+    private ?MyAnimeListService $myAnimeList;
 
-    public function __construct(string $baseUrl, string $anilistBaseUrl, string $kitsuBaseUrl)
+    public function __construct(string $baseUrl, string $anilistBaseUrl, string $kitsuBaseUrl, ?MyAnimeListService $myAnimeList = null)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
         $this->anilistBaseUrl = rtrim($anilistBaseUrl, '/');
         $this->kitsuBaseUrl = rtrim($kitsuBaseUrl, '/');
+        $this->myAnimeList = $myAnimeList;
     }
 
     public function search(string $query): array
@@ -75,6 +77,109 @@ final class JikanService
             fn(array $item): array => $this->normalizeKitsuResult($item, $categories),
             array_filter($payload['data'] ?? [], 'is_array')
         ));
+    }
+
+    public function fromSourceUrl(string $sourceUrl): ?array
+    {
+        if (filter_var($sourceUrl, FILTER_VALIDATE_URL) === false) {
+            return null;
+        }
+
+        $parts = parse_url($sourceUrl);
+        if (!in_array(strtolower((string) ($parts['scheme'] ?? '')), ['http', 'https'], true)) {
+            return null;
+        }
+        $host = strtolower((string) ($parts['host'] ?? ''));
+        $host = preg_replace('/^www\./', '', $host) ?? $host;
+        $path = (string) ($parts['path'] ?? '');
+
+        if (in_array($host, ['myanimelist.net', 'api.jikan.moe'], true)
+            && preg_match('#/anime/(\d+)#', $path, $matches)) {
+            if ($host === 'myanimelist.net' && $this->myAnimeList?->isConfigured()) {
+                try {
+                    return $this->myAnimeList->details((int) $matches[1]);
+                } catch (ApiException $error) {
+                    error_log('MyAnimeList no disponible; se usará Jikan: ' . $error->getMessage());
+                }
+            }
+            try {
+                $payload = $this->request($this->baseUrl . '/anime/' . $matches[1] . '/full');
+                $item = $payload['data'] ?? null;
+                return is_array($item) ? $this->sourceCandidate($this->normalizeResult($item), 'jikan') : null;
+            } catch (ApiException) {
+                return null;
+            }
+        }
+
+        if ($host === 'anilist.co' && preg_match('#/anime/(\d+)#', $path, $matches)) {
+            $query = <<<'GRAPHQL'
+query ($id: Int!) {
+  Media(id: $id, type: ANIME) {
+    id idMal title { romaji english native } format status episodes season seasonYear genres
+    description(asHtml: false) averageScore siteUrl coverImage { extraLarge large medium }
+  }
+}
+GRAPHQL;
+            try {
+                $payload = $this->requestJson($this->anilistBaseUrl, [
+                    'query' => $query,
+                    'variables' => ['id' => (int) $matches[1]],
+                ], 'AniList');
+                $item = $payload['data']['Media'] ?? null;
+                return is_array($item) ? $this->sourceCandidate($this->normalizeAniListResult($item), 'anilist') : null;
+            } catch (ApiException) {
+                return null;
+            }
+        }
+
+        if (in_array($host, ['kitsu.app', 'kitsu.io'], true)
+            && preg_match('~/anime/([^/?#]+)~', $path, $matches)) {
+            try {
+                $identifier = rawurldecode($matches[1]);
+                $url = ctype_digit($identifier)
+                    ? $this->kitsuBaseUrl . '/anime/' . $identifier . '?include=categories'
+                    : $this->kitsuBaseUrl . '/anime?' . http_build_query([
+                    'filter[slug]' => rawurldecode($matches[1]),
+                    'page[limit]' => 1,
+                    'include' => 'categories',
+                ]);
+                $payload = $this->requestGet($url, 'Kitsu');
+                $item = ctype_digit($identifier) ? ($payload['data'] ?? null) : ($payload['data'][0] ?? null);
+                $categories = [];
+                foreach ($payload['included'] ?? [] as $included) {
+                    if (($included['type'] ?? '') === 'categories') {
+                        $categories[(string) ($included['id'] ?? '')] = (string) ($included['attributes']['title'] ?? '');
+                    }
+                }
+                return is_array($item) ? $this->sourceCandidate($this->normalizeKitsuResult($item, $categories), 'kitsu') : null;
+            } catch (ApiException) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private function sourceCandidate(array $candidate, string $provider): array
+    {
+        $alternatives = array_values(array_unique(array_filter([
+            (string) ($candidate['alternativeTitle'] ?? ''),
+            ...($candidate['alternativeTitles'] ?? []),
+        ])));
+        $candidate['alternativeTitles'] = $alternatives;
+        $candidate['externalTitle'] = (string) ($candidate['title'] ?? '');
+        $candidate['metadataProvider'] = $provider;
+        // Season counts belong to the user's catalogue, not the provider entry.
+        unset($candidate['seasonsCount']);
+        if (!empty($candidate['malId'])) {
+            $candidate['jikanId'] = $candidate['malId'];
+        }
+        $candidate['metadataMatchScore'] = 1;
+        $candidate['metadataGenres'] = array_values(array_filter(array_merge(
+            [(string) ($candidate['genre'] ?? '')],
+            is_array($candidate['tags'] ?? null) ? $candidate['tags'] : []
+        )));
+        return $candidate;
     }
 
     private function searchAniList(string $query): array

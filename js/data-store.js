@@ -12,7 +12,7 @@ const AltoidssStore = (() => {
     const visitorProfile = () => ({
         id: "visitor", role: "visitante", displayName: "Visitante", email: "", socialLinks: "",
         about: "Explora el catálogo antes de crear una cuenta.", avatar: "", lastVisit: "Sesión actual",
-        watchTimeMinutes: 0, seenIds: [], favoriteIds: [], favoriteItems: {},
+        watchTimeMinutes: 0, seenIds: [], viewingStates: {}, favoriteIds: [], favoriteItems: {},
         settings: { cardsPerRow: 5, preferredView: "cards", compactMode: false },
     });
 
@@ -60,6 +60,9 @@ const AltoidssStore = (() => {
         email: profile.email || session.email || "",
         ...profile,
         seenIds: Array.isArray(profile.seenIds) ? profile.seenIds : [],
+        viewingStates: profile.viewingStates && typeof profile.viewingStates === "object" && !Array.isArray(profile.viewingStates)
+            ? profile.viewingStates
+            : {},
         favoriteIds: Array.isArray(profile.favoriteIds) ? profile.favoriteIds : [],
         favoriteItems: profile.favoriteItems && typeof profile.favoriteItems === "object" ? profile.favoriteItems : {},
         settings: {
@@ -156,7 +159,7 @@ const AltoidssStore = (() => {
         const session = window.AltoidssAuth?.getSession() || {};
 
         if (backendMode && !session.isAuthenticated) {
-            const error = new Error("Debe iniciar sesión para guardar favoritos o marcar contenido como visto.");
+            const error = new Error("Debe iniciar sesión para guardar favoritos o cambiar el estado del contenido.");
             error.status = 401;
             throw error;
         }
@@ -165,21 +168,57 @@ const AltoidssStore = (() => {
     const contentKey = (item) => item.id || String(item.title || "").toLowerCase().replace(/\s+/g, "-");
     const isSeen = (item) => getProfile().seenIds.includes(contentKey(item));
     const isFavorite = (item) => getProfile().favoriteIds.includes(contentKey(item));
+    const viewingStates = ["planned", "watching", "paused", "completed", "dropped"];
+    const importedStateMap = {
+        "por ver": "planned",
+        "no visto": "planned",
+        viendo: "watching",
+        "en progreso": "watching",
+        "en pausa": "paused",
+        visto: "completed",
+        completado: "completed",
+        abandonado: "dropped",
+    };
 
-    const toggleSeen = async (item) => {
+    const getViewingState = (item) => {
         const id = contentKey(item);
-        const watched = !isSeen(item);
+        const savedState = getProfile().viewingStates?.[id];
 
+        if (viewingStates.includes(savedState)) {
+            return savedState;
+        }
+        if (isSeen(item)) {
+            return "completed";
+        }
+
+        const importedState = String(item.viewingStatus || "").trim().toLocaleLowerCase("es");
+        return importedStateMap[importedState] || "planned";
+    };
+
+    const setViewingState = async (item, state) => {
+        if (!viewingStates.includes(state)) {
+            throw new Error("El estado de visualización no es válido.");
+        }
+
+        const id = contentKey(item);
         if (backendMode) {
             requireActiveUser();
-            activeProfile = await AltoidssApi.put(`/viewing/${encodeURIComponent(id)}`, { watched });
+            activeProfile = normalizeProfile(
+                await AltoidssApi.put(`/viewing/${encodeURIComponent(id)}`, { state }),
+                window.AltoidssAuth?.getSession()
+            );
         } else {
-            activeProfile.seenIds = watched
-                ? [...activeProfile.seenIds, id]
+            activeProfile.viewingStates[id] = state;
+            activeProfile.seenIds = state === "completed"
+                ? [...new Set([...activeProfile.seenIds, id])]
                 : activeProfile.seenIds.filter((currentId) => currentId !== id);
             writeLocalProfile();
         }
         return activeProfile;
+    };
+
+    const toggleSeen = async (item) => {
+        return setViewingState(item, isSeen(item) ? "planned" : "completed");
     };
 
     const toggleFavorite = async (item) => {
@@ -326,7 +365,8 @@ const AltoidssStore = (() => {
     return {
         initialize, reload, read, readNews, exportDatabase, readSectionFile, readSectionFiles, readNewsFile, searchCatalog,
         importMany, seedExcelData, hydrateMissingImages,
-        getProfile, summarizeProfile, getDashboardSummary, isSeen, isFavorite, toggleSeen, toggleFavorite, removeFavorite,
+        getProfile, summarizeProfile, getDashboardSummary, getViewingState, setViewingState,
+        isSeen, isFavorite, toggleSeen, toggleFavorite, removeFavorite,
         updateProfileDetails, updateSettings, create, update, remove, createNews, updateNews, removeNews,
         isBackendMode: () => backendMode,
     };

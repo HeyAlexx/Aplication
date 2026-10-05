@@ -60,3 +60,25 @@ La ruta `GET /health` tambien informa la version de PHP y confirma si las carpet
 - `episodios.json`
 
 Los archivos `.htaccess` dentro de `data` y `backups` evitan que Apache exponga esos datos directamente.
+
+## Pipeline de anime
+
+El catálogo de anime dispone de un pipeline ETL independiente del funcionamiento normal del sitio:
+
+1. Lee la copia configurada de Excel o una exportación XLSX de Google Sheets.
+2. Normaliza formatos equivalentes como `TV`, `Serie TV`, `TV Series` y `Serie`.
+3. Contrasta título, año, temporada, capítulos y estado con AniList, Jikan y Kitsu.
+4. Conserva el título romanizado como principal y guarda los demás nombres como alternativos.
+5. Rechaza automáticamente solo cuando no coinciden tanto el nombre como el año.
+6. Envía las demás diferencias a `runtime/anime-sync/pending-review.json`.
+7. Publica únicamente registros aprobados en `data/anime.json` mediante escritura atómica.
+
+La fuente se configura en `config/anime-sync.json`. Para una ejecución única:
+
+```bat
+python tools\anime_sync_pipeline.py --config config\anime-sync.json --apply
+```
+
+`iniciar-sincronizacion-anime.cmd` mantiene la vigilancia activa cada cinco minutos. El estado, la última ejecución y una única copia de recuperación se guardan en `runtime/anime-sync`.
+
+La descarga directa desde Google requiere que la pestaña de catálogo tenga una exportación legible sin sesión o que se configure OAuth. Mientras la hoja permanezca privada, el campo `googleExportUrl` debe quedar vacío y se utiliza la copia local indicada en `workbook`.

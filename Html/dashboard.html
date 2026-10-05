@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/dashboard.css?v=10">
+    <link rel="stylesheet" href="../css/dashboard.css?v=13">
     <link rel="stylesheet" href="../css/site-shared.css?v=8">
 </head>
 <body class="layout-no-sidebar">
@@ -61,6 +61,7 @@
                     <button class="btn btn-primary" type="button" data-dashboard-tab="overview">Dashboard</button>
                     <button class="btn btn-outline-light admin-only-control" type="button" data-dashboard-tab="crud">Agregar</button>
                     <button class="btn btn-outline-light admin-only-control" type="button" data-dashboard-tab="json">JSON</button>
+                    <button class="btn btn-outline-light admin-only-control" type="button" data-dashboard-tab="review">Revisión</button>
                     <button class="btn btn-outline-light admin-only-control" type="button" data-dashboard-tab="table">Contenido</button>
                     <button class="btn btn-outline-light" type="button" data-dashboard-tab="profile">Perfil</button>
                     <button class="btn btn-outline-light" type="button" data-dashboard-tab="settings">Configuración</button>
@@ -403,6 +404,26 @@
                         </section>
 
                         <section class="dashboard-tab-panel admin-tool-panel">
+                            <div class="review-panel">
+                                <div class="section-heading compact-heading review-heading">
+                                    <div>
+                                        <p class="eyebrow">Control de calidad</p>
+                                        <h2>Revisión manual de anime</h2>
+                                        <p>Compara ambas fuentes y construye una versión final combinada o corregida manualmente.</p>
+                                    </div>
+                                    <span class="review-count" id="reviewCount">0 pendientes</span>
+                                </div>
+                                <div class="review-filter btn-group btn-group-sm" role="group" aria-label="Filtrar revisiones">
+                                    <button class="btn btn-primary" type="button" data-review-filter="active">Pendientes</button>
+                                    <button class="btn btn-outline-light" type="button" data-review-filter="all">Todas</button>
+                                </div>
+                                <div class="review-list" id="animeReviewList">
+                                    <p class="review-empty">No hay registros pendientes de revisión.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="dashboard-tab-panel admin-tool-panel">
                             <div class="admin-table-tools btn-group btn-group-sm" role="group" aria-label="Vista de tabla">
                                 <button class="btn btn-primary" type="button" data-table-mode="content">Contenido</button>
                                 <button class="btn btn-outline-light" type="button" data-table-mode="news">Noticias</button>
@@ -521,7 +542,7 @@
     <script src="../js/auth.js?v=5"></script>
     <script src="../js/site-account.js?v=1"></script>
     <script src="../js/data-store.js?v=10"></script>
-    <script src="../js/dashboard.js?v=10"></script>
+    <script src="../js/dashboard.js?v=13"></script>
 </body>
 </html>
 

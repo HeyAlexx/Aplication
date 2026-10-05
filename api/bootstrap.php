@@ -27,6 +27,8 @@ require_once __DIR__ . '/services/NewsService.php';
 require_once __DIR__ . '/services/UserService.php';
 require_once __DIR__ . '/services/WatchmodeService.php';
 require_once __DIR__ . '/services/JikanService.php';
+require_once __DIR__ . '/services/MyAnimeListService.php';
+require_once __DIR__ . '/services/AnimeReviewService.php';
 
 $storage = new JsonStorage($config['data_dir'], $config['backup_dir']);
 $catalogService = new CatalogService($storage);
@@ -37,5 +39,7 @@ $watchmodeService = new WatchmodeService($config['watchmode_api_key'], $config['
 $jikanService = new JikanService(
     $config['jikan_base_url'],
     $config['anilist_base_url'],
-    $config['kitsu_base_url']
+    $config['kitsu_base_url'],
+    new MyAnimeListService($config['myanimelist_client_id'])
 );
+$animeReviewService = new AnimeReviewService($storage);

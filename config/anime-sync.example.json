@@ -1,0 +1,11 @@
+{
+  "workbook": "G:\\ruta\\a\\la\\copia-sincronizada.xlsx",
+  "googleExportUrl": "",
+  "googleSheets": {
+    "spreadsheetId": "",
+    "sheetName": "Catalogo",
+    "writeBackEnabled": false,
+    "oauthClientSecrets": "config/google-oauth-client.json",
+    "tokenFile": "runtime/anime-sync/google-token.json"
+  }
+}
