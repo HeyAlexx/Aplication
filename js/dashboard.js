@@ -15,6 +15,9 @@ const contentImage = document.querySelector("#contentImage");
 const contentDescription = document.querySelector("#contentDescription");
 const contentTableBody = document.querySelector("#contentTableBody");
 const jsonPreview = document.querySelector("#jsonPreview");
+const animeReviewList = document.querySelector("#animeReviewList");
+const reviewCount = document.querySelector("#reviewCount");
+const reviewFilterButtons = document.querySelectorAll("[data-review-filter]");
 const cancelEditButton = document.querySelector("#cancelEditButton");
 const saveContentButton = document.querySelector("#saveContentButton");
 
@@ -79,10 +82,12 @@ const typeLabels = {
     anime: "Anime",
 };
 
-const dashboardTabs = ["overview", "crud", "json", "table", "profile", "settings"];
+const dashboardTabs = ["overview", "crud", "json", "review", "table", "profile", "settings"];
 let activeDashboardTab = "overview";
 let activeCrudMode = "content";
 let activeTableMode = "content";
+let activeReviewFilter = "active";
+let animeReviews = [];
 
 const escapeHtml = (value) => String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -323,6 +328,289 @@ const renderJsonPreview = () => {
     jsonPreview.textContent = JSON.stringify(AltoidssStore.exportDatabase(), null, 2);
 };
 
+const reviewFields = [
+    ["title", "Título"],
+    ["format", "Formato"],
+    ["productionStatus", "Emisión"],
+    ["chapters", "Capítulos"],
+    ["seasonsCount", "Temporadas"],
+    ["activeSeason", "Temporada activa"],
+    ["emissionYear", "Año"],
+    ["emissionSeason", "Temporada del año"],
+];
+
+const reviewEditorFields = [
+    { key: "title", label: "Título principal", type: "text", wide: true, required: true },
+    { key: "alternativeTitles", label: "Títulos alternos", type: "textarea", valueType: "array-lines", wide: true },
+    { key: "format", label: "Formato", type: "select", options: ["Serie", "Película", "OVA", "ONA", "Especial", "Corto"] },
+    { key: "productionStatus", label: "Estado de emisión", type: "select", options: ["Emisión", "Finalizado", "Pausado", "Próximamente", "Cancelado", "Pendiente"] },
+    { key: "chapters", label: "Capítulos", type: "number", min: 0 },
+    { key: "seasonsCount", label: "Número de temporadas", type: "number", min: 0 },
+    { key: "activeSeason", label: "Temporada activa", type: "text" },
+    { key: "emissionYear", label: "Año de emisión", type: "number", min: 0, max: 2100 },
+    { key: "emissionSeason", label: "Temporada del año", type: "select", options: ["", "Winter", "Spring", "Summer", "Fall"] },
+    { key: "genre", label: "Género principal", type: "text" },
+    { key: "metadataGenres", label: "Géneros", type: "text", valueType: "array-comma", wide: true },
+    { key: "rating", label: "Calificación", type: "number", min: 0, max: 10, step: "0.1" },
+    { key: "image", label: "URL de imagen", type: "url", wide: true },
+    { key: "description", label: "Sinopsis", type: "textarea", wide: true },
+    { key: "sourceUrl", label: "URL de la fuente", type: "url", wide: true },
+    { key: "externalTitle", label: "Título externo", type: "text", wide: true },
+    { key: "metadataProvider", label: "Proveedor", type: "text" },
+    { key: "metadataMatchScore", label: "Coincidencia API", type: "number", min: 0, max: 1, step: "0.01" },
+    { key: "jikanId", label: "ID Jikan", type: "text" },
+    { key: "anilistId", label: "ID AniList", type: "text" },
+    { key: "kitsuId", label: "ID Kitsu", type: "text" },
+];
+
+const reviewStructuralFields = new Set([
+    "title", "format", "productionStatus", "chapters", "seasonsCount",
+    "activeSeason", "emissionYear", "emissionSeason",
+]);
+
+const hasReviewValue = (value) => value !== undefined
+    && value !== null
+    && value !== ""
+    && (!Array.isArray(value) || value.length > 0);
+
+const buildReviewPreset = (review, preset = "current") => {
+    if (preset === "original") return { ...(review.original || {}) };
+    if (preset === "api") return { ...(review.apiVersion || {}) };
+    if (preset === "current" && review.finalVersion) return { ...review.finalVersion };
+
+    const combined = { ...(review.original || {}) };
+    reviewEditorFields.forEach(({ key }) => {
+        const apiValue = review.apiVersion?.[key];
+        if (hasReviewValue(apiValue) && (!reviewStructuralFields.has(key) || !hasReviewValue(combined[key]))) {
+            combined[key] = apiValue;
+        }
+    });
+    return combined;
+};
+
+const formatReviewInputValue = (value, valueType) => {
+    if (!Array.isArray(value)) return value ?? "";
+    return value.join(valueType === "array-lines" ? "\n" : ", ");
+};
+
+const renderReviewInput = (field, value) => {
+    const attributes = [
+        `data-final-field="${field.key}"`,
+        `data-value-type="${field.valueType || "string"}"`,
+        `aria-label="${escapeHtml(field.label)}"`,
+        field.required ? "required" : "",
+        field.min !== undefined ? `min="${field.min}"` : "",
+        field.max !== undefined ? `max="${field.max}"` : "",
+        field.step ? `step="${field.step}"` : "",
+    ].filter(Boolean).join(" ");
+    const formatted = formatReviewInputValue(value, field.valueType);
+
+    if (field.type === "textarea") {
+        return `<textarea class="form-control" rows="${field.key === "description" ? 5 : 3}" ${attributes}>${escapeHtml(formatted)}</textarea>`;
+    }
+    if (field.type === "select") {
+        const availableOptions = field.options.includes(String(formatted))
+            ? field.options
+            : [...field.options, String(formatted)];
+        const options = availableOptions.map((option) => `
+            <option value="${escapeHtml(option)}" ${String(formatted) === option ? "selected" : ""}>${escapeHtml(option || "Sin especificar")}</option>
+        `).join("");
+        return `<select class="form-select" ${attributes}>${options}</select>`;
+    }
+    return `<input class="form-control" type="${field.type}" value="${escapeHtml(formatted)}" ${attributes}>`;
+};
+
+const renderReviewEditor = (review) => {
+    const finalVersion = buildReviewPreset(review);
+    const fields = reviewEditorFields.map((field) => {
+        const originalAvailable = hasReviewValue(review.original?.[field.key]);
+        const apiAvailable = hasReviewValue(review.apiVersion?.[field.key]);
+        return `
+            <div class="review-edit-field ${field.wide ? "is-wide" : ""}">
+                <span class="review-edit-label">
+                    <strong>${escapeHtml(field.label)}</strong>
+                    <span class="review-source-buttons" aria-label="Copiar valor para ${escapeHtml(field.label)}">
+                        <button type="button" data-review-copy="original" data-review-field="${field.key}" ${originalAvailable ? "" : "disabled"}>Original</button>
+                        <button type="button" data-review-copy="api" data-review-field="${field.key}" ${apiAvailable ? "" : "disabled"}>API</button>
+                    </span>
+                </span>
+                ${renderReviewInput(field, finalVersion[field.key])}
+                ${field.key === "sourceUrl" ? `
+                    <div class="review-source-import">
+                        <p>Compatible con MyAnimeList, AniList y Kitsu.</p>
+                        <button class="btn btn-outline-light" type="button" data-review-source-fetch>Obtener datos desde URL</button>
+                    </div>
+                ` : ""}
+            </div>
+        `;
+    }).join("");
+
+    return `
+        <section class="review-final-editor" data-review-editor>
+            <div class="review-editor-heading">
+                <div>
+                    <span class="review-version-label">Versión final editable</span>
+                    <p>Combina ambas fuentes o corrige cualquier dato manualmente.</p>
+                </div>
+                <div class="review-presets btn-group btn-group-sm" role="group" aria-label="Copiar conjunto de datos">
+                    <button class="btn btn-outline-light" type="button" data-review-preset="original">Todo original</button>
+                    <button class="btn btn-outline-light" type="button" data-review-preset="combined">Combinar</button>
+                    <button class="btn btn-outline-light" type="button" data-review-preset="api" ${review.apiVersion ? "" : "disabled"}>Todo API</button>
+                </div>
+            </div>
+            <div class="review-edit-grid">${fields}</div>
+        </section>
+    `;
+};
+
+const renderReviewVersion = (version, label, image = "") => {
+    if (!version) {
+        return `
+            <section class="review-version is-empty">
+                <span class="review-version-label">${escapeHtml(label)}</span>
+                <p>No se obtuvo una versión candidata.</p>
+            </section>
+        `;
+    }
+
+    const rows = reviewFields.map(([key, fieldLabel]) => `
+        <div class="review-field">
+            <span>${escapeHtml(fieldLabel)}</span>
+            <strong>${escapeHtml(version[key] === 0 ? "0" : (version[key] || "—"))}</strong>
+        </div>
+    `).join("");
+    const alternatives = (version.alternativeTitles || []).slice(0, 3);
+
+    return `
+        <section class="review-version">
+            <span class="review-version-label">${escapeHtml(label)}</span>
+            ${image ? `<img class="review-poster" src="${escapeHtml(image)}" alt="Portada de ${escapeHtml(version.title || "anime")}">` : ""}
+            <div class="review-field-list">${rows}</div>
+            ${alternatives.length ? `
+                <div class="review-alternatives">
+                    <span>Nombres alternativos</span>
+                    <p>${alternatives.map(escapeHtml).join(" · ")}</p>
+                </div>
+            ` : ""}
+            ${version.description ? `<p class="review-synopsis">${escapeHtml(version.description)}</p>` : ""}
+            ${version.sourceUrl ? `<a class="review-source" href="${escapeHtml(version.sourceUrl)}" target="_blank" rel="noopener noreferrer">Abrir fuente</a>` : ""}
+        </section>
+    `;
+};
+
+const isUnresolvedReview = (review) => ["Pendiente", "Rechazado automático"].includes(review.status);
+
+let reviewToastTimer;
+const showReviewToast = (message, success = false) => {
+    let toast = document.querySelector('#reviewSourceToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'reviewSourceToast';
+        toast.className = 'review-source-toast';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        document.body.append(toast);
+    }
+    toast.textContent = message;
+    toast.classList.toggle('is-success', success);
+    toast.hidden = false;
+    clearTimeout(reviewToastTimer);
+    reviewToastTimer = setTimeout(() => { toast.hidden = true; }, 5200);
+};
+
+const renderAnimeReviews = () => {
+    if (!animeReviewList) return;
+
+    const pendingCount = animeReviews.filter(isUnresolvedReview).length;
+    reviewCount.textContent = `${pendingCount} ${pendingCount === 1 ? "pendiente" : "pendientes"}`;
+    const visible = activeReviewFilter === "active"
+        ? animeReviews.filter(isUnresolvedReview)
+        : animeReviews;
+
+    if (!visible.length) {
+        animeReviewList.innerHTML = '<p class="review-empty">No hay registros en esta vista.</p>';
+        return;
+    }
+
+    animeReviewList.innerHTML = visible.map((review) => {
+        const unresolved = isUnresolvedReview(review);
+        const badgeClass = review.status === "Aprobado"
+            ? "is-approved"
+            : review.status === "Rechazado" || review.status === "Rechazado automático"
+                ? "is-rejected"
+                : "is-pending";
+        return `
+            <article class="review-card" data-review-id="${escapeHtml(review.id)}">
+                <header class="review-card-head">
+                    <div>
+                        <span class="review-code">Código ${escapeHtml(review.sourceCode)}</span>
+                        <h3>${escapeHtml(review.title)}</h3>
+                    </div>
+                    <span class="review-status ${badgeClass}">${escapeHtml(review.status)}</span>
+                </header>
+                <div class="review-differences">
+                    ${(review.differences || []).map((difference) => `<span>${escapeHtml(difference)}</span>`).join("")}
+                    <strong>${Math.round(Number(review.matchScore || 0) * 100)}% coincidencia</strong>
+                </div>
+                <div class="review-comparison">
+                    ${renderReviewVersion(review.original, "Original")}
+                    ${renderReviewVersion(review.apiVersion, `API · ${review.apiVersion?.metadataProvider || "sin proveedor"}`, review.apiVersion?.image)}
+                </div>
+                ${renderReviewEditor(review)}
+                ${!unresolved ? `<p class="review-resolution">${escapeHtml(review.resolutionType || "Revisión guardada")} por ${escapeHtml(review.reviewedBy || "Administrador")}${review.reviewNotes ? `: ${escapeHtml(review.reviewNotes)}` : ""}</p>` : ""}
+                <div class="review-actions">
+                    <input class="form-control" data-review-notes type="text" value="${escapeHtml(review.reviewNotes || "")}" placeholder="Nota opcional de la decisión">
+                    <button class="btn btn-primary" data-review-decision="save" type="button">Guardar versión final</button>
+                    <button class="btn btn-outline-danger" data-review-decision="reject" type="button">Rechazar propuesta</button>
+                </div>
+            </article>
+        `;
+    }).join("");
+};
+
+const loadAnimeReviews = async () => {
+    if (AltoidssAuth.getSession().profileMode !== "admin") {
+        animeReviews = [];
+        renderAnimeReviews();
+        return;
+    }
+    animeReviews = await AltoidssApi.get("/reviews/anime");
+    renderAnimeReviews();
+};
+
+const setReviewEditorField = (card, key, value) => {
+    const input = card.querySelector(`[data-final-field="${key}"]`);
+    const field = reviewEditorFields.find((item) => item.key === key);
+    if (!input || !field) return;
+
+    const formatted = String(formatReviewInputValue(value, field.valueType));
+    if (input instanceof HTMLSelectElement && ![...input.options].some((option) => option.value === formatted)) {
+        input.add(new Option(formatted || "Sin especificar", formatted));
+    }
+    input.value = formatted;
+    input.closest(".review-edit-field")?.classList.remove("is-manual");
+};
+
+const setReviewEditorValues = (card, values) => {
+    reviewEditorFields.forEach(({ key }) => setReviewEditorField(card, key, values?.[key]));
+};
+
+const collectReviewEditorData = (card) => Object.fromEntries(reviewEditorFields.map((field) => {
+    const input = card.querySelector(`[data-final-field="${field.key}"]`);
+    const value = input?.value.trim() || "";
+
+    if (field.valueType === "array-lines") {
+        return [field.key, value.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)];
+    }
+    if (field.valueType === "array-comma") {
+        return [field.key, value.split(",").map((item) => item.trim()).filter(Boolean)];
+    }
+    if (field.type === "number") {
+        return [field.key, value === "" ? 0 : Number(value)];
+    }
+    return [field.key, value];
+}));
+
 const countType = (items, type) => items.filter((item) => item.type === type).length;
 
 const buildLinePoints = (values) => {
@@ -431,7 +719,7 @@ const renderMetrics = async () => {
             : "Disponible solo para el perfil administrador";
     });
 
-    if (summary.profile.role !== "admin" && ["crud", "json", "table"].includes(activeDashboardTab)) {
+    if (summary.profile.role !== "admin" && ["crud", "json", "review", "table"].includes(activeDashboardTab)) {
         setDashboardTab("overview");
     }
 };
@@ -440,6 +728,7 @@ const refreshDashboardPanels = async () => {
     renderTable();
     renderJsonPreview();
     await renderMetrics();
+    await loadAnimeReviews();
     syncProfileForm();
     syncSettingsForm();
 };
@@ -590,6 +879,104 @@ tableModeButtons.forEach((button) => {
     });
 });
 
+reviewFilterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        activeReviewFilter = button.dataset.reviewFilter;
+        reviewFilterButtons.forEach((current) => {
+            const selected = current.dataset.reviewFilter === activeReviewFilter;
+            current.classList.toggle("btn-primary", selected);
+            current.classList.toggle("btn-outline-light", !selected);
+        });
+        renderAnimeReviews();
+    });
+});
+
+animeReviewList?.addEventListener("click", async (event) => {
+    const fetchSourceButton = event.target.closest("[data-review-source-fetch]");
+    if (fetchSourceButton) {
+        const card = fetchSourceButton.closest("[data-review-id]");
+        const review = animeReviews.find((item) => item.id === card?.dataset.reviewId);
+        const sourceUrl = card?.querySelector('[data-final-field="sourceUrl"]')?.value.trim() || "";
+        if (!review || !sourceUrl) {
+            showReviewToast("Ingresa una URL de fuente antes de obtener datos.");
+            return;
+        }
+        try {
+            fetchSourceButton.disabled = true;
+            fetchSourceButton.textContent = "Obteniendo datos…";
+            const result = await AltoidssApi.post(`/reviews/anime/${encodeURIComponent(review.id)}/source`, { sourceUrl });
+            if (!result?.candidate) {
+                showReviewToast("No hay datos compatibles");
+                return;
+            }
+            review.apiVersion = result.candidate;
+            setReviewEditorValues(card, { ...collectReviewEditorData(card), ...result.candidate });
+            const comparison = card.querySelector('.review-comparison');
+            comparison.innerHTML = renderReviewVersion(review.original, "Original")
+                + renderReviewVersion(review.apiVersion, `API · ${review.apiVersion.metadataProvider}`, review.apiVersion.image);
+            card.querySelectorAll('[data-review-copy="api"], [data-review-preset="api"]').forEach((button) => {
+                button.disabled = button.dataset.reviewField
+                    ? !hasReviewValue(review.apiVersion[button.dataset.reviewField]) : false;
+            });
+            showReviewToast("Datos de la fuente cargados. Revisa y guarda la versión final.", true);
+        } catch (error) {
+            showReviewToast(error.message || "No hay datos compatibles");
+        } finally {
+            fetchSourceButton.disabled = false;
+            fetchSourceButton.textContent = "Obtener datos desde URL";
+        }
+        return;
+    }
+
+    const presetButton = event.target.closest("[data-review-preset]");
+    const copyButton = event.target.closest("[data-review-copy]");
+    const sourceButton = presetButton || copyButton;
+
+    if (sourceButton) {
+        const card = sourceButton.closest("[data-review-id]");
+        const review = animeReviews.find((item) => item.id === card?.dataset.reviewId);
+        if (!review) return;
+
+        if (presetButton) {
+            setReviewEditorValues(card, buildReviewPreset(review, presetButton.dataset.reviewPreset));
+        } else {
+            const field = copyButton.dataset.reviewField;
+            const source = copyButton.dataset.reviewCopy === "api" ? review.apiVersion : review.original;
+            setReviewEditorField(card, field, source?.[field]);
+        }
+        return;
+    }
+
+    const button = event.target.closest("[data-review-decision]");
+    if (!button) return;
+    const card = button.closest("[data-review-id]");
+    const review = animeReviews.find((item) => item.id === card?.dataset.reviewId);
+    if (!review) return;
+    const decision = button.dataset.reviewDecision;
+    const verb = decision === "save" ? "guardar esta combinación como versión final" : "rechazar esta propuesta";
+    if (!window.confirm(`¿Desea ${verb} para "${review.title}"?`)) return;
+
+    try {
+        card.querySelectorAll("button").forEach((current) => { current.disabled = true; });
+        const payload = {
+            decision,
+            notes: card.querySelector("[data-review-notes]")?.value || "",
+        };
+        if (decision === "save") payload.finalData = collectReviewEditorData(card);
+        await AltoidssApi.put(`/reviews/anime/${encodeURIComponent(review.id)}`, payload);
+        await refreshDashboardPanels();
+        showDashboardFeedback(decision === "save" ? "Versión final guardada en el catálogo." : "Propuesta rechazada.", "success");
+    } catch (error) {
+        showDashboardFeedback(error.message || "No se pudo guardar la revisión.");
+        card.querySelectorAll("button").forEach((current) => { current.disabled = false; });
+    }
+});
+
+animeReviewList?.addEventListener("input", (event) => {
+    const field = event.target.closest("[data-final-field]");
+    field?.closest(".review-edit-field")?.classList.add("is-manual");
+});
+
 dashboardTabButtons.forEach((button) => {
     button.addEventListener("click", () => {
         setDashboardTab(button.dataset.dashboardTab);
@@ -599,7 +986,7 @@ dashboardTabButtons.forEach((button) => {
 const setDashboardTab = (tab) => {
     const mode = AltoidssAuth.getSession().profileMode;
 
-    if (mode !== "admin" && ["crud", "json", "table"].includes(tab)) {
+    if (mode !== "admin" && ["crud", "json", "review", "table"].includes(tab)) {
         tab = "overview";
     }
 

@@ -21,6 +21,17 @@ final class UserService
         $settings = $this->settings($session);
         $favorites = $this->favoriteItems($session['id']);
         $history = $this->historyFor($session['id']);
+        $viewingStates = [];
+
+        foreach ($history as $row) {
+            $contentId = (string) ($row['contentId'] ?? '');
+            if ($contentId !== '') {
+                $viewingStates[$contentId] = $this->normalizeViewingState(
+                    $row['state'] ?? null,
+                    (bool) ($row['watched'] ?? false)
+                );
+            }
+        }
 
         return array_merge([
             'id' => $session['id'],
@@ -41,6 +52,7 @@ final class UserService
                 fn(array $row): string => (string) $row['contentId'],
                 array_filter($history, fn(array $row): bool => (bool) ($row['watched'] ?? false))
             )),
+            'viewingStates' => $viewingStates,
             'watchTimeMinutes' => array_sum(array_column($history, 'minutes')),
         ]);
     }
@@ -142,12 +154,20 @@ final class UserService
         }
 
         $records = $this->storage->read('historial.json');
-        $watched = (bool) ($payload['watched'] ?? true);
+        $hasState = array_key_exists('state', $payload);
+        $requestedState = $hasState ? (string) $payload['state'] : null;
+        $watched = $hasState
+            ? $this->normalizeViewingState($requestedState) === 'completed'
+            : (bool) ($payload['watched'] ?? true);
+        $state = $hasState
+            ? $this->normalizeViewingState($requestedState)
+            : ($watched ? 'completed' : 'planned');
         $hasMinutes = array_key_exists('minutes', $payload);
         $row = [
             'userId' => $session['id'],
             'contentId' => $contentId,
             'watched' => $watched,
+            'state' => $state,
             'minutes' => $hasMinutes ? max(0, (int) $payload['minutes']) : 0,
             'watchedAt' => $watched ? date(DATE_ATOM) : null,
             'updatedAt' => date(DATE_ATOM),
@@ -268,12 +288,28 @@ final class UserService
         return count(array_filter($items, fn(array $item): bool => ($item['type'] ?? '') === $type));
     }
 
+    private function normalizeViewingState(mixed $state, bool $watched = false): string
+    {
+        $normalized = strtolower(trim((string) $state));
+        $allowed = ['planned', 'watching', 'paused', 'completed', 'dropped'];
+
+        if ($normalized === '') {
+            return $watched ? 'completed' : 'planned';
+        }
+
+        if (!in_array($normalized, $allowed, true)) {
+            throw new ApiException('El estado de visualización no es válido.');
+        }
+
+        return $normalized;
+    }
+
     private function visitorProfile(): array
     {
         return [
             'id' => 'visitor', 'role' => 'visitante', 'displayName' => 'Visitante', 'email' => '',
             'socialLinks' => '', 'about' => 'Explora el catálogo antes de crear una cuenta.', 'avatar' => '',
-            'lastVisit' => 'Sesión actual', 'watchTimeMinutes' => 0, 'seenIds' => [], 'favoriteIds' => [],
+            'lastVisit' => 'Sesión actual', 'watchTimeMinutes' => 0, 'seenIds' => [], 'viewingStates' => [], 'favoriteIds' => [],
             'favoriteItems' => [], 'settings' => $this->settings(['isAuthenticated' => false]),
         ];
     }

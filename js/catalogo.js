@@ -11,6 +11,8 @@ const catalogGrids = document.querySelectorAll(".catalog-grid");
 const gridButtons = document.querySelectorAll("[data-grid]");
 const catalogViewButtons = document.querySelectorAll("[data-catalog-view]");
 const gridDensityGroups = document.querySelectorAll(".grid-density");
+const quickStatusButtons = document.querySelectorAll("[data-quick-status]");
+const quickFavoriteButton = document.querySelector("[data-quick-favorite]");
 const catalogFilterForm = document.querySelector("#catalogFilterForm");
 const catalogSearchInput = document.querySelector("#sidebar-search");
 const filterInitial = document.querySelector("#filter-initial");
@@ -19,6 +21,7 @@ const filterFormat = document.querySelector("#filter-format");
 const filterSeasons = document.querySelector("#filter-seasons");
 const filterSeasonsGroup = document.querySelector("#filter-seasons-group");
 const filterStatus = document.querySelector("#filter-status");
+const filterViewing = document.querySelector("#filter-viewing");
 const filterYearMin = document.querySelector("#filter-year-min");
 const filterYearMax = document.querySelector("#filter-year-max");
 const filterYearMinValue = document.querySelector("#filter-year-min-value");
@@ -38,15 +41,18 @@ const createFilterState = () => ({
     format: "",
     seasons: "",
     status: "",
+    viewing: "",
     yearMin: null,
     yearMax: null,
 });
 
 const catalogFilters = {
+    all: createFilterState(),
     movies: createFilterState(),
     series: createFilterState(),
     anime: createFilterState(),
 };
+const quickFilters = { status: "", favoritesOnly: false };
 
 const setMobileFiltersOpen = (isOpen) => {
     catalogSidebar?.classList.toggle("is-filter-open", isOpen);
@@ -92,10 +98,20 @@ const heartIcon = `
     </svg>
 `;
 
+const viewingStateMeta = {
+    planned: { label: "Por ver", symbol: "◷", icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' },
+    watching: { label: "Viendo", symbol: "▷", icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>' },
+    paused: { label: "En pausa", symbol: "Ⅱ", icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6v12M16 6v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' },
+    completed: { label: "Completado", symbol: "✓", icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12.5 4 4L18 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' },
+    dropped: { label: "Abandonado", symbol: "×", icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' },
+};
+
 const fallbackPoster = "this.replaceWith(Object.assign(document.createElement('div'), { className: 'poster-placeholder', textContent: 'Imagen no disponible' }))";
 let catalogFeedbackTimer = null;
 let activeCatalogDetail = null;
-const allowedCategories = ["movies", "series", "anime"];
+let activeStatusTarget = null;
+let catalogStatusMenu = null;
+const allowedCategories = ["all", "movies", "series", "anime"];
 
 const showCatalogFeedback = (message, type = "error") => {
     let feedback = document.querySelector("#catalogFeedback");
@@ -131,7 +147,7 @@ const getCardSnapshot = (card) => {
         ...catalogItem,
         id: card.dataset.contentId || title.toLowerCase().replace(/\s+/g, "-"),
         title,
-        type: panel?.id?.replace("catalog-", "") || "anime",
+        type: catalogItem.type || panel?.id?.replace("catalog-", "") || "anime",
         genre: catalogItem.genre || tags[0] || "General",
         year: catalogItem.year || "",
         tags: Array.isArray(catalogItem.tags) ? catalogItem.tags : tags.slice(1, 4),
@@ -143,27 +159,32 @@ const getCardSnapshot = (card) => {
 
 const refreshCardActionState = (card) => {
     const snapshot = getCardSnapshot(card);
-    const seenButton = card.querySelector("[data-card-action='seen']");
+    const statusButton = card.querySelector("[data-card-action='status']");
     const favoriteButton = card.querySelector("[data-card-action='favorite']");
     const viewStatusTag = card.querySelector("[data-view-status-tag]");
-    const isSeen = AltoidssStore.isSeen(snapshot);
+    const viewingState = AltoidssStore.getViewingState(snapshot);
+    const stateMeta = viewingStateMeta[viewingState];
     const isFavorite = AltoidssStore.isFavorite(snapshot);
 
-    seenButton?.classList.toggle("is-active", isSeen);
     favoriteButton?.classList.toggle("is-favorite", isFavorite);
-    seenButton?.setAttribute("aria-pressed", String(isSeen));
     favoriteButton?.setAttribute("aria-pressed", String(isFavorite));
-    seenButton?.setAttribute("aria-label", isSeen ? "Marcar como no visto" : "Marcar como visto");
-    seenButton?.setAttribute("title", isSeen ? "Visto" : "No visto");
+
+    if (statusButton) {
+        statusButton.className = `card-toggle card-toggle-status state-${viewingState}`;
+        statusButton.innerHTML = stateMeta.icon;
+        statusButton.setAttribute("aria-label", `Estado: ${stateMeta.label}. Cambiar estado`);
+        statusButton.setAttribute("title", stateMeta.label);
+        statusButton.dataset.viewingState = viewingState;
+    }
 
     if (viewStatusTag) {
-        viewStatusTag.textContent = isSeen ? "Visto" : "No visto";
-        viewStatusTag.classList.toggle("is-seen", isSeen);
+        viewStatusTag.textContent = stateMeta.label;
+        viewStatusTag.className = `tag tag-view-status state-${viewingState}`;
     }
 };
 
 const animateSeenConfirmation = (container) => {
-    const seenButton = container?.querySelector("[data-card-action='seen'], [data-detail-action='seen']");
+    const seenButton = container?.querySelector("[data-card-action='status'], [data-detail-action='status']");
     const viewStatusTag = container?.querySelector("[data-view-status-tag]");
 
     [seenButton, viewStatusTag].forEach((element) => {
@@ -192,7 +213,7 @@ const addCardActions = (card) => {
     const actions = document.createElement("div");
     actions.className = "card-actions";
     actions.innerHTML = `
-        <button class="card-toggle card-toggle-seen" type="button" data-card-action="seen" aria-label="Marcar como visto" aria-pressed="false">${eyeIcon}</button>
+        <button class="card-toggle card-toggle-status" type="button" data-card-action="status" aria-label="Cambiar estado" aria-haspopup="menu" aria-expanded="false">${viewingStateMeta.planned.icon}</button>
         <button class="card-toggle card-toggle-favorite" type="button" data-card-action="favorite" aria-label="Agregar a favoritos" aria-pressed="false">${heartIcon}</button>
     `;
 
@@ -208,18 +229,81 @@ const enhanceCatalogCards = () => {
     document.querySelectorAll(".anime-card").forEach(addCardActions);
 };
 
+const ensureStatusMenu = () => {
+    if (catalogStatusMenu) {
+        return catalogStatusMenu;
+    }
+
+    catalogStatusMenu = document.createElement("div");
+    catalogStatusMenu.id = "catalogStatusMenu";
+    catalogStatusMenu.className = "catalog-status-menu";
+    catalogStatusMenu.setAttribute("role", "menu");
+    catalogStatusMenu.setAttribute("aria-label", "Cambiar estado de visualización");
+    catalogStatusMenu.hidden = true;
+    catalogStatusMenu.innerHTML = Object.entries(viewingStateMeta).map(([state, meta]) => `
+        <button type="button" role="menuitemradio" data-viewing-state="${state}" aria-checked="false">
+            ${meta.icon}<span>${meta.label}</span>
+        </button>
+    `).join("");
+    document.body.appendChild(catalogStatusMenu);
+    return catalogStatusMenu;
+};
+
+const closeStatusMenu = ({ restoreFocus = false } = {}) => {
+    if (!catalogStatusMenu || catalogStatusMenu.hidden) {
+        return;
+    }
+
+    const trigger = activeStatusTarget?.trigger;
+    catalogStatusMenu.hidden = true;
+    catalogStatusMenu.classList.remove("is-open");
+    trigger?.setAttribute("aria-expanded", "false");
+    activeStatusTarget = null;
+    if (restoreFocus) {
+        trigger?.focus({ preventScroll: true });
+    }
+};
+
+const openStatusMenu = (trigger, snapshot, card = null, detail = null) => {
+    const menu = ensureStatusMenu();
+    const currentState = AltoidssStore.getViewingState(snapshot);
+    activeStatusTarget?.trigger?.setAttribute("aria-expanded", "false");
+    activeStatusTarget = { trigger, snapshot, card, detail };
+
+    menu.querySelectorAll("[data-viewing-state]").forEach((option) => {
+        const isCurrent = option.dataset.viewingState === currentState;
+        option.classList.toggle("is-active", isCurrent);
+        option.setAttribute("aria-checked", String(isCurrent));
+    });
+    menu.hidden = false;
+    trigger.setAttribute("aria-expanded", "true");
+
+    const rect = trigger.getBoundingClientRect();
+    const menuWidth = 224;
+    const menuHeight = 244;
+    const left = Math.min(Math.max(12, rect.left), window.innerWidth - menuWidth - 12);
+    const top = rect.bottom + menuHeight + 8 <= window.innerHeight
+        ? rect.bottom + 8
+        : Math.max(12, rect.top - menuHeight - 8);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${top}px`;
+    requestAnimationFrame(() => menu.classList.add("is-open"));
+    menu.querySelector(".is-active")?.focus({ preventScroll: true });
+};
+
 // Aplica la preferencia guardada en Dashboard para mantener consistencia visual.
 const applyStoredGridPreference = () => {
     const cardsPerRow = AltoidssStore.getProfile().settings?.cardsPerRow || 5;
 
     catalogGrids.forEach((grid) => {
         grid.style.setProperty("--cards-per-row", cardsPerRow);
+        grid.dataset.density = String(cardsPerRow);
     });
 
     gridButtons.forEach((button) => {
         const isSelected = Number(button.dataset.grid) === Number(cardsPerRow);
-        button.classList.toggle("btn-primary", isSelected);
-        button.classList.toggle("btn-outline-light", !isSelected);
+        button.classList.toggle("is-active", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
     });
 };
 
@@ -232,8 +316,7 @@ const applyCatalogView = (view = "cards") => {
 
     catalogViewButtons.forEach((button) => {
         const isSelected = button.dataset.catalogView === selectedView;
-        button.classList.toggle("btn-primary", isSelected);
-        button.classList.toggle("btn-outline-light", !isSelected);
+        button.classList.toggle("is-active", isSelected);
         button.setAttribute("aria-pressed", String(isSelected));
     });
 
@@ -326,7 +409,9 @@ const updateYearLabels = (state) => {
 
 const configureFilterPanel = (category, reset = false) => {
     const state = catalogFilters[category];
-    const items = catalogItems.filter((item) => item.type === category);
+    const items = category === "all"
+        ? catalogItems
+        : catalogItems.filter((item) => item.type === category);
     const years = items.map(getItemYear).filter((year) => year > 0).sort((a, b) => a - b);
     const minimumYear = years[0] || new Date().getFullYear();
     const maximumYear = years.at(-1) || minimumYear;
@@ -360,6 +445,7 @@ const configureFilterPanel = (category, reset = false) => {
     state.format = filterFormat.value;
     state.seasons = filterSeasons.value;
     state.status = filterStatus.value;
+    filterViewing.value = state.viewing;
     filterSeasonsGroup.hidden = category === "movies" || !seasonCounts.length;
 
     [filterYearMin, filterYearMax].forEach((input) => {
@@ -379,6 +465,7 @@ const readFilterControls = (category) => {
     state.format = filterFormat.value;
     state.seasons = filterSeasonsGroup.hidden ? "" : filterSeasons.value;
     state.status = filterStatus.value;
+    state.viewing = filterViewing.value;
 
     if (Number(filterYearMin.value) > Number(filterYearMax.value)) {
         const changedMinimum = document.activeElement === filterYearMin;
@@ -403,11 +490,22 @@ const itemMatchesFilters = (item, state) => {
     const matchesFormat = !state.format || normalizeFilterText(item.format) === normalizeFilterText(state.format);
     const matchesSeasons = !state.seasons || Number(item.seasonsCount || 0) === Number(state.seasons);
     const matchesStatus = !state.status || normalizeFilterText(item.productionStatus) === normalizeFilterText(state.status);
-    return matchesYear && matchesInitial && matchesGenre && matchesFormat && matchesSeasons && matchesStatus;
+    const viewingState = AltoidssStore.getViewingState(item);
+    const isSeen = viewingState === "completed";
+    const matchesViewing = !state.viewing
+        || (state.viewing === "seen" && isSeen)
+        || (state.viewing === "unseen" && !isSeen);
+    const matchesQuickStatus = !quickFilters.status
+        || (quickFilters.status === "seen" && isSeen)
+        || (quickFilters.status === "watching" && viewingState === "watching")
+        || (quickFilters.status === "planned" && viewingState === "planned");
+    const matchesQuickFavorite = !quickFilters.favoritesOnly || AltoidssStore.isFavorite(item);
+    return matchesYear && matchesInitial && matchesGenre && matchesFormat && matchesSeasons
+        && matchesStatus && matchesViewing && matchesQuickStatus && matchesQuickFavorite;
 };
 
 const getCategoryItems = (category) => catalogItems.filter((item) => (
-    item.type === category && itemMatchesFilters(item, catalogFilters[category])
+    (category === "all" || item.type === category) && itemMatchesFilters(item, catalogFilters[category])
 ));
 
 const updateFilterResultCount = (category) => {
@@ -561,19 +659,20 @@ const getAnimationDuration = () => (
 );
 
 const setDetailActionState = (detail, snapshot) => {
-    const seenButton = detail.querySelector("[data-detail-action='seen']");
+    const statusButton = detail.querySelector("[data-detail-action='status']");
     const favoriteButton = detail.querySelector("[data-detail-action='favorite']");
     const viewStatusTag = detail.querySelector("[data-view-status-tag]");
-    const isSeen = AltoidssStore.isSeen(snapshot);
+    const viewingState = AltoidssStore.getViewingState(snapshot);
+    const stateMeta = viewingStateMeta[viewingState];
     const isFavorite = AltoidssStore.isFavorite(snapshot);
 
-    seenButton?.classList.toggle("is-active", isSeen);
     favoriteButton?.classList.toggle("is-favorite", isFavorite);
-    seenButton?.setAttribute("aria-pressed", String(isSeen));
     favoriteButton?.setAttribute("aria-pressed", String(isFavorite));
 
-    if (seenButton) {
-        seenButton.querySelector("span").textContent = isSeen ? "Marcar como no visto" : "Marcar como visto";
+    if (statusButton) {
+        statusButton.className = `state-${viewingState}`;
+        statusButton.innerHTML = `${stateMeta.icon}<span>${stateMeta.label}</span>`;
+        statusButton.setAttribute("aria-label", `Estado: ${stateMeta.label}. Cambiar estado`);
     }
 
     if (favoriteButton) {
@@ -581,8 +680,8 @@ const setDetailActionState = (detail, snapshot) => {
     }
 
     if (viewStatusTag) {
-        viewStatusTag.textContent = isSeen ? "Visto" : "No visto";
-        viewStatusTag.classList.toggle("is-seen", isSeen);
+        viewStatusTag.textContent = stateMeta.label;
+        viewStatusTag.className = `catalog-detail-view-status state-${viewingState}`;
     }
 };
 
@@ -612,7 +711,7 @@ const createDetailMarkup = (snapshot) => {
                     ${sourceMarkup}
                 </div>
                 <div class="catalog-detail-actions">
-                    <button type="button" data-detail-action="seen" aria-pressed="false">${eyeIcon}<span>Marcar como visto</span></button>
+                     <button type="button" data-detail-action="status" aria-haspopup="menu" aria-expanded="false">${viewingStateMeta.planned.icon}<span>Por ver</span></button>
                     <button type="button" data-detail-action="favorite" aria-pressed="false">${heartIcon}<span>Agregar a favoritos</span></button>
                 </div>
             </div>
@@ -625,6 +724,7 @@ const closeCatalogDetail = async ({ restoreFocus = true, immediate = false } = {
         return;
     }
 
+    closeStatusMenu();
     const detailState = activeCatalogDetail;
     detailState.closing = true;
     const { overlay, shell, placeholder, card, snapshot, originBorderRadius } = detailState;
@@ -739,9 +839,51 @@ const openCatalogDetail = async (card) => {
 };
 
 document.addEventListener("click", async (event) => {
+    const stateOption = event.target.closest("[data-viewing-state]");
+    if (!stateOption || !activeStatusTarget) {
+        return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    const target = activeStatusTarget;
+    const nextState = stateOption.dataset.viewingState;
+    const options = [...catalogStatusMenu.querySelectorAll("[data-viewing-state]")];
+    options.forEach((option) => { option.disabled = true; });
+
+    try {
+        await AltoidssStore.setViewingState(target.snapshot, nextState);
+        document.querySelectorAll(".anime-card").forEach((card) => {
+            if (getCardSnapshot(card).id === target.snapshot.id) {
+                refreshCardActionState(card);
+            }
+        });
+        target.detail && setDetailActionState(target.detail, target.snapshot);
+        animateSeenConfirmation(target.card || target.detail);
+        showCatalogFeedback(`Estado actualizado: ${viewingStateMeta[nextState].label}.`, "success");
+        closeStatusMenu();
+
+        const category = getCategoryFromUrl();
+        if (catalogFilters[category].viewing || quickFilters.status) {
+            if (target.detail) {
+                await closeCatalogDetail({ restoreFocus: false });
+            }
+            window.setTimeout(() => applyCurrentFilters(category), 180);
+        }
+    } catch (error) {
+        showCatalogFeedback(error.message || "No se pudo cambiar el estado.");
+    } finally {
+        options.forEach((option) => { option.disabled = false; });
+    }
+});
+
+document.addEventListener("click", async (event) => {
     const actionButton = event.target.closest("[data-card-action]");
 
     if (!actionButton) {
+        if (!event.target.closest("#catalogStatusMenu")) {
+            closeStatusMenu();
+        }
         return;
     }
 
@@ -750,23 +892,24 @@ document.addEventListener("click", async (event) => {
     const card = actionButton.closest(".anime-card");
     const snapshot = getCardSnapshot(card);
 
-    try {
-        if (actionButton.dataset.cardAction === "seen") {
-            await AltoidssStore.toggleSeen(snapshot);
-            showCatalogFeedback(
-                AltoidssStore.isSeen(snapshot) ? "Marcado como visto." : "Marcado como no visto.",
-                "success"
-            );
-        }
+    if (actionButton.dataset.cardAction === "status") {
+        openStatusMenu(actionButton, snapshot, card);
+        return;
+    }
 
+    try {
         if (actionButton.dataset.cardAction === "favorite") {
             await AltoidssStore.toggleFavorite(snapshot);
             showCatalogFeedback("Lista de favoritos actualizada.", "success");
         }
 
         refreshCardActionState(card);
-        if (actionButton.dataset.cardAction === "seen") {
-            animateSeenConfirmation(card);
+        const category = getCategoryFromUrl();
+        const shouldRefreshFavorite = actionButton.dataset.cardAction === "favorite"
+            && quickFilters.favoritesOnly;
+
+        if (shouldRefreshFavorite) {
+            applyCurrentFilters(category);
         }
     } catch (error) {
         showCatalogFeedback(error.message || "No se pudo completar la acción.");
@@ -783,20 +926,24 @@ document.addEventListener("click", async (event) => {
 
     if (detailAction && activeCatalogDetail) {
         const { shell, snapshot } = activeCatalogDetail;
+
+        if (detailAction.dataset.detailAction === "status") {
+            openStatusMenu(detailAction, snapshot, null, shell);
+            return;
+        }
+
         detailAction.disabled = true;
 
         try {
-            if (detailAction.dataset.detailAction === "seen") {
-                await AltoidssStore.toggleSeen(snapshot);
-            }
-
             if (detailAction.dataset.detailAction === "favorite") {
                 await AltoidssStore.toggleFavorite(snapshot);
             }
 
             setDetailActionState(shell, snapshot);
-            if (detailAction.dataset.detailAction === "seen") {
-                animateSeenConfirmation(shell);
+            if (detailAction.dataset.detailAction === "favorite" && quickFilters.favoritesOnly) {
+                const category = getCategoryFromUrl();
+                await closeCatalogDetail();
+                applyCurrentFilters(category);
             }
         } catch (error) {
             showCatalogFeedback(error.message || "No se pudo completar la acción.");
@@ -815,6 +962,12 @@ document.addEventListener("click", async (event) => {
 });
 
 document.addEventListener("keydown", async (event) => {
+    if (event.key === "Escape" && activeStatusTarget) {
+        event.preventDefault();
+        closeStatusMenu({ restoreFocus: true });
+        return;
+    }
+
     if (activeCatalogDetail) {
         if (event.key === "Escape") {
             event.preventDefault();
@@ -848,6 +1001,7 @@ document.addEventListener("keydown", async (event) => {
 });
 
 window.addEventListener("resize", () => {
+    closeStatusMenu();
     if (!activeCatalogDetail || activeCatalogDetail.closing) {
         return;
     }
@@ -866,17 +1020,22 @@ gridButtons.forEach((button) => {
     button.addEventListener("click", async () => {
         catalogGrids.forEach((grid) => {
             grid.style.setProperty("--cards-per-row", button.dataset.grid);
+            grid.dataset.density = button.dataset.grid;
         });
 
-        await AltoidssStore.updateSettings({
-            cardsPerRow: Number(button.dataset.grid),
-        });
-
-        // Actualiza el color del botón seleccionado para mostrar el estado activo.
         gridButtons.forEach((item) => {
-            item.classList.toggle("btn-primary", item === button);
-            item.classList.toggle("btn-outline-light", item !== button);
+            const isSelected = item === button;
+            item.classList.toggle("is-active", isSelected);
+            item.setAttribute("aria-pressed", String(isSelected));
         });
+
+        try {
+            await AltoidssStore.updateSettings({
+                cardsPerRow: Number(button.dataset.grid),
+            });
+        } catch (error) {
+            console.warn("La densidad se aplicó solo durante esta sesión.", error);
+        }
     });
 });
 
@@ -933,8 +1092,8 @@ const selectCategory = (selectedCategory) => {
 
     categoryButtons.forEach((item) => {
         const isSelected = item.dataset.categoryView === category;
-        item.classList.toggle("btn-primary", isSelected);
-        item.classList.toggle("btn-outline-light", !isSelected);
+        item.classList.toggle("is-active", isSelected);
+        item.setAttribute("aria-pressed", String(isSelected));
     });
 };
 
@@ -951,8 +1110,12 @@ const performCatalogSearch = async (query, category = getCategoryFromUrl()) => {
         return;
     }
 
-    const results = await AltoidssStore.searchCatalog(category, normalizedQuery);
-    const otherCategories = AltoidssStore.read().filter((item) => item.type !== category);
+    const results = category === "all"
+        ? (await getCatalogContent()).filter((item) => normalizeFilterText(item.title).includes(normalizeFilterText(normalizedQuery)))
+        : await AltoidssStore.searchCatalog(category, normalizedQuery);
+    const otherCategories = category === "all"
+        ? []
+        : AltoidssStore.read().filter((item) => item.type !== category);
     await renderStoredContent([...otherCategories, ...results]);
     selectCategory(category);
     configureFilterPanel(category);
@@ -1004,7 +1167,7 @@ catalogFilterForm?.addEventListener("submit", async (event) => {
     }
 });
 
-[filterInitial, filterGenre, filterFormat, filterSeasons, filterStatus].forEach((control) => {
+[filterInitial, filterGenre, filterFormat, filterSeasons, filterStatus, filterViewing].forEach((control) => {
     control?.addEventListener("change", () => {
         const category = getCategoryFromUrl();
         readFilterControls(category);
@@ -1018,6 +1181,28 @@ catalogFilterForm?.addEventListener("submit", async (event) => {
         readFilterControls(category);
         applyCurrentFilters(category);
     });
+});
+
+quickStatusButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const selectedStatus = button.dataset.quickStatus;
+        quickFilters.status = quickFilters.status === selectedStatus ? "" : selectedStatus;
+
+        quickStatusButtons.forEach((item) => {
+            const isSelected = item.dataset.quickStatus === quickFilters.status;
+            item.classList.toggle("is-active", isSelected);
+            item.setAttribute("aria-pressed", String(isSelected));
+        });
+
+        applyCurrentFilters(getCategoryFromUrl());
+    });
+});
+
+quickFavoriteButton?.addEventListener("click", () => {
+    quickFilters.favoritesOnly = !quickFilters.favoritesOnly;
+    quickFavoriteButton.classList.toggle("is-active", quickFilters.favoritesOnly);
+    quickFavoriteButton.setAttribute("aria-pressed", String(quickFilters.favoritesOnly));
+    applyCurrentFilters(getCategoryFromUrl());
 });
 
 clearCatalogFilters?.addEventListener("click", async () => {

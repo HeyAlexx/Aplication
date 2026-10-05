@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/catalogo.css?v=22">
+    <link rel="stylesheet" href="../css/catalogo.css?v=24">
     <link rel="stylesheet" href="../css/site-shared.css?v=8">
 </head>
 <body>
@@ -93,6 +93,15 @@
                     </select>
                 </div>
 
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-viewing">Visualización</label>
+                    <select class="form-select form-select-sm" id="filter-viewing">
+                        <option value="">Todos</option>
+                        <option value="seen">Visto</option>
+                        <option value="unseen">No visto</option>
+                    </select>
+                </div>
+
                 <div class="filter-group filter-year-group">
                     <div class="filter-range-heading">
                         <span class="filter-label">Año</span>
@@ -138,36 +147,39 @@
                 <p>Explora películas, series y anime cargados desde la colección JSON de Altoidss.</p>
             </div>
 
-            <!-- Vista preliminar de películas. Es la categoría activa por defecto. -->
-            <section class="catalog-panel is-active" id="catalog-movies">
-                <div class="catalog-controls">
-                    <div class="catalog-mode" aria-label="Categoría general del catálogo">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button class="btn btn-primary" type="button" data-category-view="movies">Películas</button>
-                            <button class="btn btn-outline-light" type="button" data-category-view="series">Series TV</button>
-                            <button class="btn btn-outline-light" type="button" data-category-view="anime">Anime</button>
-                        </div>
+            <div class="catalog-controls" aria-label="Filtros rápidos y visualización del catálogo">
+                <div class="catalog-mode catalog-control-group" role="group" aria-label="Filtrar por tipo">
+                    <button class="catalog-quick-button" type="button" data-category-view="all" aria-pressed="false"><span class="quick-label">Todos</span><span class="quick-symbol" aria-hidden="true">T</span></button>
+                    <button class="catalog-quick-button" type="button" data-category-view="anime" aria-pressed="false"><span class="quick-label">Anime</span><span class="quick-symbol" aria-hidden="true">A</span></button>
+                    <button class="catalog-quick-button is-active" type="button" data-category-view="movies" aria-pressed="true"><span class="quick-label">Películas</span><span class="quick-symbol" aria-hidden="true">P</span></button>
+                    <button class="catalog-quick-button" type="button" data-category-view="series" aria-pressed="false"><span class="quick-label">Series</span><span class="quick-symbol" aria-hidden="true">S</span></button>
+                </div>
+                <div class="catalog-status-filters catalog-control-group" role="group" aria-label="Filtrar por seguimiento y favoritos">
+                    <button class="catalog-quick-button" type="button" data-quick-status="seen" aria-pressed="false"><span class="quick-label">Visto</span><span class="quick-symbol" aria-hidden="true">✓</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-status="planned" aria-pressed="false"><span class="quick-label">Por ver</span><span class="quick-symbol" aria-hidden="true">P</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-status="watching" aria-pressed="false"><span class="quick-label">Viendo</span><span class="quick-symbol" aria-hidden="true">▶</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-favorite aria-pressed="false"><span class="quick-label">Favoritos</span><span class="quick-symbol" aria-hidden="true">♥</span></button>
+                </div>
+                <div class="catalog-toolbar catalog-control-group">
+                    <div class="view-selector" role="group" aria-label="Modo de visualización">
+                        <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas"><span aria-hidden="true">▦</span></button>
+                        <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista"><span aria-hidden="true">☷</span></button>
                     </div>
-                    <div class="catalog-preview">
-                        <h2>Películas</h2>
-                    </div>
-                    <div class="catalog-toolbar">
-                        <div class="btn-group btn-group-sm view-selector" role="group" aria-label="Modo de visualización">
-                            <button class="btn btn-primary" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" title="Tarjetas">
-                                <span aria-hidden="true">▦</span>
-                            </button>
-                            <button class="btn btn-outline-light" type="button" data-catalog-view="list" aria-label="Ver como lista" title="Lista">
-                                <span aria-hidden="true">☷</span>
-                            </button>
-                        </div>
-                        <div class="btn-group btn-group-sm grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
-                            <button class="btn btn-outline-light" type="button" data-grid="3">3</button>
-                            <button class="btn btn-primary" type="button" data-grid="5">5</button>
-                            <button class="btn btn-outline-light" type="button" data-grid="7">7</button>
-                        </div>
+                    <div class="grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
+                        <button class="catalog-density-button" type="button" data-grid="3" aria-pressed="false">3</button>
+                        <button class="catalog-density-button is-active" type="button" data-grid="5" aria-pressed="true">5</button>
+                        <button class="catalog-density-button" type="button" data-grid="7" aria-pressed="false">7</button>
                     </div>
                 </div>
-                <div class="catalog-grid">
+            </div>
+
+            <section class="catalog-panel" id="catalog-all">
+                <div class="catalog-grid" data-density="5"></div>
+            </section>
+
+            <!-- Vista preliminar de películas. Es la categoría activa por defecto. -->
+            <section class="catalog-panel is-active" id="catalog-movies">
+                <div class="catalog-grid" data-density="5">
                     <article class="anime-card">
                         <div class="poster poster-one">
                             <img src="https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg" alt="Póster de Dune" loading="lazy">
@@ -248,30 +260,7 @@
 
             <!-- Vista preliminar de series de televisión. -->
             <section class="catalog-panel" id="catalog-series">
-                <div class="catalog-controls">
-                    <div class="catalog-mode" aria-label="Categoría general del catálogo">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button class="btn btn-outline-light" type="button" data-category-view="movies">Películas</button>
-                            <button class="btn btn-primary" type="button" data-category-view="series">Series TV</button>
-                            <button class="btn btn-outline-light" type="button" data-category-view="anime">Anime</button>
-                        </div>
-                    </div>
-                    <div class="catalog-preview">
-                        <h2>Series TV</h2>
-                    </div>
-                    <div class="catalog-toolbar">
-                        <div class="btn-group btn-group-sm view-selector" role="group" aria-label="Modo de visualización">
-                            <button class="btn btn-primary" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" title="Tarjetas"><span aria-hidden="true">▦</span></button>
-                            <button class="btn btn-outline-light" type="button" data-catalog-view="list" aria-label="Ver como lista" title="Lista"><span aria-hidden="true">☷</span></button>
-                        </div>
-                        <div class="btn-group btn-group-sm grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
-                            <button class="btn btn-outline-light" type="button" data-grid="3">3</button>
-                            <button class="btn btn-primary" type="button" data-grid="5">5</button>
-                            <button class="btn btn-outline-light" type="button" data-grid="7">7</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="catalog-grid">
+                <div class="catalog-grid" data-density="5">
                     <article class="anime-card">
                         <div class="poster poster-six">
                             <img src="https://image.tmdb.org/t/p/w500/30erzlzIOtOK3k3T3BAl1GiVMP1.jpg" alt="Póster de Breaking Bad" loading="lazy">
@@ -352,30 +341,7 @@
 
             <!-- Vista preliminar de anime. -->
             <section class="catalog-panel" id="catalog-anime">
-                <div class="catalog-controls">
-                    <div class="catalog-mode" aria-label="Categoría general del catálogo">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button class="btn btn-outline-light" type="button" data-category-view="movies">Películas</button>
-                            <button class="btn btn-outline-light" type="button" data-category-view="series">Series TV</button>
-                            <button class="btn btn-primary" type="button" data-category-view="anime">Anime</button>
-                        </div>
-                    </div>
-                    <div class="catalog-preview">
-                        <h2>Anime</h2>
-                    </div>
-                    <div class="catalog-toolbar">
-                        <div class="btn-group btn-group-sm view-selector" role="group" aria-label="Modo de visualización">
-                            <button class="btn btn-primary" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" title="Tarjetas"><span aria-hidden="true">▦</span></button>
-                            <button class="btn btn-outline-light" type="button" data-catalog-view="list" aria-label="Ver como lista" title="Lista"><span aria-hidden="true">☷</span></button>
-                        </div>
-                        <div class="btn-group btn-group-sm grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
-                            <button class="btn btn-outline-light" type="button" data-grid="3">3</button>
-                            <button class="btn btn-primary" type="button" data-grid="5">5</button>
-                            <button class="btn btn-outline-light" type="button" data-grid="7">7</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="catalog-grid">
+                <div class="catalog-grid" data-density="5">
                     <article class="anime-card">
                         <div class="poster poster-eleven">
                             <img src="https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg" alt="Póster de Demon Slayer" loading="lazy">
@@ -463,8 +429,8 @@
     <script src="../js/api-client.js?v=1"></script>
     <script src="../js/auth.js?v=5"></script>
     <script src="../js/site-account.js?v=1"></script>
-    <script src="../js/data-store.js?v=10"></script>
-    <script src="../js/catalogo.js?v=17"></script>
+    <script src="../js/data-store.js?v=11"></script>
+    <script src="../js/catalogo.js?v=20"></script>
 </body>
 </html>
 

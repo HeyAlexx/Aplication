@@ -161,6 +161,28 @@ try {
     if ($method === 'GET' && $route === '/dashboard') {
         Response::success($userService->dashboard($authService->session()), 200, ['csrfToken' => $authService->csrfToken()]);
     }
+    if ($method === 'GET' && $route === '/reviews/anime') {
+        $authService->requireAdmin();
+        Response::success($animeReviewService->all(), 200, ['csrfToken' => $authService->csrfToken()]);
+    }
+    if ($method === 'PUT' && preg_match('#^/reviews/anime/([^/]+)$#', $route, $matches)) {
+        $session = $authService->requireAdmin();
+        Response::success(
+            $animeReviewService->decide(rawurldecode($matches[1]), $payload, $session),
+            200,
+            ['csrfToken' => $authService->csrfToken()]
+        );
+    }
+    if ($method === 'POST' && preg_match('#^/reviews/anime/([^/]+)/source$#', $route, $matches)) {
+        $authService->requireAdmin();
+        $sourceUrl = trim((string) ($payload['sourceUrl'] ?? ''));
+        Response::success([
+            'candidate' => $animeReviewService->sourceCandidate(
+                rawurldecode($matches[1]),
+                $jikanService->fromSourceUrl($sourceUrl)
+            ),
+        ], 200, ['csrfToken' => $authService->csrfToken()]);
+    }
     if ($method === 'GET' && $route === '/export') {
         $authService->requireAdmin();
         Response::success([

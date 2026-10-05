@@ -24,6 +24,7 @@ WORK_DIR = PROJECT_DIR / "backups" / "anime-enrichment"
 STATE_PATH = WORK_DIR / "state.json"
 DEFAULT_ENDPOINT = "http://localhost/altoidss/api/index.php?route=/discover/anime-kitsu/"
 DEFAULT_DESCRIPTION = "Registro importado desde Anime Data V1.xlsx."
+SHEET_DESCRIPTION = "Registro agregado desde la hoja de anime de Altoidss."
 JIKAN_ENDPOINT = "https://api.jikan.moe/v4/anime"
 ANILIST_ENDPOINT = "https://graphql.anilist.co"
 KITSU_ENDPOINT = "https://kitsu.io/api/edge/anime"
@@ -46,6 +47,11 @@ def parse_args() -> argparse.Namespace:
         default="auto",
     )
     parser.add_argument("--retry-unmatched", action="store_true")
+    parser.add_argument(
+        "--source-codes",
+        default="",
+        help="Códigos separados por coma para limitar el lote a registros concretos.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -80,6 +86,33 @@ def format_key(value: object) -> str:
     if value in {"ova", "ona", "especial", "special"}:
         return value
     return "series"
+
+
+def normalized_format(value: object) -> str:
+    key = format_key(value)
+    return {
+        "movie": "Película",
+        "ova": "OVA",
+        "ona": "ONA",
+        "especial": "Especial",
+        "special": "Especial",
+        "series": "Serie",
+    }.get(key, "Serie")
+
+
+def normalized_production_status(value: object) -> str:
+    key = normalize_title(value).replace("_", " ")
+    if key in {"finished", "finished airing", "complete", "completed"}:
+        return "Finalizado"
+    if key in {"releasing", "currently airing", "current"}:
+        return "Emisión"
+    if key in {"not yet released", "not yet aired", "upcoming", "unreleased", "tba"}:
+        return "Próximamente"
+    if key in {"hiatus", "on hiatus"}:
+        return "Pausado"
+    if key in {"cancelled", "canceled"}:
+        return "Cancelado"
+    return ""
 
 
 def title_season(value: object) -> int | None:
@@ -280,6 +313,8 @@ def jikan_candidates(title: str) -> list[dict[str, object]]:
             "format": item.get("type") or "Serie",
             "emissionYear": year or 0,
             "emissionSeason": str(item.get("season") or "").title(),
+            "chapters": int(item.get("episodes") or 0),
+            "productionStatus": normalized_production_status(item.get("status")),
             "genre": genres[0] if genres else "Anime",
             "tags": genres[1:4],
             "image": ((images.get("webp") or {}).get("large_image_url")
@@ -300,7 +335,7 @@ def anilist_candidates(title: str) -> list[dict[str, object]]:
     query ($search: String!) {
       Page(page: 1, perPage: 20) {
         media(search: $search, type: ANIME, isAdult: false) {
-          id idMal format season seasonYear episodes averageScore siteUrl genres description(asHtml: false)
+          id idMal format status season seasonYear episodes averageScore siteUrl genres description(asHtml: false)
           title { romaji english native }
           coverImage { extraLarge large medium }
         }
@@ -330,6 +365,8 @@ def anilist_candidates(title: str) -> list[dict[str, object]]:
             "format": item.get("format") or "Serie",
             "emissionYear": item.get("seasonYear") or 0,
             "emissionSeason": str(item.get("season") or "").title(),
+            "chapters": int(item.get("episodes") or 0),
+            "productionStatus": normalized_production_status(item.get("status")),
             "genre": genres[0] if genres else "Anime",
             "tags": genres[1:4],
             "image": cover.get("extraLarge") or cover.get("large") or cover.get("medium") or "",
@@ -364,6 +401,8 @@ def kitsu_candidates(title: str) -> list[dict[str, object]]:
             "format": attributes.get("subtype") or "Serie",
             "emissionYear": int(year_match.group(1)) if year_match else 0,
             "emissionSeason": "",
+            "chapters": int(attributes.get("episodeCount") or 0),
+            "productionStatus": normalized_production_status(attributes.get("status")),
             "genre": "Anime",
             "tags": [],
             "image": poster.get("original") or poster.get("large") or poster.get("medium") or "",
@@ -396,6 +435,10 @@ def lookup_record(provider: str, endpoint: str, record: dict[str, object]) -> tu
         query_variants.append("Kanpeki Sugite Kawai-ge ga Nai")
     if title.casefold().startswith("koko wa ore ni makasete"):
         query_variants.append("I Became a Legend After My 10 Year-Long Last Stand")
+    if title.casefold().startswith("futsutsuka na akujo"):
+        query_variants.append("Futsutsuka na Akujo de wa Gozaimasu ga: Suuguu Chouso Torikae Den")
+    if title.casefold().startswith("nige jouzu no wakagimi 2nd"):
+        query_variants.append("Nige Jouzu no Wakagimi 2nd Season")
     if len(title) > 90:
         query_variants.append(re.split(r"[,\-]", title, maxsplit=1)[0].strip())
     query_variants = list(dict.fromkeys(filter(None, query_variants)))
@@ -438,11 +481,11 @@ def lookup_record_legacy(endpoint: str, record: dict[str, object]) -> tuple[dict
 
 def needs_enrichment(record: dict[str, object]) -> bool:
     return (
-        record.get("source") == "excel-anime-data-v1"
+        record.get("source") in {"excel-anime-data-v1", "google-sheet-anime"}
         and (
             not str(record.get("image") or "").startswith("https://")
             or not str(record.get("sourceUrl") or "").startswith("https://")
-            or record.get("description") in {None, "", DEFAULT_DESCRIPTION}
+            or record.get("description") in {None, "", DEFAULT_DESCRIPTION, SHEET_DESCRIPTION}
         )
     )
 
@@ -502,9 +545,13 @@ def main() -> None:
         if record_id not in completed and record_id not in unmatched
     }
 
+    selected_codes = {
+        value.strip() for value in args.source_codes.split(",") if value.strip()
+    }
     pending = [
         record for record in records
         if needs_enrichment(record)
+        and (not selected_codes or str(record.get("sourceCode") or "") in selected_codes)
         and record.get("id") not in completed
         and (args.retry_unmatched or record.get("id") not in unmatched)
     ][: args.batch_size]

@@ -1,2 +1,11 @@
 api/config/secrets.local.php
-
+api/config/mal-client-id.local.txt
+config/google-oauth-client.json
+runtime/anime-sync/google-token.json
+runtime/
+backups/
+outputs/
+node_modules/
+__pycache__/
+*.pyc
+config/anime-sync.json
