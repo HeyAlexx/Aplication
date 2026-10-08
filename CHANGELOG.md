@@ -19,6 +19,13 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 - Resultados a la izquierda y ordenación a la derecha, conservando los controles de categorías, seguimiento y vista.
 - Distribución adaptable a móvil y pruebas de navegador de filtros, teclado y ordenación. No se añaden criterios de popularidad o puntuación sin datos adecuados.
 
+### En desarrollo — catálogo móvil
+
+- Dos tarjetas por fila en móvil, incluso por debajo de 420 px, con portada 2:3 y título legible debajo de la imagen.
+- Filtros principales plegables mediante «Filtros»; iniciales siempre visibles.
+- Barra de controles compacta junto a resultados y densidad de escritorio mediante selector 3/5/7; móvil mantiene dos columnas.
+- Pruebas de navegador a 320, 360, 412, 600 y 768 px.
+
 ### Documentación
 
 - Roadmap con página dinámica de contenido, reproductor local, listas colapsables y orden cronológico del Dashboard.
