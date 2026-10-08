@@ -566,6 +566,7 @@ const renderAnimeReviews = () => {
                     </div>
                     <span class="review-status ${badgeClass}">${escapeHtml(review.status)}</span>
                 </header>
+                ${review.status === "Aprobado" ? `<p class="review-sheet-status" role="status">Catálogo JSON: guardado · Google Sheets: ${escapeHtml(review.sheetSyncStatus || "Sin confirmación registrada")}${review.sheetSyncStatus === "Pendiente" ? " (el sincronizador lo reintentará cuando esté configurado y activo)" : ""}</p>` : ""}
                 <div class="review-differences">
                     ${(review.differences || []).map((difference) => `<span>${escapeHtml(difference)}</span>`).join("")}
                     <strong>${Math.round(Number(review.matchScore || 0) * 100)}% coincidencia</strong>
@@ -981,9 +982,10 @@ animeReviewList?.addEventListener("click", async (event) => {
             notes: card.querySelector("[data-review-notes]")?.value || "",
         };
         if (decision === "save") payload.finalData = collectReviewEditorData(card);
-        await AltoidssApi.put(`/reviews/anime/${encodeURIComponent(review.id)}`, payload);
+        const result = await AltoidssApi.put(`/reviews/anime/${encodeURIComponent(review.id)}`, payload);
+        if (decision === "save") await AltoidssStore.reload();
         await refreshDashboardPanels();
-        showDashboardFeedback(decision === "save" ? "Versión final guardada en el catálogo." : "Propuesta rechazada.", "success");
+        showDashboardFeedback(decision === "save" ? `Versión final guardada en el catálogo. Google Sheets: ${result.sheetSyncStatus || "sin confirmación"}.` : "Propuesta rechazada.", "success");
     } catch (error) {
         showDashboardFeedback(error.message || "No se pudo guardar la revisión.");
         card.querySelectorAll("button").forEach((current) => { current.disabled = false; });

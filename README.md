@@ -183,7 +183,11 @@ También puedes usar `iniciar-sincronizacion-anime.cmd`. Mantén el proceso acti
 
 El pipeline consulta AniList, Jikan y Kitsu para contrastar información. Las diferencias que necesitan intervención se revisan desde el Dashboard. La primera ejecución puede tardar más por las consultas a proveedores externos.
 
-Con Google Sheets autorizado, el sincronizador procesa las correcciones aprobadas pendientes antes de la siguiente importación. Si falla la escritura, conserva la cola para reintentarla. **No ordenes, insertes ni elimines filas mientras haya correcciones pendientes de envío**: la escritura actual utiliza el número de fila registrado en la revisión.
+Al aprobar una revisión, Altoidss guarda inmediatamente la versión final en `data/anime.json` y encola los diez campos compartidos A:J en `data/anime-sheet-writeback.json`; imágenes, sinopsis y otros metadatos permanecen en el JSON. El Dashboard recarga el catálogo y distingue «Catálogo JSON: guardado» de «Google Sheets: Pendiente», «Confirmado» o «Sin referencia de hoja».
+
+Con Google Sheets autorizado y `writeBackEnabled` activado, el sincronizador ejecutado con `--apply` procesa esa cola antes de la siguiente importación. Busca la fila por código único, envía valores literales y vuelve a leer la hoja para confirmar los diez campos. Si la red falla, falta el código, está duplicado o la confirmación no coincide, conserva la cola para reintentarla y no marca Google como confirmado. Una aprobación posterior del mismo código reemplaza su devolución pendiente; no se elimina una versión más nueva al recibir la respuesta de la anterior. Las revisiones aprobadas sin cambios de origen conservan su decisión.
+
+**No edites simultáneamente las filas pendientes mientras se envían correcciones**: aunque la fila se localiza por código, sigue existiendo un intervalo entre lectura y escritura. La devolución requiere un sincronizador activo; aprobar desde el navegador no inicia ese proceso ni obtiene autorización OAuth. El modo de previsualización sin `--apply` y la inicialización no procesan la cola. El entorno de desarrollo no activa la hoja real: validar primero con una hoja y credenciales de prueba.
 
 Existe además una opción de lectura por exportación XLSX mediante `googleExportUrl`, sin devolución de correcciones. Cuando OAuth está desactivado, una URL de exportación no vacía tiene prioridad sobre `workbook`; déjala vacía para usar Excel local. Compartir un enlace con permiso de edición no sustituye OAuth.
 

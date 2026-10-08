@@ -4,6 +4,13 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### En desarrollo — aprobaciones y devolución a Google Sheets
+
+- Altas aprobadas conservan su fila de origen y generan una devolución de los campos A:J desde la misma versión guardada en el catálogo JSON.
+- Dashboard recarga el catálogo después de aprobar y muestra por separado el estado pendiente o confirmado de Google.
+- Devolución por código único, valores literales y lectura de confirmación; cola conservada ante fallos y aprobaciones nuevas durante el envío.
+- Previsualización e inicialización no procesan devoluciones. Pruebas PHP y ocho pruebas Python aisladas; escritura real en Google pendiente de validación con hoja de prueba.
+
 ### En desarrollo — orden del Dashboard
 
 - Selector de incorporaciones más nuevas o más antiguas en la tabla de administración; nuevas primero por defecto.
