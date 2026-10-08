@@ -968,6 +968,26 @@ body {
     display: none;
 }
 
+.dashboard-order-tools {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin: 0 0 1rem;
+}
+
+.dashboard-order-tools .form-select {
+    width: auto;
+    max-width: 100%;
+}
+
+.dashboard-order-tools p {
+    flex-basis: 100%;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: .9rem;
+}
+
 .crud-mode-panel.is-active {
     display: block;
 }

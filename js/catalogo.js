@@ -15,6 +15,8 @@ const quickStatusButtons = document.querySelectorAll("[data-quick-status]");
 const quickFavoriteButton = document.querySelector("[data-quick-favorite]");
 const catalogFilterForm = document.querySelector("#catalogFilterForm");
 const catalogSearchInput = document.querySelector("#sidebar-search");
+const catalogDateOrder = document.querySelector("#catalogDateOrder");
+catalogDateOrder.value = new URLSearchParams(window.location.search).get("order") === "oldest" ? "oldest" : "newest";
 const filterInitial = document.querySelector("#filter-initial");
 const filterGenre = document.querySelector("#filter-genre");
 const filterFormat = document.querySelector("#filter-format");
@@ -504,9 +506,9 @@ const itemMatchesFilters = (item, state) => {
         && matchesStatus && matchesViewing && matchesQuickStatus && matchesQuickFavorite;
 };
 
-const getCategoryItems = (category) => catalogItems.filter((item) => (
+const getCategoryItems = (category) => AltoidssContentOrder.sort(catalogItems.filter((item) => (
     (category === "all" || item.type === category) && itemMatchesFilters(item, catalogFilters[category])
-));
+)), catalogDateOrder.value);
 
 const updateFilterResultCount = (category) => {
     if (!filterResults || category !== getCategoryFromUrl()) {
@@ -1151,6 +1153,15 @@ const initializeCatalog = async () => {
 };
 
 initializeCatalog();
+
+catalogDateOrder.addEventListener("change", () => {
+    const params = new URLSearchParams(window.location.search);
+    catalogDateOrder.value === "oldest" ? params.set("order", "oldest") : params.delete("order");
+    params.delete("page");
+    window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+    allowedCategories.forEach((category) => { currentPages[category] = 1; });
+    renderAllCatalogPages();
+});
 
 catalogFilterForm?.addEventListener("submit", async (event) => {
     event.preventDefault();

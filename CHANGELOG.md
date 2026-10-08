@@ -4,6 +4,14 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### En desarrollo — orden del Dashboard
+
+- Selector de incorporaciones más nuevas o más antiguas en la tabla de administración; nuevas primero por defecto.
+- Mismo orden y selector en el catálogo público, tanto en tarjetas como en lista, manteniendo búsqueda, filtros y paginación; la elección de orden se conserva en la URL.
+- Referencia histórica por fila de Google Sheets/Excel cuando no existe fecha exacta; sin fabricar fechas ni usar el año de estreno.
+- Fecha de incorporación para nuevas importaciones y protección de fechas existentes al editar contenido o noticias.
+- Pruebas de ordenación, fechas equivalentes, filas históricas y conservación del arreglo original. Pendiente de validación visual e integración mediante pull request.
+
 ### Documentación
 
 - Roadmap con página dinámica de contenido, reproductor local, listas colapsables y orden cronológico del Dashboard.

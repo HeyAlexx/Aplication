@@ -345,6 +345,26 @@ body {
     color: var(--text-muted);
 }
 
+.catalog-order-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.catalog-order-tools .form-select {
+    width: auto;
+    max-width: 100%;
+}
+
+.catalog-order-tools p {
+    flex-basis: 100%;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
 .catalog-controls {
     --control-gap: clamp(0.22rem, 0.45vw, 0.5rem);
     --group-gap: clamp(0.55rem, 0.9vw, 1rem);
