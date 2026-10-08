@@ -18,6 +18,8 @@ const catalogSearchInput = document.querySelector("#sidebar-search");
 const catalogDateOrder = document.querySelector("#catalogDateOrder");
 catalogDateOrder.value = new URLSearchParams(window.location.search).get("order") === "oldest" ? "oldest" : "newest";
 const filterInitial = document.querySelector("#filter-initial");
+const catalogAlphabet = document.querySelector("#catalogAlphabet");
+const filterYear = document.querySelector("#filter-year");
 const filterGenre = document.querySelector("#filter-genre");
 const filterFormat = document.querySelector("#filter-format");
 const filterSeasons = document.querySelector("#filter-seasons");
@@ -31,8 +33,6 @@ const filterYearMaxValue = document.querySelector("#filter-year-max-value");
 const filterYearOutput = document.querySelector("#filter-year-output");
 const filterResults = document.querySelector("#filter-results");
 const clearCatalogFilters = document.querySelector("#clearCatalogFilters");
-const mobileFilterToggle = document.querySelector("#mobileFilterToggle");
-const catalogSidebar = document.querySelector(".sidebar");
 const ITEMS_PER_PAGE = 35;
 const currentPages = { movies: 1, series: 1, anime: 1 };
 let catalogItems = [];
@@ -46,6 +46,7 @@ const createFilterState = () => ({
     viewing: "",
     yearMin: null,
     yearMax: null,
+    year: "",
 });
 
 const catalogFilters = {
@@ -55,19 +56,6 @@ const catalogFilters = {
     anime: createFilterState(),
 };
 const quickFilters = { status: "", favoritesOnly: false };
-
-const setMobileFiltersOpen = (isOpen) => {
-    catalogSidebar?.classList.toggle("is-filter-open", isOpen);
-    mobileFilterToggle?.setAttribute("aria-expanded", String(isOpen));
-    const label = mobileFilterToggle?.querySelector("span");
-    if (label) {
-        label.textContent = isOpen ? "Ocultar filtros" : "Mostrar filtros";
-    }
-};
-
-mobileFilterToggle?.addEventListener("click", () => {
-    setMobileFiltersOpen(!catalogSidebar.classList.contains("is-filter-open"));
-});
 
 const tagClassNames = [
     "tag-action",
@@ -381,8 +369,16 @@ const getItemGenres = (item) => {
 };
 
 const getTitleInitial = (item) => {
-    const initial = String(item.title || "").trim().charAt(0).toUpperCase();
+    const initial = normalizeFilterText(item.title).charAt(0).toUpperCase();
     return /^[A-Z]$/.test(initial) ? initial : "#";
+};
+
+const refreshAlphabet = () => {
+    catalogAlphabet.innerHTML = ["", "#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].map((initial) => `
+        <button class="catalog-initial-button${filterInitial.value === initial ? " is-active" : ""}" type="button"
+            data-catalog-initial="${initial}" aria-pressed="${filterInitial.value === initial}"
+            aria-label="${initial ? `Títulos con inicial ${initial === "#" ? "numérica o símbolo" : initial}` : "Todas las iniciales"}">${initial || "Todos"}</button>
+    `).join("");
 };
 
 const setFilterOptions = (select, values, emptyLabel, selectedValue) => {
@@ -425,9 +421,7 @@ const configureFilterPanel = (category, reset = false) => {
         state.yearMax = maximumYear;
     }
 
-    const initials = [...new Set(items.map(getTitleInitial))].sort((a, b) => (
-        a === "#" ? -1 : b === "#" ? 1 : a.localeCompare(b)
-    ));
+    const initials = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
     const genres = [...new Set(items.flatMap(getItemGenres))].sort((a, b) => a.localeCompare(b, "es"));
     const formats = [...new Set(items.map((item) => String(item.format || "").trim()).filter(Boolean))]
         .sort((a, b) => a.localeCompare(b, "es"));
@@ -438,11 +432,14 @@ const configureFilterPanel = (category, reset = false) => {
         .sort((a, b) => a.localeCompare(b, "es"));
 
     setFilterOptions(filterInitial, initials, "Todas", state.initial);
+    setFilterOptions(filterYear, [...new Set(years)].reverse().map(String), "Todos", state.year);
     setFilterOptions(filterGenre, genres, "Todos", state.genre);
     setFilterOptions(filterFormat, formats, "Todos", state.format);
     setFilterOptions(filterSeasons, seasonCounts, "Todas", state.seasons);
     setFilterOptions(filterStatus, statuses, "Todos", state.status);
     state.initial = filterInitial.value;
+    state.year = filterYear.value;
+    refreshAlphabet();
     state.genre = filterGenre.value;
     state.format = filterFormat.value;
     state.seasons = filterSeasons.value;
@@ -463,6 +460,7 @@ const configureFilterPanel = (category, reset = false) => {
 const readFilterControls = (category) => {
     const state = catalogFilters[category];
     state.initial = filterInitial.value;
+    state.year = filterYear.value;
     state.genre = filterGenre.value;
     state.format = filterFormat.value;
     state.seasons = filterSeasonsGroup.hidden ? "" : filterSeasons.value;
@@ -483,8 +481,8 @@ const readFilterControls = (category) => {
 
 const itemMatchesFilters = (item, state) => {
     const year = getItemYear(item);
-    const matchesYear = state.yearMin === null || state.yearMax === null || !year
-        || (year >= state.yearMin && year <= state.yearMax);
+    const matchesYear = (!state.year || year === Number(state.year)) && (state.yearMin === null || state.yearMax === null || !year
+        || (year >= state.yearMin && year <= state.yearMax));
     const matchesInitial = !state.initial || getTitleInitial(item) === state.initial;
     const matchesGenre = !state.genre || getItemGenres(item).some((genre) => (
         normalizeFilterText(genre) === normalizeFilterText(state.genre)
@@ -1086,6 +1084,9 @@ const openRequestedCatalogDetail = async (category) => {
 };
 
 const selectCategory = (selectedCategory) => {
+    document.querySelector(".section-heading h1").textContent = {
+        all: "Catálogo audiovisual", anime: "Catálogo de anime", movies: "Catálogo de películas", series: "Catálogo de series",
+    }[selectedCategory] || "Catálogo audiovisual";
     const category = allowedCategories.includes(selectedCategory) ? selectedCategory : "movies";
 
     catalogPanels.forEach((panel) => {
@@ -1154,6 +1155,15 @@ const initializeCatalog = async () => {
 
 initializeCatalog();
 
+catalogAlphabet.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-catalog-initial]");
+    if (!button) return;
+    filterInitial.value = button.dataset.catalogInitial;
+    readFilterControls(getCategoryFromUrl());
+    refreshAlphabet();
+    applyCurrentFilters(getCategoryFromUrl());
+});
+
 catalogDateOrder.addEventListener("change", () => {
     const params = new URLSearchParams(window.location.search);
     catalogDateOrder.value === "oldest" ? params.set("order", "oldest") : params.delete("order");
@@ -1173,12 +1183,9 @@ catalogFilterForm?.addEventListener("submit", async (event) => {
     query ? params.set("query", query) : params.delete("query");
     window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
     await performCatalogSearch(query, category);
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        setMobileFiltersOpen(false);
-    }
 });
 
-[filterInitial, filterGenre, filterFormat, filterSeasons, filterStatus, filterViewing].forEach((control) => {
+[filterInitial, filterGenre, filterFormat, filterSeasons, filterStatus, filterViewing, filterYear].forEach((control) => {
     control?.addEventListener("change", () => {
         const category = getCategoryFromUrl();
         readFilterControls(category);
