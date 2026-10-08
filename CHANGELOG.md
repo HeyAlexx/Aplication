@@ -13,8 +13,8 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ### Pendientes antes de un lanzamiento
 
-- Revisar e integrar estos cambios mediante pull request.
-- Configurar protección de `main` y separar desarrollo de la instalación en uso.
+- El flujo inicial se integró mediante PR #1; revisar e integrar la preparación del entorno aislado en su propio pull request.
+- Configurar protección de `main` y validar funcionalmente el entorno aislado.
 - Elegir el alcance de la primera versión estable de esta fase y validar la aplicación.
 
 No hay una etiqueta `v0.1.0` creada por esta preparación. Las funciones futuras descritas en el roadmap todavía no están implementadas.
