@@ -20,6 +20,7 @@ const { chromium } = require("playwright");
         assert.ok(await page.locator("#catalog-anime .anime-card").evaluateAll(cards => cards.every(card => Number(card.catalogItem.emissionYear || card.catalogItem.year) === 2022)));
         await page.selectOption("#catalogDateOrder", "oldest");
         assert.equal(await page.locator("#filter-year").inputValue(), "2022");
+        await page.locator("#catalogFilterToggle").click();
         await page.locator("#clearCatalogFilters").click();
         await page.waitForFunction(() => document.querySelectorAll("#catalog-anime .anime-card").length === 35);
         assert.equal(await page.locator("#filter-year").inputValue(), "");
@@ -34,6 +35,7 @@ const { chromium } = require("playwright");
         await page.locator('[data-category-view="anime"]').click();
         await page.locator(".catalog-more-filters summary").click();
         await page.screenshot({ path: "outputs/catalog-filters-desktop.png", fullPage: false });
+        await page.locator("#closeCatalogSideMenu").click();
         await page.setViewportSize({ width: 360, height: 900 });
         for (const selector of [".catalog-alphabet", ".catalog-primary-filters", ".catalog-search-tools", ".catalog-order-tools"]) {
             assert.ok(await page.locator(selector).evaluate(element => element.scrollWidth <= element.clientWidth + 1), `${selector} debe caber en móvil`);

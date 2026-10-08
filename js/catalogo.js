@@ -1029,11 +1029,12 @@ catalogDensity.addEventListener("change", async () => {
 });
 
 catalogFilterToggle.addEventListener("click", () => {
-    const open = catalogFilterForm.classList.toggle("is-filter-open");
-    catalogFilterToggle.setAttribute("aria-expanded", String(open));
-    catalogFilterToggle.textContent = open ? "Ocultar filtros" : "Filtros";
-    if (open) catalogFilterForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.querySelector("#catalogSideMenu").showModal();
 });
+document.querySelector("#closeCatalogSideMenu").addEventListener("click", () => {
+    document.querySelector("#catalogSideMenu").close();
+});
+document.querySelector("#catalogSideMenu").addEventListener("close", () => catalogFilterToggle.focus());
 
 catalogViewButtons.forEach((button) => {
     button.addEventListener("click", async () => {
