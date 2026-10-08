@@ -34,8 +34,7 @@ const { chromium } = require("playwright");
         }
         await page.setViewportSize({ width: 1512, height: 1000 });
         assert.ok(await page.locator("#filter-format").isVisible());
-        assert.ok(await page.locator("#catalogFilterToggle").isVisible());
-        await page.locator("#catalogFilterToggle").click();
+        assert.ok(await page.locator("#catalogFilterToggle").isHidden());
         assert.ok(await page.locator("#catalogDensity").isVisible());
         assert.deepEqual(errors, []);
         console.log("OK: dos columnas a 320/360/412/600/768px, proporciones, títulos, filtros plegables y controles de escritorio.");
