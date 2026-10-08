@@ -102,6 +102,8 @@ El lanzador local actual utiliza `ProyectoFinal/Aplication`. Si esa carpeta tamb
 
 Antes de iniciar funciones, preparar una instalación de ejecución separada, con datos y credenciales propios, y otra de desarrollo con copias de prueba. Definir rutas, puertos y procesos antes de cambiar el lanzador. Mantener Cloudflare Access y las protecciones de archivos privados; no hacer pública la aplicación como parte de este flujo.
 
+Se preparó un worktree local de desarrollo separado de la instalación existente. Sus rutas, limitaciones de datos e inicio sin sincronización se describen en [Entorno de desarrollo aislado](docs/development-environment.md). El lanzador de la instalación existente no se modifica.
+
 Para publicar: respaldar datos, registrar la versión anterior, desplegar la etiqueta aprobada en la instalación de ejecución y verificar autenticación, catálogo, archivos privados y sincronización. No asumir que un push despliega la aplicación; no se ha configurado despliegue automático aquí.
 
 ## 8. Recuperación y cierre
