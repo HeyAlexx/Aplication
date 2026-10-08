@@ -121,15 +121,16 @@ body {
     background: rgba(111, 148, 135, 0.18);
 }
 
-/* Filtros horizontales: catálogo a ancho completo, sin panel lateral. */
+/* Área central centrada en el espacio restante del sidebar fijo. */
 .catalog-horizontal-layout .app-shell {
     display: block;
+    padding-left: 260px;
 }
 
 .catalog-horizontal-layout .content {
-    width: calc(100% - 260px);
+    width: 100%;
     max-width: 1720px;
-    margin: 0 0 0 260px;
+    margin: 0 auto;
     padding: clamp(1rem, 2.5vw, 2.5rem);
 }
 
@@ -1818,7 +1819,8 @@ body.catalog-detail-open {
 /* Móvil: portadas en dos columnas y título fuera de la imagen. */
 @media (max-width: 768px) {
     .catalog-horizontal-layout .section-heading > p:not(.eyebrow) { display: none; }
-    .catalog-horizontal-layout .content { width: 100%; margin-left: 0; }
+    .catalog-horizontal-layout .app-shell { padding-left: 0; }
+    .catalog-horizontal-layout .content { width: 100%; margin: 0 auto; }
     .catalog-horizontal-layout .catalog-side-menu {
         position: static;
         width: 100%;

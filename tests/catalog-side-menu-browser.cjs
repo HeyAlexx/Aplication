@@ -28,6 +28,16 @@ const { chromium } = require("playwright");
         assert.equal(await page.locator("#catalogSideMenu").evaluate(element => getComputedStyle(element).position), "fixed");
         assert.ok(await page.evaluate(() => document.querySelector("#catalogSideMenu").getBoundingClientRect().top >= document.querySelector(".topbar").getBoundingClientRect().bottom - 1));
         assert.ok(await page.locator("#catalogFilterToggle").isHidden());
+        for (const width of [1512, 2545]) {
+            await page.setViewportSize({ width, height: 1000 });
+            assert.ok(await page.evaluate(() => {
+                const content = document.querySelector(".content").getBoundingClientRect();
+                const sidebar = document.querySelector("#catalogSideMenu").getBoundingClientRect();
+                const leftGap = content.left - sidebar.right;
+                const rightGap = document.documentElement.clientWidth - content.right;
+                return leftGap >= 0 && Math.abs(leftGap - rightGap) <= 1;
+            }), `Contenido centrado en el espacio libre a ${width}px`);
+        }
         await page.setViewportSize({ width: 412, height: 924 });
         await page.locator("#catalogFilterToggle").click();
         const box = await page.locator("#catalogSideMenu").boundingBox();
