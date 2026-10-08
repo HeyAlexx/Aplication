@@ -297,6 +297,26 @@ body {
 .catalog-side-menu .view-selector { grid-auto-flow: row; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
 .catalog-side-menu .grid-density { grid-auto-flow: row; grid-template-columns: 1fr; gap: 0.35rem; }
 .catalog-side-menu .catalog-density-select { width: 100%; }
+.catalog-side-menu #catalogDensity { text-align: center; text-align-last: center; }
+.catalog-horizontal-layout .catalog-side-menu .catalog-controls > .catalog-control-group {
+    padding-left: 0;
+    border-left: 0;
+}
+.catalog-side-menu .catalog-status-filters > button:last-child:nth-child(even) {
+    grid-column: 1 / -1;
+    width: calc((100% - 0.65rem) / 2);
+    justify-self: center;
+}
+.catalog-side-menu .catalog-more-filters {
+    border: 0;
+    background: transparent;
+    padding: 0;
+}
+.catalog-side-menu .catalog-advanced-filters { gap: 1.25rem; }
+.catalog-side-menu .catalog-advanced-filters .filter-group {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-soft);
+}
 .catalog-side-menu .catalog-advanced-filters { grid-template-columns: 1fr; }
 .catalog-side-menu #closeCatalogSideMenu { display: none; }
 .catalog-horizontal-layout .catalog-side-menu .catalog-mode,

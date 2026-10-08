@@ -24,7 +24,6 @@ const { chromium } = require("playwright");
         await page.waitForFunction(() => document.querySelectorAll("#catalog-anime .anime-card").length === 35);
         assert.equal(await page.locator("#filter-year").inputValue(), "");
         assert.equal(await page.locator('[data-catalog-initial=""]').getAttribute("aria-pressed"), "true");
-        await page.locator(".catalog-more-filters summary").click();
         assert.ok(await page.locator("#filter-seasons").isVisible());
         await page.selectOption("#filter-seasons", "1");
         assert.ok(await page.locator("#catalog-anime .anime-card").evaluateAll(cards => cards.every(card => Number(card.catalogItem.seasonsCount) === 1)));
@@ -32,7 +31,6 @@ const { chromium } = require("playwright");
         await page.locator('[data-category-view="movies"]').click();
         assert.ok(await page.locator("#filter-seasons-group").isHidden());
         await page.locator('[data-category-view="anime"]').click();
-        await page.locator(".catalog-more-filters summary").click();
         await page.screenshot({ path: "outputs/catalog-filters-desktop.png", fullPage: false });
         await page.setViewportSize({ width: 360, height: 900 });
         for (const selector of [".catalog-alphabet", ".catalog-primary-filters", ".catalog-search-tools", ".catalog-order-tools"]) {

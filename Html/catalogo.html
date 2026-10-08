@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/catalogo.css?v=31">
+    <link rel="stylesheet" href="../css/catalogo.css?v=32">
     <link rel="stylesheet" href="../css/site-shared.css?v=8">
 </head>
 <body class="catalog-horizontal-layout">
@@ -53,8 +53,8 @@
                     </div>
                     <button class="btn btn-outline-light" id="clearCatalogFilters" type="button">Limpiar filtros</button>
                 </div>
-                <details class="catalog-more-filters">
-                    <summary>Más filtros: temporadas, visualización y rango de años</summary>
+                <section class="catalog-more-filters" aria-labelledby="advancedFiltersTitle">
+                    <h3 class="catalog-control-heading" id="advancedFiltersTitle">Más filtros</h3>
                     <div class="catalog-advanced-filters">
                         <div class="filter-group" id="filter-seasons-group">
                             <label class="filter-label" for="filter-seasons">Número de temporadas</label>
@@ -72,7 +72,7 @@
                             <input id="filter-year-max" type="range" min="0" max="0" value="0">
                         </div>
                     </div>
-                </details>
+                </section>
                 <button class="btn btn-primary catalog-apply-filters" type="submit" form="catalogFilterForm">Aplicar búsqueda y filtros</button>
             <div class="catalog-controls" aria-label="Filtros rápidos y visualización del catálogo">
                 <div class="catalog-mode catalog-control-group" role="group" aria-label="Filtrar por tipo">
@@ -93,8 +93,8 @@
                 <div class="catalog-toolbar catalog-control-group">
                     <div class="view-selector" role="group" aria-label="Modo de visualización">
                         <h3 class="catalog-control-heading">Presentación</h3>
-                        <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas">Tarjetas</button>
-                        <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista">Lista</button>
+                        <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas"><span aria-hidden="true">▦</span></button>
+                        <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista"><span aria-hidden="true">☷</span></button>
                     </div>
                     <div class="grid-density">
                         <label class="catalog-control-heading" for="catalogDensity">Cantidad por fila</label>

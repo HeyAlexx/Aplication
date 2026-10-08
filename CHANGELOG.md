@@ -32,6 +32,7 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 - Letras, filtros principales, resultados y ordenación permanecen en el contenido central; en móvil la barra lateral se convierte en un bloque plegable sobre el catálogo.
 - Contenido centrado en el espacio disponible a la derecha del sidebar, con márgenes equilibrados en pantallas amplias sin agrandar las tarjetas.
 - Controles de la barra lateral separados verticalmente en tipo, estado de visualización (incluido «No visto»), presentación y cantidad por fila; selector con números 3/5/7.
+- Selector numérico centrado, Favoritos centrado en la última fila, símbolos originales para tarjetas/lista y filtros avanzados visibles sin desplegable ni caja exterior.
 - Verificación de búsqueda, categorías, filtros avanzados, posición fija y adaptación móvil mediante pruebas de navegador.
 
 ### Documentación
