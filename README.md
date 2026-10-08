@@ -205,3 +205,5 @@ Consulta detalles y comandos de comprobación en [MyAnimeList API oficial](docs/
 ## Evolución de la aplicación
 
 La planificación de próximas mejoras estará en [ROADMAP.md](ROADMAP.md). Es un borrador editable para definir prioridades, alcance y criterios de finalización; no representa fechas ni funciones prometidas.
+
+La versión de desarrollo se identifica en `VERSION` y el historial en [CHANGELOG.md](CHANGELOG.md). Cada cambio se prepara en una rama independiente y se revisa antes de llegar a `main`, siguiendo [CONTRIBUTING.md](CONTRIBUTING.md). La integración del código no equivale a su despliegue; las protecciones remotas y la separación de instalaciones deben configurarse según esa guía.
