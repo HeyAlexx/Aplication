@@ -129,6 +129,7 @@ def make_new_record(item: dict[str, object], timestamp: str) -> dict[str, object
         "status": "Activo",
         "source": "google-sheet-anime",
         "sheetUpdatedAt": timestamp,
+        "createdAt": timestamp,
     }
     return record
 

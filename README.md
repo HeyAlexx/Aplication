@@ -54,6 +54,10 @@ El servidor integrado de PHP es para uso local. Una publicación remota requiere
 2. Explora el catálogo, utiliza sus filtros y abre una ficha para consultar sus detalles.
 3. Agrega títulos a Mi lista y actualiza su estado de visualización.
 4. Usa el Dashboard para consultar tu información y las herramientas disponibles.
+
+En el Catálogo, el selector «Ordenar por incorporación» muestra los títulos más recientes primero y permite ver los más antiguos primero. Funciona en todas las categorías y en las vistas de tarjetas o lista, junto con la búsqueda y los filtros. Cambiar el orden devuelve la paginación a la primera página; el orden seleccionado se conserva al recargar mediante la URL.
+
+En la tabla de Contenido del Dashboard puedes elegir incorporaciones más nuevas (por defecto) o más antiguas. Las altas nuevas guardan su fecha real; para el catálogo histórico sin fecha se utiliza `sourceRow`, la fila de origen conservada al importar Google Sheets o Excel: las filas mayores corresponden a incorporaciones posteriores. La tabla muestra esa posición, no una fecha inventada. Se presupone que los registros históricos preceden a las altas nuevas fechadas; los registros sin fecha ni fila quedan al final. Esta referencia utiliza la última fila guardada, no una consulta a Google al abrir el Dashboard. Evita reordenar la hoja si deseas conservar su significado como historial de incorporación.
 5. Si tienes rol de administrador, administra contenido, noticias y revisiones pendientes.
 
 El registro normal crea una cuenta de usuario, no de administrador. Las herramientas administrativas requieren una cuenta cuyo rol ya esté configurado como `admin` en la instalación. No compartas cuentas ni contraseñas de administración.

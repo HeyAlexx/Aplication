@@ -14,6 +14,8 @@ const contentTags = document.querySelector("#contentTags");
 const contentImage = document.querySelector("#contentImage");
 const contentDescription = document.querySelector("#contentDescription");
 const contentTableBody = document.querySelector("#contentTableBody");
+const dashboardDateOrder = document.querySelector("#dashboardDateOrder");
+const dashboardDateOrderNote = document.querySelector("#dashboardDateOrderNote");
 const jsonPreview = document.querySelector("#jsonPreview");
 const animeReviewList = document.querySelector("#animeReviewList");
 const reviewCount = document.querySelector("#reviewCount");
@@ -265,13 +267,14 @@ const loadNewsForEdit = (item) => {
 
 const renderContentTable = (items = AltoidssStore.read()) => {
     if (!items.length) {
-        contentTableBody.innerHTML = '<tr><td colspan="5">No hay contenido JSON agregado todavía.</td></tr>';
+        contentTableBody.innerHTML = '<tr><td colspan="6">No hay contenido JSON agregado todavía.</td></tr>';
         return;
     }
 
-    contentTableBody.innerHTML = items.map((item) => `
+    contentTableBody.innerHTML = AltoidssContentOrder.sort(items, dashboardDateOrder.value).map((item) => `
         <tr>
             <td>${escapeHtml(item.title)}</td>
+            <td>${escapeHtml(formatIncorporationDate(item))}</td>
             <td>${escapeHtml(item.emissionYear || item.year || "Sin año")}</td>
             <td>${escapeHtml(typeLabels[item.type] ?? item.type)}</td>
             <td><span class="status-badge ${getProductionStatusClass(item.productionStatus || item.status)}">${escapeHtml(item.productionStatus || item.status)}</span></td>
@@ -285,6 +288,14 @@ const renderContentTable = (items = AltoidssStore.read()) => {
     `).join("");
 };
 
+const formatIncorporationDate = (item) => {
+    const timestamp = AltoidssContentOrder.timestamp(item);
+    const row = AltoidssContentOrder.sheetPosition(item);
+    return timestamp === null ? (row === null ? "Sin referencia registrada" : `Hoja: posición ${row - 1} (fila ${row})`) : new Intl.DateTimeFormat("es-CR", {
+        dateStyle: "medium", timeStyle: "short",
+    }).format(new Date(timestamp));
+};
+
 const getProductionStatusClass = (status) => {
     const normalized = String(status || "").toLowerCase();
 
@@ -295,13 +306,14 @@ const getProductionStatusClass = (status) => {
 
 const renderNewsTable = (items = AltoidssStore.readNews()) => {
     if (!items.length) {
-        contentTableBody.innerHTML = '<tr><td colspan="5">No hay noticias JSON agregadas todavía.</td></tr>';
+        contentTableBody.innerHTML = '<tr><td colspan="6">No hay noticias JSON agregadas todavía.</td></tr>';
         return;
     }
 
-    contentTableBody.innerHTML = items.map((item) => `
+    contentTableBody.innerHTML = AltoidssContentOrder.sort(items, dashboardDateOrder.value).map((item) => `
         <tr>
             <td>${escapeHtml(item.title)}</td>
+            <td>${escapeHtml(formatIncorporationDate(item))}</td>
             <td>${escapeHtml(item.category)}</td>
             <td>${escapeHtml(item.featured ? "Destacada" : "Blog")}</td>
             <td><span class="badge text-bg-info">${escapeHtml(item.status)}</span></td>
@@ -316,6 +328,10 @@ const renderNewsTable = (items = AltoidssStore.readNews()) => {
 };
 
 const renderTable = () => {
+    const items = activeTableMode === "news" ? AltoidssStore.readNews() : AltoidssStore.read();
+    const historicalCount = items.filter((item) => AltoidssContentOrder.timestamp(item) === null && AltoidssContentOrder.sheetPosition(item) !== null).length;
+    const unknownCount = items.filter((item) => AltoidssContentOrder.timestamp(item) === null && AltoidssContentOrder.sheetPosition(item) === null).length;
+    dashboardDateOrderNote.textContent = `Altas nuevas por fecha real; ${historicalCount} registros históricos por orden de la hoja (filas mayores = más recientes, sin fecha exacta). ${unknownCount} sin referencia al final.`;
     if (activeTableMode === "news") {
         renderNewsTable();
         return;
@@ -323,6 +339,8 @@ const renderTable = () => {
 
     renderContentTable();
 };
+
+dashboardDateOrder.addEventListener("change", renderTable);
 
 const renderJsonPreview = () => {
     jsonPreview.textContent = JSON.stringify(AltoidssStore.exportDatabase(), null, 2);

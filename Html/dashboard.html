@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/dashboard.css?v=13">
+    <link rel="stylesheet" href="../css/dashboard.css?v=14">
     <link rel="stylesheet" href="../css/site-shared.css?v=8">
 </head>
 <body class="layout-no-sidebar">
@@ -428,11 +428,20 @@
                                 <button class="btn btn-primary" type="button" data-table-mode="content">Contenido</button>
                                 <button class="btn btn-outline-light" type="button" data-table-mode="news">Noticias</button>
                             </div>
+                            <div class="dashboard-order-tools">
+                                <label for="dashboardDateOrder">Ordenar por incorporación</label>
+                                <select class="form-select" id="dashboardDateOrder" aria-describedby="dashboardDateOrderNote">
+                                    <option value="newest" selected>Más nuevos primero</option>
+                                    <option value="oldest">Más antiguos primero</option>
+                                </select>
+                                <p id="dashboardDateOrderNote" role="status" aria-live="polite">Orden histórico según la fila de la hoja; las altas nuevas usan su fecha real.</p>
+                            </div>
                             <div class="table-responsive admin-table">
                                 <table class="table table-dark table-hover align-middle mb-0">
                                     <thead>
                                         <tr>
                                             <th>Título</th>
+                                            <th>Agregado a Altoidss</th>
                                             <th>Año emisión</th>
                                             <th>Categoría</th>
                                             <th>Estado</th>
@@ -441,7 +450,7 @@
                                     </thead>
                                     <tbody id="contentTableBody">
                                         <tr>
-                                            <td colspan="5">No hay contenido JSON agregado todavía.</td>
+                                            <td colspan="6">No hay contenido JSON agregado todavía.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -542,7 +551,8 @@
     <script src="../js/auth.js?v=5"></script>
     <script src="../js/site-account.js?v=1"></script>
     <script src="../js/data-store.js?v=10"></script>
-    <script src="../js/dashboard.js?v=13"></script>
+    <script src="../js/content-order.js?v=1"></script>
+    <script src="../js/dashboard.js?v=14"></script>
 </body>
 </html>
 

@@ -70,6 +70,12 @@ final class CatalogService
 
         $next = $this->validate(array_merge($current, $payload));
         $next['id'] = $id;
+        foreach (['createdAt', 'importedAt'] as $dateField) {
+            unset($next[$dateField]);
+            if (array_key_exists($dateField, $current)) {
+                $next[$dateField] = $current[$dateField];
+            }
+        }
         $next['updatedAt'] = date(DATE_ATOM);
         $oldFile = $this->fileForType($current['type']);
         $newFile = $this->fileForType($next['type']);
@@ -142,6 +148,7 @@ final class CatalogService
             $image = '';
         }
 
+        $incorporatedAt = date(DATE_ATOM);
         $item = array_merge($payload, [
             'id' => $id,
             'title' => $title,
@@ -151,7 +158,8 @@ final class CatalogService
             'tags' => array_values(array_filter($payload['tags'] ?? [], 'is_string')),
             'image' => $image,
             'status' => 'Activo',
-            'importedAt' => date(DATE_ATOM),
+            'createdAt' => $incorporatedAt,
+            'importedAt' => $incorporatedAt,
         ]);
         $file = $this->fileForType($type);
         $items = $this->storage->read($file);

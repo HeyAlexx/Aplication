@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/catalogo.css?v=24">
+    <link rel="stylesheet" href="../css/catalogo.css?v=25">
     <link rel="stylesheet" href="../css/site-shared.css?v=8">
 </head>
 <body>
@@ -171,6 +171,15 @@
                         <button class="catalog-density-button" type="button" data-grid="7" aria-pressed="false">7</button>
                     </div>
                 </div>
+            </div>
+
+            <div class="catalog-order-tools">
+                <label for="catalogDateOrder">Ordenar por incorporación</label>
+                <select class="form-select form-select-sm" id="catalogDateOrder" aria-describedby="catalogDateOrderNote">
+                    <option value="newest" selected>Más recientes primero</option>
+                    <option value="oldest">Más antiguos primero</option>
+                </select>
+                <p id="catalogDateOrderNote">Históricos según el orden guardado de la hoja; altas nuevas por fecha real. No es el año de estreno.</p>
             </div>
 
             <section class="catalog-panel" id="catalog-all">
@@ -430,7 +439,8 @@
     <script src="../js/auth.js?v=5"></script>
     <script src="../js/site-account.js?v=1"></script>
     <script src="../js/data-store.js?v=11"></script>
-    <script src="../js/catalogo.js?v=20"></script>
+    <script src="../js/content-order.js?v=1"></script>
+    <script src="../js/catalogo.js?v=21"></script>
 </body>
 </html>
 
