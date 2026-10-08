@@ -10,6 +10,13 @@ const { chromium } = require("playwright");
         await page.waitForFunction(() => document.querySelectorAll("#catalog-anime .anime-card[data-content-id]").length === 35);
         assert.ok(await page.locator("#catalogSideMenu").isVisible());
         assert.ok(await page.locator("#filter-format").isVisible());
+        assert.equal(await page.locator("#catalogSideMenu .catalog-control-heading").count(), 4);
+        assert.deepEqual(await page.locator("#catalogDensity option").allTextContents(), ["3", "5", "7"]);
+        await page.locator('[data-quick-status="unseen"]').click();
+        assert.equal(await page.locator('[data-quick-status="unseen"]').getAttribute("aria-pressed"), "true");
+        assert.ok(await page.locator("#catalog-anime .anime-card").count() > 0);
+        assert.ok(await page.locator("#catalog-anime .anime-card").evaluateAll(cards => cards.every(card => AltoidssStore.getViewingState(card.catalogItem) !== "completed")));
+        await page.locator('[data-quick-status="unseen"]').click();
         for (const selector of [".catalog-search-tools", ".catalog-more-filters", ".catalog-controls"]) {
             assert.equal(await page.locator(`#catalogSideMenu ${selector}`).count(), 1);
         }
