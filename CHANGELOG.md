@@ -26,6 +26,12 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 - Barra de controles compacta junto a resultados y densidad de escritorio mediante selector 3/5/7; móvil mantiene dos columnas.
 - Pruebas de navegador a 320, 360, 412, 600 y 768 px.
 
+### En desarrollo — menú lateral del catálogo
+
+- Búsqueda, limpieza, filtros avanzados, categorías, seguimiento y controles de vista trasladados al panel derecho «Opciones del catálogo».
+- Letras, filtros principales, resultados y ordenación permanecen en el catálogo; cierre mediante botón o Escape con retorno de foco.
+- Verificación de búsqueda, categorías, filtros avanzados y panel móvil mediante pruebas de navegador.
+
 ### Documentación
 
 - Roadmap con página dinámica de contenido, reproductor local, listas colapsables y orden cronológico del Dashboard.

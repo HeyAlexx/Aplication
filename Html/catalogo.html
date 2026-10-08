@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/catalogo.css?v=27">
+    <link rel="stylesheet" href="../css/catalogo.css?v=28">
     <link rel="stylesheet" href="../css/site-shared.css?v=8">
 </head>
 <body class="catalog-horizontal-layout">
@@ -72,65 +72,11 @@
                     </div>
                     <button class="btn btn-primary catalog-apply-filters" type="submit">Filtrar</button>
                 </div>
-                <div class="catalog-search-tools">
-                    <div class="filter-group catalog-title-search">
-                        <label class="filter-label" for="sidebar-search">Buscar por título</label>
-                        <input class="form-control" id="sidebar-search" type="search" placeholder="Escribe un título y pulsa Filtrar" autocomplete="off">
-                    </div>
-                    <button class="btn btn-outline-light" id="clearCatalogFilters" type="button">Limpiar filtros</button>
-                </div>
-                <details class="catalog-more-filters">
-                    <summary>Más filtros: temporadas, visualización y rango de años</summary>
-                    <div class="catalog-advanced-filters">
-                        <div class="filter-group" id="filter-seasons-group">
-                            <label class="filter-label" for="filter-seasons">Número de temporadas</label>
-                            <select class="form-select" id="filter-seasons"><option value="">Todas</option></select>
-                        </div>
-                        <div class="filter-group">
-                            <label class="filter-label" for="filter-viewing">Visualización</label>
-                            <select class="form-select" id="filter-viewing"><option value="">Todos</option><option value="seen">Visto</option><option value="unseen">No visto</option></select>
-                        </div>
-                        <div class="filter-group filter-year-group">
-                            <div class="filter-range-heading"><span class="filter-label">Rango de estreno</span><output id="filter-year-output">Todos</output></div>
-                            <label class="filter-range-label" for="filter-year-min">Desde <span id="filter-year-min-value">—</span></label>
-                            <input id="filter-year-min" type="range" min="0" max="0" value="0">
-                            <label class="filter-range-label" for="filter-year-max">Hasta <span id="filter-year-max-value">—</span></label>
-                            <input id="filter-year-max" type="range" min="0" max="0" value="0">
-                        </div>
-                    </div>
-                </details>
             </form>
 
-            <div class="catalog-controls" aria-label="Filtros rápidos y visualización del catálogo">
-                <div class="catalog-mode catalog-control-group" role="group" aria-label="Filtrar por tipo">
-                    <button class="catalog-quick-button" type="button" data-category-view="all" aria-pressed="false"><span class="quick-label">Todos</span><span class="quick-symbol" aria-hidden="true">T</span></button>
-                    <button class="catalog-quick-button" type="button" data-category-view="anime" aria-pressed="false"><span class="quick-label">Anime</span><span class="quick-symbol" aria-hidden="true">A</span></button>
-                    <button class="catalog-quick-button is-active" type="button" data-category-view="movies" aria-pressed="true"><span class="quick-label">Películas</span><span class="quick-symbol" aria-hidden="true">P</span></button>
-                    <button class="catalog-quick-button" type="button" data-category-view="series" aria-pressed="false"><span class="quick-label">Series</span><span class="quick-symbol" aria-hidden="true">S</span></button>
-                </div>
-                <div class="catalog-status-filters catalog-control-group" role="group" aria-label="Filtrar por seguimiento y favoritos">
-                    <button class="catalog-quick-button" type="button" data-quick-status="seen" aria-pressed="false"><span class="quick-label">Visto</span><span class="quick-symbol" aria-hidden="true">✓</span></button>
-                    <button class="catalog-quick-button" type="button" data-quick-status="planned" aria-pressed="false"><span class="quick-label">Por ver</span><span class="quick-symbol" aria-hidden="true">P</span></button>
-                    <button class="catalog-quick-button" type="button" data-quick-status="watching" aria-pressed="false"><span class="quick-label">Viendo</span><span class="quick-symbol" aria-hidden="true">▶</span></button>
-                    <button class="catalog-quick-button" type="button" data-quick-favorite aria-pressed="false"><span class="quick-label">Favoritos</span><span class="quick-symbol" aria-hidden="true">♥</span></button>
-                </div>
-                <div class="catalog-toolbar catalog-control-group">
-                    <div class="view-selector" role="group" aria-label="Modo de visualización">
-                        <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas"><span aria-hidden="true">▦</span></button>
-                        <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista"><span aria-hidden="true">☷</span></button>
-                    </div>
-                    <div class="grid-density">
-                        <select class="catalog-density-select" id="catalogDensity" aria-label="Tarjetas por fila en escritorio">
-                            <option value="3">3 por fila</option>
-                            <option value="5" selected>5 por fila</option>
-                            <option value="7">7 por fila</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
             <div class="catalog-order-tools">
                 <p class="filter-results" id="filter-results" aria-live="polite">0 resultados</p>
-                <button class="catalog-filter-toggle" id="catalogFilterToggle" type="button" aria-expanded="false" aria-controls="catalogFilterForm">Filtros</button>
+                <button class="catalog-filter-toggle" id="catalogFilterToggle" type="button" aria-haspopup="dialog" aria-controls="catalogSideMenu">Opciones del catálogo</button>
                 <label for="catalogDateOrder">Ordenar por incorporación</label>
                 <select class="form-select form-select-sm" id="catalogDateOrder" aria-describedby="catalogDateOrderNote">
                     <option value="newest" selected>Más recientes primero</option>
@@ -390,6 +336,69 @@
 
     <!-- Bootstrap controla componentes como botones y el JS local cambia la densidad de tarjetas. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <dialog class="catalog-side-menu" id="catalogSideMenu" aria-labelledby="catalogSideMenuTitle">
+        <div class="catalog-side-menu-heading">
+            <h2 id="catalogSideMenuTitle">Opciones del catálogo</h2>
+            <button id="closeCatalogSideMenu" type="button" aria-label="Cerrar opciones del catálogo">Cerrar ×</button>
+        </div>
+        <div class="catalog-filters">
+                <div class="catalog-search-tools">
+                    <div class="filter-group catalog-title-search">
+                        <label class="filter-label" for="sidebar-search">Buscar por título</label>
+                        <input class="form-control" id="sidebar-search" form="catalogFilterForm" type="search" placeholder="Escribe un título y pulsa Filtrar" autocomplete="off">
+                    </div>
+                    <button class="btn btn-outline-light" id="clearCatalogFilters" type="button">Limpiar filtros</button>
+                </div>
+                <details class="catalog-more-filters">
+                    <summary>Más filtros: temporadas, visualización y rango de años</summary>
+                    <div class="catalog-advanced-filters">
+                        <div class="filter-group" id="filter-seasons-group">
+                            <label class="filter-label" for="filter-seasons">Número de temporadas</label>
+                            <select class="form-select" id="filter-seasons"><option value="">Todas</option></select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label" for="filter-viewing">Visualización</label>
+                            <select class="form-select" id="filter-viewing"><option value="">Todos</option><option value="seen">Visto</option><option value="unseen">No visto</option></select>
+                        </div>
+                        <div class="filter-group filter-year-group">
+                            <div class="filter-range-heading"><span class="filter-label">Rango de estreno</span><output id="filter-year-output">Todos</output></div>
+                            <label class="filter-range-label" for="filter-year-min">Desde <span id="filter-year-min-value">—</span></label>
+                            <input id="filter-year-min" type="range" min="0" max="0" value="0">
+                            <label class="filter-range-label" for="filter-year-max">Hasta <span id="filter-year-max-value">—</span></label>
+                            <input id="filter-year-max" type="range" min="0" max="0" value="0">
+                        </div>
+                    </div>
+                </details>
+                <button class="btn btn-primary catalog-apply-filters" type="submit" form="catalogFilterForm">Aplicar búsqueda y filtros</button>
+            <div class="catalog-controls" aria-label="Filtros rápidos y visualización del catálogo">
+                <div class="catalog-mode catalog-control-group" role="group" aria-label="Filtrar por tipo">
+                    <button class="catalog-quick-button" type="button" data-category-view="all" aria-pressed="false"><span class="quick-label">Todos</span><span class="quick-symbol" aria-hidden="true">T</span></button>
+                    <button class="catalog-quick-button" type="button" data-category-view="anime" aria-pressed="false"><span class="quick-label">Anime</span><span class="quick-symbol" aria-hidden="true">A</span></button>
+                    <button class="catalog-quick-button is-active" type="button" data-category-view="movies" aria-pressed="true"><span class="quick-label">Películas</span><span class="quick-symbol" aria-hidden="true">P</span></button>
+                    <button class="catalog-quick-button" type="button" data-category-view="series" aria-pressed="false"><span class="quick-label">Series</span><span class="quick-symbol" aria-hidden="true">S</span></button>
+                </div>
+                <div class="catalog-status-filters catalog-control-group" role="group" aria-label="Filtrar por seguimiento y favoritos">
+                    <button class="catalog-quick-button" type="button" data-quick-status="seen" aria-pressed="false"><span class="quick-label">Visto</span><span class="quick-symbol" aria-hidden="true">✓</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-status="planned" aria-pressed="false"><span class="quick-label">Por ver</span><span class="quick-symbol" aria-hidden="true">P</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-status="watching" aria-pressed="false"><span class="quick-label">Viendo</span><span class="quick-symbol" aria-hidden="true">▶</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-favorite aria-pressed="false"><span class="quick-label">Favoritos</span><span class="quick-symbol" aria-hidden="true">♥</span></button>
+                </div>
+                <div class="catalog-toolbar catalog-control-group">
+                    <div class="view-selector" role="group" aria-label="Modo de visualización">
+                        <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas"><span aria-hidden="true">▦</span></button>
+                        <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista"><span aria-hidden="true">☷</span></button>
+                    </div>
+                    <div class="grid-density">
+                        <select class="catalog-density-select" id="catalogDensity" aria-label="Tarjetas por fila en escritorio">
+                            <option value="3">3 por fila</option>
+                            <option value="5" selected>5 por fila</option>
+                            <option value="7">7 por fila</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
     <script src="../js/site-search.js?v=3"></script>
     <script src="../js/excel-seed.js?v=4"></script>
     <script src="../js/api-client.js?v=1"></script>
@@ -397,7 +406,7 @@
     <script src="../js/site-account.js?v=1"></script>
     <script src="../js/data-store.js?v=11"></script>
     <script src="../js/content-order.js?v=1"></script>
-    <script src="../js/catalogo.js?v=23"></script>
+    <script src="../js/catalogo.js?v=24"></script>
 </body>
 </html>
 
