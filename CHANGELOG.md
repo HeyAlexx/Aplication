@@ -10,7 +10,14 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 - Mismo orden y selector en el catálogo público, tanto en tarjetas como en lista, manteniendo búsqueda, filtros y paginación; la elección de orden se conserva en la URL.
 - Referencia histórica por fila de Google Sheets/Excel cuando no existe fecha exacta; sin fabricar fechas ni usar el año de estreno.
 - Fecha de incorporación para nuevas importaciones y protección de fechas existentes al editar contenido o noticias.
-- Pruebas de ordenación, fechas equivalentes, filas históricas y conservación del arreglo original. Pendiente de validación visual e integración mediante pull request.
+- Pruebas de ordenación, fechas equivalentes, filas históricas y conservación del arreglo original; pruebas de catálogo real con búsqueda, paginación y recarga. Integración mediante pull request pendiente.
+
+### En desarrollo — distribución de filtros del catálogo
+
+- Panel horizontal en lugar de barra lateral, con letras A–Z, iniciales no alfabéticas, tipo, género, año de estreno y estado de producción.
+- Búsqueda y limpieza visibles; temporadas, visualización y rango de años agrupados en «Más filtros».
+- Resultados a la izquierda y ordenación a la derecha, conservando los controles de categorías, seguimiento y vista.
+- Distribución adaptable a móvil y pruebas de navegador de filtros, teclado y ordenación. No se añaden criterios de popularidad o puntuación sin datos adecuados.
 
 ### Documentación
 
