@@ -500,6 +500,7 @@ const itemMatchesFilters = (item, state) => {
         || (state.viewing === "unseen" && !isSeen);
     const matchesQuickStatus = !quickFilters.status
         || (quickFilters.status === "seen" && isSeen)
+        || (quickFilters.status === "unseen" && !isSeen)
         || (quickFilters.status === "watching" && viewingState === "watching")
         || (quickFilters.status === "planned" && viewingState === "planned");
     const matchesQuickFavorite = !quickFilters.favoritesOnly || AltoidssStore.isFavorite(item);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/catalogo.css?v=30">
+    <link rel="stylesheet" href="../css/catalogo.css?v=31">
     <link rel="stylesheet" href="../css/site-shared.css?v=8">
 </head>
 <body class="catalog-horizontal-layout">
@@ -76,27 +76,32 @@
                 <button class="btn btn-primary catalog-apply-filters" type="submit" form="catalogFilterForm">Aplicar búsqueda y filtros</button>
             <div class="catalog-controls" aria-label="Filtros rápidos y visualización del catálogo">
                 <div class="catalog-mode catalog-control-group" role="group" aria-label="Filtrar por tipo">
+                    <h3 class="catalog-control-heading">Tipo de contenido</h3>
                     <button class="catalog-quick-button" type="button" data-category-view="all" aria-pressed="false"><span class="quick-label">Todos</span><span class="quick-symbol" aria-hidden="true">T</span></button>
                     <button class="catalog-quick-button" type="button" data-category-view="anime" aria-pressed="false"><span class="quick-label">Anime</span><span class="quick-symbol" aria-hidden="true">A</span></button>
                     <button class="catalog-quick-button is-active" type="button" data-category-view="movies" aria-pressed="true"><span class="quick-label">Películas</span><span class="quick-symbol" aria-hidden="true">P</span></button>
                     <button class="catalog-quick-button" type="button" data-category-view="series" aria-pressed="false"><span class="quick-label">Series</span><span class="quick-symbol" aria-hidden="true">S</span></button>
                 </div>
                 <div class="catalog-status-filters catalog-control-group" role="group" aria-label="Filtrar por seguimiento y favoritos">
+                    <h3 class="catalog-control-heading">Estado de visualización</h3>
                     <button class="catalog-quick-button" type="button" data-quick-status="seen" aria-pressed="false"><span class="quick-label">Visto</span><span class="quick-symbol" aria-hidden="true">✓</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-status="unseen" aria-pressed="false"><span class="quick-label">No visto</span><span class="quick-symbol" aria-hidden="true">◷</span></button>
                     <button class="catalog-quick-button" type="button" data-quick-status="planned" aria-pressed="false"><span class="quick-label">Por ver</span><span class="quick-symbol" aria-hidden="true">P</span></button>
                     <button class="catalog-quick-button" type="button" data-quick-status="watching" aria-pressed="false"><span class="quick-label">Viendo</span><span class="quick-symbol" aria-hidden="true">▶</span></button>
                     <button class="catalog-quick-button" type="button" data-quick-favorite aria-pressed="false"><span class="quick-label">Favoritos</span><span class="quick-symbol" aria-hidden="true">♥</span></button>
                 </div>
                 <div class="catalog-toolbar catalog-control-group">
                     <div class="view-selector" role="group" aria-label="Modo de visualización">
-                        <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas"><span aria-hidden="true">▦</span></button>
-                        <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista"><span aria-hidden="true">☷</span></button>
+                        <h3 class="catalog-control-heading">Presentación</h3>
+                        <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas">Tarjetas</button>
+                        <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista">Lista</button>
                     </div>
                     <div class="grid-density">
+                        <label class="catalog-control-heading" for="catalogDensity">Cantidad por fila</label>
                         <select class="catalog-density-select" id="catalogDensity" aria-label="Tarjetas por fila en escritorio">
-                            <option value="3">3 por fila</option>
-                            <option value="5" selected>5 por fila</option>
-                            <option value="7">7 por fila</option>
+                            <option value="3">3</option>
+                            <option value="5" selected>5</option>
+                            <option value="7">7</option>
                         </select>
                     </div>
                 </div>
@@ -406,7 +411,7 @@
     <script src="../js/site-account.js?v=1"></script>
     <script src="../js/data-store.js?v=11"></script>
     <script src="../js/content-order.js?v=1"></script>
-    <script src="../js/catalogo.js?v=25"></script>
+    <script src="../js/catalogo.js?v=26"></script>
 </body>
 </html>
 
