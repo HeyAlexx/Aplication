@@ -16,6 +16,15 @@ final class AnimeReviewService
     public function all(): array
     {
         $reviews = $this->storage->read(self::FILE);
+        $queue = $this->storage->read(self::WRITEBACK_FILE);
+        foreach ($reviews as &$review) {
+            foreach ($queue as $entry) {
+                if (($review['status'] ?? '') === 'Aprobado' && (string) ($entry['sourceCode'] ?? '') === (string) ($review['sourceCode'] ?? '')) {
+                    $review['sheetSyncStatus'] = 'Pendiente';
+                }
+            }
+        }
+        unset($review);
         usort($reviews, static function (array $left, array $right): int {
             $priority = ['Pendiente' => 0, 'Rechazado automático' => 1, 'Aprobado' => 2, 'Rechazado' => 3];
             return ($priority[$left['status'] ?? 'Pendiente'] ?? 9) <=> ($priority[$right['status'] ?? 'Pendiente'] ?? 9);
@@ -52,10 +61,10 @@ final class AnimeReviewService
         $reviews[$reviewIndex]['reviewNotes'] = trim((string) ($payload['notes'] ?? ''));
         $reviews[$reviewIndex]['reviewedAt'] = date(DATE_ATOM);
         $reviews[$reviewIndex]['reviewedBy'] = (string) ($session['displayName'] ?? $session['email'] ?? 'Administrador');
-        $this->storage->write(self::FILE, $reviews);
         if ($decision !== 'reject') {
-            $this->queueSheetWriteback($updatedRecord ?? []);
+            $reviews[$reviewIndex]['sheetSyncStatus'] = $this->queueSheetWriteback($updatedRecord ?? []);
         }
+        $this->storage->write(self::FILE, $reviews);
 
         return $reviews[$reviewIndex];
     }
@@ -137,6 +146,10 @@ final class AnimeReviewService
         foreach ($version as $field => $value) {
             $items[$itemIndex][$field] = $value;
         }
+        $sourceRow = (int) ($review['sourceRow'] ?? $review['original']['sourceRow'] ?? $review['original']['row'] ?? $items[$itemIndex]['sourceRow'] ?? 0);
+        if ($sourceRow >= 2) {
+            $items[$itemIndex]['sourceRow'] = $sourceRow;
+        }
 
         if (!empty($items[$itemIndex]['emissionYear'])) {
             $items[$itemIndex]['year'] = (string) $items[$itemIndex]['emissionYear'];
@@ -153,12 +166,12 @@ final class AnimeReviewService
         return $items[$itemIndex];
     }
 
-    private function queueSheetWriteback(array $record): void
+    private function queueSheetWriteback(array $record): string
     {
         $sourceCode = trim((string) ($record['sourceCode'] ?? ''));
         $targetRow = (int) ($record['sourceRow'] ?? 0);
         if ($sourceCode === '' || $targetRow < 2) {
-            return;
+            return 'Sin referencia de hoja';
         }
 
         $quarter = ['Winter' => 1, 'Spring' => 2, 'Summer' => 3, 'Fall' => 4][(string) ($record['emissionSeason'] ?? '')] ?? '';
@@ -176,8 +189,9 @@ final class AnimeReviewService
         ];
         $queue = $this->storage->read(self::WRITEBACK_FILE);
         $queue = array_values(array_filter($queue, static fn (array $item): bool => (string) ($item['sourceCode'] ?? '') !== $sourceCode));
-        $queue[] = ['sourceCode' => $sourceCode, 'targetRow' => $targetRow, 'values' => $values, 'queuedAt' => date(DATE_ATOM)];
+        $queue[] = ['sourceCode' => $sourceCode, 'targetRow' => $targetRow, 'values' => $values, 'queuedAt' => date(DATE_ATOM), 'version' => bin2hex(random_bytes(8))];
         $this->storage->write(self::WRITEBACK_FILE, $queue);
+        return 'Pendiente';
     }
 
     private function normalizeVersion(mixed $version): array

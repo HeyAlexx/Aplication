@@ -25,6 +25,7 @@ try {
         'id' => 'anime-review-9001',
         'contentId' => 'anime-sheet-9001',
         'sourceCode' => '9001',
+        'sourceRow' => 55,
         'title' => 'Anime pendiente',
         'status' => 'Pendiente',
         'original' => [
@@ -67,6 +68,21 @@ try {
     assertSameValue('Anime definitivo', $anime[0]['title'], 'Debe aplicarse la versión final.');
     assertSameValue('Por Ver', $anime[0]['viewingStatus'], 'Debe conservarse el estado de visualización original.');
     assertSameValue(false, $anime[0]['metadataNeedsReview'], 'El anime debe quedar marcado como revisado.');
+    assertSameValue(55, $anime[0]['sourceRow'], 'Las altas aprobadas conservan la fila de origen.');
+    assertSameValue('Pendiente', $result['sheetSyncStatus'], 'Guardar en JSON no significa confirmar Google.');
+    $queue = json_decode(file_get_contents($data . '/anime-sheet-writeback.json'), true, 512, JSON_THROW_ON_ERROR);
+    assertSameValue(1, count($queue), 'La aprobación debe generar una devolución.');
+    assertSameValue(['9001', 'Anime definitivo', 'Emision', 'ONA', 12, 1, 'S01', 'Por Ver', 2026, 3], $queue[0]['values'], 'La cola representa los mismos diez campos del catálogo.');
+    $createdAt = $anime[0]['createdAt'];
+    $service->decide('anime-review-9001', ['decision' => 'save', 'finalData' => ['title' => 'Anime corregido']], []);
+    $queue = json_decode(file_get_contents($data . '/anime-sheet-writeback.json'), true, 512, JSON_THROW_ON_ERROR);
+    $anime = json_decode(file_get_contents($data . '/anime.json'), true, 512, JSON_THROW_ON_ERROR);
+    assertSameValue(1, count($queue), 'Una nueva decisión reemplaza la cola del mismo código.');
+    assertSameValue('Anime corregido', $queue[0]['values'][1], 'La cola conserva la última decisión.');
+    assertSameValue($createdAt, $anime[0]['createdAt'], 'Editar conserva la incorporación.');
+    assertSameValue('Sinopsis validada.', $anime[0]['description'], 'Editar conserva los metadatos no enviados.');
+    $service->decide('anime-review-9001', ['decision' => 'reject'], []);
+    assertSameValue($queue, json_decode(file_get_contents($data . '/anime-sheet-writeback.json'), true, 512, JSON_THROW_ON_ERROR), 'Rechazar no crea ni cambia una devolución.');
 
     echo "OK: las revisiones nuevas se guardan y crean su anime.\n";
 } finally {

@@ -244,6 +244,7 @@ def review_entry(
         "id": f"anime-review-{item.get('sourceCode')}",
         "contentId": (record or {}).get("id", ""),
         "sourceCode": item.get("sourceCode", ""),
+        "sourceRow": item.get("row", (record or {}).get("sourceRow")),
         "title": item.get("title", ""),
         "status": status,
         "differences": differences,
@@ -266,7 +267,7 @@ def merge_reviews(generated: list[dict[str, object]]) -> list[dict[str, object]]
         previous = existing_by_id.get(review_id)
         if previous and previous.get("original") == item.get("original") and previous.get("status") in {"Aprobado", "Rechazado"}:
             preserved = (
-                "status", "resolutionType", "finalVersion", "reviewNotes", "reviewedAt", "reviewedBy"
+                "status", "resolutionType", "finalVersion", "reviewNotes", "reviewedAt", "reviewedBy", "sheetSyncStatus", "sheetSyncedAt"
             )
             item.update({key: previous[key] for key in preserved if key in previous})
         merged.append(item)
@@ -317,7 +318,19 @@ def flush_sheet_writebacks(config_path: Path) -> int:
             }
         state["rows"] = list(by_code.values())
         write_json_atomic(STATE_PATH, state)
-    write_json_atomic(WRITEBACK_QUEUE_PATH, [])
+    # Do not discard a newer approval queued while the HTTP request was in flight.
+    remaining = [entry for entry in load_json(WRITEBACK_QUEUE_PATH, []) if entry not in queued]
+    write_json_atomic(WRITEBACK_QUEUE_PATH, remaining)
+    pending_codes = {str(entry.get("sourceCode")) for entry in remaining}
+    sent_codes = {str(entry.get("sourceCode")) for entry in queued}
+    reviews = load_json(REVIEW_DATA_PATH, [])
+    for review in reviews:
+        code = str(review.get("sourceCode"))
+        if review.get("status") == "Aprobado" and code in sent_codes and code not in pending_codes:
+            review["sheetSyncStatus"] = "Confirmado"
+            review["sheetSyncedAt"] = datetime.now().astimezone().isoformat()
+    if reviews:
+        write_json_atomic(REVIEW_DATA_PATH, reviews)
     return written
 
 
@@ -338,7 +351,7 @@ def read_live_google_catalog(config_path: Path) -> list[dict[str, object]]:
 
 def process_once(args: argparse.Namespace) -> dict[str, object]:
     workbook, url = config_source(args)
-    written_back = flush_sheet_writebacks(args.config)
+    written_back = flush_sheet_writebacks(args.config) if args.apply and not args.initialize else 0
     config = load_json(args.config, {})
     settings = config.get("googleSheets") if isinstance(config, dict) else {}
     if isinstance(settings, dict) and settings.get("writeBackEnabled"):
