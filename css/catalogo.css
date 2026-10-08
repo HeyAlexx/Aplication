@@ -243,6 +243,38 @@ body {
     margin-top: 1rem;
 }
 
+.catalog-density-select,
+.catalog-filter-toggle {
+    min-height: 40px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    color: var(--text-main);
+    background: var(--bg-elevated);
+    font: inherit;
+}
+
+.catalog-filter-toggle { display: none; }
+
+.catalog-horizontal-layout .catalog-controls {
+    grid-template-columns: auto auto auto;
+    width: fit-content;
+    max-width: 100%;
+    padding: 0.4rem;
+}
+
+.catalog-horizontal-layout .catalog-controls .catalog-quick-button {
+    min-width: 64px;
+    height: 36px;
+    padding: 0.3rem 0.6rem;
+}
+
+.catalog-horizontal-layout .catalog-toolbar {
+    grid-template-columns: 74px 110px;
+}
+
 .catalog-horizontal-layout .catalog-order-tools .filter-results {
     flex: 1 1 auto;
     margin: 0;
@@ -1752,6 +1784,79 @@ body.catalog-detail-open {
     .is-confirmed {
         animation: none;
     }
+}
+
+/* Móvil: portadas en dos columnas y título fuera de la imagen. */
+@media (max-width: 768px) {
+    .catalog-horizontal-layout .section-heading > p:not(.eyebrow) { display: none; }
+    .catalog-horizontal-layout .section-heading h1 { font-size: 1.6rem; }
+    .catalog-filters { gap: 0.75rem; margin-block: 1rem; }
+    .catalog-filters:not(.is-filter-open) .catalog-primary-filters,
+    .catalog-filters:not(.is-filter-open) .catalog-search-tools,
+    .catalog-filters:not(.is-filter-open) .catalog-more-filters { display: none; }
+    .catalog-filter-toggle { display: inline-block; }
+    .catalog-horizontal-layout .catalog-controls {
+        width: 100%;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0.5rem;
+    }
+    .catalog-horizontal-layout .catalog-mode { grid-column: 1 / -1; }
+    .catalog-horizontal-layout .catalog-controls .catalog-quick-button {
+        min-width: 0;
+        min-height: 40px;
+        padding: 0.2rem;
+    }
+    .catalog-horizontal-layout .catalog-mode .quick-label { display: inline; font-size: 0.75rem; }
+    .catalog-horizontal-layout .catalog-mode .quick-symbol { display: none; }
+    .catalog-horizontal-layout .catalog-toolbar { grid-template-columns: minmax(0, 1fr); }
+    .catalog-horizontal-layout .grid-density { display: none; }
+    .catalog-horizontal-layout .catalog-order-tools { gap: 0.6rem; }
+    .catalog-horizontal-layout .catalog-order-tools .filter-results { flex: 1 1 auto; }
+    .catalog-horizontal-layout .catalog-order-tools label { flex-basis: 50%; font-size: 0.8rem; }
+    .catalog-horizontal-layout #catalogDateOrder { flex: 1 1 140px; font-size: 0.8rem; }
+    .catalog-horizontal-layout #catalogDateOrderNote { display: none; }
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem 0.75rem;
+    }
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) .anime-card {
+        aspect-ratio: auto;
+        height: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        box-shadow: none;
+        transform: none;
+        transition: none;
+    }
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) .poster {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        border-radius: 8px;
+    }
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) .poster::after { display: none; }
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) .anime-card-body {
+        position: static;
+        height: auto;
+        padding: 0.5rem 0;
+        display: block;
+        overflow: visible;
+    }
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) .tag-list,
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) .anime-card p { display: none; }
+    .catalog-horizontal-layout .catalog-grid:not(.is-list-view) .anime-card h2 {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        font-size: 0.85rem;
+        line-height: 1.35;
+        min-height: 2.7em;
+    }
+    .catalog-horizontal-layout .card-toggle { width: 40px; height: 40px; flex-basis: 40px; }
 }
 
 

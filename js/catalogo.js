@@ -8,7 +8,8 @@ const categoryButtons = document.querySelectorAll("[data-category-view]");
 const catalogGrids = document.querySelectorAll(".catalog-grid");
 
 // Botones que permiten elegir 3, 5 o 7 tarjetas por línea.
-const gridButtons = document.querySelectorAll("[data-grid]");
+const catalogDensity = document.querySelector("#catalogDensity");
+const catalogFilterToggle = document.querySelector("#catalogFilterToggle");
 const catalogViewButtons = document.querySelectorAll("[data-catalog-view]");
 const gridDensityGroups = document.querySelectorAll(".grid-density");
 const quickStatusButtons = document.querySelectorAll("[data-quick-status]");
@@ -290,11 +291,7 @@ const applyStoredGridPreference = () => {
         grid.dataset.density = String(cardsPerRow);
     });
 
-    gridButtons.forEach((button) => {
-        const isSelected = Number(button.dataset.grid) === Number(cardsPerRow);
-        button.classList.toggle("is-active", isSelected);
-        button.setAttribute("aria-pressed", String(isSelected));
-    });
+    catalogDensity.value = String(cardsPerRow);
 };
 
 const applyCatalogView = (view = "cards") => {
@@ -1016,27 +1013,26 @@ window.addEventListener("resize", () => {
 });
 
 // Al hacer clic, se cambia la variable CSS --cards-per-row.
-gridButtons.forEach((button) => {
-    button.addEventListener("click", async () => {
+catalogDensity.addEventListener("change", async () => {
         catalogGrids.forEach((grid) => {
-            grid.style.setProperty("--cards-per-row", button.dataset.grid);
-            grid.dataset.density = button.dataset.grid;
-        });
-
-        gridButtons.forEach((item) => {
-            const isSelected = item === button;
-            item.classList.toggle("is-active", isSelected);
-            item.setAttribute("aria-pressed", String(isSelected));
+            grid.style.setProperty("--cards-per-row", catalogDensity.value);
+            grid.dataset.density = catalogDensity.value;
         });
 
         try {
             await AltoidssStore.updateSettings({
-                cardsPerRow: Number(button.dataset.grid),
+                cardsPerRow: Number(catalogDensity.value),
             });
         } catch (error) {
             console.warn("La densidad se aplicó solo durante esta sesión.", error);
         }
-    });
+});
+
+catalogFilterToggle.addEventListener("click", () => {
+    const open = catalogFilterForm.classList.toggle("is-filter-open");
+    catalogFilterToggle.setAttribute("aria-expanded", String(open));
+    catalogFilterToggle.textContent = open ? "Ocultar filtros" : "Filtros";
+    if (open) catalogFilterForm.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 catalogViewButtons.forEach((button) => {
