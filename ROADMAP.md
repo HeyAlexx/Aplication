@@ -18,7 +18,7 @@ La guía de instalación y uso está en [README.md](README.md).
 - Versión de desarrollo inicial: `0.1.0-dev`; no representa una versión publicada ni una etiqueta existente.
 - Criterios: documentar ramas, revisión, pruebas, lanzamientos y recuperación; comprobar que el commit solo incluya archivos de esta etapa.
 - Pendiente de configuración externa: proteger `main` en GitHub y separar el checkout de desarrollo de la instalación que atiende usuarios.
-- Estado: documentación preparada; integración y lanzamiento pendientes.
+- Estado: documentación integrada mediante PR #1; worktree de desarrollo preparado en una rama propia. Protección remota, validación funcional y lanzamiento pendientes.
 
 ## Etapa 1 — Página dinámica de contenido y capítulos
 
