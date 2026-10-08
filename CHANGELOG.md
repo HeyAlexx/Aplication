@@ -28,9 +28,9 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ### En desarrollo — menú lateral del catálogo
 
-- Búsqueda, limpieza, filtros avanzados, categorías, seguimiento y controles de vista trasladados al panel derecho «Opciones del catálogo».
-- Letras, filtros principales, resultados y ordenación permanecen en el catálogo; cierre mediante botón o Escape con retorno de foco.
-- Verificación de búsqueda, categorías, filtros avanzados y panel móvil mediante pruebas de navegador.
+- Búsqueda, limpieza, filtros avanzados, categorías, seguimiento y controles de vista en la barra lateral izquierda fija original, siempre visible en escritorio, no en un diálogo.
+- Letras, filtros principales, resultados y ordenación permanecen en el contenido central; en móvil la barra lateral se convierte en un bloque plegable sobre el catálogo.
+- Verificación de búsqueda, categorías, filtros avanzados, posición fija y adaptación móvil mediante pruebas de navegador.
 
 ### Documentación
 

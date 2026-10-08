@@ -10,6 +10,12 @@ const catalogGrids = document.querySelectorAll(".catalog-grid");
 // Botones que permiten elegir 3, 5 o 7 tarjetas por línea.
 const catalogDensity = document.querySelector("#catalogDensity");
 const catalogFilterToggle = document.querySelector("#catalogFilterToggle");
+const catalogHeader = document.querySelector(".topbar");
+const updateCatalogHeaderHeight = () => document.documentElement.style.setProperty(
+    "--catalog-header-height", `${catalogHeader.getBoundingClientRect().height}px`
+);
+new ResizeObserver(updateCatalogHeaderHeight).observe(catalogHeader);
+updateCatalogHeaderHeight();
 const catalogViewButtons = document.querySelectorAll("[data-catalog-view]");
 const gridDensityGroups = document.querySelectorAll(".grid-density");
 const quickStatusButtons = document.querySelectorAll("[data-quick-status]");
@@ -1028,13 +1034,30 @@ catalogDensity.addEventListener("change", async () => {
         }
 });
 
+const setCatalogSidebarOpen = (open) => {
+    document.querySelector("#catalogSideMenu").classList.toggle("is-open", open);
+    catalogFilterToggle.setAttribute("aria-expanded", String(open));
+    catalogFilterToggle.textContent = open ? "Ocultar opciones" : "Mostrar opciones";
+};
 catalogFilterToggle.addEventListener("click", () => {
-    document.querySelector("#catalogSideMenu").showModal();
+    const sidebar = document.querySelector("#catalogSideMenu");
+    const open = !sidebar.classList.contains("is-open");
+    setCatalogSidebarOpen(open);
+    if (open) {
+        sidebar.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.querySelector("#sidebar-search").focus({ preventScroll: true });
+    }
 });
 document.querySelector("#closeCatalogSideMenu").addEventListener("click", () => {
-    document.querySelector("#catalogSideMenu").close();
+    setCatalogSidebarOpen(false);
+    catalogFilterToggle.focus();
 });
-document.querySelector("#catalogSideMenu").addEventListener("close", () => catalogFilterToggle.focus());
+document.querySelector("#catalogSideMenu").addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && window.matchMedia("(max-width: 768px)").matches) {
+        setCatalogSidebarOpen(false);
+        catalogFilterToggle.focus();
+    }
+});
 
 catalogViewButtons.forEach((button) => {
     button.addEventListener("click", async () => {
