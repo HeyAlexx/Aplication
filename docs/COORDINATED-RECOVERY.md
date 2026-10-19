@@ -58,6 +58,26 @@ restaurar una copia encima de los datos vivos como reacción automática al BSOD
 
 ## Alcance y límites
 
+### Checkpoint posterior al despliegue del 19 de octubre
+
+La base completa verificada `20261019-104819-739-step5/project.zip` se conserva
+intacta. En el mismo directorio, `history-before-781-20261019` guarda los 31
+archivos protegidos anteriores a la migración real. El delta final
+`post-deployment-7af617fef113/status.json` es `VERIFIED`: 54 archivos de
+datos/estado/configuración, código instalado (128 archivos) en ZIP comprobado,
+Git bundle verificado y 88 evidencias. Hash de su manifiesto:
+`2d35877b5d643de2606eff8594c0eaff68cfda3470c26e5242b7ed5e320ede78`.
+
+Este delta complementa la base completa; no sustituye su restauración integral
+ni es una imagen de Windows. Refleja el código operativo `7af617fef113` y los
+datos posteriores al histórico/renovación de desarrollo. Su bundle precede al
+commit de documentación de cierre. Antes de restaurar, conciliar cualquier
+cambio posterior del sincronizador y Sheets: el respaldo no retrocede Google.
+El watcher autorizado cada 300 s no tiene arranque automático tras reiniciar;
+verificar estado y arrancar solo una instancia después de un BSOD.
+
+### Límites generales
+
 Incluye código de ambos checkouts, objetos/refs/índices Git y archivos locales,
 catálogo/estado central, datos privados, configuraciones y evidencias anteriores.
 El ZIP contiene secretos y **no está cifrado**: se restringe su carpeta NTFS al
