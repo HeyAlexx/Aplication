@@ -6,6 +6,8 @@ El paso 3 ya tiene [inventario, decisiones sobre cambios locales y ensayo aislad
 
 El paso 4 tiene [propuesta histórica propia y ensayo de producción](PRODUCTION-HISTORY-PLAN.md), NO una migración real. La CLI de desarrollo permanece bloqueada para producción; no eludirla. La aplicación requiere autorización/procedimiento específicos y respaldo coordinado previo, además del despliegue de código compatible.
 
+El paso 5 ya cuenta con [copia independiente y restauración coordinada](COORDINATED-RECOVERY.md) verificadas. Tras el BSOD `0x124`, el origen del fallo del sistema sigue sin identificar; no confundir recuperación de archivos con estabilidad del hardware. Revisar este riesgo antes de autorizar el despliegue y renovar el respaldo si los datos cambiaron desde su captura.
+
 1. Revisar el PR, sus pruebas y el diff sin credenciales/datos privados. Mantener Cloudflare Access. Resolver el estado del proveedor Jikan documentado en QA antes de declarar todas las APIs saludables.
 2. Crear un snapshot verificado con `tools/preproduction-snapshot.ps1 -Phase before-approved-deploy`. Contiene configuración privada: nunca subirlo a GitHub. Guardar SHA del código instalado y del aprobado. No sustituye un respaldo completo de sesiones/dependencias/sistema.
 3. Detener el monitor de producción y bloquear temporalmente escrituras administrativas durante la actualización. Guardar los cambios locales existentes en producción: no hacer `git reset --hard`, checkout forzado ni copiar todo desarrollo encima de producción.
