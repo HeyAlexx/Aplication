@@ -1,6 +1,30 @@
 # Avance de preparación para GitHub y producción
 
-Actualizado: 2026-10-19. Punto de reanudación tras la aprobación final del usuario.
+Actualizado: 2026-10-19, 16:11 Costa Rica. Pasos 1–6 completados.
+
+## Estado final vigente
+
+Código operativo `7af617fef113c1ac23a5732b2e28bc473e91e675`, PR #3/#4 integrados.
+Histórico aplicado a 781 anteriores, 27 altas reales y tres excluidos intactos.
+811 animes / 808 filas vinculadas sin faltantes ni duplicados. Desarrollo
+renovado exclusivamente desde producción: siete colecciones públicas iguales,
+Google de desarrollo apagado. Producción tiene un único watcher autorizado,
+intervalo 300 s, con reportes posteriores al arranque correctos y cero errores.
+Cuatro revisiones pendientes y un rechazo automático conservados; cola vacía.
+Ambos HTTP 200, privados 404 y Cloudflare Access 302. Respaldo final en F:
+verificado. Sin arranque automático tras reiniciar Windows.
+
+Detalle, límites, fechas y recuperación: [cierre de despliegue](PRODUCTION-DEPLOYMENT-2026-10-19.md).
+No queda pendiente aplicar la migración histórica ni importar las 27 novedades.
+Sí siguen abiertos el origen del BSOD, Jikan y la comprobación de writeback real
+cuando exista una modificación legítima aprobada. No aprobar revisiones como prueba.
+
+## Bitácora previa a este cierre
+
+Las etapas siguientes se conservan como evidencia cronológica. Sus estados
+«pendiente», «sin monitor» y conteos de 784/781 describen el momento de cada
+ensayo, no el estado final anterior. Las autorizaciones posteriores cubrieron
+por separado la migración delimitada y el watcher de producción cada 300 s.
 
 ## Límites vigentes
 
@@ -10,7 +34,7 @@ Actualizado: 2026-10-19. Punto de reanudación tras la aprobación final del usu
 - No copiar datos de desarrollo a producción, ni publicar configuración privada, OAuth, usuarios, favoritos, historial, catálogos operativos o respaldos.
 - Mantener Cloudflare Access. Conservar los cambios locales de producción; no usar reset/checkout forzados.
 
-## Pasos numerados actuales
+## Pasos numerados antes de completar el despliegue
 
 | Paso | Trabajo | Estado |
 | --- | --- | --- |
@@ -45,7 +69,7 @@ Publicado: [PR #3](https://github.com/HeyAlexx/Aplication/pull/3), rama `fix/adm
 
 Antes del push se repitieron 34 pruebas Python, 10 Node, dos suites PHP, 38 comprobaciones API, 18 escenarios admin y la verificación de las 781 referencias servidas en ambos sentidos. Sintaxis válida en 34 archivos JS/PHP/PowerShell. Auditoría de rutas/credenciales conocidas sin hallazgos; 37 archivos de datos/estado/preferencias iguales al respaldo. Servidores de producción/desarrollo activos, ningún monitor de Sheets.
 
-## Estado comprobado el 2026-10-19
+## Baseline comprobado el 2026-10-19, antes de desplegar
 
 Proyecto trasladado al SSD en C: y verificado por hashes. No seguir trabajando sobre la copia antigua de G:. Código de desarrollo en rama `fix/admin-mobile-mockup`; instalación de producción conservada en `chore/dev-isolation`.
 

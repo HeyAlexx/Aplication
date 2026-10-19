@@ -1,10 +1,18 @@
 # Despliegue del código central y reversión
 
-Preparación para revisión; este documento no despliega automáticamente ni cambia `main`.
+Procedimiento operativo; este documento no despliega automáticamente ni cambia `main`.
+
+Estado del 2026-10-19: pasos 1–6 completados, PR #3/#4 integrados, código
+operativo `7af617fef113c1ac23a5732b2e28bc473e91e675`. Histórico delimitado
+aplicado y sincronizador único de producción autorizado cada 300 s;
+desarrollo sigue sin Google. Ver [cierre y límites](PRODUCTION-DEPLOYMENT-2026-10-19.md).
 
 El paso 3 ya tiene [inventario, decisiones sobre cambios locales y ensayo aislado](INSTALLATION-PLAN.md). Usar ese procedimiento de preparación antes de cualquier reemplazo; no copiar indiscriminadamente el checkout de desarrollo.
 
-El paso 4 tiene [propuesta histórica propia y ensayo de producción](PRODUCTION-HISTORY-PLAN.md), NO una migración real. La CLI de desarrollo permanece bloqueada para producción; no eludirla. La aplicación requiere autorización/procedimiento específicos y respaldo coordinado previo, además del despliegue de código compatible.
+El paso 4 tiene [propuesta, ensayo y aplicación delimitada](PRODUCTION-HISTORY-PLAN.md).
+La CLI de desarrollo permanece bloqueada para producción; no eludirla.
+Se aplicó el procedimiento específico autorizado, con respaldo coordinado y
+código compatible, protegiendo altas posteriores.
 
 El paso 5 ya cuenta con [copia independiente y restauración coordinada](COORDINATED-RECOVERY.md) verificadas. Tras el BSOD `0x124`, el origen del fallo del sistema sigue sin identificar; no confundir recuperación de archivos con estabilidad del hardware. Revisar este riesgo antes de autorizar el despliegue y renovar el respaldo si los datos cambiaron desde su captura.
 
@@ -13,7 +21,7 @@ El paso 5 ya cuenta con [copia independiente y restauración coordinada](COORDIN
 3. Detener el monitor de producción y bloquear temporalmente escrituras administrativas durante la actualización. Guardar los cambios locales existentes en producción: no hacer `git reset --hard`, checkout forzado ni copiar todo desarrollo encima de producción.
 4. Instalar solamente el código del commit aprobado en la instalación de producción; mantener su descriptor externo, catálogo, datos personales, secretos locales y OAuth. No trasladar `data`/colas/revisiones de desarrollo. No basta cambiar de rama si el checkout tiene modificaciones sin commit.
 5. Iniciar PHP con `server-router.php` y comprobar descriptor `environment: produccion`, origen de datos y las rutas privadas (404). El servidor integrado es para la instalación local protegida; una publicación Apache/Nginx requiere enrutamiento y protección equivalentes, no sustituirlos por archivos estáticos.
-6. **Google Sheets requiere autorización separada.** En la preparación actual debe permanecer apagado: existen cambios nuevos en la hoja que el usuario todavía no desea cargar. No usar el launcher raíz que arranca el monitor automáticamente. Solo después de esa autorización arrancar **un** monitor usando configuración Sheets/OAuth de producción, conservar todos los códigos y verificar reporte reciente, catálogo, pendientes, cola y lectura de confirmación. Un PID no prueba salud. No aprobar registros reales como prueba automática.
+6. **Google Sheets requiere autorización separada.** El 19 de octubre se autorizó primero la prueba real y después mantener **un** monitor de producción con `--apply --watch --interval 300`. Usar configuración Sheets/OAuth de producción, conservar todos los códigos y verificar reporte reciente, catálogo, pendientes, cola y lectura de confirmación. Un PID no prueba salud. No aprobar registros reales como prueba automática. Desarrollo sigue sin Google; no usar el launcher raíz para duplicar procesos. El intervalo es una espera tras cada ejecución; no se configuró arranque automático después de reiniciar Windows.
 7. Hacer smoke test en móvil/escritorio, tomar snapshot `after-approved-deploy` y documentar SHA/fecha. Solo tras ello considerar producción desplegada. Etiquetas/versiones se acuerdan por separado.
 
 ## Reversión segura
