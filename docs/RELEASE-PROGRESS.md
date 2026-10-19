@@ -15,13 +15,17 @@ Actualizado: 2026-10-19. Punto de reanudación tras la aprobación final del usu
 | Paso | Trabajo | Estado |
 | --- | --- | --- |
 | 1 | Revisión final del usuario en desarrollo | APROBADO |
-| 2 | Respaldo, auditoría, commits selectivos, push y PR | EN CURSO |
+| 2 | Respaldo, auditoría, commits selectivos, push y PR | COMPLETADO; PR #3 en borrador |
 | 3 | Preparar instalación de código conservando producción sucia | PENDIENTE; sin despliegue autorizado |
 | 4 | Vista previa y migración histórica propia de producción | PENDIENTE; no copiar JSON de desarrollo |
 | 5 | Respaldo final, copia independiente y recuperación coordinada | PENDIENTE |
 | 6 | Despliegue autorizado y smoke test protegido | PENDIENTE |
 
-Reanudar desde el paso 2. La preparación del PR no autoriza su integración, el despliegue ni la sincronización.
+Reanudar desde el paso 3. La preparación del PR no autoriza su integración, el despliegue ni la sincronización.
+
+Publicado: [PR #3](https://github.com/HeyAlexx/Aplication/pull/3), rama `fix/admin-mobile-mockup` hacia `main`, abierto como borrador y sin conflictos informados por GitHub. Commits funcionales `7ed9977` (almacenamiento/orden) y `a930dd4` (interfaz); documentación inicial `6b053de`. No hay estados de CI ni ejecuciones de Actions en la comprobación remota; las pruebas son locales. Los tres JSON personales modificados permanecen sin commit.
+
+Antes del push se repitieron 34 pruebas Python, 10 Node, dos suites PHP, 38 comprobaciones API, 18 escenarios admin y la verificación de las 781 referencias servidas en ambos sentidos. Sintaxis válida en 34 archivos JS/PHP/PowerShell. Auditoría de rutas/credenciales conocidas sin hallazgos; 37 archivos de datos/estado/preferencias iguales al respaldo. Servidores de producción/desarrollo activos, ningún monitor de Sheets.
 
 ## Estado comprobado el 2026-10-19
 
