@@ -6,6 +6,7 @@ No Sheet writes, no development catalogue input, no overwriting later batches.
 """
 import argparse
 import json
+import os
 import socket
 import subprocess
 from datetime import datetime
@@ -20,6 +21,16 @@ CUTOFF = '2026-10-09T00:58:35-06:00'
 IMPLEMENTATION = ('tools/production_history.py','tools/initialize_historical_order.py',
                   'tools/prepare_code_release.py','tools/rehearse_production_history.py',
                   'tools/storage_transaction.py','tools/historical-order-preview.cjs','js/content-order.js')
+
+
+def durable_new(path, payload):
+    path.parent.mkdir(parents=True,exist_ok=True)
+    with path.open('xb') as stream:
+        stream.write(payload)
+        stream.flush()
+        os.fsync(stream.fileno())
+    if path.read_bytes() != payload:
+        raise RuntimeError('El respaldo durable no coincide con el origen.')
 
 
 def paths(workspace):
@@ -172,12 +183,12 @@ def apply(workspace, plan_path, approved_sha, backup):
             payload = source.read_bytes()
             if digest(payload) != expected:
                 raise RuntimeError('Cambió un archivo durante el respaldo.')
-            save_new(backup/relative,payload)
+            durable_new(backup/relative,payload)
             if digest((backup/relative).read_bytes()) != expected:
                 raise RuntimeError('Respaldo independiente no verificado.')
             saved.append({'path':relative.as_posix(),'sha256':expected})
-        save_new(backup/'approved-plan.json',plan_bytes)
-        save_new(backup/'approved-preview.json',preview_bytes)
+        durable_new(backup/'approved-plan.json',plan_bytes)
+        durable_new(backup/'approved-preview.json',preview_bytes)
         atomic_json(backup/'manifest.json',{'status':'BACKUP_VERIFIED_BEFORE_HISTORY','approvedPlanSha256':approved_sha,'files':saved})
         if protected_hashes(workspace,production) != plan['protectedHashes']:
             raise RuntimeError('Cambió producción después de respaldar; no aplicar.')
