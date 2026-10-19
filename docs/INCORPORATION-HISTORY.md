@@ -2,6 +2,8 @@
 
 **Estado actual: inicialización APLICADA SOLO EN DESARROLLO el 2026-10-09 a las 02:43:52 -06:00**, tras aprobación del usuario. 781 registros vinculados inicializados, con los originales preservados en auditoría/respaldo. No se movió ninguna fila ni se escribió Sheets. Producción conserva su catálogo anterior. Las variantes de vista previa de las secciones siguientes explican el método aprobado, no una migración todavía pendiente.
 
+Actualización 2026-10-19: se generó y ensayó una [propuesta propia de producción](PRODUCTION-HISTORY-PLAN.md), idéntica a v4 por hash, exclusivamente sobre una copia descartable. Producción permanece sin migrar; CLI bloqueada, Sheets apagado. Continuar con el paso 5 antes de autorizar una aplicación real.
+
 ## 1. Decisión confirmada — 2026-10-09
 
 La estimación por **año y quarter (trimestre)** y referencia de la siguiente fila se limita a la **inicialización del histórico**. Quarter y temporada activa son datos diferentes: la temporada activa NO participa. No es un cambio a los datos de estreno ni una fecha histórica demostrada. No debe ejecutarse de nuevo en cada sincronización, en cada rama ni al editar metadatos.
@@ -59,6 +61,6 @@ En los informes «Posición propuesta/actual en catálogo» significa puesto den
 
 `tests/historical-order-server.cjs` lee la API y el JSON público reales en `http://192.168.100.19:8092`, compara con el catálogo central y verifica las 781 posiciones vinculadas en ambos sentidos. Las lecturas PHP pueden representar un mapa vacío de auditoría como `[]` en vez de `{}`; la prueba normaliza exclusivamente ese caso, no diferencias de datos.
 
-Prueba de navegador: catálogo a 360/1280 px y administrador a 412 px. En el administrador solo se simula sesión/perfil; los GET de contenido son reales. Se bloquean todas las mutaciones. Fechas históricas muestran `≈` y explicación «No es una fecha de alta real». Reporte/capturas locales: `outputs/qa-historical-order`. La prueba física en el celular del usuario queda pendiente para este orden inicializado.
+Prueba de navegador: catálogo a 360/1280 px y administrador a 412 px. En el administrador solo se simula sesión/perfil; los GET de contenido son reales. Se bloquean todas las mutaciones. Fechas históricas muestran `≈` y explicación «No es una fecha de alta real». Reporte/capturas locales: `outputs/qa-historical-order`. El usuario aprobó después la revisión final de desarrollo, registrada en `RELEASE-PROGRESS.md`.
 
 Validaciones locales: 34 pruebas Python, 10 Node y suites PHP de catálogo/revisiones pasan. Las pruebas de sincronización/API usan fixtures aislados, no escriben en Sheets. Ver `RELEASE-PROGRESS.md` para el punto de reanudación de la liberación.

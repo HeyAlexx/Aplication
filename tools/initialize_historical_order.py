@@ -1,4 +1,4 @@
-"""Apply an approved, hash-bound historical preview to DEVELOPMENT only, once."""
+"""Development-only CLI; shared hash-bound engine also supports isolated rehearsals."""
 import argparse
 import copy
 import hashlib
@@ -61,7 +61,9 @@ def make_plan(catalog, report, migration_id, initialized_at):
     return result
 
 
-def apply_report(directory, report_path, backup_dir):
+def apply_report(directory, report_path, backup_dir, *, environment='desarrollo'):
+    if environment not in {'desarrollo', 'isolated-rehearsal'}:
+        raise ValueError('Este motor no habilita una aplicación etiquetada como producción.')
     report_bytes = report_path.read_bytes()
     report = json.loads(report_bytes)
     targets = targets_for(report)
@@ -99,7 +101,7 @@ def apply_report(directory, report_path, backup_dir):
                 handle.write(data)
             if (backup_dir / name).read_bytes() != data:
                 raise RuntimeError('Respaldo no verificado; no se aplica.')
-        manifest = {'version': VERSION, 'environment': 'desarrollo', 'migrationId': migration_id,
+        manifest = {'version': VERSION, 'environment': environment, 'migrationId': migration_id,
                     'initializedAt': now, 'beforeSha256': sha(before), 'mirrorSha256': sha(mirror_bytes),
                     'count': len(targets), 'status': 'prepared', 'sheetWrites': 0}
         atomic_json(backup_dir / 'manifest.json', manifest)
