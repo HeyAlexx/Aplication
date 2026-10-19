@@ -10,7 +10,8 @@ from openpyxl import load_workbook
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 WORKBOOK_PATH = PROJECT_DIR.parents[1] / "Referencias" / "Anime Data V1.xlsx"
-ANIME_JSON_PATH = PROJECT_DIR / "data" / "anime.json"
+from catalog_storage import CATALOG_DIR, guard_legacy_write
+ANIME_JSON_PATH = CATALOG_DIR / "anime.json"
 BACKUP_DIR = PROJECT_DIR / "backups" / "manual-imports"
 
 QUARTERS = {
@@ -92,6 +93,7 @@ def build_record(row_number: int, row: tuple[object, ...]) -> dict[str, object]:
 
 
 def main() -> None:
+    guard_legacy_write()
     workbook = load_workbook(WORKBOOK_PATH, data_only=True, read_only=True)
     sheet = workbook["Catalogo"]
     imported: list[dict[str, object]] = []

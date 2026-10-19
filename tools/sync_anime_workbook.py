@@ -11,7 +11,9 @@ from openpyxl import load_workbook
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 DEFAULT_BASELINE = PROJECT_DIR.parents[1] / "Referencias" / "Anime Data V1.xlsx"
-ANIME_PATH = PROJECT_DIR / "data" / "anime.json"
+from catalog_storage import CATALOG_DIR, guard_legacy_write
+from incorporation import stamp
+ANIME_PATH = CATALOG_DIR / "anime.json"
 
 QUARTERS = {1: "Winter", 2: "Spring", 3: "Summer", 4: "Fall"}
 FORMAT_MAP = {"Serie": "Serie", "Movie": "Película", "OVA": "OVA", "ONA": "ONA", "Especial": "Especial"}
@@ -131,6 +133,7 @@ def make_new_record(item: dict[str, object], timestamp: str) -> dict[str, object
         "sheetUpdatedAt": timestamp,
         "createdAt": timestamp,
     }
+    stamp(record, int(item['row']), timestamp)
     return record
 
 
@@ -148,6 +151,8 @@ def sheet_values(record: dict[str, object]) -> list[object]:
 
 def main() -> None:
     args = parse_args()
+    if args.apply:
+        guard_legacy_write()
     baseline = read_catalog(args.baseline)
     incoming = read_catalog(args.workbook)
     records = json.loads(ANIME_PATH.read_text(encoding="utf-8"))

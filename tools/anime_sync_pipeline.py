@@ -10,6 +10,7 @@ import shutil
 import sys
 import tempfile
 import time
+from contextlib import nullcontext
 from datetime import datetime
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -33,17 +34,22 @@ from sync_anime_workbook import (
     read_catalog,
 )
 from google_sheets_writeback import read_rows, update_rows
+from storage_transaction import atomic_json, commit_collections, file_lock, storage_lock
+from incorporation import FIELDS as INCORPORATION_FIELDS
 
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
-STATE_DIR = PROJECT_DIR / "runtime" / "anime-sync"
+from catalog_storage import CATALOG_DIR, SYNC_STATE_DIR
+STATE_DIR = SYNC_STATE_DIR
 STATE_PATH = STATE_DIR / "state.json"
 REPORT_PATH = STATE_DIR / "last-report.json"
 CONFLICTS_PATH = STATE_DIR / "pending-review.json"
-REVIEW_DATA_PATH = PROJECT_DIR / "data" / "anime-revisiones.json"
-WRITEBACK_QUEUE_PATH = PROJECT_DIR / "data" / "anime-sheet-writeback.json"
+REVIEW_DATA_PATH = CATALOG_DIR / "anime-revisiones.json"
+WRITEBACK_QUEUE_PATH = CATALOG_DIR / "anime-sheet-writeback.json"
+SHEET_MIRROR_PATH = CATALOG_DIR / "anime-hoja.json"
 PREVIOUS_JSON_PATH = STATE_DIR / "anime.previous.json"
-LOCK_PATH = STATE_DIR / "watcher.pid"
+# The launcher keeps its PID in the checkout; catalogue state lives centrally.
+LOCK_PATH = PROJECT_DIR / "runtime" / "anime-sync" / "watcher.pid"
 DEFAULT_CONFIG = PROJECT_DIR / "config" / "anime-sync.json"
 METADATA_FIELDS = {"title", "format", "emissionYear", "emissionSeason", "activeSeason", "chapters", "seasonsCount"}
 ALLOWED_FORMATS = {"Serie", "Película", "OVA", "ONA", "Especial"}
@@ -75,10 +81,19 @@ def load_json(path: Path, fallback: object) -> object:
 
 
 def write_json_atomic(path: Path, payload: object) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    atomic_json(path, payload)
+
+
+def catalog_revision() -> tuple:
+    """Called under the short storage lock; detect edits during remote lookups."""
+    return tuple(hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None
+                 for path in (ANIME_PATH, REVIEW_DATA_PATH, WRITEBACK_QUEUE_PATH,
+                              SHEET_MIRROR_PATH, STATE_PATH))
+
+
+def require_revision(expected: tuple) -> None:
+    if catalog_revision() != expected:
+        raise RuntimeError("El catálogo cambió durante la consulta; no se sobrescribió. Reintente la sincronización.")
 
 
 def row_payload(item: dict[str, object]) -> dict[str, object]:
@@ -253,6 +268,7 @@ def review_entry(
         "apiVersion": api_version,
         "providerErrors": provider_errors or [],
         "detectedAt": datetime.now().astimezone().isoformat(),
+        **{key: record[key] for key in INCORPORATION_FIELDS if record and key in record},
     }
 
 
@@ -288,7 +304,8 @@ def flush_sheet_writebacks(config_path: Path) -> int:
     settings = config.get("googleSheets") if isinstance(config, dict) else {}
     if not isinstance(settings, dict) or not settings.get("writeBackEnabled"):
         return 0
-    queued = load_json(WRITEBACK_QUEUE_PATH, [])
+    with storage_lock(WRITEBACK_QUEUE_PATH.parent):
+        queued = load_json(WRITEBACK_QUEUE_PATH, [])
     if not isinstance(queued, list):
         raise RuntimeError("anime-sheet-writeback.json no contiene una lista válida.")
     if not queued:
@@ -296,6 +313,12 @@ def flush_sheet_writebacks(config_path: Path) -> int:
     written = update_rows(config_path, queued)
     if written != len(queued):
         raise RuntimeError("Google Sheets no confirmó todas las actualizaciones en cola.")
+    with storage_lock(WRITEBACK_QUEUE_PATH.parent):
+        return confirm_sheet_writebacks(queued, written)
+
+
+def confirm_sheet_writebacks(queued: list, written: int) -> int:
+    """Caller holds storage_lock, after HTTP confirmation and readback."""
     state = load_json(STATE_PATH, {})
     rows = state.get("rows") if isinstance(state, dict) else None
     if isinstance(rows, list):
@@ -320,7 +343,6 @@ def flush_sheet_writebacks(config_path: Path) -> int:
         write_json_atomic(STATE_PATH, state)
     # Do not discard a newer approval queued while the HTTP request was in flight.
     remaining = [entry for entry in load_json(WRITEBACK_QUEUE_PATH, []) if entry not in queued]
-    write_json_atomic(WRITEBACK_QUEUE_PATH, remaining)
     pending_codes = {str(entry.get("sourceCode")) for entry in remaining}
     sent_codes = {str(entry.get("sourceCode")) for entry in queued}
     reviews = load_json(REVIEW_DATA_PATH, [])
@@ -329,8 +351,9 @@ def flush_sheet_writebacks(config_path: Path) -> int:
         if review.get("status") == "Aprobado" and code in sent_codes and code not in pending_codes:
             review["sheetSyncStatus"] = "Confirmado"
             review["sheetSyncedAt"] = datetime.now().astimezone().isoformat()
-    if reviews:
-        write_json_atomic(REVIEW_DATA_PATH, reviews)
+    commit_collections(WRITEBACK_QUEUE_PATH.parent, {
+        WRITEBACK_QUEUE_PATH.name: remaining, REVIEW_DATA_PATH.name: reviews,
+    })
     return written
 
 
@@ -352,6 +375,12 @@ def read_live_google_catalog(config_path: Path) -> list[dict[str, object]]:
 def process_once(args: argparse.Namespace) -> dict[str, object]:
     workbook, url = config_source(args)
     written_back = flush_sheet_writebacks(args.config) if args.apply and not args.initialize else 0
+    # Capture BEFORE fetching Sheets: an approval during HTTP must invalidate the
+    # result, even when Google returned the older version of that row.
+    with storage_lock(ANIME_PATH.parent):
+        expected_revision = catalog_revision()
+        state = load_json(STATE_PATH, {})
+        records = load_json(ANIME_PATH, [])
     config = load_json(args.config, {})
     settings = config.get("googleSheets") if isinstance(config, dict) else {}
     if isinstance(settings, dict) and settings.get("writeBackEnabled"):
@@ -370,19 +399,47 @@ def process_once(args: argparse.Namespace) -> dict[str, object]:
                 downloaded.unlink(missing_ok=True)
 
     source_hash = rows_hash(incoming)
-    state = load_json(STATE_PATH, {})
+    # One common instant for every new row, captured before slow metadata calls.
+    incorporation_time = datetime.now().astimezone().isoformat()
+    if not isinstance(records, list):
+        raise RuntimeError("anime.json no contiene una lista válida.")
+    records_by_code, records_by_title = build_index(records)
+    missing_codes = {str(item.get("sourceCode") or "") for item in incoming
+                     if not records_by_code.get(str(item.get("sourceCode") or ""))}
+    reference_changed = False
+    for item in incoming:
+        matches = records_by_code.get(str(item.get('sourceCode') or ''), [])
+        if len(matches) == 1:
+            updates = {'sourceRow': item.get('row'), 'sheetValues': item.get('raw'),
+                       'sheetSource': row_payload(item)}
+            if any(matches[0].get(key) != value for key, value in updates.items()):
+                matches[0].update(updates)
+                reference_changed = True
     if args.initialize:
         initialized = {
             "sourceHash": source_hash,
             "rows": [row_payload(item) for item in incoming],
             "lastSyncAt": datetime.now().astimezone().isoformat(),
         }
-        write_json_atomic(STATE_PATH, initialized)
         report = {"status": "initialized", "totalSource": len(incoming), "timestamp": initialized["lastSyncAt"]}
-        write_json_atomic(REPORT_PATH, report)
+        with storage_lock(ANIME_PATH.parent):
+            require_revision(expected_revision)
+            write_json_atomic(STATE_PATH, initialized)
+            write_json_atomic(REPORT_PATH, report)
         return report
-    if state.get("sourceHash") == source_hash:
-        return {"status": "unchanged", "totalSource": len(incoming), "writeBackCount": written_back, "timestamp": datetime.now().astimezone().isoformat()}
+    if state.get("sourceHash") == source_hash and not missing_codes:
+        report = {"status": "unchanged", "totalSource": len(incoming), "sourceRows": len(incoming),
+                  "missingSourceCodes": [], "writeBackCount": written_back,
+                  "timestamp": datetime.now().astimezone().isoformat()}
+        if args.apply:
+            with storage_lock(ANIME_PATH.parent):
+                require_revision(expected_revision)
+                collections = {SHEET_MIRROR_PATH.name: incoming}
+                if reference_changed:
+                    collections[ANIME_PATH.name] = records
+                commit_collections(ANIME_PATH.parent, collections)
+                write_json_atomic(REPORT_PATH, report)
+        return report
 
     changed_codes = {
         str(item.get("sourceCode") or "")
@@ -393,27 +450,37 @@ def process_once(args: argparse.Namespace) -> dict[str, object]:
     }
     structural_issues = [
         issue for issue in validate_source(incoming)
-        if str(issue.get("sourceCode") or "") in changed_codes
+        if str(issue.get("sourceCode") or "") in changed_codes | missing_codes
     ]
     invalid_codes = {str(issue["sourceCode"]) for issue in structural_issues}
     issues_by_code = {str(issue["sourceCode"]): issue for issue in structural_issues}
-    records = load_json(ANIME_PATH, [])
-    if not isinstance(records, list):
-        raise RuntimeError("anime.json no contiene una lista válida.")
-    records_by_code, records_by_title = build_index(records)
     approved = []
     conflicts = []
 
     for item in incoming:
         code = str(item.get("sourceCode") or "")
         current_row = row_payload(item)
-        if previous_rows.get(code) == current_row:
+        if previous_rows.get(code) == current_row and code not in missing_codes:
             continue
         matches = records_by_code.get(code, [])
         if not matches:
             matches = records_by_title.get(str(item.get("title") or "").casefold(), [])
-        record = copy.deepcopy(matches[0]) if len(matches) == 1 else make_new_record(item, datetime.now().astimezone().isoformat())
+        record = copy.deepcopy(matches[0]) if len(matches) == 1 else make_new_record(item, incorporation_time)
         is_new = not matches
+        # Retain source data without claiming that its metadata was validated.
+        if is_new:
+            record["metadataVerified"] = False
+            record["metadataNeedsReview"] = True
+            records.append(record)
+            records_by_code[code].append(record)
+        record["sourceCode"] = code
+        record["sourceRow"] = item.get("row")
+        record["sheetValues"] = item.get("raw")
+        record["sheetSource"] = current_row
+        if len(matches) == 1:
+            # Literal source coverage is independent of metadata approval.
+            matches[0].update({key: record[key] for key in
+                               ("sourceCode", "sourceRow", "sheetValues", "sheetSource")})
         if code in invalid_codes:
             conflicts.append(review_entry(
                 item,
@@ -456,10 +523,7 @@ def process_once(args: argparse.Namespace) -> dict[str, object]:
                 continue
             apply_verified_metadata(record, candidate, score)
 
-        if is_new:
-            records.append(record)
-            records_by_code[code].append(record)
-        else:
+        if not is_new:
             matches[0].clear()
             matches[0].update(record)
         approved.append({"sourceCode": code, "title": record.get("title"), "new": is_new, "fields": sorted(changed_fields)})
@@ -477,14 +541,18 @@ def process_once(args: argparse.Namespace) -> dict[str, object]:
     write_json_atomic(REPORT_PATH, report)
     write_json_atomic(CONFLICTS_PATH, conflicts)
     if args.apply:
-        STATE_DIR.mkdir(parents=True, exist_ok=True)
-        if ANIME_PATH.exists():
-            shutil.copy2(ANIME_PATH, PREVIOUS_JSON_PATH)
-        write_json_atomic(ANIME_PATH, records)
-        write_json_atomic(REVIEW_DATA_PATH, merge_reviews(conflicts))
-        write_json_atomic(STATE_PATH, {"sourceHash": source_hash, "rows": [row_payload(item) for item in incoming], "lastSyncAt": report["timestamp"]})
-        report["status"] = "applied"
-        write_json_atomic(REPORT_PATH, report)
+        with storage_lock(ANIME_PATH.parent):
+            require_revision(expected_revision)
+            STATE_DIR.mkdir(parents=True, exist_ok=True)
+            if ANIME_PATH.exists():
+                shutil.copy2(ANIME_PATH, PREVIOUS_JSON_PATH)
+            commit_collections(ANIME_PATH.parent, {
+                ANIME_PATH.name: records, SHEET_MIRROR_PATH.name: incoming,
+                REVIEW_DATA_PATH.name: merge_reviews(conflicts),
+            })
+            write_json_atomic(STATE_PATH, {"sourceHash": source_hash, "rows": [row_payload(item) for item in incoming], "lastSyncAt": report["timestamp"]})
+            report["status"] = "applied"
+            write_json_atomic(REPORT_PATH, report)
     return report
 
 
@@ -492,26 +560,25 @@ def main() -> None:
     args = parse_args()
     if args.interval < 60:
         raise SystemExit("El intervalo automático mínimo es de 60 segundos.")
-    if args.watch:
-        STATE_DIR.mkdir(parents=True, exist_ok=True)
-        if LOCK_PATH.exists():
-            try:
-                os.kill(int(LOCK_PATH.read_text(encoding="ascii").strip()), 0)
-                raise SystemExit("Ya existe un monitor de sincronización de anime en ejecución.")
-            except (OSError, ValueError):
-                LOCK_PATH.unlink(missing_ok=True)
-        LOCK_PATH.write_text(str(os.getpid()), encoding="ascii")
+    # One writer per environment, including different worktrees and one-shot runs.
+    ownership = file_lock(STATE_DIR / '.watcher.lock', timeout=0) if args.watch or args.apply or args.initialize else nullcontext()
     try:
-        while True:
-            try:
-                print(json.dumps(process_once(args), ensure_ascii=False), flush=True)
-            except RuntimeError as error:
-                print(json.dumps({"status": "error", "message": str(error)}, ensure_ascii=False), file=sys.stderr, flush=True)
+        with ownership:
+            if args.watch:
+                LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+                LOCK_PATH.write_text(str(os.getpid()), encoding="ascii")
+            while True:
+                try:
+                    print(json.dumps(process_once(args), ensure_ascii=False), flush=True)
+                except RuntimeError as error:
+                    print(json.dumps({"status": "error", "message": str(error)}, ensure_ascii=False), file=sys.stderr, flush=True)
+                    if not args.watch:
+                        raise SystemExit(1) from error
                 if not args.watch:
-                    raise SystemExit(1) from error
-            if not args.watch:
-                break
-            time.sleep(args.interval)
+                    break
+                time.sleep(args.interval)
+    except RuntimeError as error:
+        raise SystemExit(str(error)) from error
     finally:
         if args.watch and LOCK_PATH.exists() and LOCK_PATH.read_text(encoding="ascii").strip() == str(os.getpid()):
             LOCK_PATH.unlink(missing_ok=True)

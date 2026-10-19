@@ -232,11 +232,15 @@ def update_rows(config_path: Path, updates: list[dict[str, object]]) -> int:
     return len(data)
 
 
-def read_rows(config_path: Path, range_name: str) -> list[list[object]]:
+def read_rows(config_path: Path, range_name: str, *, value_render_option: str | None = None) -> list[list[object]]:
     """Read the live sheet through the API, bypassing export-XLSX cache."""
     settings = load_config(config_path)
     access = access_token(config_path)
     target = f"{API_BASE}/{quote(spreadsheet_id(settings, config_path), safe='')}/values/{quote(range_name, safe='!')}"
+    if value_render_option is not None:
+        if value_render_option not in {'FORMATTED_VALUE', 'UNFORMATTED_VALUE', 'FORMULA'}:
+            raise ValueError('Opción de lectura de celdas inválida.')
+        target += '?valueRenderOption=' + value_render_option
     payload = request_json(target, headers={"Authorization": f"Bearer {access}"})
     values = payload.get("values", [])
     if not isinstance(values, list):
