@@ -48,6 +48,12 @@ El servidor debe poder escribir en `data`, `backups` y, para la sincronización,
 
 El servidor integrado de PHP es para uso local. Una publicación remota requiere un servidor adecuado, HTTPS, protección de archivos privados y control de acceso; no expongas este servidor directamente a Internet.
 
+### Datos operativos independientes de Git
+
+Las instalaciones con descriptor central usan catálogos separados de producción/desarrollo fuera del checkout; una rama nueva compatible lee el catálogo vigente del entorno, no su JSON versionado antiguo. El refresco de pruebas es explícito producción → desarrollo, nunca al revés. Usuarios, preferencias, sesiones y OAuth no se comparten.
+
+Consulta [arquitectura y diagramas](docs/CATALOG-STORAGE.md), [despliegue y reversión](docs/DEPLOYMENT-CENTRAL.md), [pruebas de liberación](docs/QA-RELEASE-2026-10-19.md) y [avance numerado](docs/RELEASE-PROGRESS.md). El launcher versionado es `tools/start-central.ps1`; las instalaciones portables sin descriptor conservan `data` local. Sheets requiere un arranque separado y autorizado; no usar `-Sync` durante la revisión actual.
+
 ## Cómo usar la aplicación
 
 1. Registra una cuenta o inicia sesión con una existente.
@@ -57,14 +63,15 @@ El servidor integrado de PHP es para uso local. Una publicación remota requiere
 
 En el Catálogo, el selector «Ordenar por incorporación» muestra los títulos más recientes primero y permite ver los más antiguos primero. Funciona en todas las categorías y en las vistas de tarjetas o lista, junto con la búsqueda y los filtros. Cambiar el orden devuelve la paginación a la primera página; el orden seleccionado se conserva al recargar mediante la URL.
 
-Los filtros se muestran encima de las tarjetas, sin barra lateral: «Todos», «#» (iniciales numéricas, símbolos o no latinas) y A–Z para la inicial; selectores de tipo, género, año de estreno y estado de producción; búsqueda por título y botón «Filtrar». Las letras y selectores actualizan los resultados al cambiarlos; para aplicar el texto de búsqueda pulsa «Filtrar» o Enter. «Más filtros» despliega temporadas, visualización y rango de años. «Limpiar filtros» restaura los resultados sin cambiar el orden elegido. En móvil los controles se distribuyen en varias filas.
+Las iniciales (infinito para todas, «#» para números/símbolos/iniciales no latinas, y A–Z), tipo, género, año de estreno y estado de producción se muestran encima de las tarjetas. Las letras y selectores actualizan los resultados al cambiarlos. «Más filtros», en la barra lateral, incluye temporadas, visualización y rango de años. «Limpiar filtros» restaura los resultados sin cambiar el orden elegido. En móvil los controles se distribuyen en varias filas.
 
 En móvil, las tarjetas se muestran en dos columnas con título debajo de la portada. En escritorio, el selector de densidad permite 3, 5 o 7 tarjetas por fila; esa preferencia no sustituye las dos columnas del móvil.
 
 La búsqueda, limpieza, «Más filtros», categorías, seguimiento y controles de vista están en la barra lateral izquierda fija, siempre visible en escritorio, como en la distribución original. Pulsa «Aplicar búsqueda y filtros» para enviar la búsqueda. En móvil la barra pasa a un bloque plegable sobre el contenido, abierto mediante «Mostrar opciones» y cerrado con «Cerrar» o Escape; no ocupa el ancho de las tarjetas. Las letras, los filtros principales y la ordenación permanecen en el contenido central.
 
-En la tabla de Contenido del Dashboard puedes elegir incorporaciones más nuevas (por defecto) o más antiguas. Las altas nuevas guardan su fecha real; para el catálogo histórico sin fecha se utiliza `sourceRow`, la fila de origen conservada al importar Google Sheets o Excel: las filas mayores corresponden a incorporaciones posteriores. La tabla muestra esa posición, no una fecha inventada. Se presupone que los registros históricos preceden a las altas nuevas fechadas; los registros sin fecha ni fila quedan al final. Esta referencia utiliza la última fila guardada, no una consulta a Google al abrir el Dashboard. Evita reordenar la hoja si deseas conservar su significado como historial de incorporación.
-5. Si tienes rol de administrador, administra contenido, noticias y revisiones pendientes.
+En la tabla de Contenido del Dashboard puedes elegir incorporaciones más nuevas (por defecto) o más antiguas. Las altas de la app conservan su fecha real; los registros nuevos de Sheets comparten la fecha de primera incorporación del lote y su fila interna congelada. Editar o resincronizar no reinicia esa fecha. La inicialización histórica es una operación separada y autorizada: estima referencias con año/quarter y orden de filas, conserva la procedencia y muestra `≈`; no cambia filas de Sheets ni representa una fecha de alta real. Los registros heredados aún sin inicializar usan su fila como respaldo; sin fecha ni fila quedan al final. Ver [reglas e inicialización](docs/INCORPORATION-HISTORY.md).
+
+Con rol de administrador también puedes administrar contenido, noticias y revisiones pendientes.
 
 El registro normal crea una cuenta de usuario, no de administrador. Las herramientas administrativas requieren una cuenta cuyo rol ya esté configurado como `admin` en la instalación. No compartas cuentas ni contraseñas de administración.
 
