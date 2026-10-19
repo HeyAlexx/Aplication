@@ -15,7 +15,8 @@ from urllib.request import Request, urlopen
 
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
-ANIME_PATH = PROJECT_DIR / "data" / "anime.json"
+from catalog_storage import CATALOG_DIR, guard_legacy_write
+ANIME_PATH = CATALOG_DIR / "anime.json"
 REPORT_PATH = PROJECT_DIR / "outputs" / "anime-conflicts-review.json"
 DECISIONS_PATH = (
     PROJECT_DIR
@@ -366,6 +367,8 @@ def snapshot(record: dict[str, object]) -> dict[str, object]:
 
 def main() -> None:
     args = parse_args()
+    if args.apply:
+        guard_legacy_write()
     records = load_json(ANIME_PATH)
     report = load_json(REPORT_PATH)
     decisions = load_json(DECISIONS_PATH)

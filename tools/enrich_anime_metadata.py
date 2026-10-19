@@ -19,7 +19,8 @@ from urllib.request import Request, urlopen
 
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
-ANIME_PATH = PROJECT_DIR / "data" / "anime.json"
+from catalog_storage import CATALOG_DIR, guard_legacy_write
+ANIME_PATH = CATALOG_DIR / "anime.json"
 WORK_DIR = PROJECT_DIR / "backups" / "anime-enrichment"
 STATE_PATH = WORK_DIR / "state.json"
 DEFAULT_ENDPOINT = "http://localhost/altoidss/api/index.php?route=/discover/anime-kitsu/"
@@ -519,6 +520,8 @@ def enrich_record(record: dict[str, object], match: dict[str, object], score: fl
 
 def main() -> None:
     args = parse_args()
+    if not args.dry_run:
+        guard_legacy_write()
     if args.batch_size < 1 or not 1 <= args.requests_per_minute <= 60 or not 1 <= args.workers <= 10:
         raise SystemExit("batch-size debe ser positivo, RPM debe estar entre 1 y 60 y workers entre 1 y 10.")
 

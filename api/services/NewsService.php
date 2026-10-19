@@ -36,7 +36,12 @@ final class NewsService
 
         foreach ($items as &$item) {
             if (($item['id'] ?? '') === $id && ($item['visibilityStatus'] ?? 'Visible') !== 'Oculto') {
+                $createdAt = $item['createdAt'] ?? null;
                 $item = $this->validate(array_merge($item, $payload));
+                unset($item['createdAt']);
+                if ($createdAt !== null) {
+                    $item['createdAt'] = $createdAt;
+                }
                 $item['id'] = $id;
                 $item['updatedAt'] = date(DATE_ATOM);
                 $updated = $item;

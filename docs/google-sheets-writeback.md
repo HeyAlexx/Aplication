@@ -1,6 +1,6 @@
 # Actualizar Google Sheets al aprobar una revisión
 
-La importación usa la exportación XLSX de Google Sheets para leer la hoja. Para devolver una aprobación a la misma fila se usa OAuth y la API de Google Sheets. Las credenciales y el token permanecen locales y no se publican.
+La importación puede leer la exportación XLSX o la API de Sheets según la configuración. Para devolver aprobaciones o ediciones de animes vinculados se usa OAuth y la API de Google Sheets. Las credenciales y el token permanecen locales y no se publican. Durante la revisión actual, no iniciar sincronización ni autorización nueva: el usuario mantiene en espera los cambios recientes de la hoja.
 
 ## Configuración única
 
@@ -11,7 +11,7 @@ La importación usa la exportación XLSX de Google Sheets para leer la hoja. Par
 
 ```json
 "googleSheets": {
-  "spreadsheetId": "1Hr-moj6tbq_LoNdas8RL4HziC631kjN65mKMwlKH9sM",
+  "spreadsheetId": "ID_DE_LA_HOJA_DEL_ENTORNO",
   "sheetName": "Catalogo",
   "writeBackEnabled": false,
   "oauthClientSecrets": "config/google-oauth-client.json",
@@ -29,4 +29,4 @@ Se abrirá Google en el navegador. Inicia sesión con una cuenta que tenga permi
 
 ## Funcionamiento
 
-Al aprobar o guardar una revisión desde el Dashboard, Altoidss deja una actualización en una cola local. El monitor la escribe en la fila correspondiente de `Catalogo` antes de la siguiente importación y elimina la cola solo cuando Google confirma la escritura. Si no hay red o la autorización falla, la cola se conserva para reintentarla.
+Al aprobar/guardar una revisión o editar campos compartidos de un anime vinculado, Altoidss actualiza catálogo y cola bajo una transacción recuperable. El monitor resuelve la fila actual por código único y devuelve los diez campos compartidos antes de la siguiente importación. Retira esa versión solo después de la confirmación de Google y una lectura de los mismos valores; una versión posterior encolada se conserva. Si no hay red o autorización, la cola permanece para reintentarla. Crear contenido local desde la página no agrega filas a Sheets. No confundir «Pendiente» con recepción por Google.
