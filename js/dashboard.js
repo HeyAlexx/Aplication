@@ -272,13 +272,13 @@ const renderContentTable = (items = AltoidssStore.read()) => {
     }
 
     contentTableBody.innerHTML = AltoidssContentOrder.sort(items, dashboardDateOrder.value).map((item) => `
-        <tr>
-            <td>${escapeHtml(item.title)}</td>
-            <td>${escapeHtml(formatIncorporationDate(item))}</td>
-            <td>${escapeHtml(item.emissionYear || item.year || "Sin año")}</td>
-            <td>${escapeHtml(typeLabels[item.type] ?? item.type)}</td>
-            <td><span class="status-badge ${getProductionStatusClass(item.productionStatus || item.status)}">${escapeHtml(item.productionStatus || item.status)}</span></td>
-            <td class="text-end">
+        <tr role="row">
+            <td role="cell" data-label="Título">${mobileRecordTitleMarkup(item)}</td>
+            <td role="cell" data-label="Agregado">${incorporationDateMarkup(item)}</td>
+            <td role="cell" data-label="Año emisión">${escapeHtml(item.emissionYear || item.year || "N/A")}</td>
+            <td role="cell" data-label="Categoría"><span class="admin-category-badge">${escapeHtml(typeLabels[item.type] ?? item.type)}</span></td>
+            <td role="cell" data-label="Estado"><span class="status-badge ${getProductionStatusClass(item.productionStatus || item.status)}">${escapeHtml(item.productionStatus || item.status)}</span></td>
+            <td role="cell" data-label="Acciones" class="text-end admin-actions-cell">
                 <div class="admin-action-group">
                     <button class="btn btn-sm btn-outline-light" type="button" data-edit-id="${item.id}">Editar</button>
                     <button class="btn btn-sm btn-outline-danger" type="button" data-delete-id="${item.id}">Ocultar</button>
@@ -291,10 +291,35 @@ const renderContentTable = (items = AltoidssStore.read()) => {
 const formatIncorporationDate = (item) => {
     const timestamp = AltoidssContentOrder.timestamp(item);
     const row = AltoidssContentOrder.sheetPosition(item);
-    return timestamp === null ? (row === null ? "Sin referencia registrada" : `Hoja: posición ${row - 1} (fila ${row})`) : new Intl.DateTimeFormat("es-CR", {
-        dateStyle: "medium", timeStyle: "short",
+    const estimated = String(item.incorporationDateBasis || '').startsWith('historical-');
+    return timestamp === null ? (row === null ? "N/A" : `Fila ${row}`) : (estimated ? '≈ ' : '') + new Intl.DateTimeFormat("es-CR", {
+        day: "2-digit", month: "2-digit", year: "2-digit",
     }).format(new Date(timestamp));
 };
+
+const incorporationDateMarkup = (item) => {
+    const timestamp = AltoidssContentOrder.timestamp(item);
+    const row = AltoidssContentOrder.sheetPosition(item);
+    let description = timestamp === null
+        ? (row === null ? "Sin referencia registrada" : `Hoja: posición ${row - 1} (fila ${row}), sin fecha exacta`)
+        : new Intl.DateTimeFormat("es-CR", {dateStyle: "long", timeStyle: "short"}).format(new Date(timestamp));
+    if (item.sheetImportBatchId && timestamp !== null) {
+        if (String(item.incorporationDateBasis || '').startsWith('historical-')) {
+            description = `Referencia estimada del histórico por año/quarter y orden de filas: ${formatIncorporationDate(item)}; fila inicial ${AltoidssContentOrder.batchPosition(item)}. No es una fecha de alta real ni de última sincronización.`;
+        } else {
+            const basis = item.incorporationDateBasis === 'recovery-baseline' ? 'Lote de recuperación' : 'Primera incorporación del lote de Sheets';
+            description = `${basis}: ${description}; fila inicial ${AltoidssContentOrder.batchPosition(item)}. No es la fecha de la última sincronización.`;
+        }
+    }
+    return `<span class="incorporation-date" title="${escapeHtml(description)}" aria-label="${escapeHtml(description)}">${escapeHtml(formatIncorporationDate(item))}</span>`;
+};
+
+const mobileRecordTitleMarkup = (item) => `
+    <span class="admin-mobile-heading">
+        <span class="admin-record-title">${escapeHtml(item.title)}</span>
+    </span>
+    <span class="admin-mobile-date" aria-hidden="true">${incorporationDateMarkup(item)}</span>
+`;
 
 const getProductionStatusClass = (status) => {
     const normalized = String(status || "").toLowerCase();
@@ -311,13 +336,13 @@ const renderNewsTable = (items = AltoidssStore.readNews()) => {
     }
 
     contentTableBody.innerHTML = AltoidssContentOrder.sort(items, dashboardDateOrder.value).map((item) => `
-        <tr>
-            <td>${escapeHtml(item.title)}</td>
-            <td>${escapeHtml(formatIncorporationDate(item))}</td>
-            <td>${escapeHtml(item.category)}</td>
-            <td>${escapeHtml(item.featured ? "Destacada" : "Blog")}</td>
-            <td><span class="badge text-bg-info">${escapeHtml(item.status)}</span></td>
-            <td class="text-end">
+        <tr role="row">
+            <td role="cell" data-label="Título">${mobileRecordTitleMarkup(item)}</td>
+            <td role="cell" data-label="Agregado">${incorporationDateMarkup(item)}</td>
+            <td role="cell" data-label="Categoría">${escapeHtml(item.category)}</td>
+            <td role="cell" data-label="Presentación"><span class="admin-category-badge">${escapeHtml(item.featured ? "Destacada" : "Blog")}</span></td>
+            <td role="cell" data-label="Estado"><span class="badge text-bg-info">${escapeHtml(item.status)}</span></td>
+            <td role="cell" data-label="Acciones" class="text-end admin-actions-cell">
                 <div class="admin-action-group">
                     <button class="btn btn-sm btn-outline-light" type="button" data-edit-news-id="${item.id}">Editar</button>
                     <button class="btn btn-sm btn-outline-danger" type="button" data-delete-news-id="${item.id}">Ocultar</button>
@@ -328,10 +353,18 @@ const renderNewsTable = (items = AltoidssStore.readNews()) => {
 };
 
 const renderTable = () => {
+    const labels = activeTableMode === "news"
+        ? ["Título", "Agregado a Altoidss", "Categoría", "Presentación", "Estado", "Acciones"]
+        : ["Título", "Agregado a Altoidss", "Año emisión", "Categoría", "Estado", "Acciones"];
+    document.querySelectorAll(".admin-table thead th").forEach((header, index) => {
+        header.textContent = labels[index];
+    });
     const items = activeTableMode === "news" ? AltoidssStore.readNews() : AltoidssStore.read();
     const historicalCount = items.filter((item) => AltoidssContentOrder.timestamp(item) === null && AltoidssContentOrder.sheetPosition(item) !== null).length;
     const unknownCount = items.filter((item) => AltoidssContentOrder.timestamp(item) === null && AltoidssContentOrder.sheetPosition(item) === null).length;
-    dashboardDateOrderNote.textContent = `Altas nuevas por fecha real; ${historicalCount} registros históricos por orden de la hoja (filas mayores = más recientes, sin fecha exacta). ${unknownCount} sin referencia al final.`;
+    const batchedCount = items.filter((item) => item.sheetImportBatchId).length;
+    const estimatedCount = items.filter((item) => String(item.incorporationDateBasis || '').startsWith('historical-')).length;
+    dashboardDateOrderNote.textContent = `Altas de la app y ${batchedCount - estimatedCount} registros nuevos de Sheets por fecha real de incorporación; filas dentro de cada lote. ${estimatedCount} históricos con referencia estimada (≈), respetando el orden de la hoja. ${historicalCount} históricos aún sin inicializar. ${unknownCount} sin referencia al final.`;
     if (activeTableMode === "news") {
         renderNewsTable();
         return;

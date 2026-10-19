@@ -10,6 +10,15 @@ const { sort } = require("../js/content-order.js");
         const errors = [];
         page.on("pageerror", error => errors.push(error.message));
         const base = process.env.ALTOIDSS_TEST_URL || "http://127.0.0.1:8092";
+        await page.route('**/api/index.php?route=*', async route => {
+            if (route.request().url().includes('discover')) {
+                return route.fulfill({status:503, contentType:'application/json', body:JSON.stringify({success:false})});
+            }
+            if (route.request().method() !== 'GET') {
+                return route.fulfill({status:200, contentType:'application/json', body:JSON.stringify({success:true, data:{}})});
+            }
+            return route.continue();
+        });
         const ids = () => page.locator(".catalog-panel.is-active .anime-card").evaluateAll(cards => cards.map(card => card.dataset.contentId));
         await page.goto(`${base}/Html/catalogo.html?category=anime`, { waitUntil: "networkidle" });
         await page.waitForFunction(() => document.querySelectorAll("#catalog-anime .anime-card[data-content-id]").length === 35);
@@ -41,7 +50,7 @@ const { sort } = require("../js/content-order.js");
         const movies = await page.evaluate(() => AltoidssStore.read().filter(item => item.type === "movies"));
         assert.deepEqual(await ids(), sort(movies).slice(0, 35).map(item => item.id));
         await page.setViewportSize({ width: 360, height: 800 });
-        assert.ok(await page.locator("#catalogDateOrder").isVisible());
+        assert.ok(await page.locator("#catalogTouchOrderToggle").isVisible());
         assert.ok(await page.locator(".catalog-order-tools").evaluate(element => element.scrollWidth <= element.clientWidth));
         // La navegación superior puede desbordar sin Bootstrap externo; comprobar
         // que el nuevo control no aumenta ese desbordamiento previo.

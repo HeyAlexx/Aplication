@@ -63,9 +63,15 @@ html,
     flex: 0 0 auto;
     width: 40px;
     height: 40px;
-    padding: 0.35rem;
+    padding: 0;
     border-color: var(--border-soft);
     border-radius: 8px;
+}
+
+.nav-toggle .navbar-toggler-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
 }
 
 .top-nav a {
@@ -461,6 +467,9 @@ html,
     }
 
     .nav-toggle {
+        display: grid;
+        place-items: center;
+        line-height: 1;
         grid-column: 4;
         grid-row: 1;
     }

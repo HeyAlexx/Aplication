@@ -23,7 +23,59 @@ const quickFavoriteButton = document.querySelector("[data-quick-favorite]");
 const catalogFilterForm = document.querySelector("#catalogFilterForm");
 const catalogSearchInput = document.querySelector("#sidebar-search");
 const catalogDateOrder = document.querySelector("#catalogDateOrder");
+// En móvil, botones reales permiten áreas táctiles independientes del selector nativo.
+const touchOrder = document.createElement("div");
+touchOrder.className = "catalog-touch-order";
+touchOrder.innerHTML = `<button type="button" id="catalogTouchOrderToggle" aria-expanded="false" aria-controls="catalogTouchOrderOptions"></button>
+    <div id="catalogTouchOrderOptions" role="group" aria-label="Opciones de orden" hidden>
+        <button type="button" data-touch-order="newest">Más recientes primero</button>
+        <button type="button" data-touch-order="oldest">Más antiguos primero</button>
+    </div>`;
+catalogDateOrder.after(touchOrder);
+const touchOrderToggle = touchOrder.querySelector("#catalogTouchOrderToggle");
+const touchOrderOptions = touchOrder.querySelector("#catalogTouchOrderOptions");
+const syncTouchOrder = () => {
+    touchOrderToggle.textContent = catalogDateOrder.selectedOptions[0].textContent;
+    touchOrderToggle.setAttribute("aria-label", `Ordenar por incorporación: ${touchOrderToggle.textContent}`);
+    touchOrderOptions.querySelectorAll("button").forEach(button => {
+        button.setAttribute("aria-pressed", String(button.dataset.touchOrder === catalogDateOrder.value));
+    });
+};
+const closeTouchOrder = () => {
+    touchOrderOptions.hidden = true;
+    touchOrderToggle.setAttribute("aria-expanded", "false");
+};
+touchOrderToggle.addEventListener("click", () => {
+    syncTouchOrder();
+    const opening = touchOrderOptions.hidden;
+    touchOrderOptions.hidden = !opening;
+    touchOrderToggle.setAttribute("aria-expanded", String(opening));
+    if (opening) touchOrderOptions.querySelector('[aria-pressed="true"]').focus();
+});
+touchOrderOptions.addEventListener("click", event => {
+    const button = event.target.closest("[data-touch-order]");
+    if (!button) return;
+    catalogDateOrder.value = button.dataset.touchOrder;
+    catalogDateOrder.dispatchEvent(new Event("change", { bubbles: true }));
+    closeTouchOrder();
+    touchOrderToggle.focus();
+});
+catalogDateOrder.addEventListener("change", syncTouchOrder);
+document.addEventListener("click", event => { if (!touchOrder.contains(event.target)) closeTouchOrder(); });
+touchOrder.addEventListener("focusout", event => { if (!touchOrder.contains(event.relatedTarget)) closeTouchOrder(); });
+touchOrder.addEventListener("keydown", event => {
+    if (event.key === "Escape") { closeTouchOrder(); touchOrderToggle.focus(); }
+    if (["ArrowDown", "ArrowUp"].includes(event.key)) {
+        event.preventDefault();
+        touchOrderOptions.hidden = false;
+        touchOrderToggle.setAttribute("aria-expanded", "true");
+        const buttons = [...touchOrderOptions.querySelectorAll("button")];
+        const index = buttons.indexOf(document.activeElement);
+        buttons[(index + (event.key === "ArrowDown" ? 1 : -1) + buttons.length) % buttons.length].focus();
+    }
+});
 catalogDateOrder.value = new URLSearchParams(window.location.search).get("order") === "oldest" ? "oldest" : "newest";
+syncTouchOrder();
 const filterInitial = document.querySelector("#filter-initial");
 const catalogAlphabet = document.querySelector("#catalogAlphabet");
 const filterYear = document.querySelector("#filter-year");
@@ -380,7 +432,7 @@ const refreshAlphabet = () => {
     catalogAlphabet.innerHTML = ["", "#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].map((initial) => `
         <button class="catalog-initial-button${filterInitial.value === initial ? " is-active" : ""}" type="button"
             data-catalog-initial="${initial}" aria-pressed="${filterInitial.value === initial}"
-            aria-label="${initial ? `Títulos con inicial ${initial === "#" ? "numérica o símbolo" : initial}` : "Todas las iniciales"}">${initial || "Todos"}</button>
+            aria-label="${initial ? `Títulos con inicial ${initial === "#" ? "numérica o símbolo" : initial}` : "Todas las iniciales"}"${initial ? "" : ' title="Todas las iniciales"'}>${initial || `<svg class="catalog-all-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" aria-hidden="true" focusable="false"><!-- Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License: https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc. --><path d="M0 256c0-88.4 71.6-160 160-160 50.4 0 97.8 23.7 128 64l32 42.7 32-42.7c30.2-40.3 77.6-64 128-64 88.4 0 160 71.6 160 160S568.4 416 480 416c-50.4 0-97.8-23.7-128-64l-32-42.7-32 42.7c-30.2 40.3-77.6 64-128 64-88.4 0-160-71.6-160-160zm280 0l-43.2-57.6c-18.1-24.2-46.6-38.4-76.8-38.4-53 0-96 43-96 96s43 96 96 96c30.2 0 58.7-14.2 76.8-38.4L280 256zm80 0l43.2 57.6c18.1 24.2 46.6 38.4 76.8 38.4 53 0 96-43 96-96s-43-96-96-96c-30.2 0-58.7 14.2-76.8 38.4L360 256z"/></svg>`}</button>
     `).join("");
 };
 
@@ -1045,13 +1097,14 @@ catalogFilterToggle.addEventListener("click", () => {
     const open = !sidebar.classList.contains("is-open");
     setCatalogSidebarOpen(open);
     if (open) {
-        sidebar.scrollIntoView({ behavior: "smooth", block: "start" });
-        document.querySelector("#sidebar-search").focus({ preventScroll: true });
+        sidebar.scrollIntoView({ behavior: "auto", block: "start" });
+        // Enfocar un botón permite navegar con teclado sin abrir el teclado virtual.
+        document.querySelector("#closeCatalogSideMenu").focus({ preventScroll: true });
     }
 });
 document.querySelector("#closeCatalogSideMenu").addEventListener("click", () => {
     setCatalogSidebarOpen(false);
-    catalogFilterToggle.focus();
+    catalogFilterToggle.focus({ preventScroll: true });
 });
 document.querySelector("#catalogSideMenu").addEventListener("keydown", (event) => {
     if (event.key === "Escape" && window.matchMedia("(max-width: 768px)").matches) {
