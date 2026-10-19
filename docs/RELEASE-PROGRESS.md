@@ -16,12 +16,16 @@ Actualizado: 2026-10-19. Punto de reanudación tras la aprobación final del usu
 | --- | --- | --- |
 | 1 | Revisión final del usuario en desarrollo | APROBADO |
 | 2 | Respaldo, auditoría, commits selectivos, push y PR | COMPLETADO; PR #3 en borrador |
-| 3 | Preparar instalación de código conservando producción sucia | PENDIENTE; sin despliegue autorizado |
+| 3 | Preparar instalación de código conservando producción sucia | COMPLETADO; paquete y ensayo aislados, sin desplegar |
 | 4 | Vista previa y migración histórica propia de producción | PENDIENTE; no copiar JSON de desarrollo |
 | 5 | Respaldo final, copia independiente y recuperación coordinada | PENDIENTE |
 | 6 | Despliegue autorizado y smoke test protegido | PENDIENTE |
 
-Reanudar desde el paso 3. La preparación del PR no autoriza su integración, el despliegue ni la sincronización.
+Reanudar desde el paso 4. Preparar no autoriza integrar el PR, desplegar ni sincronizar.
+
+Paso 3: paquete del commit `71d96c14eb6072471d915ff167fb11e3949f2270`, 112 archivos permitidos. Se preservaron/revisaron 14 cambios locales de producción; 532 entradas de dependencias/generados quedan fuera. Ensayo PHP CLI con nueve colecciones copiadas de producción: 809 contenidos, 781 códigos de espejo presentes, cero inicializaciones históricas y ningún cambio en 31 archivos protegidos reales. No se copiaron cuentas/credenciales al ensayo ni se inició red/Sheets. Procedimiento y revisión archivo por archivo: [INSTALLATION-PLAN.md](INSTALLATION-PLAN.md). El código finalmente aprobado exigirá regenerar el plan y verificar los hashes del momento.
+
+Validación del cierre: 41 pruebas Python (siete nuevas), dos suites PHP previas y arnés PHP aislado aprobados; se comprobó que el arnés rechaza la instalación real. Evidencia privada: `work/installation-plans/20261019-090139-850634-71d96c14eb60/manifest.json` y `rehearsal/report.json`. Es una preparación compatible con los datos actuales, no una instalación ni una migración realizada.
 
 Publicado: [PR #3](https://github.com/HeyAlexx/Aplication/pull/3), rama `fix/admin-mobile-mockup` hacia `main`, abierto como borrador y sin conflictos informados por GitHub. Commits funcionales `7ed9977` (almacenamiento/orden) y `a930dd4` (interfaz); documentación inicial `6b053de`. No hay estados de CI ni ejecuciones de Actions en la comprobación remota; las pruebas son locales. Los tres JSON personales modificados permanecen sin commit.
 

@@ -7,7 +7,7 @@ Preparación de PR, no integración ni despliegue. El usuario aprobó la revisi�
 | Grupo | Resultado |
 | --- | --- |
 | Integridad del traslado a C: | 16 075 archivos comparados por SHA-256; enlaces de dependencias/Git reparados |
-| Python aislado | 34 pruebas aprobadas; repetidas antes de publicar |
+| Python aislado | 41 pruebas aprobadas tras el paso 3: 34 previas y siete del preparador |
 | Orden histórico Node | 10 pruebas aprobadas |
 | Servicios PHP de revisión/writeback | Dos suites aprobadas |
 | API HTTP en fixture aislado | 38 comprobaciones aprobadas |
@@ -30,8 +30,10 @@ Los hashes de 24 archivos de datos/estado permanecieron iguales durante las comp
 
 ## Pendientes antes del despliegue
 
+Actualización del paso 3: preparación de instalación ensayada con el commit `71d96c14eb6072471d915ff167fb11e3949f2270` y los datos anteriores de producción. Paquete de 112 archivos, 14 cambios locales preservados/revisados, nueve colecciones compatibles y 31 archivos protegidos reales sin cambios. Sin cuentas reales, red o Sheets en el ensayo. Ver [plan de instalación](INSTALLATION-PLAN.md). Esto cierra la preparación, no autoriza el reemplazo ni la migración histórica.
+
 1. Revisar commits/PR y sus comprobaciones; no se integra automáticamente.
-2. Preparar instalación selectiva sin perder los cambios locales de producción.
+2. Regenerar/verificar la preparación de instalación con el SHA finalmente autorizado y el estado real del momento; conservar sus cambios locales.
 3. Preparar vista previa/migración histórica propia de producción; la utilidad vigente solo permite desarrollo.
 4. Respaldo final con escritores detenidos, copia independiente y ensayo coordinado de recuperación.
 5. Resolver o aceptar explícitamente la salvedad de Jikan y autorizar el despliegue.
