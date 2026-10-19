@@ -272,7 +272,8 @@ def review_entry(
     }
 
 
-def merge_reviews(generated: list[dict[str, object]]) -> list[dict[str, object]]:
+def merge_reviews(generated: list[dict[str, object]], *, source_codes: set[str] | None = None,
+                  processed_codes: set[str] | None = None) -> list[dict[str, object]]:
     existing = load_json(REVIEW_DATA_PATH, [])
     existing_by_id = {str(item.get("id") or ""): item for item in existing if isinstance(item, dict)}
     merged = []
@@ -287,13 +288,18 @@ def merge_reviews(generated: list[dict[str, object]]) -> list[dict[str, object]]
             )
             item.update({key: previous[key] for key in preserved if key in previous})
         merged.append(item)
-    # A pending item that is absent from this run was resolved at the source
-    # (for example, a duplicate spreadsheet row was removed). Do not keep it
-    # visible forever. Decisions remain as audit history.
+    # This run validates changed/missing codes, not the entire catalogue.
+    # Absence from generated conflicts does NOT resolve an untouched review.
+    # Clear it only after its code was processed successfully or left the source.
+    # Manual decisions always remain as audit history. Without explicit source
+    # context, retain non-generated reviews conservatively.
     merged.extend(
         item for item in existing
         if str(item.get("id") or "") not in generated_ids
-        and item.get("status") in {"Aprobado", "Rechazado"}
+        and (item.get("status") in {"Aprobado", "Rechazado"}
+             or source_codes is None
+             or (str(item.get("sourceCode") or "") in source_codes
+                 and str(item.get("sourceCode") or "") not in (processed_codes or set())))
     )
     return merged
 
@@ -548,7 +554,9 @@ def process_once(args: argparse.Namespace) -> dict[str, object]:
                 shutil.copy2(ANIME_PATH, PREVIOUS_JSON_PATH)
             commit_collections(ANIME_PATH.parent, {
                 ANIME_PATH.name: records, SHEET_MIRROR_PATH.name: incoming,
-                REVIEW_DATA_PATH.name: merge_reviews(conflicts),
+                REVIEW_DATA_PATH.name: merge_reviews(conflicts,
+                    source_codes={str(item.get('sourceCode') or '') for item in incoming},
+                    processed_codes=changed_codes | missing_codes),
             })
             write_json_atomic(STATE_PATH, {"sourceHash": source_hash, "rows": [row_payload(item) for item in incoming], "lastSyncAt": report["timestamp"]})
             report["status"] = "applied"

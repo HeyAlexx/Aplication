@@ -71,6 +71,23 @@ class ApprovalWritebackTests(unittest.TestCase):
             self.assertEqual(body["data"][0]["range"], "Catalogo!A3:J3")
             self.assertEqual(body["valueInputOption"], "RAW")
 
+    def test_unprocessed_pending_and_automatic_rejections_survive_incremental_sync(self):
+        for status in ('Pendiente', 'Rechazado automático'):
+            previous = {'id': 'old-review', 'sourceCode': '9001', 'status': status, 'original': {'title': 'Existing'}}
+            pipeline.write_json_atomic(pipeline.REVIEW_DATA_PATH, [previous])
+            self.assertEqual(pipeline.merge_reviews([], source_codes={'9001','9002'}, processed_codes={'9002'}), [previous])
+
+    def test_processed_resolved_or_removed_pending_review_can_clear(self):
+        previous = {'id': 'old-review', 'sourceCode': '9001', 'status': 'Pendiente'}
+        pipeline.write_json_atomic(pipeline.REVIEW_DATA_PATH, [previous])
+        self.assertEqual(pipeline.merge_reviews([], source_codes={'9001'}, processed_codes={'9001'}), [])
+        self.assertEqual(pipeline.merge_reviews([], source_codes={'9002'}, processed_codes={'9002'}), [])
+
+    def test_unknown_source_context_retains_pending_review(self):
+        previous = {'id': 'old-review', 'sourceCode': '9001', 'status': 'Pendiente'}
+        pipeline.write_json_atomic(pipeline.REVIEW_DATA_PATH, [previous])
+        self.assertEqual(pipeline.merge_reviews([]), [previous])
+
     def test_missing_or_duplicate_code_does_not_write(self):
         for rows in ([], [["9001"], ["9001"]]):
             with self.subTest(rows=rows), patch.object(sheets, "load_config", return_value={}), patch.object(sheets, "access_token", return_value="test-only"), patch.object(sheets, "read_rows", return_value=rows), patch.object(sheets, "request_json") as request:
