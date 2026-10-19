@@ -93,6 +93,17 @@ class CompletenessTests(unittest.TestCase):
         self.run_sync()
         self.assertEqual(sync.load_json(sync.SHEET_MIRROR_PATH, [])[0]['title'], '=Not a formula')
 
+    def test_new_batch_does_not_drop_review_for_unchanged_existing_record(self):
+        self.run_sync()
+        previous = sync.load_json(sync.REVIEW_DATA_PATH, [])[0]
+        new_row = raw_row(3, ('9002','Another title','Emision','Serie',0,1,'S01','Por Ver',2026,4))
+        with patch.object(sync, 'read_live_google_catalog', return_value=[self.row,new_row]), \
+             patch.object(sync, 'flush_sheet_writebacks', return_value=0), \
+             patch.object(sync, 'best_candidate', return_value=(None,0,[])):
+            sync.process_once(self.args)
+        self.assertIn(previous, sync.load_json(sync.REVIEW_DATA_PATH, []))
+        self.assertEqual({item['sourceCode'] for item in sync.load_json(sync.REVIEW_DATA_PATH, [])}, {'9001','9002'})
+
 
 if __name__ == '__main__':
     unittest.main()

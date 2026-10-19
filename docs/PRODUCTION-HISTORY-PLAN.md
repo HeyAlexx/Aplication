@@ -1,6 +1,6 @@
 # Paso 4 — histórico propio de producción, preparado y ensayado
 
-Fecha: 2026-10-19. **No aplicado a producción.** Este documento no autoriza merge, despliegue, migración real ni arranque de Sheets. La CLI del inicializador sigue bloqueada para producción.
+Fecha: 2026-10-19. **Aplicación real autorizada, pendiente de ejecución delimitada.** La CLI original del inicializador sigue bloqueada para producción. La sección 4.6 describe el nuevo procedimiento específico tras incorporar novedades reales.
 
 ## 4.1 Origen y regla
 
@@ -61,3 +61,33 @@ python tools/rehearse_production_history.py --report RUTA_INFORME_PRIVADO/histor
 La preparación/ensayo del paso 4 está terminada; **la migración real no está aplicada ni habilitada**. Continuar con el respaldo independiente y la recuperación coordinada del paso 5. Antes de cualquier aplicación real se necesita revisar la propuesta, autorizar esa operación y disponer de un procedimiento de producción específico con escritores detenidos, código compatible instalado, hashes vigentes, respaldo verificable y reversión.
 
 No basta autorizar el despliegue de código o ejecutar la utilidad de desarrollo. Si se cargan cambios nuevos de Sheets o se edita el catálogo antes, esta propuesta queda obsoleta: regenerar, revisar y volver a ensayar sobre los nuevos datos. No reutilizarla para sobrescribir altas posteriores. Una reversión debe preservar ediciones nuevas y tratar conjuntamente catálogo, revisiones y cola; ver [despliegue](DEPLOYMENT-CENTRAL.md) y [avance numerado](RELEASE-PROGRESS.md).
+
+## 4.6 Alcance posterior a la sincronización real, autorizado
+
+La primera sincronización de producción añadió 27 registros con fecha real de lote.
+El usuario autorizó inicializar solamente los 781 anteriores, dejando intactas
+esas altas y los tres registros previos fuera del espejo. Dos de esos tres
+conservan códigos antiguos huérfanos: se identifican por IDs del baseline, no
+por tener `sourceCode` vacío. Hay 811 animes y 808 filas vinculadas actuales.
+
+`tools/production_history.py prepare --baseline RUTA_SNAPSHOT_PRODUCCION/production-central/catalogo/anime.json`
+comprueba el manifiesto/hashes del snapshot, selecciona los 781 antiguos desde
+su espejo y compara literalmente sus filas contra el espejo actual. Estima
+solo ese grupo por año I/quarter J, con el mismo límite histórico del 9 de octubre.
+Ensaya la combinación completa y su orden con el comparador real de la app;
+ningún metadato, fila, estreno o registro fuera del grupo puede cambiar.
+
+El plan fija hashes de datos, propuesta e implementación. Para aplicar, PHP
+de producción debe estar detenido; la CLI exige `apply --plan RUTA_PLAN
+--approved-plan-sha SHA_PLAN --independent-backup CARPETA_NUEVA_EN_F`.
+Se excluye al watcher, se rechazan diarios/colas pendientes, se copian y verifican
+todos los archivos protegidos en F: **antes** de la primera escritura, y solo
+entonces se confirma `anime.json` mediante diario transaccional. Es un
+procedimiento nuevo de producción, no un cambio de etiqueta para eludir el
+inicializador original. La reejecución no modifica una aplicación ya verificada.
+
+Las referencias estimadas quedan marcadas como históricas y conservan auditoría
+de las fechas originales. Los 27 `initial-sheet-sync` reales no se recalculan.
+No se escribe ninguna celda de Sheets, no se usa el catálogo de desarrollo y
+no se aplican propuestas obsoletas. Se requiere autorización explícita; un
+plan preparado no prueba que se haya aplicado.
