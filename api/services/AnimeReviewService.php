@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/SheetWritebackService.php';
+
 final class AnimeReviewService
 {
     private const FILE = 'anime-revisiones.json';
@@ -34,6 +36,11 @@ final class AnimeReviewService
     }
 
     public function decide(string $id, array $payload, array $session): array
+    {
+        return $this->storage->transaction(fn() => $this->decideInTransaction($id, $payload, $session));
+    }
+
+    private function decideInTransaction(string $id, array $payload, array $session): array
     {
         $decision = strtolower(trim((string) ($payload['decision'] ?? '')));
         if (!in_array($decision, ['approve', 'save', 'reject'], true)) {
@@ -141,6 +148,15 @@ final class AnimeReviewService
                 'createdAt' => date(DATE_ATOM),
             ]);
             $itemIndex = array_key_last($items);
+            $firstSeen = (string) ($review['incorporatedAt'] ?? $review['detectedAt'] ?? date(DATE_ATOM));
+            try { $firstSeen = (new DateTimeImmutable($firstSeen))->format(DATE_ATOM); }
+            catch (Exception $error) { $firstSeen = date(DATE_ATOM); }
+            $items[$itemIndex]['incorporatedAt'] = (string) ($review['incorporatedAt'] ?? $firstSeen);
+            $items[$itemIndex]['sheetImportBatchId'] = (string) ($review['sheetImportBatchId']
+                ?? 'sheet-review-' . substr(hash('sha256', $firstSeen), 0, 24));
+            $items[$itemIndex]['sheetImportRow'] = (int) ($review['sheetImportRow']
+                ?? $review['sourceRow'] ?? $original['row'] ?? $original['sourceRow'] ?? 0);
+            $items[$itemIndex]['incorporationDateBasis'] = (string) ($review['incorporationDateBasis'] ?? 'review-first-detection');
         }
 
         foreach ($version as $field => $value) {
@@ -168,30 +184,7 @@ final class AnimeReviewService
 
     private function queueSheetWriteback(array $record): string
     {
-        $sourceCode = trim((string) ($record['sourceCode'] ?? ''));
-        $targetRow = (int) ($record['sourceRow'] ?? 0);
-        if ($sourceCode === '' || $targetRow < 2) {
-            return 'Sin referencia de hoja';
-        }
-
-        $quarter = ['Winter' => 1, 'Spring' => 2, 'Summer' => 3, 'Fall' => 4][(string) ($record['emissionSeason'] ?? '')] ?? '';
-        $values = [
-            $sourceCode,
-            (string) ($record['title'] ?? ''),
-            ($record['productionStatus'] ?? '') === 'Emisión' ? 'Emision' : (string) ($record['productionStatus'] ?? ''),
-            ($record['format'] ?? '') === 'Película' ? 'Movie' : (string) ($record['format'] ?? ''),
-            (int) ($record['chapters'] ?? 0),
-            (int) ($record['seasonsCount'] ?? 0),
-            (string) ($record['activeSeason'] ?? ''),
-            ($record['viewingStatus'] ?? '') === 'No Visto' ? 'No visto' : (string) ($record['viewingStatus'] ?? ''),
-            (int) ($record['emissionYear'] ?? 0) ?: '',
-            $quarter,
-        ];
-        $queue = $this->storage->read(self::WRITEBACK_FILE);
-        $queue = array_values(array_filter($queue, static fn (array $item): bool => (string) ($item['sourceCode'] ?? '') !== $sourceCode));
-        $queue[] = ['sourceCode' => $sourceCode, 'targetRow' => $targetRow, 'values' => $values, 'queuedAt' => date(DATE_ATOM), 'version' => bin2hex(random_bytes(8))];
-        $this->storage->write(self::WRITEBACK_FILE, $queue);
-        return 'Pendiente';
+        return SheetWritebackService::queue($this->storage, $record);
     }
 
     private function normalizeVersion(mixed $version): array

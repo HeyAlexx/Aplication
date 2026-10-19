@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/SheetWritebackService.php';
+
 final class CatalogService
 {
     private const FILES = [
@@ -49,7 +51,14 @@ final class CatalogService
 
     public function create(array $payload): array
     {
+        return $this->storage->transaction(fn() => $this->createInTransaction($payload));
+    }
+
+    private function createInTransaction(array $payload): array
+    {
         $item = $this->validate($payload);
+        unset($item['sourceCode'], $item['sourceRow'], $item['incorporatedAt'], $item['sheetImportBatchId'],
+            $item['sheetImportRow'], $item['incorporationDateBasis'], $item['historicalOrderInitialization']);
         $file = $this->fileForType($item['type']);
         $items = $this->storage->read($file);
         $item['id'] = $this->resolveNewId($payload, $item['type']);
@@ -62,6 +71,11 @@ final class CatalogService
 
     public function update(string $id, array $payload): array
     {
+        return $this->storage->transaction(fn() => $this->updateInTransaction($id, $payload));
+    }
+
+    private function updateInTransaction(string $id, array $payload): array
+    {
         $current = $this->find($id);
 
         if ($current === null) {
@@ -70,7 +84,15 @@ final class CatalogService
 
         $next = $this->validate(array_merge($current, $payload));
         $next['id'] = $id;
-        foreach (['createdAt', 'importedAt'] as $dateField) {
+        // La identidad de la fila viene del importador, no del formulario.
+        foreach (['sourceCode', 'sourceRow'] as $sourceField) {
+            unset($next[$sourceField]);
+            if (array_key_exists($sourceField, $current)) {
+                $next[$sourceField] = $current[$sourceField];
+            }
+        }
+        foreach (['createdAt', 'importedAt', 'incorporatedAt', 'sheetImportBatchId',
+                  'sheetImportRow', 'incorporationDateBasis', 'historicalOrderInitialization'] as $dateField) {
             unset($next[$dateField]);
             if (array_key_exists($dateField, $current)) {
                 $next[$dateField] = $current[$dateField];
@@ -90,10 +112,20 @@ final class CatalogService
         $newItems[] = $next;
         $this->storage->write($newFile, $newItems);
 
+        if ($current['type'] === 'anime' && $next['type'] === 'anime'
+            && SheetWritebackService::valuesFor($current) !== SheetWritebackService::valuesFor($next)) {
+            $next['sheetSyncStatus'] = SheetWritebackService::queue($this->storage, $next);
+        }
+
         return $next;
     }
 
     public function delete(string $id): void
+    {
+        $this->storage->transaction(fn() => $this->deleteInTransaction($id));
+    }
+
+    private function deleteInTransaction(string $id): void
     {
         $current = $this->find($id);
 
@@ -117,6 +149,11 @@ final class CatalogService
     }
 
     public function importExternal(string $id, array $payload): array
+    {
+        return $this->storage->transaction(fn() => $this->importExternalInTransaction($id, $payload));
+    }
+
+    private function importExternalInTransaction(string $id, array $payload): array
     {
         $existing = $this->find($id);
 
@@ -162,6 +199,8 @@ final class CatalogService
             'importedAt' => $incorporatedAt,
         ]);
         $file = $this->fileForType($type);
+        unset($item['sourceCode'], $item['sourceRow'], $item['incorporatedAt'], $item['sheetImportBatchId'],
+            $item['sheetImportRow'], $item['incorporationDateBasis'], $item['historicalOrderInitialization']);
         $items = $this->storage->read($file);
         $items[] = $item;
         $this->storage->write($file, $items);

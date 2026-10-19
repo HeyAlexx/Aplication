@@ -17,7 +17,7 @@ class ApprovalWritebackTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
         for name in ("WRITEBACK_QUEUE_PATH", "REVIEW_DATA_PATH", "STATE_PATH", "REPORT_PATH", "CONFLICTS_PATH"):
-            setter = patch.object(pipeline, name, root / f"{name}.json")
+            setter = patch.object(pipeline, name, root / (name.lower().replace('_', '-') + '.json'))
             setter.start()
             self.addCleanup(setter.stop)
         self.config = root / "config.json"
