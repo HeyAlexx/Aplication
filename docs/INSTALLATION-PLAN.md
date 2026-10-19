@@ -2,7 +2,9 @@
 
 Fecha: 2026-10-19. Código ensayado: `71d96c14eb6072471d915ff167fb11e3949f2270`, PR #3 en borrador. Producción conserva su rama `chore/dev-isolation` y HEAD `0337dd83d25f84df29dc7d88aed38e621ceeebab`, con sus cambios locales intactos. El HEAD de Git no representa por sí solo todo el código instalado cuando hay modificaciones locales.
 
-Este paso prepara y ensaya, no autoriza merge, instalación, reinicios, migración de datos ni arranque de Sheets. Tampoco implementa un instalador automático.
+Este paso prepara y ensaya, no autoriza por sí mismo merge, instalación, reinicios, migración de datos ni arranque de Sheets.
+
+En el paso 6 se añadió `tools/install_prepared_release.py`: exige un plan completo, SHA aprobado fijo, revisión de cambios locales y PHP detenido. Verifica cada contenido contra Git, hashes actuales de destinos y datos protegidos; conserva originales y diario de progreso fuera de los checkouts. Solo instala código permitido, sin cambiar la identidad Git de producción ni migrar datos. Ante una excepción normal intenta revertir solo código; archivos nuevos se trasladan a la carpeta de recuperación, no se borran. Un BSOD interrumpe también el rollback: revisar el diario antes de reabrir PHP. Cinco pruebas aisladas cubren instalación, preservación, datos/código obsoletos, paquete manipulado y fallo con rollback. No usarlo sin autorización expresa de despliegue.
 
 ## 3.1 Inventario y paquete aislado
 

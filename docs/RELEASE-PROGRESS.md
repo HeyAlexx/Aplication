@@ -5,8 +5,8 @@ Actualizado: 2026-10-19. Punto de reanudación tras la aprobación final del usu
 ## Límites vigentes
 
 - Publicar solo código, pruebas y documentación mediante commits selectivos y PR.
-- No integrar el PR ni desplegar producción sin autorización explícita.
-- Google Sheets permanece apagado en ambos entornos: hay cambios nuevos que el usuario todavía no desea cargar. No ejecutar el launcher raíz que inicia el monitor.
+- Paso 6 autorizado por el usuario el 2026-10-19: integrar e instalar el código revisado y usar la sincronización de novedades de producción como prueba final. Esto no autoriza aplicar la migración histórica pendiente ni aprobar revisiones reales manualmente.
+- Google Sheets seguirá apagado durante la instalación; ejecutar primero una sincronización controlada de producción solo después de validar el código instalado. No iniciar sincronización de desarrollo ni usar el launcher raíz indiscriminadamente.
 - No copiar datos de desarrollo a producción, ni publicar configuración privada, OAuth, usuarios, favoritos, historial, catálogos operativos o respaldos.
 - Mantener Cloudflare Access. Conservar los cambios locales de producción; no usar reset/checkout forzados.
 
@@ -19,9 +19,9 @@ Actualizado: 2026-10-19. Punto de reanudación tras la aprobación final del usu
 | 3 | Preparar instalación de código conservando producción sucia | COMPLETADO; paquete y ensayo aislados, sin desplegar |
 | 4 | Vista previa y migración histórica propia de producción | PREPARACIÓN/ENSAYO COMPLETADOS; aplicación real pendiente |
 | 5 | Respaldo final, copia independiente y recuperación coordinada | COMPLETADO; ZIP independiente y restauración integral aislada aprobados |
-| 6 | Despliegue autorizado y smoke test protegido | PENDIENTE |
+| 6 | Despliegue autorizado y smoke test protegido | EN CURSO; autorización recibida, preparación y pruebas previas aprobadas |
 
-Reanudar desde la compuerta del paso 6: autorización explícita, revisión del incidente del sistema y limitación de Jikan. La aplicación real del histórico del paso 4 sigue pendiente de autorización y procedimiento específico; preparar/ensayar no autoriza integrar el PR, desplegar ni sincronizar. Regenerar el paquete del código finalmente aprobado y un respaldo fresco si hay cambios operativos antes de instalar.
+Reanudar desde 6.4, instalación del código. El usuario aceptó continuar con el riesgo del BSOD aún sin causa identificada y el timeout de Jikan, condicionado al fallback y demás pruebas correctos. MAL/AniList/Kitsu/Watchmode y búsqueda con fallback AniList respondieron; 59 pruebas Python, 10 Node, dos suites PHP y 38 comprobaciones HTTP aisladas pasan. Cinco pruebas adicionales del instalador pasan, incluido rollback por fallo simulado. Snapshot previo de 572 archivos verificado. La aplicación real del histórico del paso 4 sigue pendiente de autorización y procedimiento específico. Regenerar paquete con el SHA definitivo tras integrar el PR y verificar precondiciones antes de instalar.
 
 Incidente del 19 de octubre: apagado inesperado a las 10:26:44 y arranque a las 10:27:26 (Costa Rica), durante una captura local todavía `INCOMPLETE`. Ninguna de las tres carpetas anteriores de F: es un respaldo completo. No se restauró ni sobrescribió información operativa. Tras reiniciar: 24 archivos del baseline conservan SHA-256; catálogos de ambos entornos y espejo conservan sus hashes; JSON válidos, sin diarios pendientes, `git fsck` sin errores. Servidores reanudados con HTTP 200, túnel protegido por Access (302), sin monitor Sheets. Registro `0x124`, parámetro `0x10`: componente responsable no identificado. Los eventos SATA 129 anteriores no demuestran causalidad. Ver [recuperación coordinada](COORDINATED-RECOVERY.md).
 
