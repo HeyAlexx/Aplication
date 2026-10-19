@@ -1,6 +1,11 @@
-# Paso 4 — histórico propio de producción, preparado y ensayado
+# Paso 4 — histórico propio de producción, aplicado
 
-Fecha: 2026-10-19. **Aplicación real autorizada, pendiente de ejecución delimitada.** La CLI original del inicializador sigue bloqueada para producción. La sección 4.6 describe el nuevo procedimiento específico tras incorporar novedades reales.
+Fecha: 2026-10-19. **Aplicación real delimitada completada:** 781 anteriores
+inicializados, 27 altas nuevas y tres registros previos fuera del espejo
+intactos. La CLI original sigue bloqueada para producción; se utilizó el
+procedimiento específico de la sección 4.6. Las secciones 4.1–4.5 conservan
+el ensayo anterior, no un pendiente vigente. Resultado y hashes en
+[cierre del despliegue](PRODUCTION-DEPLOYMENT-2026-10-19.md).
 
 ## 4.1 Origen y regla
 
@@ -56,7 +61,7 @@ node tools/historical-order-preview.cjs RUTA_PROD_ANIME_JSON RUTA_PROD_ESPEJO_JS
 python tools/rehearse_production_history.py --report RUTA_INFORME_PRIVADO/historical-order-preview.json
 ```
 
-## 4.5 Aplicación real pendiente
+## 4.5 Compuerta anterior a la autorización y aplicación real
 
 La preparación/ensayo del paso 4 está terminada; **la migración real no está aplicada ni habilitada**. Continuar con el respaldo independiente y la recuperación coordinada del paso 5. Antes de cualquier aplicación real se necesita revisar la propuesta, autorizar esa operación y disponer de un procedimiento de producción específico con escritores detenidos, código compatible instalado, hashes vigentes, respaldo verificable y reversión.
 
@@ -91,3 +96,17 @@ de las fechas originales. Los 27 `initial-sheet-sync` reales no se recalculan.
 No se escribe ninguna celda de Sheets, no se usa el catálogo de desarrollo y
 no se aplican propuestas obsoletas. Se requiere autorización explícita; un
 plan preparado no prueba que se haya aplicado.
+
+### 4.7 Resultado real
+
+Plan aprobado SHA-256 `86f10f1c965741327c32c07b677044dcf855b859ce7a5ad6b0e72b54c9a545c0`.
+Aplicado con PHP detenido y 31 archivos protegidos respaldados y verificados
+en F: antes de escribir. Solo cambió `anime.json` en el alcance autorizado:
+781 inicializados; 27 fechas reales y tres excluidos sin cambios. Se verificó
+el orden de los 808 vinculados en ambos sentidos; segunda ejecución
+`already-initialized`. Una consulta real posterior de Google devolvió
+`unchanged` y conservó el hash del catálogo. No se escribieron celdas de Sheets.
+
+Las siete colecciones públicas de desarrollo se renovaron posteriormente
+desde producción; no se trasladaron revisiones, cola, credenciales ni estado
+Google. El watcher autorizado de producción no repite esta inicialización.

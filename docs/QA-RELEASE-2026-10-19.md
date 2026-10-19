@@ -1,6 +1,30 @@
 # Verificación de liberación — 2026-10-19
 
-Preparación de PR, no integración ni despliegue. El usuario aprobó la revisión final de desarrollo. Sheets permanece apagado y sus cambios nuevos no se consultaron ni cargaron durante esta ronda.
+## Resultado final del despliegue
+
+PR #3/#4 integrados; código operativo `7af617fef113c1ac23a5732b2e28bc473e91e675`.
+75 pruebas Python, 10 Node, dos suites PHP y 38 comprobaciones HTTP aisladas
+aprobadas. Producción instalada: matriz de catálogo 27 escenarios/360
+comprobaciones y 18 escenarios de admin simulado; repetición con datos finales
+a 360/820/1440 px sin errores/desbordamiento. 128 hashes de código correctos.
+
+Importación real: 808 filas, 27 altas, cero faltantes/duplicados; consulta
+posterior idempotente. Histórico real delimitado: 781 inicializados,
+27 fechas reales y tres excluidos intactos. Siete colecciones públicas iguales
+en desarrollo, sin copiar sus secretos/usuarios/colas ni activar su Google.
+Watcher único de producción cada 300 s, identidad/PID y reporte fresco
+verificados; cuatro pendientes y un rechazo automático, cola vacía.
+HTTP 200 en ambos servidores, nueve privados 404, Access 302.
+
+No hubo escrituras reales a Sheets ni aprobación artificial de revisiones;
+la prueba real de writeback permanece sin ejercitar en este despliegue.
+Jikan y origen del BSOD siguen como salvedades aceptadas. Detalle, respaldo,
+evidencia y límites: [cierre de producción](PRODUCTION-DEPLOYMENT-2026-10-19.md).
+
+## Ronda de preparación anterior (evidencia histórica)
+
+Los resultados siguientes preceden al despliegue y a sus autorizaciones.
+Sus conteos y pendientes no sustituyen el resultado final anterior.
 
 ## Resultados
 
