@@ -7,7 +7,7 @@ Preparación de PR, no integración ni despliegue. El usuario aprobó la revisi�
 | Grupo | Resultado |
 | --- | --- |
 | Integridad del traslado a C: | 16 075 archivos comparados por SHA-256; enlaces de dependencias/Git reparados |
-| Python aislado | 41 pruebas aprobadas tras el paso 3: 34 previas y siete del preparador |
+| Python aislado | 47 pruebas aprobadas tras el paso 4: 34 previas, siete del preparador y seis del ensayo histórico |
 | Orden histórico Node | 10 pruebas aprobadas |
 | Servicios PHP de revisión/writeback | Dos suites aprobadas |
 | API HTTP en fixture aislado | 38 comprobaciones aprobadas |
@@ -32,9 +32,11 @@ Los hashes de 24 archivos de datos/estado permanecieron iguales durante las comp
 
 Actualización del paso 3: preparación de instalación ensayada con el commit `71d96c14eb6072471d915ff167fb11e3949f2270` y los datos anteriores de producción. Paquete de 112 archivos, 14 cambios locales preservados/revisados, nueve colecciones compatibles y 31 archivos protegidos reales sin cambios. Sin cuentas reales, red o Sheets en el ensayo. Ver [plan de instalación](INSTALLATION-PLAN.md). Esto cierra la preparación, no autoriza el reemplazo ni la migración histórica.
 
+Paso 4: propuesta generada desde producción y migración ensayada solo sobre copia. 781 referencias ordenadas en ambos sentidos; tres locales, metadatos y fechas originales intactos; ocho colecciones ajenas sin cambios; segunda ejecución idempotente. Las 31 huellas protegidas reales permanecen iguales. Vista previa idéntica por hash a la v4 de desarrollo, sin usar su catálogo como origen. El inicializador CLI sigue rechazando producción. [Detalle y límites](PRODUCTION-HISTORY-PLAN.md).
+
 1. Revisar commits/PR y sus comprobaciones; no se integra automáticamente.
 2. Regenerar/verificar la preparación de instalación con el SHA finalmente autorizado y el estado real del momento; conservar sus cambios locales.
-3. Preparar vista previa/migración histórica propia de producción; la utilidad vigente solo permite desarrollo.
+3. Revisar/autorizar la propuesta histórica propia ya preparada y disponer de un procedimiento de aplicación real de producción; la CLI vigente continúa bloqueada fuera de desarrollo.
 4. Respaldo final con escritores detenidos, copia independiente y ensayo coordinado de recuperación.
 5. Resolver o aceptar explícitamente la salvedad de Jikan y autorizar el despliegue.
 6. Smoke test protegido tras instalar el código autorizado. Sheets sigue en espera hasta otra autorización.

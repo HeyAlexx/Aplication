@@ -4,6 +4,8 @@ Preparación para revisión; este documento no despliega automáticamente ni cam
 
 El paso 3 ya tiene [inventario, decisiones sobre cambios locales y ensayo aislado](INSTALLATION-PLAN.md). Usar ese procedimiento de preparación antes de cualquier reemplazo; no copiar indiscriminadamente el checkout de desarrollo.
 
+El paso 4 tiene [propuesta histórica propia y ensayo de producción](PRODUCTION-HISTORY-PLAN.md), NO una migración real. La CLI de desarrollo permanece bloqueada para producción; no eludirla. La aplicación requiere autorización/procedimiento específicos y respaldo coordinado previo, además del despliegue de código compatible.
+
 1. Revisar el PR, sus pruebas y el diff sin credenciales/datos privados. Mantener Cloudflare Access. Resolver el estado del proveedor Jikan documentado en QA antes de declarar todas las APIs saludables.
 2. Crear un snapshot verificado con `tools/preproduction-snapshot.ps1 -Phase before-approved-deploy`. Contiene configuración privada: nunca subirlo a GitHub. Guardar SHA del código instalado y del aprobado. No sustituye un respaldo completo de sesiones/dependencias/sistema.
 3. Detener el monitor de producción y bloquear temporalmente escrituras administrativas durante la actualización. Guardar los cambios locales existentes en producción: no hacer `git reset --hard`, checkout forzado ni copiar todo desarrollo encima de producción.
