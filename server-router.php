@@ -51,6 +51,24 @@ if ($requestPath === '/') {
     return true;
 }
 
+// Serve the same catalogue used by the API, including the static fallback.
+if (in_array($requestPath, $publicDataFiles, true)) {
+    require_once __DIR__ . '/api/core/ApiException.php';
+    require_once __DIR__ . '/api/core/JsonStorage.php';
+    try {
+        $storage = new JsonStorage(__DIR__ . '/data', __DIR__ . '/backups');
+        $records = $storage->read(basename($requestPath));
+        header('Content-Type: application/json; charset=utf-8');
+        header('Cache-Control: no-store');
+        echo json_encode($records, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+    } catch (Throwable $error) {
+        http_response_code(503);
+        header('Content-Type: application/json; charset=utf-8');
+        echo '{"error":"Catálogo temporalmente no disponible."}';
+    }
+    return true;
+}
+
 $documentRoot = realpath(__DIR__);
 $target = realpath(__DIR__ . $requestPath);
 if ($target === false || $documentRoot === false || !str_starts_with($target, $documentRoot)) {

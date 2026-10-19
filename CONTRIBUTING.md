@@ -34,6 +34,8 @@ Prefijos: `feature/` para funciones, `fix/` para correcciones, `docs/` para docu
 
 Una investigación no autoriza migraciones ni cambios de datos reales. Mantener sus prototipos separados del funcionamiento actual.
 
+Las ramas con soporte central usan el catálogo vigente del entorno mediante descriptor externo; no copiar los JSON versionados para actualizar datos. Todos los worktrees apuntando a desarrollo comparten sus ediciones de prueba, no son fixtures independientes. Iniciar con `tools/start-central.ps1` y un único sincronizador por entorno. Detalles y diagramas: [CATALOG-STORAGE.md](docs/CATALOG-STORAGE.md). Git/PR despliega código, no datos de desarrollo ni credenciales. Una rama anterior sin este soporte debe integrarlo primero.
+
 ## 3. Implementar y validar
 
 1. Definir alcance y criterios de aceptación en el roadmap o en el pull request.
@@ -104,7 +106,7 @@ Antes de iniciar funciones, preparar una instalación de ejecución separada, co
 
 Se preparó un worktree local de desarrollo separado de la instalación existente. Sus rutas, limitaciones de datos e inicio sin sincronización se describen en [Entorno de desarrollo aislado](docs/development-environment.md). El lanzador de la instalación existente no se modifica.
 
-Para publicar: respaldar datos, registrar la versión anterior, desplegar la etiqueta aprobada en la instalación de ejecución y verificar autenticación, catálogo, archivos privados y sincronización. No asumir que un push despliega la aplicación; no se ha configurado despliegue automático aquí.
+Para publicar: respaldar datos, registrar la versión anterior, desplegar la etiqueta aprobada en la instalación de ejecución y verificar autenticación, catálogo y archivos privados. La sincronización requiere autorización separada; en la revisión vigente debe permanecer apagada. No asumir que un push despliega la aplicación; no se ha configurado despliegue automático aquí.
 
 ## 8. Recuperación y cierre
 

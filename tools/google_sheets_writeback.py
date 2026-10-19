@@ -205,22 +205,42 @@ def update_rows(config_path: Path, updates: list[dict[str, object]]) -> int:
     sheet_name = str(settings.get("sheetName") or "Catalogo")
     access = access_token(config_path)
     data = []
+    live_rows = read_rows(config_path, f"{sheet_name}!A2:J")
+    resolved = []
     for update in updates:
-        row = int(update.get("targetRow") or 0)
         values = update.get("values")
-        if row < 2 or not isinstance(values, list) or len(values) != 10:
+        code = str(update.get("sourceCode") or "").strip()
+        if not code or not isinstance(values, list) or len(values) != 10 or str(values[0]).strip() != code:
             raise RuntimeError("La cola de actualizaciones contiene una fila inválida.")
+        matches = [index + 2 for index, current in enumerate(live_rows) if current and str(current[0]).strip() == code]
+        if len(matches) != 1:
+            raise RuntimeError(f"No se puede devolver el código {code}: debe existir exactamente una vez en Google Sheets.")
+        row = matches[0]
+        resolved.append((row, values))
         data.append({"range": f"{sheet_name}!A{row}:J{row}", "values": [values]})
-    target = f"{API_BASE}/{quote(spreadsheet_id(settings, config_path), safe='')}/values:batchUpdate?valueInputOption=USER_ENTERED"
-    request_json(target, method="POST", headers={"Authorization": f"Bearer {access}"}, body={"valueInputOption": "USER_ENTERED", "data": data})
+    # RAW keeps imported titles literal instead of interpreting them as formulas.
+    target = f"{API_BASE}/{quote(spreadsheet_id(settings, config_path), safe='')}/values:batchUpdate"
+    response = request_json(target, method="POST", headers={"Authorization": f"Bearer {access}"}, body={"valueInputOption": "RAW", "data": data})
+    if response.get("totalUpdatedRows") != len(data):
+        raise RuntimeError("Google Sheets no confirmó todas las filas enviadas; la cola se mantiene para reintentar.")
+    confirmed = read_rows(config_path, f"{sheet_name}!A2:J")
+    for row, values in resolved:
+        actual = (confirmed[row - 2] if row - 2 < len(confirmed) else [])
+        actual = (actual + [""] * 10)[:10]
+        if [str(value).strip() for value in actual] != [str(value).strip() for value in values]:
+            raise RuntimeError("Los valores leídos de Google no coinciden con la aprobación; la cola se mantiene.")
     return len(data)
 
 
-def read_rows(config_path: Path, range_name: str) -> list[list[object]]:
+def read_rows(config_path: Path, range_name: str, *, value_render_option: str | None = None) -> list[list[object]]:
     """Read the live sheet through the API, bypassing export-XLSX cache."""
     settings = load_config(config_path)
     access = access_token(config_path)
     target = f"{API_BASE}/{quote(spreadsheet_id(settings, config_path), safe='')}/values/{quote(range_name, safe='!')}"
+    if value_render_option is not None:
+        if value_render_option not in {'FORMATTED_VALUE', 'UNFORMATTED_VALUE', 'FORMULA'}:
+            raise ValueError('Opción de lectura de celdas inválida.')
+        target += '?valueRenderOption=' + value_render_option
     payload = request_json(target, headers={"Authorization": f"Bearer {access}"})
     values = payload.get("values", [])
     if not isinstance(values, list):

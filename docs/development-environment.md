@@ -2,32 +2,36 @@
 
 ## Distribución local actual
 
-- Instalación existente: `G:\Coding Files\CodexProyects\Altoids\ProyectoFinal\Aplication`. Su lanzador protegido sigue apuntando allí, con el puerto 8091.
-- Desarrollo: `G:\Coding Files\CodexProyects\Altoids\Desarrollo\Aplication`. Es un worktree Git separado creado desde el commit `0ab0850` integrado mediante el PR #1.
-- Puerto de desarrollo: 8092, accesible solo en `127.0.0.1`.
+Desde el traslado verificado del 2026-10-19, el proyecto opera en el SSD C:. La copia antigua de G: se conserva, pero no debe usarse para ejecutar ni modificar la aplicación.
 
-Los dos directorios comparten el historial Git, pero no sus archivos de trabajo. No ejecutar tareas de desarrollo en la instalación existente ni cambiar allí de rama mientras atienda usuarios.
+- Producción: `Altoids/ProyectoFinal/Aplication`, PHP en `127.0.0.1:8091`, acceso externo mediante Cloudflare Access.
+- Desarrollo: `Altoids/Desarrollo/Aplication`, worktree separado; puerto 8092. Para revisión física se abrió en `0.0.0.0` dentro de una LAN de confianza.
+- Catálogos y estado: `Altoids/datos/{produccion|desarrollo}`, fuera de los checkouts.
 
-## Inicio
+Los worktrees comparten historial Git, no archivos de trabajo. Las ramas compatibles de desarrollo pueden compartir el catálogo central del entorno mediante descriptor externo. No cambiar la rama de la instalación que atiende usuarios ni copiar datos de desarrollo sobre producción.
 
-Desde la carpeta de desarrollo, ejecutar `Iniciar-Desarrollo.cmd`. Para comprobar que encuentra PHP y el router sin iniciar el servidor:
+## Inicio sin sincronización
+
+Desde la carpeta de desarrollo:
 
 ```powershell
-.\Iniciar-Desarrollo.cmd --check
+.\tools\start-central.ps1 -Environment desarrollo -Port 8092
 ```
 
-Abrir `http://127.0.0.1:8092/Html/index.html`. El lanzador no abre el navegador, no inicia Cloudflare ni el sincronizador y no busca otro puerto automáticamente si 8092 está ocupado. Detenerlo con Ctrl+C.
+Para teléfono, añadir `-BindAddress 0.0.0.0` únicamente en una LAN de confianza; usar la IP local de la PC. No abrir ese puerto a Internet. El launcher inicia PHP, no Cloudflare ni Sheets cuando se omite `-Sync`. No inicia otro servidor si el puerto está ocupado. PHP debe estar en PATH o indicarse con `-PhpBin`. Detener con Ctrl+C.
+
+Abrir `http://127.0.0.1:8092/Html/catalogo.html` y `/Html/dashboard.html?tab=table`. Actualmente Sheets sigue apagado por instrucción del usuario; no ejecutar el launcher raíz que arranca el monitor ni añadir `-Sync`.
 
 ## Datos y servicios externos
 
-El worktree contiene los archivos ya versionados en el repositorio, incluidos los datos y respaldos históricos que ya estaban allí. No es una base de prueba vacía ni un entorno anonimizado. Sus archivos están separados físicamente de los de la instalación existente.
+La copia de desarrollo no está anonimizada: contiene datos de catálogo y estado personal local. Nunca publicar usuarios, preferencias, sesiones, colas, revisiones operativas, OAuth o respaldos.
 
-No se copiaron desde la instalación los archivos locales ignorados de configuración de sincronización, OAuth, token de Google o Client ID de MyAnimeList. No copiar esas credenciales para probar nuevas funciones. Revisar también variables de entorno heredadas antes de ejecutar pruebas contra proveedores externos.
+Los datos de prueba se refrescan desde una instantánea validada de producción solo mediante una operación explícita y respaldada. No hacerlo durante una revisión: puede sustituir pruebas y referencias históricas de desarrollo. Git no actualiza los datos operativos; sus antiguos JSON no sustituyen el catálogo central.
 
-Para probar sincronización, preparar posteriormente una hoja de prueba y credenciales específicas, con autorización. No iniciar un segundo monitor contra la hoja real. No publicar datos personales o sesiones del entorno de prueba.
+Sheets de desarrollo tiene configuración/OAuth propios y nunca debe apuntar a la hoja real. Las claves de lectura MAL/Watchmode se reutilizaron localmente con autorización del usuario; no copiarlas a Git ni trasladar credenciales de Google entre entornos. Las consultas externas y pruebas live son opt-in y pueden consumir cuotas.
 
-## Ramas y publicación
+## Ramas, publicación y estado actual
 
-La rama `chore/dev-isolation` prepara este entorno. Las funciones posteriores comienzan en una rama nueva basada en `main` actualizado, siempre desde esta carpeta de desarrollo y con el checkout limpio.
+La rama de preparación es `fix/admin-mobile-mockup`. Producción permanece en `chore/dev-isolation` con cambios locales que deben conservarse. Crear próximas ramas desde código compatible y configurar su descriptor antes de arrancar; ver [diagramas y almacenamiento](CATALOG-STORAGE.md).
 
-Aplicar [CONTRIBUTING.md](../CONTRIBUTING.md): commit selectivo, pruebas y pull request. Un merge no copia archivos a la instalación existente ni cambia su lanzador. El despliegue y los respaldos siguen siendo pasos explícitos; aún no hay despliegue automático ni una release etiquetada.
+Aplicar [CONTRIBUTING.md](../CONTRIBUTING.md): commits selectivos, revisión y PR. Push, merge y despliegue son operaciones distintas. No hay despliegue automático ni release estable creada por esta preparación. Continuar según [avance numerado](RELEASE-PROGRESS.md).

@@ -8,14 +8,77 @@ const categoryButtons = document.querySelectorAll("[data-category-view]");
 const catalogGrids = document.querySelectorAll(".catalog-grid");
 
 // Botones que permiten elegir 3, 5 o 7 tarjetas por línea.
-const gridButtons = document.querySelectorAll("[data-grid]");
+const catalogDensity = document.querySelector("#catalogDensity");
+const catalogFilterToggle = document.querySelector("#catalogFilterToggle");
+const catalogHeader = document.querySelector(".topbar");
+const updateCatalogHeaderHeight = () => document.documentElement.style.setProperty(
+    "--catalog-header-height", `${catalogHeader.getBoundingClientRect().height}px`
+);
+new ResizeObserver(updateCatalogHeaderHeight).observe(catalogHeader);
+updateCatalogHeaderHeight();
 const catalogViewButtons = document.querySelectorAll("[data-catalog-view]");
 const gridDensityGroups = document.querySelectorAll(".grid-density");
 const quickStatusButtons = document.querySelectorAll("[data-quick-status]");
 const quickFavoriteButton = document.querySelector("[data-quick-favorite]");
 const catalogFilterForm = document.querySelector("#catalogFilterForm");
 const catalogSearchInput = document.querySelector("#sidebar-search");
+const catalogDateOrder = document.querySelector("#catalogDateOrder");
+// En móvil, botones reales permiten áreas táctiles independientes del selector nativo.
+const touchOrder = document.createElement("div");
+touchOrder.className = "catalog-touch-order";
+touchOrder.innerHTML = `<button type="button" id="catalogTouchOrderToggle" aria-expanded="false" aria-controls="catalogTouchOrderOptions"></button>
+    <div id="catalogTouchOrderOptions" role="group" aria-label="Opciones de orden" hidden>
+        <button type="button" data-touch-order="newest">Más recientes primero</button>
+        <button type="button" data-touch-order="oldest">Más antiguos primero</button>
+    </div>`;
+catalogDateOrder.after(touchOrder);
+const touchOrderToggle = touchOrder.querySelector("#catalogTouchOrderToggle");
+const touchOrderOptions = touchOrder.querySelector("#catalogTouchOrderOptions");
+const syncTouchOrder = () => {
+    touchOrderToggle.textContent = catalogDateOrder.selectedOptions[0].textContent;
+    touchOrderToggle.setAttribute("aria-label", `Ordenar por incorporación: ${touchOrderToggle.textContent}`);
+    touchOrderOptions.querySelectorAll("button").forEach(button => {
+        button.setAttribute("aria-pressed", String(button.dataset.touchOrder === catalogDateOrder.value));
+    });
+};
+const closeTouchOrder = () => {
+    touchOrderOptions.hidden = true;
+    touchOrderToggle.setAttribute("aria-expanded", "false");
+};
+touchOrderToggle.addEventListener("click", () => {
+    syncTouchOrder();
+    const opening = touchOrderOptions.hidden;
+    touchOrderOptions.hidden = !opening;
+    touchOrderToggle.setAttribute("aria-expanded", String(opening));
+    if (opening) touchOrderOptions.querySelector('[aria-pressed="true"]').focus();
+});
+touchOrderOptions.addEventListener("click", event => {
+    const button = event.target.closest("[data-touch-order]");
+    if (!button) return;
+    catalogDateOrder.value = button.dataset.touchOrder;
+    catalogDateOrder.dispatchEvent(new Event("change", { bubbles: true }));
+    closeTouchOrder();
+    touchOrderToggle.focus();
+});
+catalogDateOrder.addEventListener("change", syncTouchOrder);
+document.addEventListener("click", event => { if (!touchOrder.contains(event.target)) closeTouchOrder(); });
+touchOrder.addEventListener("focusout", event => { if (!touchOrder.contains(event.relatedTarget)) closeTouchOrder(); });
+touchOrder.addEventListener("keydown", event => {
+    if (event.key === "Escape") { closeTouchOrder(); touchOrderToggle.focus(); }
+    if (["ArrowDown", "ArrowUp"].includes(event.key)) {
+        event.preventDefault();
+        touchOrderOptions.hidden = false;
+        touchOrderToggle.setAttribute("aria-expanded", "true");
+        const buttons = [...touchOrderOptions.querySelectorAll("button")];
+        const index = buttons.indexOf(document.activeElement);
+        buttons[(index + (event.key === "ArrowDown" ? 1 : -1) + buttons.length) % buttons.length].focus();
+    }
+});
+catalogDateOrder.value = new URLSearchParams(window.location.search).get("order") === "oldest" ? "oldest" : "newest";
+syncTouchOrder();
 const filterInitial = document.querySelector("#filter-initial");
+const catalogAlphabet = document.querySelector("#catalogAlphabet");
+const filterYear = document.querySelector("#filter-year");
 const filterGenre = document.querySelector("#filter-genre");
 const filterFormat = document.querySelector("#filter-format");
 const filterSeasons = document.querySelector("#filter-seasons");
@@ -29,8 +92,6 @@ const filterYearMaxValue = document.querySelector("#filter-year-max-value");
 const filterYearOutput = document.querySelector("#filter-year-output");
 const filterResults = document.querySelector("#filter-results");
 const clearCatalogFilters = document.querySelector("#clearCatalogFilters");
-const mobileFilterToggle = document.querySelector("#mobileFilterToggle");
-const catalogSidebar = document.querySelector(".sidebar");
 const ITEMS_PER_PAGE = 35;
 const currentPages = { movies: 1, series: 1, anime: 1 };
 let catalogItems = [];
@@ -44,6 +105,7 @@ const createFilterState = () => ({
     viewing: "",
     yearMin: null,
     yearMax: null,
+    year: "",
 });
 
 const catalogFilters = {
@@ -53,19 +115,6 @@ const catalogFilters = {
     anime: createFilterState(),
 };
 const quickFilters = { status: "", favoritesOnly: false };
-
-const setMobileFiltersOpen = (isOpen) => {
-    catalogSidebar?.classList.toggle("is-filter-open", isOpen);
-    mobileFilterToggle?.setAttribute("aria-expanded", String(isOpen));
-    const label = mobileFilterToggle?.querySelector("span");
-    if (label) {
-        label.textContent = isOpen ? "Ocultar filtros" : "Mostrar filtros";
-    }
-};
-
-mobileFilterToggle?.addEventListener("click", () => {
-    setMobileFiltersOpen(!catalogSidebar.classList.contains("is-filter-open"));
-});
 
 const tagClassNames = [
     "tag-action",
@@ -300,11 +349,7 @@ const applyStoredGridPreference = () => {
         grid.dataset.density = String(cardsPerRow);
     });
 
-    gridButtons.forEach((button) => {
-        const isSelected = Number(button.dataset.grid) === Number(cardsPerRow);
-        button.classList.toggle("is-active", isSelected);
-        button.setAttribute("aria-pressed", String(isSelected));
-    });
+    catalogDensity.value = String(cardsPerRow);
 };
 
 const applyCatalogView = (view = "cards") => {
@@ -379,8 +424,16 @@ const getItemGenres = (item) => {
 };
 
 const getTitleInitial = (item) => {
-    const initial = String(item.title || "").trim().charAt(0).toUpperCase();
+    const initial = normalizeFilterText(item.title).charAt(0).toUpperCase();
     return /^[A-Z]$/.test(initial) ? initial : "#";
+};
+
+const refreshAlphabet = () => {
+    catalogAlphabet.innerHTML = ["", "#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].map((initial) => `
+        <button class="catalog-initial-button${filterInitial.value === initial ? " is-active" : ""}" type="button"
+            data-catalog-initial="${initial}" aria-pressed="${filterInitial.value === initial}"
+            aria-label="${initial ? `Títulos con inicial ${initial === "#" ? "numérica o símbolo" : initial}` : "Todas las iniciales"}"${initial ? "" : ' title="Todas las iniciales"'}>${initial || `<svg class="catalog-all-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" aria-hidden="true" focusable="false"><!-- Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License: https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc. --><path d="M0 256c0-88.4 71.6-160 160-160 50.4 0 97.8 23.7 128 64l32 42.7 32-42.7c30.2-40.3 77.6-64 128-64 88.4 0 160 71.6 160 160S568.4 416 480 416c-50.4 0-97.8-23.7-128-64l-32-42.7-32 42.7c-30.2 40.3-77.6 64-128 64-88.4 0-160-71.6-160-160zm280 0l-43.2-57.6c-18.1-24.2-46.6-38.4-76.8-38.4-53 0-96 43-96 96s43 96 96 96c30.2 0 58.7-14.2 76.8-38.4L280 256zm80 0l43.2 57.6c18.1 24.2 46.6 38.4 76.8 38.4 53 0 96-43 96-96s-43-96-96-96c-30.2 0-58.7 14.2-76.8 38.4L360 256z"/></svg>`}</button>
+    `).join("");
 };
 
 const setFilterOptions = (select, values, emptyLabel, selectedValue) => {
@@ -423,9 +476,7 @@ const configureFilterPanel = (category, reset = false) => {
         state.yearMax = maximumYear;
     }
 
-    const initials = [...new Set(items.map(getTitleInitial))].sort((a, b) => (
-        a === "#" ? -1 : b === "#" ? 1 : a.localeCompare(b)
-    ));
+    const initials = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
     const genres = [...new Set(items.flatMap(getItemGenres))].sort((a, b) => a.localeCompare(b, "es"));
     const formats = [...new Set(items.map((item) => String(item.format || "").trim()).filter(Boolean))]
         .sort((a, b) => a.localeCompare(b, "es"));
@@ -436,11 +487,14 @@ const configureFilterPanel = (category, reset = false) => {
         .sort((a, b) => a.localeCompare(b, "es"));
 
     setFilterOptions(filterInitial, initials, "Todas", state.initial);
+    setFilterOptions(filterYear, [...new Set(years)].reverse().map(String), "Todos", state.year);
     setFilterOptions(filterGenre, genres, "Todos", state.genre);
     setFilterOptions(filterFormat, formats, "Todos", state.format);
     setFilterOptions(filterSeasons, seasonCounts, "Todas", state.seasons);
     setFilterOptions(filterStatus, statuses, "Todos", state.status);
     state.initial = filterInitial.value;
+    state.year = filterYear.value;
+    refreshAlphabet();
     state.genre = filterGenre.value;
     state.format = filterFormat.value;
     state.seasons = filterSeasons.value;
@@ -461,6 +515,7 @@ const configureFilterPanel = (category, reset = false) => {
 const readFilterControls = (category) => {
     const state = catalogFilters[category];
     state.initial = filterInitial.value;
+    state.year = filterYear.value;
     state.genre = filterGenre.value;
     state.format = filterFormat.value;
     state.seasons = filterSeasonsGroup.hidden ? "" : filterSeasons.value;
@@ -481,8 +536,8 @@ const readFilterControls = (category) => {
 
 const itemMatchesFilters = (item, state) => {
     const year = getItemYear(item);
-    const matchesYear = state.yearMin === null || state.yearMax === null || !year
-        || (year >= state.yearMin && year <= state.yearMax);
+    const matchesYear = (!state.year || year === Number(state.year)) && (state.yearMin === null || state.yearMax === null || !year
+        || (year >= state.yearMin && year <= state.yearMax));
     const matchesInitial = !state.initial || getTitleInitial(item) === state.initial;
     const matchesGenre = !state.genre || getItemGenres(item).some((genre) => (
         normalizeFilterText(genre) === normalizeFilterText(state.genre)
@@ -497,6 +552,7 @@ const itemMatchesFilters = (item, state) => {
         || (state.viewing === "unseen" && !isSeen);
     const matchesQuickStatus = !quickFilters.status
         || (quickFilters.status === "seen" && isSeen)
+        || (quickFilters.status === "unseen" && !isSeen)
         || (quickFilters.status === "watching" && viewingState === "watching")
         || (quickFilters.status === "planned" && viewingState === "planned");
     const matchesQuickFavorite = !quickFilters.favoritesOnly || AltoidssStore.isFavorite(item);
@@ -504,9 +560,9 @@ const itemMatchesFilters = (item, state) => {
         && matchesStatus && matchesViewing && matchesQuickStatus && matchesQuickFavorite;
 };
 
-const getCategoryItems = (category) => catalogItems.filter((item) => (
+const getCategoryItems = (category) => AltoidssContentOrder.sort(catalogItems.filter((item) => (
     (category === "all" || item.type === category) && itemMatchesFilters(item, catalogFilters[category])
-));
+)), catalogDateOrder.value);
 
 const updateFilterResultCount = (category) => {
     if (!filterResults || category !== getCategoryFromUrl()) {
@@ -1016,27 +1072,45 @@ window.addEventListener("resize", () => {
 });
 
 // Al hacer clic, se cambia la variable CSS --cards-per-row.
-gridButtons.forEach((button) => {
-    button.addEventListener("click", async () => {
+catalogDensity.addEventListener("change", async () => {
         catalogGrids.forEach((grid) => {
-            grid.style.setProperty("--cards-per-row", button.dataset.grid);
-            grid.dataset.density = button.dataset.grid;
-        });
-
-        gridButtons.forEach((item) => {
-            const isSelected = item === button;
-            item.classList.toggle("is-active", isSelected);
-            item.setAttribute("aria-pressed", String(isSelected));
+            grid.style.setProperty("--cards-per-row", catalogDensity.value);
+            grid.dataset.density = catalogDensity.value;
         });
 
         try {
             await AltoidssStore.updateSettings({
-                cardsPerRow: Number(button.dataset.grid),
+                cardsPerRow: Number(catalogDensity.value),
             });
         } catch (error) {
             console.warn("La densidad se aplicó solo durante esta sesión.", error);
         }
-    });
+});
+
+const setCatalogSidebarOpen = (open) => {
+    document.querySelector("#catalogSideMenu").classList.toggle("is-open", open);
+    catalogFilterToggle.setAttribute("aria-expanded", String(open));
+    catalogFilterToggle.textContent = open ? "Ocultar opciones" : "Mostrar opciones";
+};
+catalogFilterToggle.addEventListener("click", () => {
+    const sidebar = document.querySelector("#catalogSideMenu");
+    const open = !sidebar.classList.contains("is-open");
+    setCatalogSidebarOpen(open);
+    if (open) {
+        sidebar.scrollIntoView({ behavior: "auto", block: "start" });
+        // Enfocar un botón permite navegar con teclado sin abrir el teclado virtual.
+        document.querySelector("#closeCatalogSideMenu").focus({ preventScroll: true });
+    }
+});
+document.querySelector("#closeCatalogSideMenu").addEventListener("click", () => {
+    setCatalogSidebarOpen(false);
+    catalogFilterToggle.focus({ preventScroll: true });
+});
+document.querySelector("#catalogSideMenu").addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && window.matchMedia("(max-width: 768px)").matches) {
+        setCatalogSidebarOpen(false);
+        catalogFilterToggle.focus();
+    }
 });
 
 catalogViewButtons.forEach((button) => {
@@ -1084,6 +1158,9 @@ const openRequestedCatalogDetail = async (category) => {
 };
 
 const selectCategory = (selectedCategory) => {
+    document.querySelector(".section-heading h1").textContent = {
+        all: "Catálogo audiovisual", anime: "Catálogo de anime", movies: "Catálogo de películas", series: "Catálogo de series",
+    }[selectedCategory] || "Catálogo audiovisual";
     const category = allowedCategories.includes(selectedCategory) ? selectedCategory : "movies";
 
     catalogPanels.forEach((panel) => {
@@ -1152,6 +1229,24 @@ const initializeCatalog = async () => {
 
 initializeCatalog();
 
+catalogAlphabet.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-catalog-initial]");
+    if (!button) return;
+    filterInitial.value = button.dataset.catalogInitial;
+    readFilterControls(getCategoryFromUrl());
+    refreshAlphabet();
+    applyCurrentFilters(getCategoryFromUrl());
+});
+
+catalogDateOrder.addEventListener("change", () => {
+    const params = new URLSearchParams(window.location.search);
+    catalogDateOrder.value === "oldest" ? params.set("order", "oldest") : params.delete("order");
+    params.delete("page");
+    window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+    allowedCategories.forEach((category) => { currentPages[category] = 1; });
+    renderAllCatalogPages();
+});
+
 catalogFilterForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const query = catalogSearchInput.value.trim();
@@ -1162,12 +1257,9 @@ catalogFilterForm?.addEventListener("submit", async (event) => {
     query ? params.set("query", query) : params.delete("query");
     window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
     await performCatalogSearch(query, category);
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        setMobileFiltersOpen(false);
-    }
 });
 
-[filterInitial, filterGenre, filterFormat, filterSeasons, filterStatus, filterViewing].forEach((control) => {
+[filterInitial, filterGenre, filterFormat, filterSeasons, filterStatus, filterViewing, filterYear].forEach((control) => {
     control?.addEventListener("change", () => {
         const category = getCategoryFromUrl();
         readFilterControls(category);

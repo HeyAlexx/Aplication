@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altoidss | Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/catalogo.css?v=24">
-    <link rel="stylesheet" href="../css/site-shared.css?v=8">
+    <link rel="stylesheet" href="../css/catalogo.css?v=35">
+    <link rel="stylesheet" href="../css/site-shared.css?v=9">
 </head>
-<body>
+<body class="catalog-horizontal-layout">
     <!-- Encabezado del catálogo: conserva la marca y navegación superior. -->
     <header class="topbar navbar navbar-dark navbar-expand-xl">
         <div class="container-fluid">
@@ -40,137 +40,117 @@
     </header>
 
     <div class="app-shell">
-        <!-- Sidebar especializado: en catálogo funciona como panel de filtros. -->
-        <aside class="sidebar" aria-label="Filtros del catálogo">
-            <div class="mobile-filter-heading">
-                <h2>Filtros</h2>
-                <button class="mobile-filter-toggle" id="mobileFilterToggle" type="button" aria-expanded="false" aria-controls="catalogFilterForm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .4.8L10 7.667V12.5a.5.5 0 0 1-.276.447l-3 1.5A.5.5 0 0 1 6 14V7.667L1.6 1.8a.5.5 0 0 1-.1-.3m1.5.5 4 5.333V13.19l2-1V7.333L13 2z"/>
-                    </svg>
-                    <span>Mostrar filtros</span>
-                </button>
-            </div>
-
-            <form class="filter-panel" id="catalogFilterForm">
-                <div class="filter-group">
-                    <label class="filter-label" for="sidebar-search">Buscar</label>
-                    <input class="form-control form-control-sm" id="sidebar-search" type="search" placeholder="Título" autocomplete="off">
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label" for="filter-initial">Inicial</label>
-                    <select class="form-select form-select-sm" id="filter-initial">
-                        <option value="">Todas</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label" for="filter-genre">Género</label>
-                    <select class="form-select form-select-sm" id="filter-genre">
-                        <option value="">Todos</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label" for="filter-format">Tipo</label>
-                    <select class="form-select form-select-sm" id="filter-format">
-                        <option value="">Todos</option>
-                    </select>
-                </div>
-
-                <div class="filter-group" id="filter-seasons-group">
-                    <label class="filter-label" for="filter-seasons">Número de temporadas</label>
-                    <select class="form-select form-select-sm" id="filter-seasons">
-                        <option value="">Todas</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label" for="filter-status">Estado</label>
-                    <select class="form-select form-select-sm" id="filter-status">
-                        <option value="">Todos</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label" for="filter-viewing">Visualización</label>
-                    <select class="form-select form-select-sm" id="filter-viewing">
-                        <option value="">Todos</option>
-                        <option value="seen">Visto</option>
-                        <option value="unseen">No visto</option>
-                    </select>
-                </div>
-
-                <div class="filter-group filter-year-group">
-                    <div class="filter-range-heading">
-                        <span class="filter-label">Año</span>
-                        <output id="filter-year-output">Todos</output>
+    <aside class="sidebar catalog-side-menu" id="catalogSideMenu" aria-labelledby="catalogSideMenuTitle">
+        <div class="catalog-side-menu-heading">
+            <h2 id="catalogSideMenuTitle">Opciones del catálogo</h2>
+            <button id="closeCatalogSideMenu" type="button" aria-label="Cerrar opciones del catálogo">Cerrar ×</button>
+        </div>
+        <div class="catalog-filters">
+                <div class="catalog-search-tools">
+                    <div class="filter-group catalog-title-search">
+                        <label class="filter-label" for="sidebar-search">Buscar por título</label>
+                        <input class="form-control" id="sidebar-search" form="catalogFilterForm" type="search" placeholder="Escribe un título y pulsa Filtrar" autocomplete="off">
                     </div>
-                    <label class="filter-range-label" for="filter-year-min">Desde <span id="filter-year-min-value">—</span></label>
-                    <input id="filter-year-min" type="range" min="0" max="0" value="0">
-                    <label class="filter-range-label" for="filter-year-max">Hasta <span id="filter-year-max-value">—</span></label>
-                    <input id="filter-year-max" type="range" min="0" max="0" value="0">
+                    <button class="btn btn-outline-light" id="clearCatalogFilters" type="button">Limpiar filtros</button>
                 </div>
-
-                <p class="filter-results" id="filter-results" aria-live="polite">0 resultados</p>
-                <div class="filter-actions">
-                    <button class="btn btn-primary btn-sm" type="submit">Aplicar filtros</button>
-                    <button class="btn btn-outline-light btn-sm" id="clearCatalogFilters" type="button">Limpiar</button>
-                </div>
-                <a class="back-link" href="index.html">Volver al inicio</a>
-            </form>
-            <div class="sidebar-social" aria-label="Redes sociales">
-                <a href="#" aria-label="Instagram" title="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.318.92.598s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.598.92 2.5 2.5 0 0 1-.92.598c-.282.11-.705.24-1.485.275-.843.039-1.096.047-3.232.047s-2.39-.008-3.233-.047c-.78-.035-1.203-.166-1.485-.275a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.598-.92c-.11-.282-.24-.705-.275-1.485-.038-.843-.046-1.097-.046-3.233s.008-2.388.046-3.231c.035-.78.166-1.204.275-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.275.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-                    </svg>
-                </a>
-                <a href="#" aria-label="YouTube" title="YouTube">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
-                    </svg>
-                </a>
-                <a href="#" aria-label="GitHub" title="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 3.89c.68.003 1.36.092 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-                    </svg>
-                </a>
-            </div>
-        </aside>
-
-        <main class="content">
-            <!-- Título y descripción de la página del catálogo. -->
-            <div class="section-heading">
-                <p class="eyebrow">Catálogo</p>
-                <h1>Contenido destacado</h1>
-                <p>Explora películas, series y anime cargados desde la colección JSON de Altoidss.</p>
-            </div>
-
+                <section class="catalog-more-filters" aria-labelledby="advancedFiltersTitle">
+                    <h3 class="catalog-control-heading" id="advancedFiltersTitle">Más filtros</h3>
+                    <div class="catalog-advanced-filters">
+                        <div class="filter-group" id="filter-seasons-group">
+                            <label class="filter-label" for="filter-seasons">Número de temporadas</label>
+                            <select class="form-select" id="filter-seasons"><option value="">Todas</option></select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label" for="filter-viewing">Visualización</label>
+                            <select class="form-select" id="filter-viewing"><option value="">Todos</option><option value="seen">Visto</option><option value="unseen">No visto</option></select>
+                        </div>
+                        <div class="filter-group filter-year-group">
+                            <div class="filter-range-heading"><span class="filter-label">Rango de estreno</span><output id="filter-year-output">Todos</output></div>
+                            <label class="filter-range-label" for="filter-year-min">Desde <span id="filter-year-min-value">—</span></label>
+                            <input id="filter-year-min" type="range" min="0" max="0" value="0">
+                            <label class="filter-range-label" for="filter-year-max">Hasta <span id="filter-year-max-value">—</span></label>
+                            <input id="filter-year-max" type="range" min="0" max="0" value="0">
+                        </div>
+                    </div>
+                </section>
+                <button class="btn btn-primary catalog-apply-filters" type="submit" form="catalogFilterForm">Aplicar búsqueda y filtros</button>
             <div class="catalog-controls" aria-label="Filtros rápidos y visualización del catálogo">
                 <div class="catalog-mode catalog-control-group" role="group" aria-label="Filtrar por tipo">
+                    <h3 class="catalog-control-heading">Tipo de contenido</h3>
                     <button class="catalog-quick-button" type="button" data-category-view="all" aria-pressed="false"><span class="quick-label">Todos</span><span class="quick-symbol" aria-hidden="true">T</span></button>
                     <button class="catalog-quick-button" type="button" data-category-view="anime" aria-pressed="false"><span class="quick-label">Anime</span><span class="quick-symbol" aria-hidden="true">A</span></button>
                     <button class="catalog-quick-button is-active" type="button" data-category-view="movies" aria-pressed="true"><span class="quick-label">Películas</span><span class="quick-symbol" aria-hidden="true">P</span></button>
                     <button class="catalog-quick-button" type="button" data-category-view="series" aria-pressed="false"><span class="quick-label">Series</span><span class="quick-symbol" aria-hidden="true">S</span></button>
                 </div>
                 <div class="catalog-status-filters catalog-control-group" role="group" aria-label="Filtrar por seguimiento y favoritos">
+                    <h3 class="catalog-control-heading">Estado de visualización</h3>
                     <button class="catalog-quick-button" type="button" data-quick-status="seen" aria-pressed="false"><span class="quick-label">Visto</span><span class="quick-symbol" aria-hidden="true">✓</span></button>
+                    <button class="catalog-quick-button" type="button" data-quick-status="unseen" aria-pressed="false"><span class="quick-label">No visto</span><span class="quick-symbol" aria-hidden="true">◷</span></button>
                     <button class="catalog-quick-button" type="button" data-quick-status="planned" aria-pressed="false"><span class="quick-label">Por ver</span><span class="quick-symbol" aria-hidden="true">P</span></button>
                     <button class="catalog-quick-button" type="button" data-quick-status="watching" aria-pressed="false"><span class="quick-label">Viendo</span><span class="quick-symbol" aria-hidden="true">▶</span></button>
                     <button class="catalog-quick-button" type="button" data-quick-favorite aria-pressed="false"><span class="quick-label">Favoritos</span><span class="quick-symbol" aria-hidden="true">♥</span></button>
                 </div>
                 <div class="catalog-toolbar catalog-control-group">
                     <div class="view-selector" role="group" aria-label="Modo de visualización">
+                        <h3 class="catalog-control-heading">Presentación</h3>
                         <button class="catalog-view-button is-active" type="button" data-catalog-view="cards" aria-label="Ver como tarjetas" aria-pressed="true" title="Tarjetas"><span aria-hidden="true">▦</span></button>
                         <button class="catalog-view-button" type="button" data-catalog-view="list" aria-label="Ver como lista" aria-pressed="false" title="Lista"><span aria-hidden="true">☷</span></button>
                     </div>
-                    <div class="grid-density" role="group" aria-label="Cantidad de tarjetas por línea">
-                        <button class="catalog-density-button" type="button" data-grid="3" aria-pressed="false">3</button>
-                        <button class="catalog-density-button is-active" type="button" data-grid="5" aria-pressed="true">5</button>
-                        <button class="catalog-density-button" type="button" data-grid="7" aria-pressed="false">7</button>
+                    <div class="grid-density">
+                        <label class="catalog-control-heading" for="catalogDensity">Cantidad por fila</label>
+                        <select class="catalog-density-select" id="catalogDensity" aria-label="Tarjetas por fila en escritorio">
+                            <option value="3">3</option>
+                            <option value="5" selected>5</option>
+                            <option value="7">7</option>
+                        </select>
                     </div>
                 </div>
+            </div>
+        </div>
+    </aside>
+
+        <main class="content">
+            <!-- Título y descripción de la página del catálogo. -->
+            <div class="section-heading">
+                <p class="eyebrow">Catálogo</p>
+                <h1>Catálogo audiovisual</h1>
+                <p>Explora películas, series y anime cargados desde la colección JSON de Altoidss.</p>
+            </div>
+
+
+            <form class="catalog-filters" id="catalogFilterForm" aria-label="Filtros del catálogo">
+                <div class="catalog-alphabet" id="catalogAlphabet" role="group" aria-label="Filtrar por inicial del título"></div>
+                <select id="filter-initial" hidden aria-hidden="true" tabindex="-1"><option value="">Todas</option></select>
+                <div class="catalog-primary-filters">
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-format">Tipo</label>
+                        <select class="form-select" id="filter-format"><option value="">Todos</option></select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-genre">Género</label>
+                        <select class="form-select" id="filter-genre"><option value="">Todos</option></select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-year">Año de estreno</label>
+                        <select class="form-select" id="filter-year"><option value="">Todos</option></select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-status">Estado de producción</label>
+                        <select class="form-select" id="filter-status"><option value="">Todos</option></select>
+                    </div>
+                    <button class="btn btn-primary catalog-apply-filters" type="submit">Filtrar</button>
+                </div>
+            </form>
+
+            <div class="catalog-order-tools">
+                <p class="filter-results" id="filter-results" aria-live="polite">0 resultados</p>
+                <button class="catalog-filter-toggle" id="catalogFilterToggle" type="button" aria-expanded="false" aria-controls="catalogSideMenu">Mostrar opciones</button>
+                <label for="catalogDateOrder">Ordenar por incorporación</label>
+                <select class="form-select form-select-sm" id="catalogDateOrder" aria-describedby="catalogDateOrderNote">
+                    <option value="newest" selected>Más recientes primero</option>
+                    <option value="oldest">Más antiguos primero</option>
+                </select>
+                <p id="catalogDateOrderNote">Históricos según el orden guardado de la hoja; altas nuevas por fecha real. No es el año de estreno.</p>
             </div>
 
             <section class="catalog-panel" id="catalog-all">
@@ -430,7 +410,8 @@
     <script src="../js/auth.js?v=5"></script>
     <script src="../js/site-account.js?v=1"></script>
     <script src="../js/data-store.js?v=11"></script>
-    <script src="../js/catalogo.js?v=20"></script>
+    <script src="../js/content-order.js?v=2"></script>
+    <script src="../js/catalogo.js?v=29"></script>
 </body>
 </html>
 

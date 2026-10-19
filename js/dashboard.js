@@ -14,6 +14,8 @@ const contentTags = document.querySelector("#contentTags");
 const contentImage = document.querySelector("#contentImage");
 const contentDescription = document.querySelector("#contentDescription");
 const contentTableBody = document.querySelector("#contentTableBody");
+const dashboardDateOrder = document.querySelector("#dashboardDateOrder");
+const dashboardDateOrderNote = document.querySelector("#dashboardDateOrderNote");
 const jsonPreview = document.querySelector("#jsonPreview");
 const animeReviewList = document.querySelector("#animeReviewList");
 const reviewCount = document.querySelector("#reviewCount");
@@ -265,17 +267,18 @@ const loadNewsForEdit = (item) => {
 
 const renderContentTable = (items = AltoidssStore.read()) => {
     if (!items.length) {
-        contentTableBody.innerHTML = '<tr><td colspan="5">No hay contenido JSON agregado todavía.</td></tr>';
+        contentTableBody.innerHTML = '<tr><td colspan="6">No hay contenido JSON agregado todavía.</td></tr>';
         return;
     }
 
-    contentTableBody.innerHTML = items.map((item) => `
-        <tr>
-            <td>${escapeHtml(item.title)}</td>
-            <td>${escapeHtml(item.emissionYear || item.year || "Sin año")}</td>
-            <td>${escapeHtml(typeLabels[item.type] ?? item.type)}</td>
-            <td><span class="status-badge ${getProductionStatusClass(item.productionStatus || item.status)}">${escapeHtml(item.productionStatus || item.status)}</span></td>
-            <td class="text-end">
+    contentTableBody.innerHTML = AltoidssContentOrder.sort(items, dashboardDateOrder.value).map((item) => `
+        <tr role="row">
+            <td role="cell" data-label="Título">${mobileRecordTitleMarkup(item)}</td>
+            <td role="cell" data-label="Agregado">${incorporationDateMarkup(item)}</td>
+            <td role="cell" data-label="Año emisión">${escapeHtml(item.emissionYear || item.year || "N/A")}</td>
+            <td role="cell" data-label="Categoría"><span class="admin-category-badge">${escapeHtml(typeLabels[item.type] ?? item.type)}</span></td>
+            <td role="cell" data-label="Estado"><span class="status-badge ${getProductionStatusClass(item.productionStatus || item.status)}">${escapeHtml(item.productionStatus || item.status)}</span></td>
+            <td role="cell" data-label="Acciones" class="text-end admin-actions-cell">
                 <div class="admin-action-group">
                     <button class="btn btn-sm btn-outline-light" type="button" data-edit-id="${item.id}">Editar</button>
                     <button class="btn btn-sm btn-outline-danger" type="button" data-delete-id="${item.id}">Ocultar</button>
@@ -284,6 +287,39 @@ const renderContentTable = (items = AltoidssStore.read()) => {
         </tr>
     `).join("");
 };
+
+const formatIncorporationDate = (item) => {
+    const timestamp = AltoidssContentOrder.timestamp(item);
+    const row = AltoidssContentOrder.sheetPosition(item);
+    const estimated = String(item.incorporationDateBasis || '').startsWith('historical-');
+    return timestamp === null ? (row === null ? "N/A" : `Fila ${row}`) : (estimated ? '≈ ' : '') + new Intl.DateTimeFormat("es-CR", {
+        day: "2-digit", month: "2-digit", year: "2-digit",
+    }).format(new Date(timestamp));
+};
+
+const incorporationDateMarkup = (item) => {
+    const timestamp = AltoidssContentOrder.timestamp(item);
+    const row = AltoidssContentOrder.sheetPosition(item);
+    let description = timestamp === null
+        ? (row === null ? "Sin referencia registrada" : `Hoja: posición ${row - 1} (fila ${row}), sin fecha exacta`)
+        : new Intl.DateTimeFormat("es-CR", {dateStyle: "long", timeStyle: "short"}).format(new Date(timestamp));
+    if (item.sheetImportBatchId && timestamp !== null) {
+        if (String(item.incorporationDateBasis || '').startsWith('historical-')) {
+            description = `Referencia estimada del histórico por año/quarter y orden de filas: ${formatIncorporationDate(item)}; fila inicial ${AltoidssContentOrder.batchPosition(item)}. No es una fecha de alta real ni de última sincronización.`;
+        } else {
+            const basis = item.incorporationDateBasis === 'recovery-baseline' ? 'Lote de recuperación' : 'Primera incorporación del lote de Sheets';
+            description = `${basis}: ${description}; fila inicial ${AltoidssContentOrder.batchPosition(item)}. No es la fecha de la última sincronización.`;
+        }
+    }
+    return `<span class="incorporation-date" title="${escapeHtml(description)}" aria-label="${escapeHtml(description)}">${escapeHtml(formatIncorporationDate(item))}</span>`;
+};
+
+const mobileRecordTitleMarkup = (item) => `
+    <span class="admin-mobile-heading">
+        <span class="admin-record-title">${escapeHtml(item.title)}</span>
+    </span>
+    <span class="admin-mobile-date" aria-hidden="true">${incorporationDateMarkup(item)}</span>
+`;
 
 const getProductionStatusClass = (status) => {
     const normalized = String(status || "").toLowerCase();
@@ -295,17 +331,18 @@ const getProductionStatusClass = (status) => {
 
 const renderNewsTable = (items = AltoidssStore.readNews()) => {
     if (!items.length) {
-        contentTableBody.innerHTML = '<tr><td colspan="5">No hay noticias JSON agregadas todavía.</td></tr>';
+        contentTableBody.innerHTML = '<tr><td colspan="6">No hay noticias JSON agregadas todavía.</td></tr>';
         return;
     }
 
-    contentTableBody.innerHTML = items.map((item) => `
-        <tr>
-            <td>${escapeHtml(item.title)}</td>
-            <td>${escapeHtml(item.category)}</td>
-            <td>${escapeHtml(item.featured ? "Destacada" : "Blog")}</td>
-            <td><span class="badge text-bg-info">${escapeHtml(item.status)}</span></td>
-            <td class="text-end">
+    contentTableBody.innerHTML = AltoidssContentOrder.sort(items, dashboardDateOrder.value).map((item) => `
+        <tr role="row">
+            <td role="cell" data-label="Título">${mobileRecordTitleMarkup(item)}</td>
+            <td role="cell" data-label="Agregado">${incorporationDateMarkup(item)}</td>
+            <td role="cell" data-label="Categoría">${escapeHtml(item.category)}</td>
+            <td role="cell" data-label="Presentación"><span class="admin-category-badge">${escapeHtml(item.featured ? "Destacada" : "Blog")}</span></td>
+            <td role="cell" data-label="Estado"><span class="badge text-bg-info">${escapeHtml(item.status)}</span></td>
+            <td role="cell" data-label="Acciones" class="text-end admin-actions-cell">
                 <div class="admin-action-group">
                     <button class="btn btn-sm btn-outline-light" type="button" data-edit-news-id="${item.id}">Editar</button>
                     <button class="btn btn-sm btn-outline-danger" type="button" data-delete-news-id="${item.id}">Ocultar</button>
@@ -316,6 +353,18 @@ const renderNewsTable = (items = AltoidssStore.readNews()) => {
 };
 
 const renderTable = () => {
+    const labels = activeTableMode === "news"
+        ? ["Título", "Agregado a Altoidss", "Categoría", "Presentación", "Estado", "Acciones"]
+        : ["Título", "Agregado a Altoidss", "Año emisión", "Categoría", "Estado", "Acciones"];
+    document.querySelectorAll(".admin-table thead th").forEach((header, index) => {
+        header.textContent = labels[index];
+    });
+    const items = activeTableMode === "news" ? AltoidssStore.readNews() : AltoidssStore.read();
+    const historicalCount = items.filter((item) => AltoidssContentOrder.timestamp(item) === null && AltoidssContentOrder.sheetPosition(item) !== null).length;
+    const unknownCount = items.filter((item) => AltoidssContentOrder.timestamp(item) === null && AltoidssContentOrder.sheetPosition(item) === null).length;
+    const batchedCount = items.filter((item) => item.sheetImportBatchId).length;
+    const estimatedCount = items.filter((item) => String(item.incorporationDateBasis || '').startsWith('historical-')).length;
+    dashboardDateOrderNote.textContent = `Altas de la app y ${batchedCount - estimatedCount} registros nuevos de Sheets por fecha real de incorporación; filas dentro de cada lote. ${estimatedCount} históricos con referencia estimada (≈), respetando el orden de la hoja. ${historicalCount} históricos aún sin inicializar. ${unknownCount} sin referencia al final.`;
     if (activeTableMode === "news") {
         renderNewsTable();
         return;
@@ -323,6 +372,8 @@ const renderTable = () => {
 
     renderContentTable();
 };
+
+dashboardDateOrder.addEventListener("change", renderTable);
 
 const renderJsonPreview = () => {
     jsonPreview.textContent = JSON.stringify(AltoidssStore.exportDatabase(), null, 2);
@@ -548,6 +599,7 @@ const renderAnimeReviews = () => {
                     </div>
                     <span class="review-status ${badgeClass}">${escapeHtml(review.status)}</span>
                 </header>
+                ${review.status === "Aprobado" ? `<p class="review-sheet-status" role="status">Catálogo JSON: guardado · Google Sheets: ${escapeHtml(review.sheetSyncStatus || "Sin confirmación registrada")}${review.sheetSyncStatus === "Pendiente" ? " (el sincronizador lo reintentará cuando esté configurado y activo)" : ""}</p>` : ""}
                 <div class="review-differences">
                     ${(review.differences || []).map((difference) => `<span>${escapeHtml(difference)}</span>`).join("")}
                     <strong>${Math.round(Number(review.matchScore || 0) * 100)}% coincidencia</strong>
@@ -963,9 +1015,10 @@ animeReviewList?.addEventListener("click", async (event) => {
             notes: card.querySelector("[data-review-notes]")?.value || "",
         };
         if (decision === "save") payload.finalData = collectReviewEditorData(card);
-        await AltoidssApi.put(`/reviews/anime/${encodeURIComponent(review.id)}`, payload);
+        const result = await AltoidssApi.put(`/reviews/anime/${encodeURIComponent(review.id)}`, payload);
+        if (decision === "save") await AltoidssStore.reload();
         await refreshDashboardPanels();
-        showDashboardFeedback(decision === "save" ? "Versión final guardada en el catálogo." : "Propuesta rechazada.", "success");
+        showDashboardFeedback(decision === "save" ? `Versión final guardada en el catálogo. Google Sheets: ${result.sheetSyncStatus || "sin confirmación"}.` : "Propuesta rechazada.", "success");
     } catch (error) {
         showDashboardFeedback(error.message || "No se pudo guardar la revisión.");
         card.querySelectorAll("button").forEach((current) => { current.disabled = false; });
