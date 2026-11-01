@@ -75,6 +75,33 @@ class ReleaseInstallationTests(unittest.TestCase):
         self.assertEqual(json.loads((operation / 'report.json').read_text())['status'], 'CODE_ROLLED_BACK')
         self.assertTrue((operation / 'added-files-retained/api/new.php').is_file())
 
+    def test_scoped_install_preserves_earlier_unrelated_difference(self):
+        """Un despliegue del PR no incorpora diferencias anteriores de otro archivo."""
+        workspace, source, production = self.setup_workspace()
+        (source / 'api/local.php').write_bytes(b'<?php // older unrelated main change\n')
+        release.git(source, 'add', 'api/local.php')
+        release.git(source, 'commit', '-qm', 'earlier unrelated change')
+        base = release.git(source, 'rev-parse', 'HEAD').decode().strip()
+        (source / 'server-router.php').write_bytes(b'<?php // scoped candidate\n')
+        release.git(source, 'add', 'server-router.php')
+        release.git(source, 'commit', '-qm', 'scoped candidate')
+        commit = release.git(source, 'rev-parse', 'HEAD').decode().strip()
+        plan, _ = release.prepare(workspace, source, commit)
+        before = release.protected_hashes(workspace, production)
+        report = installer.install(workspace, plan, commit, base)
+        self.assertEqual((production / 'api/local.php').read_bytes(), b'<?php // base\n')
+        self.assertEqual((production / 'server-router.php').read_bytes(), b'<?php // scoped candidate\n')
+        self.assertEqual(report['changedPaths'], ['server-router.php'])
+        self.assertEqual(report['preservedOutsideScope'], ['api/local.php'])
+        self.assertEqual(release.protected_hashes(workspace, production), before)
+
+    def test_scoped_install_rejects_mobile_ref_before_writes(self):
+        """La base de alcance es inmutable; no se aceptan ramas moviles."""
+        workspace, production, plan, commit = self.candidate()
+        with self.assertRaisesRegex(ValueError, 'SHA completo'):
+            installer.install(workspace, plan, commit, 'main')
+        self.assertEqual((production / 'server-router.php').read_bytes(), b'<?php // committed-router\n')
+
 
 if __name__ == '__main__':
     unittest.main()
