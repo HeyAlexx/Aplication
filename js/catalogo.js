@@ -573,10 +573,11 @@ const updateFilterResultCount = (category) => {
     filterResults.textContent = `${count} resultado${count === 1 ? "" : "s"}`;
 };
 
-const applyCurrentFilters = (category) => {
-    currentPages[category] = 1;
+// Conserva la pagina al actualizar visualizacion; ver docs/catalog-pagination.md.
+const applyCurrentFilters = (category, { preservePage = false } = {}) => {
+    if (!preservePage) currentPages[category] = 1;
     renderCatalogPage(category);
-    updatePageInUrl(category, 1);
+    updatePageInUrl(category, currentPages[category]);
     updateFilterResultCount(category);
 };
 
@@ -924,7 +925,7 @@ document.addEventListener("click", async (event) => {
             if (target.detail) {
                 await closeCatalogDetail({ restoreFocus: false });
             }
-            window.setTimeout(() => applyCurrentFilters(category), 180);
+            window.setTimeout(() => applyCurrentFilters(category, { preservePage: true }), 180);
         }
     } catch (error) {
         showCatalogFeedback(error.message || "No se pudo cambiar el estado.");

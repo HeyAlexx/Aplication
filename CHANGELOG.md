@@ -4,6 +4,13 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### Paginación, identidad visual y CI/CD
+
+- Se conserva la página al actualizar el estado de visualización; si desaparece la última página, se muestra la última válida.
+- Logo transparente en el encabezado e icono de pestaña en las seis páginas.
+- CI de pruebas y build con hashes; staging HTTP aislado y aprobación antes de la instalación local en producción.
+
+
 ### Catálogo central, redundancia y administrador móvil
 
 - Datos operativos separados de ramas Git por entorno; copia literal completa de Sheets y detección de códigos ausentes incluso cuando el hash no cambia. Recuperación local de los 46 códigos omitidos sin sobrescribir metadatos aprobados.

@@ -1,0 +1,76 @@
+# CI y entrega a staging aislado. Despliegue local controlado: docs/CI-CD.md.
+name: CI y staging
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, fix/catalog-pagination-branding-cicd]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Pruebas y paquete
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # Checkout sin credenciales persistentes; todo el paquete proviene de este SHA.
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Sintaxis y regresion del catalogo
+        run: |
+          node --check js/catalogo.js
+          node tests/catalog-pagination-state.cjs
+          node tests/content-order.cjs
+          php -l server-router.php
+      - name: Preparacion y recuperacion de releases
+        run: |
+          python -m unittest discover -s tests -p test_code_release_preparation.py
+          python -m unittest discover -s tests -p test_release_installation.py
+      - name: Construir paquete sin datos privados
+        run: python tools/ci_release.py build --output "${{ runner.temp }}/release"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: code-${{ github.sha }}
+          path: ${{ runner.temp }}/release/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Resultado del build
+        if: always()
+        run: echo "Build ${{ job.status }} · commit ${{ github.sha }}" >> "$GITHUB_STEP_SUMMARY"
+
+  staging:
+    name: Validar artefacto en staging
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      # Prueba el artefacto del build anterior; no reconstruye ni accede a produccion.
+      - uses: actions/download-artifact@v4
+        with:
+          name: code-${{ github.sha }}
+          path: ${{ runner.temp }}/release/
+      - name: Servir paquete y comprobar HTTP con datos ficticios
+        run: python tools/ci_release.py smoke --package "${{ runner.temp }}/release"
+      - name: Resultado de staging
+        if: always()
+        run: echo "Staging ${{ job.status }} · commit ${{ github.sha }} · produccion requiere PR revisado y despliegue local aprobado" >> "$GITHUB_STEP_SUMMARY"

@@ -4,7 +4,7 @@
 
 Cada función, corrección o cambio de documentación se trabaja en una rama propia y llega a `main` mediante un pull request revisado. No desarrollar directamente sobre `main` ni subir allí cambios sin validar. `main` es la referencia de código integrado; producción debe ejecutar una versión publicada desde una instalación separada.
 
-Este documento establece el procedimiento, pero no activa por sí mismo restricciones en GitHub ni automatiza despliegues. Esa configuración sigue pendiente.
+El flujo obligatorio se describe en [CI/CD](docs/CI-CD.md): GitHub Actions automatiza pruebas, build y staging; producción requiere revisión, aprobación e instalación local controlada. Las restricciones del repositorio deben verificarse por separado.
 
 ## 1. Revisar el estado antes de empezar
 
