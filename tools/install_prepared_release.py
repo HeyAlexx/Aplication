@@ -7,6 +7,7 @@ An interrupted operation is NOT safe to serve: inspect its report before restart
 import argparse
 import json
 import os
+import re
 import socket
 import tempfile
 from datetime import datetime
@@ -30,7 +31,7 @@ def replace_bytes(path, payload):
             os.unlink(temporary)
 
 
-def install(workspace, plan, approved_commit):
+def install(workspace, plan, approved_commit, scope_from=None):
     workspace, plan = workspace.resolve(), plan.absolute()
     production = workspace / 'ProyectoFinal/Aplication'
     source = workspace / 'Desarrollo/Aplication'
@@ -72,7 +73,18 @@ def install(workspace, plan, approved_commit):
             raise ValueError('Cambió una modificación local.')
     operation = plan / ('deployment-' + datetime.now().strftime('%Y%m%d-%H%M%S-%f'))
     operation.mkdir(exist_ok=False)
-    changed = [name for name in payloads if payloads[name] != originals[name]]
+    # Alcance por commits: conserva diferencias previas ajenas al PR. Ver docs/CI-CD.md.
+    scope = set(payloads)
+    if scope_from is not None:
+        if not re.fullmatch(r'[0-9a-f]{40}', scope_from):
+            raise ValueError('El alcance requiere SHA completo de base.')
+        release.git(source, 'merge-base', '--is-ancestor', scope_from, approved_commit)
+        entries = release.git(source, 'diff', '--name-only', '-z', scope_from, approved_commit).split(b'\0')
+        scope = {name.decode('utf-8') for name in entries if name}
+        if any(release.code_path(name) and name not in payloads for name in scope):
+            raise ValueError('El alcance no admite eliminar codigo.')
+        scope &= set(payloads)
+    changed = [name for name in payloads if name in scope and payloads[name] != originals[name]]
     for name in changed:
         if originals[name] is not None:
             replace_bytes(operation / 'originals' / name, originals[name])
@@ -81,7 +93,9 @@ def install(workspace, plan, approved_commit):
     report = {'status': 'INSTALLING', 'commit': approved_commit,
               'productionGitHeadUnchanged': manifest['productionHead'], 'startedAt': datetime.now().astimezone().isoformat(),
               'changedPaths': changed, 'completedPaths': [], 'dataMigration': False,
-              'sheetsStarted': False, 'operation': str(operation)}
+              'sheetsStarted': False, 'operation': str(operation), 'scopeFromCommit': scope_from,
+              'preservedOutsideScope': [name for name in payloads if name not in scope
+                                        and payloads[name] != originals[name]]}
     atomic_json(operation / 'report.json', report)
     try:
         for name in changed:
@@ -127,6 +141,7 @@ def main():
     parser.add_argument('--plan', type=Path, required=True)
     parser.add_argument('--apply-approved-commit', required=True)
     parser.add_argument('--reviewed-local-changes', action='store_true', required=True)
+    parser.add_argument('--scope-from', help='SHA base revisado: instalar solo archivos cambiados desde esa base.')
     args = parser.parse_args()
     workspace = Path(__file__).resolve().parents[3]
     if workspace != Path('C:/Users/Alvar/Projects/Altoids'):
@@ -135,7 +150,7 @@ def main():
         probe.settimeout(1)
         if probe.connect_ex(('127.0.0.1', 8091)) == 0:
             raise SystemExit('Detener y verificar el PHP de producción antes de instalar.')
-    result = install(workspace, args.plan, args.apply_approved_commit)
+    result = install(workspace, args.plan, args.apply_approved_commit, args.scope_from)
     print(json.dumps({key: result[key] for key in ('status', 'commit', 'operation', 'packageFiles', 'protectedFilesUnchanged')}))
 
 
