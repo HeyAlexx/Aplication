@@ -34,6 +34,13 @@ class QaIsolationTests(unittest.TestCase):
         with patch.dict(os.environ, {'ALTOIDSS_STORAGE_CONFIG':'private descriptor', 'WATCHMODE_API_KEY':'private key',
                                    'MAL_CLIENT_ID':'private key','NODE_PATH':'private profile', 'PATH':'keep'}, clear=True):
             self.assertEqual(qa.environment(), {'PATH':'keep'})
+        with tempfile.TemporaryDirectory(prefix='altoids-owned-temp-') as temporary:
+            canonical = Path(temporary).resolve()
+            with patch.dict(os.environ, {'PATH':'keep','TEMP':'C:/Users/RUNNER~1/Temp'}, clear=True):
+                env = qa.environment(canonical)
+                self.assertEqual({env[k] for k in ['TMP','TEMP','TMPDIR']}, {str(canonical)})
+                self.assertEqual(env['PATH'], 'keep')
+                self.assertEqual(os.environ['TEMP'], 'C:/Users/RUNNER~1/Temp')
 
 
 if __name__ == '__main__':
