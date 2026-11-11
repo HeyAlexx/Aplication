@@ -27,11 +27,12 @@ marca y la autorizacion para trabajar no sustituyen las verificaciones del pipel
 6. Preparar la publicacion local del SHA integrado con `prepare_code_release.py`,
    revisar el inventario de diferencias locales y ensayar el paquete. Su contenido
    debe coincidir con el artefacto de CI del mismo SHA. No copiar todo desarrollo.
-   Para este PR, instalar con `--scope-from b2b53eb9b6d4d43cd592855027ef392405a68047`:
-   el instalador verifica el paquete completo pero solo cambia las rutas modificadas
-   desde esa base. Conserva y registra diferencias previas ajenas, incluidos seis
-   documentos de produccion. La base debe ser un SHA completo ancestro del candidato;
-   una eliminacion de codigo se rechaza. No declara toda la instalacion identica al SHA.
+   Elegir y registrar una base revisada para `--scope-from SHA_BASE`: el instalador
+   verifica el paquete completo pero solo cambia las rutas modificadas desde esa
+   base. Conserva y registra diferencias previas ajenas. No reutilizar la base de
+   otra publicacion sin revisar el inventario. La base debe ser un SHA completo
+   ancestro del candidato; una eliminacion de codigo se rechaza. No declara toda
+   la instalacion identica al SHA.
 7. Antes de produccion: mostrar al usuario PR/SHA, CI, staging, archivos afectados,
    respaldo y plan de recuperacion. Obtener su aprobacion final del candidato.
 8. Con escritores detenidos y respaldo verificado, instalar mediante

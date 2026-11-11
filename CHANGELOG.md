@@ -4,6 +4,14 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### Privacidad HTTP y registro atomico
+
+- Router con recursos publicos explicitos y validacion del destino canonico, tambien en Windows.
+- JSON publico sin titulos ocultos ni noticias en borrador/archivadas; gestion editorial conservada para administradores.
+- Registro de cuenta, perfil y preferencias en una sola transaccion, con unicidad comprobada dentro del bloqueo.
+- Regresiones de privacidad y concurrencia en CI para Windows/Linux; plantilla del launcher raiz con loopback predeterminado.
+- Ver [contratos, pruebas y limites de publicacion](docs/http-privacy.md).
+
 ### Paginación, identidad visual y CI/CD
 
 - Se conserva la página al actualizar el estado de visualización; si desaparece la última página, se muestra la última válida.

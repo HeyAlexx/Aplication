@@ -17,6 +17,15 @@ final class NewsService
         ));
     }
 
+    // Public representations never include drafts, archives or hidden news.
+    public function published(): array
+    {
+        return array_values(array_filter(
+            $this->all(),
+            fn(array $item): bool => ($item['status'] ?? 'borrador') === 'publicada'
+        ));
+    }
+
     public function create(array $payload): array
     {
         $item = $this->validate($payload);
