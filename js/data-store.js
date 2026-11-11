@@ -59,6 +59,8 @@ const AltoidssStore = (() => {
         displayName: profile.displayName || session.name || "Visitante",
         email: profile.email || session.email || "",
         ...profile,
+        id: session.id || "visitor",
+        role: session.role || "visitante",
         seenIds: Array.isArray(profile.seenIds) ? profile.seenIds : [],
         viewingStates: profile.viewingStates && typeof profile.viewingStates === "object" && !Array.isArray(profile.viewingStates)
             ? profile.viewingStates

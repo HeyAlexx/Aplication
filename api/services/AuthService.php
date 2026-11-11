@@ -1,48 +1,102 @@
 <?php
 
+require_once __DIR__ . '/CredentialService.php';
+
 final class AuthService
 {
     private JsonStorage $storage;
+    private ?array $sessionCache = null;
 
-    public function __construct(JsonStorage $storage)
+    public function __construct(JsonStorage $storage, private ?LoginLimiter $limiter = null)
     {
         $this->storage = $storage;
         $this->csrfToken();
     }
 
-    public function session(): array
+    public function session(bool $fresh = false): array
     {
-        return $_SESSION['user'] ?? $this->visitor();
+        if (!$fresh && $this->sessionCache !== null) {
+            return $this->sessionCache;
+        }
+        $session = $_SESSION['user'] ?? null;
+        $security = $_SESSION['auth'] ?? [];
+        if (!is_array($session) || !($session['isAuthenticated'] ?? false)) {
+            return $this->sessionCache = $this->visitor();
+        }
+        $now = time();
+        $issued = $security['issuedAt'] ?? null;
+        $seen = $security['seenAt'] ?? null;
+        $valid = is_int($issued) && is_int($seen) && $issued <= $now && $seen <= $now
+            && $now - $seen < 1800 && $now - $issued < 28800;
+        $current = null;
+        if ($valid) {
+            foreach ($this->storage->read('usuarios.json') as $account) {
+                if (($account['id'] ?? null) === ($session['id'] ?? null)) { $current = $account; break; }
+            }
+        }
+        if ($current === null || !CredentialService::active($current)
+            || ($security['version'] ?? null) !== (int) ($current['authVersion'] ?? 0)
+            || !hash_equals((string) ($security['stamp'] ?? ''), CredentialService::stamp($current))
+            || ($session['role'] ?? null) !== $current['role']) {
+            $this->logout();
+            return $this->sessionCache = $this->visitor();
+        }
+        $_SESSION['auth']['seenAt'] = $now;
+        $_SESSION['user'] = array_merge($session, ['name'=>$current['name'], 'email'=>$current['email'],
+            'role'=>$current['role'], 'profileMode'=>$current['role'] === 'admin' ? 'admin' : 'user']);
+        return $this->sessionCache = $_SESSION['user'];
     }
 
     public function login(array $payload): array
     {
+        if (!is_string($payload['email'] ?? null) || !is_string($payload['password'] ?? null)) {
+            throw new ApiException('Correo o contraseña incorrectos.', 401);
+        }
         $email = strtolower(trim((string) ($payload['email'] ?? '')));
         $password = (string) ($payload['password'] ?? '');
         $users = $this->storage->read('usuarios.json');
 
-        foreach ($users as $index => $user) {
+        $reservation = $this->limiter?->reserve($email, (string) ($_SERVER['REMOTE_ADDR'] ?? 'local-cli'), time()) ?? [];
+        $matched = null;
+        foreach ($users as $user) {
             if (strtolower((string) ($user['email'] ?? '')) !== $email) {
                 continue;
             }
 
-            if (!$this->verifyPassword($password, (string) ($user['passwordHash'] ?? ''))) {
-                break;
-            }
-
-            if ($this->startsWith((string) $user['passwordHash'], 'sha256$')) {
-                $users[$index]['passwordHash'] = password_hash($password, PASSWORD_DEFAULT);
-                $this->storage->write('usuarios.json', $users);
-            }
-
-            return $this->startSession($user);
+            $matched = $user;
+            break;
         }
-
-        throw new ApiException('Correo o contraseña incorrectos.', 401);
+        $verified = CredentialService::verify($password, (string) ($matched['passwordHash'] ?? ''));
+        if ($matched === null || !$verified || !CredentialService::active($matched)) {
+            throw new ApiException('Correo o contraseña incorrectos.', 401);
+        }
+        $oldHash = (string) $matched['passwordHash'];
+        $newHash = password_needs_rehash($oldHash, PASSWORD_DEFAULT) ? password_hash($password, PASSWORD_DEFAULT) : $oldHash;
+        $current = $this->storage->transaction(function () use ($matched, $oldHash, $newHash): array {
+            $users = $this->storage->read('usuarios.json');
+            foreach ($users as $index => $account) {
+                if (($account['id'] ?? '') !== $matched['id']) { continue; }
+                if (!CredentialService::active($account) || !hash_equals((string) $account['passwordHash'], $oldHash)) {
+                    break;
+                }
+                $account['passwordHash'] = $newHash;
+                if ($newHash !== $oldHash) {
+                    $users[$index] = $account;
+                    $this->storage->write('usuarios.json', $users);
+                }
+                return $account;
+            }
+            throw new ApiException('Correo o contraseña incorrectos.', 401);
+        });
+        $this->limiter?->success($reservation);
+        return $this->startSession($current);
     }
 
     public function register(array $payload): array
     {
+        foreach (['name','email','password'] as $field) {
+            if (!is_string($payload[$field] ?? null)) { throw new ApiException('Datos de registro inválidos.'); }
+        }
         $name = trim((string) ($payload['name'] ?? ''));
         $email = strtolower(trim((string) ($payload['email'] ?? '')));
         $password = (string) ($payload['password'] ?? '');
@@ -50,9 +104,7 @@ final class AuthService
         if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new ApiException('Ingrese un nombre y un correo válidos.');
         }
-        if (strlen($password) < 6) {
-            throw new ApiException('La contraseña debe tener al menos 6 caracteres.');
-        }
+        CredentialService::validateNew($password);
 
         // Hash outside the lock; uniqueness and all private records commit together.
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
@@ -71,6 +123,7 @@ final class AuthService
                 'role' => 'usuario',
                 'createdAt' => date(DATE_ATOM),
                 'status' => 'Activo',
+                'authVersion' => 1,
             ];
             $users[] = $user;
             $this->storage->write('usuarios.json', $users);
@@ -85,13 +138,14 @@ final class AuthService
     public function logout(): void
     {
         $_SESSION = [];
-        session_regenerate_id(true);
+        if (session_status() === PHP_SESSION_ACTIVE) { session_regenerate_id(true); }
+        $this->sessionCache = null;
         $this->csrfToken();
     }
 
     public function requireUser(): array
     {
-        $session = $this->session();
+        $session = $this->session(true);
 
         if (!($session['isAuthenticated'] ?? false)) {
             throw new ApiException('Debe iniciar sesión para realizar esta acción.', 401);
@@ -131,7 +185,7 @@ final class AuthService
 
     private function startSession(array $user): array
     {
-        session_regenerate_id(true);
+        if (session_status() === PHP_SESSION_ACTIVE) { session_regenerate_id(true); }
         $_SESSION['csrfToken'] = bin2hex(random_bytes(24));
         $_SESSION['user'] = [
             'id' => $user['id'],
@@ -142,8 +196,9 @@ final class AuthService
             'isAuthenticated' => true,
             'loginAt' => date(DATE_ATOM),
         ];
-
-        return $_SESSION['user'];
+        $_SESSION['auth'] = ['version'=>(int) ($user['authVersion'] ?? 0),
+            'stamp'=>CredentialService::stamp($user), 'issuedAt'=>time(), 'seenAt'=>time()];
+        return $this->sessionCache = $_SESSION['user'];
     }
 
     private function visitor(): array
@@ -156,21 +211,6 @@ final class AuthService
             'profileMode' => 'visitor',
             'isAuthenticated' => false,
         ];
-    }
-
-    private function verifyPassword(string $password, string $storedHash): bool
-    {
-        if ($this->startsWith($storedHash, 'sha256$')) {
-            [, $salt, $hash] = array_pad(explode('$', $storedHash, 3), 3, '');
-            return $salt !== '' && hash_equals($hash, hash('sha256', $salt . '|' . $password));
-        }
-
-        return $storedHash !== '' && password_verify($password, $storedHash);
-    }
-
-    private function startsWith(string $value, string $prefix): bool
-    {
-        return substr($value, 0, strlen($prefix)) === $prefix;
     }
 
     private function createUserRecords(array $user): void

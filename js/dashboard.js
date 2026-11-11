@@ -1124,6 +1124,7 @@ const refreshDashboard = async () => {
 window.addEventListener("altoidss-auth-change", () => {
     refreshDashboard();
 });
+window.addEventListener("altoidss-catalog-requests-updated", refreshDashboard);
 
 window.addEventListener("pageshow", () => {
     refreshDashboard();
