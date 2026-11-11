@@ -41,7 +41,8 @@ check(!isset($local['sourceCode']) && !isset($local['sourceRow']), 'Crear desde 
 check(!isset($local['incorporatedAt']) && !isset($local['historicalOrderInitialization']), 'Un alta local no puede forjar incorporación histórica.');
 $catalog->update('qa-local', ['chapters'=>24]);
 check(count($storage->read('anime-sheet-writeback.json')) === 1, 'Editar una obra local tampoco debe crear filas en Sheets.');
-$external = $catalog->importExternal('kitsu-qa', ['source'=>'kitsu', 'type'=>'anime', 'title'=>'QA external', 'sourceCode'=>'fake', 'sourceRow'=>5]);
+$external = $catalog->importExternal('kitsu-qa', ['source'=>'kitsu', 'type'=>'anime', 'title'=>'QA external', 'sourceCode'=>'fake', 'sourceRow'=>5],
+    fn(): array => ['id'=>'fixture-admin', 'role'=>'admin', 'isAuthenticated'=>true]);
 check(!isset($external['sourceCode']) && !isset($external['sourceRow']), 'Importar desde la página tampoco debe inventar un vínculo con Sheets.');
 check(count($storage->read('anime-sheet-writeback.json')) === 1, 'Importar desde proveedores no debe añadir filas en Sheets.');
 echo "OK: edición vinculada, fechas, metadatos, vínculo estable, última versión y altas locales sin filas de Sheets.\n";

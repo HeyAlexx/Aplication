@@ -61,8 +61,15 @@
             logoutButton.disabled = true;
             logoutButton.classList.add("is-loading");
             logoutButton.lastChild.textContent = " Cerrando sesión...";
-            await AltoidssAuth.logout();
-            window.location.replace("index.html");
+            try {
+                await AltoidssAuth.logout();
+                window.location.replace("index.html");
+            } catch {
+                window.alert("No se pudo confirmar el cierre en el servidor. Vuelve a intentarlo cuando haya conexión.");
+                logoutButton.disabled = false;
+                logoutButton.classList.remove("is-loading");
+                logoutButton.lastChild.textContent = " Cerrar sesión";
+            }
         });
 
         return menu;

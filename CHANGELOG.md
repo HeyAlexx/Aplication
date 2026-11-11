@@ -4,6 +4,14 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### Cuentas y solicitudes externas
+
+- Sesiones revalidadas por cuenta, rol, versión y credencial; expiración y límites de intentos.
+- Restablecimiento local con entrada protegida, conservación de IDs y revocación de sesiones.
+- Favoritos externos privados hasta la aprobación del administrador, con metadatos obtenidos por el servidor y recuperación idempotente.
+- Se retira el guardado de contraseñas y cuentas de previsualización en el navegador; la lectura estática del catálogo se conserva.
+- Ver [operación, políticas y límites](docs/account-security.md).
+
 ### Privacidad HTTP y registro atomico
 
 - Router con recursos publicos explicitos y validacion del destino canonico, tambien en Windows.
