@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const net = require('node:net');
 const {spawn} = require('node:child_process');
-const {request} = require('playwright');
+const {request} = require('./browser-runtime.cjs');
 const root = path.resolve(__dirname,'..');
 const catalogDir=require('./catalog-fixture-path.cjs');
 const fixture = path.join(root,'runtime','qa-fixtures',`http-${Date.now()}`);
@@ -25,7 +25,7 @@ const write = (name,value)=>fs.writeFileSync(path.join(fixture,'data',name),JSON
   const port=listener.address().port;
   await new Promise(resolve=>listener.close(resolve));
   const fixtureEnv={...process.env}; delete fixtureEnv.ALTOIDSS_STORAGE_CONFIG;
-  const server = spawn(process.env.PHP_BIN||'C:\\xampp\\php\\php.exe',['-S',`127.0.0.1:${port}`,'-t','.', 'server-router.php'],{cwd:fixture,env:fixtureEnv,windowsHide:true,stdio:'ignore'});
+  const server = spawn(process.env.PHP_BIN||'php',['-S',`127.0.0.1:${port}`,'-t','.', 'server-router.php'],{cwd:fixture,env:fixtureEnv,windowsHide:true,stdio:'ignore'});
   let context;
   try {
     context=await request.newContext({baseURL:`http://127.0.0.1:${port}`});

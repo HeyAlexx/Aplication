@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { chromium } = require('playwright');
+const { chromium } = require('./browser-runtime.cjs');
 const { sort } = require('../js/content-order.js');
 const root = path.resolve(__dirname, '..');
 const directory = require('./catalog-fixture-path.cjs');
