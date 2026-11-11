@@ -18,6 +18,20 @@ env:
   PYTHONDONTWRITEBYTECODE: '1'
 
 jobs:
+  hygiene:
+    name: Arbol versionado sin datos ni artefactos
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.12'
+      - name: Validar todos los blobs del commit
+        run: python -B tools/repository_hygiene.py --commit HEAD
+
   qualification:
     name: QA PHP ${{ matrix.php }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
@@ -71,7 +85,7 @@ jobs:
 
   build:
     name: Paquete de codigo verificado
-    needs: [qualification]
+    needs: [hygiene, qualification]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:

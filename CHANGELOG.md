@@ -95,3 +95,11 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 - Elegir el alcance de la primera versión estable de esta fase y validar la aplicación.
 
 No hay una etiqueta `v0.1.0` creada por esta preparación. Las funciones futuras descritas en el roadmap todavía no están implementadas.
+
+
+## Saneamiento del árbol y trazabilidad de publicaciones
+
+- Retira del árbol futuro colecciones operativas, respaldos y outputs/dependencias generadas; conserva archivos locales y protecciones .htaccess. No reescribe historia.
+- Añade control de blobs del índice/commit en CI y rechazo de firmas de credenciales en build, preparación y staging.
+- Sustituye el correo de una cuenta existente usado como placeholder por un ejemplo ficticio.
+- Registra una identidad privada por alcance al instalar y detecta drift con release_status.py; recupera conjuntamente código y comprobante ante fallos.
