@@ -234,3 +234,14 @@ Consulta detalles y comandos de comprobación en [MyAnimeList API oficial](docs/
 La planificación de próximas mejoras estará en [ROADMAP.md](ROADMAP.md). Es un borrador editable para definir prioridades, alcance y criterios de finalización; no representa fechas ni funciones prometidas.
 
 La versión de desarrollo se identifica en `VERSION` y el historial en [CHANGELOG.md](CHANGELOG.md). Cada cambio se prepara en una rama independiente y se revisa antes de llegar a `main`, siguiendo [CONTRIBUTING.md](CONTRIBUTING.md). La integración del código no equivale a su despliegue; las protecciones remotas y la separación de instalaciones deben configurarse según esa guía.
+
+
+## Repositorio y versión instalada
+
+Los datos operativos, respaldos, sesiones y archivos generados permanecen locales.
+El control de índice/commit y de payloads evita reintroducir rutas prohibidas o firmas de credenciales.
+Consultar docs/REPOSITORY-HYGIENE.md antes de preparar commits.
+
+La identidad de una publicación parcial se registra en un comprobante privado, separada del HEAD
+conservado. tools/release_status.py consulta hashes y detecta drift sin corregir archivos.
+Consultar docs/RELEASE-IDENTITY.md y seguir el flujo CI/CD antes de instalar.

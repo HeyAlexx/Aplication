@@ -14,6 +14,7 @@ from datetime import datetime
 from pathlib import Path
 
 import prepare_code_release as release
+import release_identity as identity
 from storage_transaction import atomic_json
 
 
@@ -40,6 +41,9 @@ def install(workspace, plan, approved_commit, scope_from=None):
     manifest = json.loads((plan / 'manifest.json').read_text(encoding='utf-8'))
     if manifest.get('commit') != approved_commit or manifest.get('mode') != 'PREPARATION_ONLY_NO_DEPLOY':
         raise ValueError('El SHA aprobado no coincide con el plan.')
+    previous_identity = identity.read(production)
+    if identity.digest(previous_identity) != manifest.get('releaseIdentitySha256'):
+        raise ValueError('Cambió el comprobante de publicación; regenerar el plan.')
     if manifest.get('deletionsPlanned'):
         raise ValueError('No se admiten eliminaciones.')
     pinned_paths = set(release.git(source, 'ls-tree', '-r', '--name-only', approved_commit).decode().splitlines())
@@ -85,6 +89,10 @@ def install(workspace, plan, approved_commit, scope_from=None):
             raise ValueError('El alcance no admite eliminar codigo.')
         scope &= set(payloads)
     changed = [name for name in payloads if name in scope and payloads[name] != originals[name]]
+    identity_path = production / identity.RELATIVE_PATH
+    identity_payload = None
+    if previous_identity is not None:
+        replace_bytes(operation / 'release-identity.previous.json', previous_identity)
     for name in changed:
         if originals[name] is not None:
             replace_bytes(operation / 'originals' / name, originals[name])
@@ -110,12 +118,45 @@ def install(workspace, plan, approved_commit, scope_from=None):
             raise RuntimeError('Cambió un dato protegido durante la instalación.')
         if release.git(production, 'rev-parse', 'HEAD').decode().strip() != manifest['productionHead']:
             raise RuntimeError('Cambió la identidad Git.')
+        for name in payloads:
+            expected = payloads[name] if name in scope else originals[name]
+            if release.read_inside(production, name) != expected:
+                raise RuntimeError('Cambió código durante la instalación: ' + name)
+        if identity.read(production) != previous_identity:
+            raise RuntimeError('Cambió el comprobante durante la instalación.')
+        receipt = identity.create(approved_commit, scope_from, manifest['productionHead'], scope,
+                                  payloads, originals, previous_identity, plan.name, operation.name)
+        receipt['installedAt'] = datetime.now().astimezone().isoformat()
+        identity.validate(receipt)
+        identity_payload = (json.dumps(receipt, ensure_ascii=False, indent=2) + '\n').encode()
+        report['status'] = 'WRITING_RELEASE_IDENTITY'
+        atomic_json(operation / 'report.json', report)
+        replace_bytes(identity_path, identity_payload)
+        if identity.read(production) != identity_payload:
+            raise RuntimeError('No se verificó el comprobante de publicación.')
+        report['releaseIdentity'] = {'path': str(identity_path), 'sha256': identity.digest(identity_payload),
+                                     'previousSha256': identity.digest(previous_identity)}
         report.update(status='CODE_INSTALLED_DATA_UNCHANGED', finishedAt=datetime.now().astimezone().isoformat(),
                       protectedFilesUnchanged=len(manifest['protectedHashes']), packageFiles=len(payloads))
         atomic_json(operation / 'report.json', report)
     except Exception:
         report['status'] = 'ROLLING_BACK_CODE_ONLY'
         atomic_json(operation / 'report.json', report)
+        if identity_payload is not None:
+            current_identity = identity.read(production)
+            if current_identity != previous_identity:
+                if current_identity != identity_payload:
+                    report['status'] = 'MANUAL_RECOVERY_REQUIRED'
+                    atomic_json(operation / 'report.json', report)
+                    raise RuntimeError('Cambio ajeno del comprobante; rollback detenido.')
+                if previous_identity is None:
+                    retained = operation / 'added-files-retained' / identity.RELATIVE_PATH
+                    retained.parent.mkdir(parents=True, exist_ok=True)
+                    if not identity_path.resolve().is_relative_to(production) or not retained.resolve().is_relative_to(operation):
+                        raise RuntimeError('Frontera de recuperación del comprobante inválida.')
+                    os.replace(identity_path, retained)
+                else:
+                    replace_bytes(identity_path, previous_identity)
         for name in reversed(changed):
             current = release.read_inside(production, name)
             if current == originals[name]:

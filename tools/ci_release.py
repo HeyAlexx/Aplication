@@ -13,6 +13,7 @@ import urllib.request
 import zipfile
 
 from prepare_code_release import code_path, git
+from repository_hygiene import reject_payload
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,20 +21,23 @@ ROOT = Path(__file__).resolve().parents[1]
 def build(output):
     """Empaqueta blobs del commit exacto, excluyendo datos y configuracion privada."""
     commit = git(ROOT, 'rev-parse', 'HEAD').decode().strip()
+    hashes, payloads = {}, {}
+    for entry in filter(None, git(ROOT, 'ls-tree', '-rz', commit).split(b'\0')):
+        metadata, raw_name = entry.split(b'\t', 1)
+        mode, kind, oid = metadata.decode().split()
+        name = raw_name.decode()
+        if not code_path(name):
+            continue
+        if kind != 'blob' or mode not in {'100644', '100755'}:
+            raise ValueError('El paquete no admite enlaces ni submodulos.')
+        data = git(ROOT, 'cat-file', 'blob', oid)
+        reject_payload(name, data)
+        payloads[name] = data
+        hashes[name] = hashlib.sha256(data).hexdigest()
     output.mkdir(parents=True, exist_ok=True)
-    hashes = {}
     with zipfile.ZipFile(output / 'code.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
-        for entry in filter(None, git(ROOT, 'ls-tree', '-rz', commit).split(b'\0')):
-            metadata, raw_name = entry.split(b'\t', 1)
-            mode, kind, oid = metadata.decode().split()
-            name = raw_name.decode()
-            if not code_path(name):
-                continue
-            if kind != 'blob' or mode not in {'100644', '100755'}:
-                raise ValueError('El paquete no admite enlaces ni submodulos.')
-            data = git(ROOT, 'cat-file', 'blob', oid)
+        for name, data in payloads.items():
             archive.writestr(name, data)
-            hashes[name] = hashlib.sha256(data).hexdigest()
     manifest = {'commit': commit, 'files': hashes}
     (output / 'manifest.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     print(json.dumps({'commit': commit, 'codeFiles': len(hashes), 'dataIncluded': False}))
@@ -53,6 +57,7 @@ def smoke(package, php):
                 if not code_path(name) or not target.resolve().is_relative_to(stage.resolve()):
                     raise ValueError('Ruta no permitida en staging.')
                 data = archive.read(name)
+                reject_payload(name, data)
                 if hashlib.sha256(data).hexdigest() != manifest['files'][name]:
                     raise ValueError('Hash incorrecto: ' + name)
                 target.parent.mkdir(parents=True, exist_ok=True)
