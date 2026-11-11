@@ -13,6 +13,8 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path, PurePosixPath
 
+from repository_hygiene import reject_payload
+
 ROOT = Path(__file__).resolve().parents[1]
 TEXT_ROOTS = {'api', 'Html', 'css', 'js', 'docs', 'tests', 'tools', '.github', 'qa'}
 TEXT_SUFFIXES = {'.php', '.html', '.css', '.js', '.cjs', '.py', '.ps1', '.md', '.yml', '.yaml'}
@@ -131,6 +133,8 @@ def prepare(workspace, source, commit):
     git(source, 'cat-file', '-e', commit + '^{commit}')
     before_status, excluded = production_status(production)
     before_protected = protected_hashes(workspace, production)
+    from release_identity import read as read_identity
+    before_identity = read_identity(production)
     production_head = git(production, 'rev-parse', 'HEAD').decode().strip()
     stamp = datetime.now().astimezone().strftime('%Y%m%d-%H%M%S-%f')
     output = workspace / 'work' / 'installation-plans' / (stamp + '-' + commit[:12])
@@ -148,6 +152,7 @@ def prepare(workspace, source, commit):
             raise ValueError('El paquete contiene un enlace, submódulo o ruta ambigua.')
         tree_paths.add(name.casefold())
         payloads[name] = git(source, 'cat-file', 'blob', oid)
+        reject_payload(name, payloads[name])
         save_new(output / 'code' / name, payloads[name])
     if not {'server-router.php', 'api/config/catalog-storage.php', 'tools/storage_transaction.py'} <= payloads.keys():
         raise ValueError('El commit no contiene el soporte central requerido.')
@@ -177,7 +182,8 @@ def prepare(workspace, source, commit):
         files.append({'path': name, 'sha256': digest(payload),
                       'expectedProductionSha256': digest(current) if current is not None else None,
                       'plannedAction': action})
-    if (production_status(production) != (before_status, excluded)
+    if (read_identity(production) != before_identity
+            or production_status(production) != (before_status, excluded)
             or protected_hashes(workspace, production) != before_protected
             or git(production, 'rev-parse', 'HEAD').decode().strip() != production_head):
         raise RuntimeError('Producción cambió durante la lectura; el plan no se valida. Repetir sin escritores.')
@@ -195,6 +201,7 @@ def prepare(workspace, source, commit):
                 'productionHead': production_head, 'productionModified': False,
                 'sheetsStarted': False, 'containsPrivateInventory': True,
                 'excludedGeneratedStatusEntries': excluded, 'deletionsPlanned': [],
+                'releaseIdentitySha256': digest(before_identity) if before_identity is not None else None,
                 'protectedHashes': before_protected, 'localChanges': local_changes,
                 'files': files, 'summary': dict(Counter(item['classification'] for item in local_changes)),
                 'pending': ['review-local-code', 'historical-production-preview',
