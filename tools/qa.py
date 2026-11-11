@@ -78,10 +78,18 @@ def fixture(source, destination):
     return descriptor, {name: hashlib.sha256(payload).hexdigest() for name, payload in code.items()}
 
 
-def environment():
-    return {key:value for key,value in os.environ.items()
+def environment(temporary_root=None):
+    result = {key:value for key,value in os.environ.items()
         if not key.startswith(('ALTOIDSS_','WATCHMODE','MAL_'))
         and key not in {'NODE_PATH','PHPRC','PHP_INI_SCAN_DIR'}}
+    if temporary_root is not None:
+        canonical = Path(temporary_root).resolve()
+        if not canonical.is_dir():
+            raise ValueError('Create the owned QA temporary directory before configuring child processes.')
+        # Windows runners can inherit an 8.3 alias such as RUNNER~1. The recovery
+        # guards intentionally reject indirect paths; use a canonical owned temp.
+        result.update(TMP=str(canonical), TEMP=str(canonical), TMPDIR=str(canonical))
+    return result
 
 
 def main():
@@ -103,7 +111,9 @@ def main():
     if output.resolve() != output or output == ROOT or ROOT.is_relative_to(output):
         parser.error('Choose a new output directory; it must not contain the source checkout.')
     output.mkdir(parents=True, exist_ok=False)
-    env = environment()
+    temporary = output / 'temporary'
+    temporary.mkdir()
+    env = environment(temporary)
     env.update(PHP_BIN=str(Path(args.php).resolve()), PYTHONUTF8='1', PYTHONDONTWRITEBYTECODE='1',
         ALTOIDSS_QA_NODE_MODULES=str(ROOT / 'qa/node_modules'),
         PLAYWRIGHT_BROWSERS_PATH=os.environ.get('PLAYWRIGHT_BROWSERS_PATH', str(ROOT / 'runtime/qa-browsers')),

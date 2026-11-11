@@ -39,6 +39,8 @@ Para una comparación local opcional se admite `--browser-channel msedge`; debe 
 `SALIDA/fixture/app` y genera catálogo, noticias y colecciones privadas ficticios.
 No copia data, secretos locales, OAuth, tokens, descriptores o dependencias históricas.
 El entorno heredado de producción/proveedores y NODE_PATH se retira.
+Los procesos de pruebas usan una carpeta temporal canónica dentro de la salida, evitando
+alias 8.3 del perfil Windows sin relajar los controles de rutas de recuperación.
 
 Ejecuta sintaxis Python/PHP/JS, regresiones Python y pruebas Node de paginación/orden/autenticación.
 La integración de aprobación usa API PHP real de fixture y proveedores HTTP locales.
