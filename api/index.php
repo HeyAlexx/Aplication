@@ -108,7 +108,10 @@ try {
     }
 
     if ($method === 'GET' && $route === '/news') {
-        Response::success($newsService->all(), 200, ['csrfToken' => $authService->csrfToken()]);
+        $session = $authService->session();
+        $canManageNews = ($session['isAuthenticated'] ?? false) && ($session['role'] ?? '') === 'admin';
+        Response::success($canManageNews ? $newsService->all() : $newsService->published(),
+            200, ['csrfToken' => $authService->csrfToken()]);
     }
     if ($method === 'POST' && $route === '/news') {
         $authService->requireAdmin();
