@@ -3,7 +3,9 @@ api/config/mal-client-id.local.txt
 config/google-oauth-client.json
 runtime/anime-sync/google-token.json
 runtime/
-backups/
+/backups/*
+!/backups/.htaccess
+!/backups/README.md
 outputs/
 node_modules/
 __pycache__/
@@ -11,3 +13,15 @@ __pycache__/
 qa/node_modules/
 .venv/
 config/anime-sync.json
+
+# Operational collections stay local, including in already configured installations.
+/data/*
+!/data/.htaccess
+!/data/README.md
+*.local.*
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+*.db
