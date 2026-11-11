@@ -5,7 +5,7 @@ final class UserService
     private JsonStorage $storage;
     private CatalogService $catalog;
 
-    public function __construct(JsonStorage $storage, CatalogService $catalog)
+    public function __construct(JsonStorage $storage, CatalogService $catalog, private ?CatalogRequestService $requests = null)
     {
         $this->storage = $storage;
         $this->catalog = $catalog;
@@ -116,34 +116,39 @@ final class UserService
     {
         $content = $this->catalog->find($contentId);
 
-        if ($content === null && $contentPayload !== []) {
-            $content = $this->catalog->importExternal($contentId, $contentPayload);
-        }
-
         if ($content === null) {
+            if ($this->requests !== null && $this->catalog->stored($contentId) === null) {
+                $this->requests->favorite($session, $contentId, $contentPayload);
+                return $this->favorites($session);
+            }
             throw new ApiException('El contenido no existe.', 404);
         }
+        $this->storage->transaction(function () use ($session, $contentId): void {
+            if ($this->catalog->find($contentId) === null) { throw new ApiException('El contenido no existe.',404); }
+            $records = $this->storage->read('favoritos.json');
+            $exists = array_filter($records, fn(array $row): bool =>
+                ($row['userId'] ?? '') === $session['id'] && ($row['contentId'] ?? '') === $contentId
+            );
 
-        $records = $this->storage->read('favoritos.json');
-        $exists = array_filter($records, fn(array $row): bool =>
-            ($row['userId'] ?? '') === $session['id'] && ($row['contentId'] ?? '') === $contentId
-        );
-
-        if (!$exists) {
-            $records[] = ['userId' => $session['id'], 'contentId' => $contentId, 'createdAt' => date(DATE_ATOM)];
-            $this->storage->write('favoritos.json', $records);
-        }
+            if (!$exists) {
+                $records[] = ['userId' => $session['id'], 'contentId' => $contentId, 'createdAt' => date(DATE_ATOM)];
+                $this->storage->write('favoritos.json', $records);
+            }
+        });
 
         return $this->favorites($session);
     }
 
     public function removeFavorite(array $session, string $contentId): array
     {
-        $records = array_values(array_filter(
-            $this->storage->read('favoritos.json'),
-            fn(array $row): bool => !(($row['userId'] ?? '') === $session['id'] && ($row['contentId'] ?? '') === $contentId)
-        ));
-        $this->storage->write('favoritos.json', $records);
+        $this->storage->transaction(function () use ($session, $contentId): void {
+            $records = array_values(array_filter(
+                $this->storage->read('favoritos.json'),
+                fn(array $row): bool => !(($row['userId'] ?? '') === $session['id'] && ($row['contentId'] ?? '') === $contentId)
+            ));
+            $this->storage->write('favoritos.json', $records);
+            $this->requests?->cancel($session['id'], $contentId);
+        });
         return $this->favorites($session);
     }
 
@@ -231,12 +236,24 @@ final class UserService
 
     private function favoriteItems(string $userId): array
     {
-        $favoriteIds = array_column(array_filter(
+        $rows = array_values(array_filter(
             $this->storage->read('favoritos.json'),
             fn(array $row): bool => ($row['userId'] ?? '') === $userId
-        ), 'contentId');
-        $wanted = array_flip($favoriteIds);
-        return array_values(array_filter($this->catalog->all(), fn(array $item): bool => isset($wanted[$item['id'] ?? ''])));
+        ));
+        $stored = array_column($this->catalog->storedItems(), null, 'id');
+        $statuses = $this->requests?->statuses($userId) ?? [];
+        $items = [];
+        foreach ($rows as $row) {
+            $id = (string) ($row['contentId'] ?? '');
+            if (isset($stored[$id])) {
+                if (($stored[$id]['status'] ?? '') !== 'Oculto') { $items[] = $stored[$id]; }
+                continue; // A hidden record must not reappear from a private snapshot.
+            }
+            if (isset($row['snapshot']) && is_array($row['snapshot']) && ($row['snapshot']['id'] ?? '') === $id) {
+                $items[] = array_merge($row['snapshot'], ['catalogRequestStatus'=>$statuses[$id] ?? 'pending']);
+            }
+        }
+        return $items;
     }
 
     private function historyFor(string $userId): array

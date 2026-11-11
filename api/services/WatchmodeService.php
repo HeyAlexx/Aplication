@@ -72,6 +72,26 @@ final class WatchmodeService
         return array_values(array_slice($results, 0, 20, true));
     }
 
+    public function details(string $id, bool $anime = false): array
+    {
+        if (!$this->isConfigured()) { throw new ApiException('Watchmode no está configurado.', 503); }
+        $item = $this->request($this->baseUrl . '/title/' . rawurlencode($id) . '/details');
+        if ((string) ($item['id'] ?? '') !== $id || !in_array($item['type'] ?? '', ['movie', 'tv_series', 'tv_miniseries', 'tv_special', 'tv_movie', 'short_film'], true)) {
+            throw new ApiException('El proveedor no devolvió el título solicitado.', 502);
+        }
+        $type = in_array($item['type'], ['movie', 'tv_movie', 'short_film'], true) ? 'movies' : 'series';
+        $item['name'] = $item['title'] ?? $item['name'] ?? '';
+        if (trim((string) $item['name']) === '') { throw new ApiException('El título no contiene metadatos válidos.', 502); }
+        $result = $this->normalizeResult($item, $type);
+        $result['image'] = (string) ($item['poster'] ?? '');
+        $result['description'] = (string) ($item['plot_overview'] ?? $result['description']);
+        $genres = array_values(array_filter($item['genre_names'] ?? [], 'is_string'));
+        $result['genre'] = $genres[0] ?? $result['genre'];
+        $result['tags'] = array_slice($genres, 1, 3);
+        if ($anime) { $result['id'] = 'watchmode-anime-' . $id; $result['type'] = 'anime'; $result['genre'] = 'Anime'; }
+        return $result;
+    }
+
     private function request(string $url): array
     {
         $handle = curl_init($url);

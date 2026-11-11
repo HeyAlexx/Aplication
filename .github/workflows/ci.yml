@@ -47,6 +47,26 @@ jobs:
           PYTHONUTF8: '1'
           PYTHONDONTWRITEBYTECODE: '1'
         run: python -m unittest discover -s tests -p test_auth_transactions.py -v
+      - name: Probar revocacion, expiracion, limites y restablecimiento
+        env:
+          PYTHONUTF8: '1'
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s tests -p test_security_auth.py -v
+      - name: Probar solicitudes privadas, autorizacion y recuperacion
+        env:
+          PYTHONUTF8: '1'
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s tests -p test_catalog_approval.py -v
+      - name: Probar contrato HTTP con proveedores locales ficticios
+        env:
+          PYTHONUTF8: '1'
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s tests -p test_catalog_approval_http.py -v
+      - name: Probar entrada protegida del operador local
+        env:
+          PYTHONUTF8: '1'
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s tests -p test_reset_operator.py -v
 
   build:
     name: Pruebas y paquete
@@ -74,6 +94,7 @@ jobs:
           node --check js/catalogo.js
           node tests/catalog-pagination-state.cjs
           node tests/content-order.cjs
+          node tests/auth-fail-closed.cjs
           php -l server-router.php
       - name: Preparacion y recuperacion de releases
         run: |

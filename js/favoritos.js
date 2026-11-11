@@ -42,7 +42,10 @@ const createFavoriteItem = (item) => {
         : '<div class="favorite-placeholder">Sin imagen</div>';
 
     const description = item.description || "Contenido agregado a favoritos desde el catálogo.";
-    const moreLink = description.length > 160
+    const pending = Boolean(item.catalogRequestStatus);
+    const requestLabel = ({pending: "Pendiente de aprobación del administrador", approving: "Aprobación en proceso",
+        rejected: "Solicitud rechazada; se conserva en tus favoritos", cancelled: "Solicitud cancelada"})[item.catalogRequestStatus] || "";
+    const moreLink = !pending && description.length > 160
         ? `<a class="favorite-more-link" href="${escapeHtml(getCatalogDetailUrl(item))}">Ver más</a>`
         : "";
 
@@ -51,6 +54,7 @@ const createFavoriteItem = (item) => {
         <div class="favorite-copy">
             <span class="favorite-category">${escapeHtml(item.categoryGeneral || item.format || item.type || "General")}</span>
             <h2>${escapeHtml(item.title)}</h2>
+            ${requestLabel ? `<p class="favorite-request-status" role="status">${escapeHtml(requestLabel)}</p>` : ""}
             <div class="favorite-description">
                 <p>${escapeHtml(description)}</p>
                 ${moreLink}
