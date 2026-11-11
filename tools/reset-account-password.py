@@ -2,6 +2,7 @@
 import argparse
 import getpass
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -16,7 +17,7 @@ ALLOWED = {
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--app", required=True, type=Path)
-    parser.add_argument("--php", default=shutil.which("php") or "C:/xampp/php/php.exe")
+    parser.add_argument("--php", default=os.environ.get("PHP_BIN") or shutil.which("php") or "php")
     parser.add_argument("--user-id")
     parser.add_argument("--revoke-only", action="store_true")
     args, extra = parser.parse_known_args()

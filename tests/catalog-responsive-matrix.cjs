@@ -1,5 +1,5 @@
 const fs = require('node:fs');
-const { chromium } = require('playwright');
+const { chromium } = require('./browser-runtime.cjs');
 const base = process.env.ALTOIDSS_TEST_URL || 'http://127.0.0.1:8092';
 const catalogDir=require('./catalog-fixture-path.cjs');
 const sizes = [[320,740],[360,800],[412,924],[600,960],[768,1024],[820,1180],[1024,768],[1512,1000],[1920,1080]];

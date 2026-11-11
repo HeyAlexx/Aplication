@@ -376,7 +376,7 @@ def main():
     parser.add_argument('mode', choices=['preflight', 'snapshot', 'archive', 'transfer', 'restore'])
     parser.add_argument('--workspace', type=Path, default=ROOT.parents[1])
     parser.add_argument('--backup', type=Path, required=True)
-    parser.add_argument('--php', type=Path, default=Path('C:/xampp/php/php.exe'))
+    parser.add_argument('--php', type=Path, default=Path(os.environ.get('PHP_BIN') or shutil.which('php') or 'php'))
     parser.add_argument('--stage', type=Path)
     args = parser.parse_args()
     backup_root = Path('F:/Altoidss-Backups').resolve()

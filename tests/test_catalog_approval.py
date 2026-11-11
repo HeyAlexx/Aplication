@@ -9,7 +9,7 @@ import tempfile
 import unittest
 
 APP=Path(os.environ.get("ALTOIDSS_TEST_SOURCE",Path(__file__).resolve().parents[1]))
-PHP=os.environ.get("PHP_BIN") or shutil.which("php") or "C:/xampp/php/php.exe"
+PHP=os.environ.get("PHP_BIN") or shutil.which("php")
 DRIVER=r"""<?php
 require $argv[1].'/api/core/ApiException.php';
 require $argv[1].'/api/core/JsonStorage.php';

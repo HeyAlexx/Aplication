@@ -30,7 +30,7 @@ class ProtectedOperatorTests(unittest.TestCase):
         self.assertNotIn(sentinel,run.stdout+run.stderr)
 
     def test_php_helper_rejects_other_roots_without_writes(self):
-        php=shutil.which("php") or "C:/xampp/php/php.exe"
+        php=os.environ.get("PHP_BIN") or shutil.which("php") or "php"
         if not Path(php).is_file() and not shutil.which(php):self.skipTest("PHP required")
         with tempfile.TemporaryDirectory(prefix="altoidss-reset-denied-") as temporary:
             root=Path(temporary)

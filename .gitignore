@@ -8,4 +8,6 @@ outputs/
 node_modules/
 __pycache__/
 *.pyc
+qa/node_modules/
+.venv/
 config/anime-sync.json

@@ -1,5 +1,5 @@
 const assert = require("node:assert/strict");
-const { chromium } = require("playwright");
+const { chromium } = require("./browser-runtime.cjs");
 (async () => {
     const browser = await chromium.launch({ channel: "msedge", headless: true });
     try {
