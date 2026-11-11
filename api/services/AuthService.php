@@ -50,32 +50,35 @@ final class AuthService
         if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new ApiException('Ingrese un nombre y un correo válidos.');
         }
-
         if (strlen($password) < 6) {
             throw new ApiException('La contraseña debe tener al menos 6 caracteres.');
         }
 
-        $users = $this->storage->read('usuarios.json');
-
-        foreach ($users as $user) {
-            if (strtolower((string) ($user['email'] ?? '')) === $email) {
-                throw new ApiException('Ese correo ya está registrado.', 409);
+        // Hash outside the lock; uniqueness and all private records commit together.
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $user = $this->storage->transaction(function () use ($name, $email, $passwordHash): array {
+            $users = $this->storage->read('usuarios.json');
+            foreach ($users as $existing) {
+                if (strtolower((string) ($existing['email'] ?? '')) === $email) {
+                    throw new ApiException('Ese correo ya está registrado.', 409);
+                }
             }
-        }
+            $user = [
+                'id' => 'user-' . bin2hex(random_bytes(8)),
+                'name' => $name,
+                'email' => $email,
+                'passwordHash' => $passwordHash,
+                'role' => 'usuario',
+                'createdAt' => date(DATE_ATOM),
+                'status' => 'Activo',
+            ];
+            $users[] = $user;
+            $this->storage->write('usuarios.json', $users);
+            $this->createUserRecords($user);
+            return $user;
+        });
 
-        $user = [
-            'id' => 'user-' . bin2hex(random_bytes(8)),
-            'name' => $name,
-            'email' => $email,
-            'passwordHash' => password_hash($password, PASSWORD_DEFAULT),
-            'role' => 'usuario',
-            'createdAt' => date(DATE_ATOM),
-            'status' => 'Activo',
-        ];
-        $users[] = $user;
-        $this->storage->write('usuarios.json', $users);
-        $this->createUserRecords($user);
-
+        // Never authenticate a registration whose storage commit failed.
         return $this->startSession($user);
     }
 
