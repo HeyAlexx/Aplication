@@ -1,6 +1,6 @@
-// Requiere el servidor de desarrollo activo y Playwright disponible en NODE_PATH.
+// Ejecutar con tools/qa.py y dependencias locales bloqueadas en qa/.
 const assert = require("node:assert/strict");
-const { chromium } = require("playwright");
+const { chromium } = require("./browser-runtime.cjs");
 const { sort } = require("../js/content-order.js");
 
 (async () => {

@@ -131,14 +131,16 @@ class ApprovalHttpTests(unittest.TestCase):
         self.assertEqual(len(json.loads((self.fixture.root/"data/peliculas.json").read_text())),1)
 
     def test_dashboard_can_approve_and_renders_provider_title_as_text(self):
-        dependency=Path(os.environ.get("NODE_PATH",r"C:\Users\Alvar\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules"))
-        if not (dependency/"playwright").is_dir():self.skipTest("Playwright unavailable for optional browser integration")
+        dependency=Path(os.environ.get("ALTOIDSS_QA_NODE_MODULES",str(fixtures.APP/"qa/node_modules")))
+        if not (dependency/"playwright").is_dir():
+            if os.environ.get("ALTOIDSS_REQUIRE_BROWSER")=="1":self.fail("Install locked QA dependencies before running browser integration")
+            self.skipTest("Browser integration requires npm ci in qa/")
         for folder in ("Html","js","css","img"):
             shutil.copytree(fixtures.APP/folder,self.fixture.root/folder,dirs_exist_ok=True)
         self.provider_title="<img src=x onerror=alert(1)> Verified title"
         self.pending()
         script=Path(__file__).with_name("catalog-approval-browser.cjs")
-        env={**os.environ,"NODE_PATH":str(dependency),"ALTOIDSS_TEST_URL":"http://127.0.0.1:"+str(self.fixture.port),
+        env={**os.environ,"ALTOIDSS_QA_NODE_MODULES":str(dependency),"ALTOIDSS_TEST_URL":"http://127.0.0.1:"+str(self.fixture.port),
              "ALTOIDSS_FIXTURE_PASSWORD":self.fixture.password}
         result=subprocess.run(["node",str(script)],env=env,capture_output=True,text=True,encoding="utf-8",timeout=90)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)

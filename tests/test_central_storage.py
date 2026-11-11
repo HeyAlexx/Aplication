@@ -1,14 +1,16 @@
 import json
 import os
+import shutil
 import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
 APP = Path(__file__).resolve().parents[1]
-PHP = r'C:\xampp\php\php.exe'
+PHP = os.environ.get('PHP_BIN') or shutil.which('php')
 
 
+@unittest.skipUnless(PHP, "Set PHP_BIN or install PHP in PATH")
 class CentralStorageTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix='altoidss-central-')

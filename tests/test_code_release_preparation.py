@@ -12,14 +12,17 @@ import prepare_code_release as release
 class CodeReleasePreparationTests(unittest.TestCase):
     def test_package_allowlist(self):
         for path in ('api/config/app.php', 'api/config/catalog-storage.php',
-                     'Html/catalogo.html', 'tools/storage_transaction.py', 'img/logo.png'):
+                     'Html/catalogo.html', 'tools/storage_transaction.py', 'img/logo.png',
+                     'qa/package.json', 'qa/package-lock.json', 'qa/requirements.txt',
+                     'tools/deployment/Iniciar-Altoidss.cmd'):
             self.assertTrue(release.code_path(path), path)
         for path in ('data/anime.json', 'api/config/secrets.local.php',
                      'api/config/mal-client-id.local.txt', 'config/anime-sync.json',
                      'runtime/google-token.json', 'outputs/test.js', 'backups/test.php',
                      'tools/__pycache__/test.py', 'tools/node_modules/test.js',
                      '../api/test.php', 'api\\test.php', '/api/test.php', 'api/file:stream.php',
-                     'iniciar-sincronizacion-anime.cmd', 'img/program.exe'):
+                     'iniciar-sincronizacion-anime.cmd', 'img/program.exe', 'qa/secrets.json',
+                     'qa/node_modules/playwright/index.js'):
             self.assertFalse(release.code_path(path), path)
 
     def test_local_changes_are_classified_without_automatic_merge(self):

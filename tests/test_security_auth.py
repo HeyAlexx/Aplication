@@ -95,6 +95,33 @@ class AuthSecurityTests(unittest.TestCase):
         self.assertEqual(status,200)
         self.assertEqual(json.loads(body)["data"]["name"],"Updated fixture name")
 
+    def test_bcrypt_cost_upgrade_preserves_identity_and_invalidates_previous_stamp(self):
+        cookie = self.fixture.login("admin")
+        weak_hash = subprocess.check_output([fixtures.PHP, "-r",
+            "echo password_hash(stream_get_contents(STDIN),PASSWORD_BCRYPT,['cost'=>4]);"],
+            input=self.fixture.password, text=True).strip()
+        self.change_admin(lambda users: users[0].update(passwordHash=weak_hash, authVersion=3))
+        self.edit_session(cookie, '$u=json_decode(file_get_contents(dirname($argv[1],2)."/data/usuarios.json"),true);$_SESSION["auth"]["version"]=3;$_SESSION["auth"]["stamp"]=hash("sha256",$u[0]["passwordHash"])')
+        self.assertEqual(self.protected(cookie), 200)
+        users_file = self.fixture.root / "data/usuarios.json"
+        before = json.loads(users_file.read_text(encoding="utf-8"))
+        favorites_file = self.fixture.root / "data/favoritos.json"
+        favorites_file.write_text(json.dumps([{"userId":"fixture-admin","contentId":"visible"}]), encoding="utf-8")
+        favorites_before = favorites_file.read_bytes()
+        fresh = self.fixture.login("admin")
+        after = json.loads(users_file.read_text(encoding="utf-8"))
+        self.assertNotEqual(after[0]["passwordHash"], weak_hash)
+        self.assertEqual({k:v for k,v in after[0].items() if k != "passwordHash"},
+                         {k:v for k,v in before[0].items() if k != "passwordHash"})
+        self.assertEqual(after[1:], before[1:])
+        self.assertEqual(favorites_file.read_bytes(), favorites_before)
+        self.assertEqual(self.protected(cookie), 401)
+        self.assertEqual(self.protected(fresh), 200)
+        probe = subprocess.check_output([fixtures.PHP, "-r",
+            '$u=json_decode(file_get_contents($argv[1]),true);echo password_needs_rehash($u[0]["passwordHash"],PASSWORD_DEFAULT)?"pending":"current";',
+            str(users_file)], text=True)
+        self.assertEqual(probe, "current")
+
     def test_login_limit_survives_new_sessions_and_recovers_after_window(self):
         route="/api/index.php?route=/auth/login"
         for _ in range(5):

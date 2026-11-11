@@ -1,0 +1,11 @@
+{
+  "name": "altoids-qa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Locked test tools; the application has no frontend build step.",
+  "engines": { "node": ">=22 <23" },
+  "devDependencies": {
+    "bootstrap": "5.3.8",
+    "playwright": "1.62.1"
+  }
+}

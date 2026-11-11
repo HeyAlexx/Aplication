@@ -1,10 +1,9 @@
-# CI y entrega a staging aislado. Despliegue local controlado: docs/CI-CD.md.
 name: CI y staging
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, fix/catalog-pagination-branding-cicd]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -14,107 +13,62 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  PYTHONUTF8: '1'
+  PYTHONDONTWRITEBYTECODE: '1'
+
 jobs:
-  security:
-    name: Privacidad y transacciones (${{ matrix.os }})
+  qualification:
+    name: QA PHP ${{ matrix.php }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-2022]
+        php: ['8.2.35', '8.4.27']
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/playwright
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
-      # Immutable action reference; PHP 8.2 is also used by build and staging.
-      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
-        with:
-          php-version: '8.2'
-          extensions: curl, mbstring
-          coverage: none
-          tools: none
-      - name: Probar acceso HTTP con datos ficticios
-        env:
-          PYTHONUTF8: '1'
-          PYTHONDONTWRITEBYTECODE: '1'
-        run: python -m unittest discover -s tests -p test_http_privacy.py -v
-      - name: Probar registros simultaneos y rollback
-        env:
-          PYTHONUTF8: '1'
-          PYTHONDONTWRITEBYTECODE: '1'
-        run: python -m unittest discover -s tests -p test_auth_transactions.py -v
-      - name: Probar revocacion, expiracion, limites y restablecimiento
-        env:
-          PYTHONUTF8: '1'
-          PYTHONDONTWRITEBYTECODE: '1'
-        run: python -m unittest discover -s tests -p test_security_auth.py -v
-      - name: Probar solicitudes privadas, autorizacion y recuperacion
-        env:
-          PYTHONUTF8: '1'
-          PYTHONDONTWRITEBYTECODE: '1'
-        run: python -m unittest discover -s tests -p test_catalog_approval.py -v
-      - name: Probar contrato HTTP con proveedores locales ficticios
-        env:
-          PYTHONUTF8: '1'
-          PYTHONDONTWRITEBYTECODE: '1'
-        run: python -m unittest discover -s tests -p test_catalog_approval_http.py -v
-      - name: Probar entrada protegida del operador local
-        env:
-          PYTHONUTF8: '1'
-          PYTHONDONTWRITEBYTECODE: '1'
-        run: python -m unittest discover -s tests -p test_reset_operator.py -v
-
-  build:
-    name: Pruebas y paquete
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-      # Checkout sin credenciales persistentes; todo el paquete proviene de este SHA.
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+          python-version: '3.13.12'
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
+          node-version: '22.22.0'
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
         with:
-          php-version: '8.2'
-          extensions: curl, mbstring
+          php-version: ${{ matrix.php }}
+          extensions: curl, mbstring, openssl, fileinfo, pdo_sqlite
+          ini-values: date.timezone=America/Costa_Rica, expose_php=Off
           coverage: none
           tools: none
-      - name: Sintaxis y regresion del catalogo
-        run: |
-          node --check js/catalogo.js
-          node tests/catalog-pagination-state.cjs
-          node tests/content-order.cjs
-          node tests/auth-fail-closed.cjs
-          php -l server-router.php
-      - name: Preparacion y recuperacion de releases
-        run: |
-          python -m unittest discover -s tests -p test_code_release_preparation.py
-          python -m unittest discover -s tests -p test_release_installation.py
-      - name: Construir paquete sin datos privados
-        run: python tools/ci_release.py build --output "${{ runner.temp }}/release"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: code-${{ github.sha }}
-          path: ${{ runner.temp }}/release/
-          if-no-files-found: error
-          retention-days: 14
-      - name: Resultado del build
+      - name: Instalar dependencias Python con hashes
+        run: python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r qa/requirements.txt
+      - name: Instalar dependencias Node del lockfile
+        working-directory: qa
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Instalar el Chromium fijado por Playwright
+        run: node qa/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Sintaxis, regresiones y navegador con datos ficticios
+        run: python -B tools/qa.py --php php --suite all --output "${{ runner.temp }}/qualification-${{ matrix.php }}"
+      - name: Conservar informe y logs de QA
         if: always()
-        run: echo "Build ${{ job.status }} · commit ${{ github.sha }}" >> "$GITHUB_STEP_SUMMARY"
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-${{ matrix.os }}-php-${{ matrix.php }}-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/qualification-${{ matrix.php }}/*.json
+            ${{ runner.temp }}/qualification-${{ matrix.php }}/*.log
+            ${{ runner.temp }}/qualification-${{ matrix.php }}/fixture/app/outputs/
+          retention-days: 14
 
-  staging:
-    name: Validar artefacto en staging
-    needs: [build, security]
+  build:
+    name: Paquete de codigo verificado
+    needs: [qualification]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -123,20 +77,45 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.13.12'
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
         with:
-          php-version: '8.2'
-          extensions: curl, mbstring
+          php-version: '8.4.27'
+          extensions: curl, mbstring, openssl, fileinfo, pdo_sqlite
+          ini-values: date.timezone=America/Costa_Rica, expose_php=Off
           coverage: none
           tools: none
-      # Prueba el artefacto del build anterior; no reconstruye ni accede a produccion.
+      - name: Construir paquete desde blobs del SHA, sin datos ni dependencias instaladas
+        run: python tools/ci_release.py build --output "${{ runner.temp }}/release"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: code-${{ github.sha }}
+          path: ${{ runner.temp }}/release/
+          if-no-files-found: error
+          retention-days: 14
+
+  staging:
+    name: Validar el mismo artefacto con PHP 8.4
+    needs: [build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.12'
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        with:
+          php-version: '8.4.27'
+          extensions: curl, mbstring, openssl, fileinfo, pdo_sqlite
+          ini-values: date.timezone=America/Costa_Rica, expose_php=Off
+          coverage: none
+          tools: none
       - uses: actions/download-artifact@v4
         with:
           name: code-${{ github.sha }}
           path: ${{ runner.temp }}/release/
-      - name: Servir paquete y comprobar HTTP con datos ficticios
-        run: python tools/ci_release.py smoke --package "${{ runner.temp }}/release"
-      - name: Resultado de staging
-        if: always()
-        run: echo "Staging ${{ job.status }} · commit ${{ github.sha }} · produccion requiere PR revisado y despliegue local aprobado" >> "$GITHUB_STEP_SUMMARY"
+      - name: Smoke HTTP con datos ficticios, sin reconstruir el paquete
+        run: python tools/ci_release.py smoke --package "${{ runner.temp }}/release" --php php
