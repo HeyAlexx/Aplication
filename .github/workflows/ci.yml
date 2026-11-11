@@ -47,7 +47,8 @@ jobs:
           coverage: none
           tools: none
       - name: Instalar dependencias Python con hashes
-        run: python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r qa/requirements.txt
+        run: |
+          python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r qa/requirements.txt
       - name: Instalar dependencias Node del lockfile
         working-directory: qa
         run: npm ci --ignore-scripts --no-audit --no-fund
