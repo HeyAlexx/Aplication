@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const {chromium}=require('playwright');
+const {chromium}=require('./browser-runtime.cjs');
 const root=path.resolve(__dirname,'..');
 const base=process.env.ALTOIDSS_TEST_URL||'http://127.0.0.1:8092';
 const catalogDir=require('./catalog-fixture-path.cjs');
@@ -10,12 +10,14 @@ const content=[...load('anime.json'),...load('peliculas.json'),...load('series.j
 const template={type:'anime',genre:'Anime',emissionYear:2026,emissionSeason:'Fall',seasonsCount:1,chapters:12,format:'Serie',productionStatus:'Finalizado',status:'Activo'};
 content.push({...template,id:'qa-dated',title:'QA fecha corta',createdAt:'2026-10-08T12:00:00Z'},
   {...template,id:'qa-unknown',title:'QA sin referencia'},
-  {...template,id:'qa-long',title:'QA-'+ 'TituloLargoSinEspacios'.repeat(12)});
+  {...template,id:'qa-long',title:'QA-'+ 'TituloLargoSinEspacios'.repeat(12)},
+  {...template,id:'qa-historical',title:'QA fila sin fecha',sourceCode:'QA-HISTORICAL',sourceRow:77},
+  {...template,id:'qa-estimated',title:'QA historico estimado',incorporatedAt:'2020-01-01T12:00:00Z',sourceRow:78,incorporationDateBasis:'historical-qa',sheetImportBatchId:'qa-batch'});
 const news=load('noticias.json');
 const session={id:'qa-admin',name:'QA',role:'admin',profileMode:'admin',isAuthenticated:true,email:'qa@example.invalid'};
 const profile={...session,displayName:'QA',seenIds:[],viewingStates:{},favoriteIds:[],favoriteItems:{},settings:{cardsPerRow:5,preferredView:'cards'}};
 const summary={profile,totalContent:content.length,seenTotal:0,favoriteTotal:0,moviesSeen:0,seriesSeen:0,animeSeen:0,topGenre:'Sin datos',lastVisit:'Hoy',watchTimeMinutes:0};
-const report={timestamp:new Date().toISOString(),base,mockedAdmin:true,realCatalogCount:content.length-3,cases:[],errors:[],mutations:[]};
+const report={timestamp:new Date().toISOString(),base,mockedAdmin:true,fixtureCatalogCount:content.length-5,cases:[],errors:[],mutations:[]};
 const output=path.join(root,'outputs','qa-admin');fs.mkdirSync(output,{recursive:true});
 (async()=>{
   const browser=await chromium.launch({channel:'msedge',headless:true});
@@ -98,11 +100,11 @@ const output=path.join(root,'outputs','qa-admin');fs.mkdirSync(output,{recursive
           }
           await page.screenshot({path:path.join(output,`${mode}-${width}.png`)});
           if(mode==='content'&&width===412) {
-            const mechanic=page.locator('#contentTableBody tr').filter({hasText:'Mechanic: Resurrection'}).first();
-            await mechanic.screenshot({path:path.join(output,'mechanic-412.png')});
+            const mechanic=page.locator('#contentTableBody tr').filter({has:page.locator('[data-edit-id="qa-dated"]')}).first();
+            await mechanic.screenshot({path:path.join(output,'sample-record-412.png')});
             const edit=mechanic.locator('[data-edit-id]');
             await edit.hover();await page.mouse.down();await page.waitForTimeout(200);
-            await mechanic.screenshot({path:path.join(output,'mechanic-pressed-412.png')});
+            await mechanic.screenshot({path:path.join(output,'sample-record-pressed-412.png')});
             await page.mouse.move(0,0);await page.mouse.up();await edit.evaluate(b=>b.blur());
           }
           report.cases.push({width,mode,passed:true,layout});
@@ -117,6 +119,7 @@ const output=path.join(root,'outputs','qa-admin');fs.mkdirSync(output,{recursive
         assert.ok(historical);
         assert.equal(await page.locator(`[data-edit-id="${historical.id}"]`).locator('xpath=ancestor::tr').locator('td[data-label="Agregado"] .incorporation-date').innerText(),`Fila ${historical.sourceRow}`);
         const initialized=content.find(i=>String(i.incorporationDateBasis||'').startsWith('historical-'));
+        assert.ok(initialized);
         if(initialized) {
           const date=page.locator(`[data-edit-id="${initialized.id}"]`).locator('xpath=ancestor::tr').locator('td[data-label="Agregado"] .incorporation-date');
           assert.match(await date.innerText(),/^≈ \d{2}\/\d{2}\/\d{2}$/);

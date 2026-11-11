@@ -1,7 +1,7 @@
 // Captura una copia respaldada de producción, nunca arranca la instalación real.
 const fs=require('node:fs'), path=require('node:path'), net=require('node:net');
 const {spawn}=require('node:child_process');
-const {chromium}=require('playwright');
+const {chromium}=require('./browser-runtime.cjs');
 (async()=>{
   const snapshot=path.resolve(process.argv[2]||'');
   if(!snapshot.includes('preproduction-snapshots')||!fs.existsSync(path.join(snapshot,'production','server-router.php'))) throw Error('Indique un snapshot válido.');

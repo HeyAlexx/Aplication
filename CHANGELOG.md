@@ -4,6 +4,14 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### Runtime y pruebas reproducibles
+
+- Perfil PHP 8.4.27 independiente de XAMPP, con artefacto/CA verificados y preparación sin activación.
+- Toolchain Python aislado con versiones y hashes; Playwright/Bootstrap fijados en qa/ y Chromium propio.
+- QA automático con código permitido y datos ficticios, sin NODE_PATH ni archivos privados del perfil.
+- Launchers con herramientas configuradas y comprobación de versión; CI Windows/Linux con PHP 8.2.35 y 8.4.27.
+- Ver [preparación, límites y activación](docs/RUNTIME-AND-QA.md).
+
 ### Cuentas y solicitudes externas
 
 - Sesiones revalidadas por cuenta, rol, versión y credencial; expiración y límites de intentos.

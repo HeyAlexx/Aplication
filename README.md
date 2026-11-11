@@ -2,6 +2,12 @@
 
 Altoidss nació como un proyecto universitario de Programación Internet. Desde entonces se ha ido transformando en una aplicación para organizar un catálogo audiovisual personal, con herramientas de administración, revisión de información y sincronización de anime. Su origen académico forma parte de su historia; hoy su desarrollo se centra en mejorar la aplicación y ampliar sus posibilidades de uso.
 
+## Entorno y pruebas
+
+La preparación de herramientas y las pruebas aisladas están documentadas en
+[Runtime y QA reproducibles](docs/RUNTIME-AND-QA.md). No ejecutar el launcher operativo
+para probar una copia nueva: QA genera sus datos ficticios y cierra sus servidores locales.
+
 ## ¿Qué es Altoidss?
 
 Una aplicación web para consultar y administrar películas, series y anime, mantener una lista personal y registrar el estado de visualización. Funciona con PHP y archivos JSON, sin requerir MySQL. El catálogo de anime puede alimentarse desde Google Sheets o Excel y contrastarse con proveedores externos de metadatos.

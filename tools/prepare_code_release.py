@@ -14,7 +14,7 @@ from datetime import datetime
 from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
-TEXT_ROOTS = {'api', 'Html', 'css', 'js', 'docs', 'tests', 'tools', '.github'}
+TEXT_ROOTS = {'api', 'Html', 'css', 'js', 'docs', 'tests', 'tools', '.github', 'qa'}
 TEXT_SUFFIXES = {'.php', '.html', '.css', '.js', '.cjs', '.py', '.ps1', '.md', '.yml', '.yaml'}
 ROOT_FILES = {'server-router.php', 'README.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'ROADMAP.md', 'VERSION'}
 ASSET_SUFFIXES = {'.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif', '.ico', '.woff', '.woff2', '.ttf'}
@@ -37,7 +37,8 @@ def code_path(name):
         return False
     if '.local.' in path.name or path.name.startswith('.env'):
         return False
-    if name in ROOT_FILES:
+    if name in ROOT_FILES or name in {'qa/package.json', 'qa/package-lock.json', 'qa/requirements.txt',
+                                            'tools/deployment/Iniciar-Altoidss.cmd'}:
         return True
     return ((path.parts[0] in TEXT_ROOTS and path.suffix in TEXT_SUFFIXES)
             or (path.parts[0] == 'img' and path.suffix.lower() in ASSET_SUFFIXES))

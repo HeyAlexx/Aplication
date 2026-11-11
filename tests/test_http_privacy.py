@@ -11,9 +11,7 @@ import time
 import unittest
 
 APP = Path(os.environ.get("ALTOIDSS_TEST_SOURCE", Path(__file__).resolve().parents[1]))
-PHP = os.environ.get("PHP_BIN") or shutil.which("php") or (
-    "C:/xampp/php/php.exe" if Path("C:/xampp/php/php.exe").exists() else None
-)
+PHP = os.environ.get("PHP_BIN") or shutil.which("php")
 
 @unittest.skipUnless(PHP, "PHP is required for isolated HTTP tests")
 class HttpPrivacyTests(unittest.TestCase):

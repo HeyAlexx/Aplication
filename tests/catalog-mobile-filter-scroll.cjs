@@ -1,5 +1,5 @@
 const assert = require('node:assert/strict');
-const {chromium} = require('playwright');
+const {chromium} = require('./browser-runtime.cjs');
 const base=process.env.ALTOIDSS_TEST_URL || 'http://127.0.0.1:8092';
 (async()=>{
     const browser=await chromium.launch({channel:'msedge',headless:true});

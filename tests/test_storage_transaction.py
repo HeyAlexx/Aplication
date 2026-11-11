@@ -15,7 +15,7 @@ from storage_transaction import atomic_json, commit_collections, file_lock, stor
 import test_catalog_completeness
 import anime_sync_pipeline as sync
 
-PHP = shutil.which('php') or ('C:/xampp/php/php.exe' if Path('C:/xampp/php/php.exe').exists() else None)
+PHP = os.environ.get('PHP_BIN') or shutil.which('php')
 BOOT = "require $argv[1].'/api/core/ApiException.php'; require $argv[1].'/api/core/JsonStorage.php'; "
 
 
