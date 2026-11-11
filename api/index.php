@@ -141,6 +141,14 @@ try {
     if ($method === 'PUT' && $route === '/settings') {
         Response::success($userService->updateSettings($authService->requireUser(), $payload), 200, ['csrfToken' => $authService->csrfToken()]);
     }
+    if ($method === 'GET' && $route === '/catalog/requests') {
+        Response::success($catalogRequests->all(), 200, ['csrfToken'=>$authService->csrfToken()]);
+    }
+    if ($method === 'POST' && preg_match('#^/catalog/requests/([^/]+)$#', $route, $matches)) {
+        $authService->requireAdmin();
+        Response::success($catalogRequests->decide($matches[1], (string) ($payload['decision'] ?? '')),
+            200, ['csrfToken'=>$authService->csrfToken()]);
+    }
     if ($method === 'GET' && $route === '/favorites') {
         Response::success(($authService->session()['isAuthenticated'] ?? false) ? $userService->favorites($authService->session()) : []);
     }

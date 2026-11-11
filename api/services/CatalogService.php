@@ -49,6 +49,24 @@ final class CatalogService
         return null;
     }
 
+    // Internal lookup only; callers must not expose hidden records to users.
+    public function stored(string $id): ?array
+    {
+        foreach ($this->storedItems() as $item) {
+            if (($item['id'] ?? '') === $id) { return $item; }
+        }
+        return null;
+    }
+
+    public function storedItems(): array
+    {
+        return $this->storage->transaction(function (): array {
+            $items = [];
+            foreach (self::FILES as $file) { $items = array_merge($items, $this->storage->read($file)); }
+            return $items;
+        });
+    }
+
     public function create(array $payload): array
     {
         return $this->storage->transaction(fn() => $this->createInTransaction($payload));
@@ -148,16 +166,25 @@ final class CatalogService
         $this->storage->write($file, $items);
     }
 
-    public function importExternal(string $id, array $payload): array
+    public function importExternal(string $id, array $payload, ?callable $authorize = null): array
     {
-        return $this->storage->transaction(fn() => $this->importExternalInTransaction($id, $payload));
+        return $this->storage->transaction(function () use ($id, $payload, $authorize): array {
+            $actor = $authorize ? $authorize() : [];
+            if (!($actor['isAuthenticated'] ?? false) || ($actor['role'] ?? '') !== 'admin') {
+                throw new ApiException('La incorporación requiere aprobación administrativa.', 403);
+            }
+            return $this->importExternalInTransaction($id, $payload);
+        });
     }
 
     private function importExternalInTransaction(string $id, array $payload): array
     {
-        $existing = $this->find($id);
+        $existing = $this->stored($id);
 
         if ($existing !== null) {
+            if (($existing['status'] ?? '') === 'Oculto') {
+                throw new ApiException('El contenido no está disponible para incorporar.', 409);
+            }
             return $existing;
         }
 

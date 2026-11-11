@@ -30,7 +30,7 @@ const output=path.join(root,'outputs','qa-admin');fs.mkdirSync(output,{recursive
         if(request.method()!=='GET') {report.mutations.push(endpoint);return route.fulfill({status:403,contentType:'application/json',body:'{"ok":false}'});}
         const routes={'/health':{status:'ok'},'/auth/session':session,'/profile':profile,'/dashboard':summary,
           '/content/anime':content.filter(i=>i.type==='anime'),'/content/movies':content.filter(i=>i.type==='movies'),
-          '/content/series':content.filter(i=>i.type==='series'),'/news':news,'/reviews/anime':[]};
+          '/content/series':content.filter(i=>i.type==='series'),'/news':news,'/reviews/anime':[], '/catalog/requests':[]};
         if(!(endpoint in routes))throw Error(`GET inesperado: ${endpoint}`);
         await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,data:routes[endpoint],meta:{}})});
       });
