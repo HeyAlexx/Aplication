@@ -10,6 +10,7 @@ import shutil
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 
@@ -111,9 +112,14 @@ def main():
     if output.resolve() != output or output == ROOT or ROOT.is_relative_to(output):
         parser.error('Choose a new output directory; it must not contain the source checkout.')
     output.mkdir(parents=True, exist_ok=False)
-    temporary = output / 'temporary'
-    temporary.mkdir()
-    env = environment(temporary)
+    temporary_base = Path(os.environ.get('RUNNER_TEMP') or tempfile.gettempdir()).resolve()
+    if not temporary_base.is_dir():
+        raise ValueError('The standard temporary base directory is unavailable.')
+    temporary = tempfile.TemporaryDirectory(prefix='altoids-qa-', dir=temporary_base)
+    owned_temporary = Path(temporary.name).resolve()
+    if owned_temporary.parent != temporary_base:
+        raise ValueError('Unexpected temporary directory boundary.')
+    env = environment(owned_temporary)
     env.update(PHP_BIN=str(Path(args.php).resolve()), PYTHONUTF8='1', PYTHONDONTWRITEBYTECODE='1',
         ALTOIDSS_QA_NODE_MODULES=str(ROOT / 'qa/node_modules'),
         PLAYWRIGHT_BROWSERS_PATH=os.environ.get('PLAYWRIGHT_BROWSERS_PATH', str(ROOT / 'runtime/qa-browsers')),
@@ -218,6 +224,15 @@ def main():
         report.update(status='FAILED', errorType=type(error).__name__, error=str(error))
         raise
     finally:
+        # Remove only the canonical directory allocated by this invocation.
+        if owned_temporary.resolve().parent != temporary_base:
+            raise RuntimeError('Temporary directory moved outside the expected boundary; cleanup refused.')
+        try:
+            temporary.cleanup()
+            report['ownedTemporaryDirectoryRemoved'] = not owned_temporary.exists()
+        except BaseException:
+            report.update(status='FAILED', error='Could not clean the owned QA temporary directory.')
+            raise
         report['finishedAt'] = datetime.now(timezone.utc).isoformat()
         (output / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(json.dumps({k:report[k] for k in ['status','sourceCodeSha256','codeFiles','runtime']}
