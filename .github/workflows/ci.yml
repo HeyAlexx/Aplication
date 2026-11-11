@@ -27,8 +27,6 @@ jobs:
       matrix:
         os: [ubuntu-24.04, windows-2022]
         php: ['8.2.35', '8.4.27']
-    env:
-      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/playwright
     steps:
       - uses: actions/checkout@v4
         with:
@@ -53,8 +51,12 @@ jobs:
         working-directory: qa
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Instalar el Chromium fijado por Playwright
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/playwright
         run: node qa/node_modules/playwright/cli.js install --with-deps chromium
       - name: Sintaxis, regresiones y navegador con datos ficticios
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/playwright
         run: python -B tools/qa.py --php php --suite all --output "${{ runner.temp }}/qualification-${{ matrix.php }}"
       - name: Conservar informe y logs de QA
         if: always()
