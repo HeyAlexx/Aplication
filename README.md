@@ -245,3 +245,10 @@ Consultar docs/REPOSITORY-HYGIENE.md antes de preparar commits.
 La identidad de una publicación parcial se registra en un comprobante privado, separada del HEAD
 conservado. tools/release_status.py consulta hashes y detecta drift sin corregir archivos.
 Consultar docs/RELEASE-IDENTITY.md y seguir el flujo CI/CD antes de instalar.
+
+
+## Cookies de sesión tras proxy HTTPS
+
+El arranque público exige Secure y comprueba los atributos reales antes de iniciar sincronización/túnel.
+El modo HTTP local conserva su configuración separada; las cabeceras de proxy de clientes no deciden la política.
+Consultar docs/SESSION-TRANSPORT.md para SecureCookies, comprobación y límites del HTTPS externo.

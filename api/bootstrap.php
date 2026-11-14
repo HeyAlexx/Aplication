@@ -16,7 +16,9 @@ session_name($config['session_name']);
 session_set_cookie_params([
     'httponly' => true,
     'samesite' => 'Lax',
-    'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+    // Honour server policy for TLS-terminating proxies; never trust client forwarding headers.
+    'secure' => (bool) ini_get('session.cookie_secure')
+        || (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
 ]);
 session_start();
 
