@@ -8,9 +8,13 @@ param(
     [switch]$Sync,
     [string]$PhpExecutable = '',
     [string]$PythonExecutable = '',
-    [switch]$CheckRuntime
+    [switch]$CheckRuntime,
+    [switch]$SecureCookies
 )
 $ErrorActionPreference = 'Stop'
+if ($Sync -and $SecureCookies) { throw 'SecureCookies corresponde al servidor, no al sincronizador.' }
+$phpLaunchArgs = @()
+if ($SecureCookies) { $phpLaunchArgs += @('-d','session.cookie_secure=1') }
 $workspace = [IO.Path]::GetFullPath($PSScriptRoot)
 $environmentFolder = if ($Environment -eq 'produccion') { 'ProyectoFinal' } else { 'Desarrollo' }
 if (-not $AppPath) { $AppPath = Join-Path $workspace "$environmentFolder\Aplication" }
@@ -58,7 +62,7 @@ if ($Sync) {
 } else {
     if (-not $PhpExecutable) { $PhpExecutable = $toolchain.phpExecutable }
     $PhpExecutable = (Resolve-Path -LiteralPath $PhpExecutable).Path
-    $runtimeProfile = & $PhpExecutable '-r' "echo json_encode(['version'=>PHP_VERSION,'extensions'=>get_loaded_extensions()],JSON_THROW_ON_ERROR);"
+    $runtimeProfile = & $PhpExecutable @phpLaunchArgs '-r' "echo json_encode(['version'=>PHP_VERSION,'extensions'=>get_loaded_extensions(),'secureCookies'=>(bool)ini_get('session.cookie_secure')],JSON_THROW_ON_ERROR);"
     if ($LASTEXITCODE -ne 0) { throw 'No se pudo verificar el PHP seleccionado.' }
     $runtimeProfile = $runtimeProfile | ConvertFrom-Json
     if ($runtimeProfile.version -ne '8.4.27') { throw 'El PHP seleccionado no coincide con el perfil 8.4.27.' }
@@ -78,6 +82,6 @@ try {
         # Development uses its own Sheet config/token; they are never copied here.
         & $PythonExecutable 'tools\anime_sync_pipeline.py' --config 'config\anime-sync.json' --apply --watch --interval 300
     } else {
-        & $PhpExecutable -S "${BindAddress}:$Port" -t . 'server-router.php'
+        & $PhpExecutable @phpLaunchArgs -S "${BindAddress}:$Port" -t . 'server-router.php'
     }
 } finally { Pop-Location }
