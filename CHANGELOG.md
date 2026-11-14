@@ -103,3 +103,10 @@ No hay una etiqueta `v0.1.0` creada por esta preparación. Las funciones futuras
 - Añade control de blobs del índice/commit en CI y rechazo de firmas de credenciales en build, preparación y staging.
 - Sustituye el correo de una cuenta existente usado como placeholder por un ejemplo ficticio.
 - Registra una identidad privada por alcance al instalar y detecta drift con release_status.py; recupera conjuntamente código y comprobante ante fallos.
+
+
+## Transporte de sesiones detrás de proxy
+
+- Respeta session.cookie_secure y HTTPS nativo sin confiar en cabeceras reenviadas del cliente.
+- El CMD público exige cookies seguras y verifica el backend existente antes de continuar; PS admite SecureCookies por proceso.
+- Añade regresiones de atributos, login/logout y frontal TLS local con backend HTTP; mantiene pendiente la comprobación externa autorizada.

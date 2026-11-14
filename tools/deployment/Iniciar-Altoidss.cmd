@@ -144,7 +144,11 @@ if /i "%~1"=="--check" (
     echo [OK] Cloudflare:  !CLOUDFLARED_EXE!
     echo [OK] Drive:       config\anime-sync.json
     echo [OK] Puerto fijo: %PORT%
-    if /i "%SERVER_STATE%"=="READY" echo [OK] Servidor:     Altoidss ya esta activo
+    if /i "%SERVER_STATE%"=="READY" (
+        echo [OK] Servidor:     Altoidss ya esta activo
+        "%PYTHON_EXE%" "%APP_DIR%\tools\check_session_cookie.py" --url "%HEALTH_URL%"
+        if errorlevel 1 goto session_cookie_failed
+    )
     if /i "%SERVER_STATE%"=="FREE" echo [OK] Servidor:     listo para iniciar
     if /i "%SERVER_STATE%"=="OCCUPIED" echo [ERROR] Servidor: el puerto %PORT% esta ocupado por otra aplicacion
     if defined SYNC_RUNNING (echo [OK] Sincronizador: activo) else echo [OK] Sincronizador: listo para iniciar
@@ -166,7 +170,7 @@ if /i "%SERVER_STATE%"=="READY" (
     echo [OK] Altoidss ya esta activo en el puerto %PORT%.
 ) else (
     echo Iniciando Altoidss en %LOCAL_URL% ...
-    start "Altoidss - Servidor PHP %PORT%" /D "%APP_DIR%" "%PHP_EXE%" -S 127.0.0.1:%PORT% -t "%APP_DIR%" "server-router.php"
+    start "Altoidss - Servidor PHP %PORT%" /D "%APP_DIR%" "%PHP_EXE%" -d session.cookie_secure=1 -S 127.0.0.1:%PORT% -t "%APP_DIR%" "server-router.php"
 
     powershell.exe -NoProfile -Command "$url='%HEALTH_URL%';for($i=0;$i -lt 30;$i++){try{$r=Invoke-WebRequest -UseBasicParsing -Uri $url -TimeoutSec 1;if($r.StatusCode -eq 200 -and $r.Content -match 'Altoidss API'){exit 0}}catch{};Start-Sleep -Milliseconds 300};exit 1" >nul 2>&1
     if errorlevel 1 (
@@ -177,6 +181,10 @@ if /i "%SERVER_STATE%"=="READY" (
     )
     echo [OK] Servidor local activo.
 )
+
+rem Refuse public launch if an existing backend still issues an insecure session cookie.
+"%PYTHON_EXE%" "%APP_DIR%\tools\check_session_cookie.py" --url "%HEALTH_URL%"
+if errorlevel 1 goto session_cookie_failed
 
 if defined SYNC_RUNNING (
     echo [OK] La sincronizacion de Google Sheets ya esta activa.
@@ -196,10 +204,16 @@ if defined TUNNEL_RUNNING (
 start "" "%PUBLIC_URL%"
 echo.
 echo [OK] Altoidss protegido: %PUBLIC_URL%
-echo [INFO] Acceso local:      %LOCAL_URL%
+echo [INFO] Origen local de diagnostico: %LOCAL_URL%
+echo [INFO] Inicia sesion por %PUBLIC_URL% usando HTTPS.
 echo [INFO] Solo el correo autorizado en Cloudflare Access puede ingresar.
 echo.
 echo El servidor, el sincronizador y Cloudflare se ejecutan en ventanas separadas.
 echo Cierra esas ventanas cuando quieras detener Altoidss.
 powershell.exe -NoProfile -Command "Start-Sleep -Seconds 6"
 exit /b 0
+
+:session_cookie_failed
+echo [ERROR] El servidor no cumple la politica de cookies para HTTPS publico.
+echo         Reinicia el servidor con -SecureCookies antes de publicar.
+exit /b 1
