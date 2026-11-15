@@ -20,6 +20,10 @@ from urllib.parse import parse_qs, quote, urlencode, urlparse
 from urllib.request import Request, urlopen
 
 
+class OAuthAuthorizationRequired(RuntimeError):
+    """Google rejected the grant; repeated refresh attempts cannot recover consent."""
+
+
 SCOPE = "https://www.googleapis.com/auth/spreadsheets"
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -96,6 +100,12 @@ def token_request(values: dict[str, str]) -> dict[str, object]:
             return json.loads(response.read().decode("utf-8"))
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")
+        try:
+            code = json.loads(detail).get("error")
+        except (ValueError, AttributeError):
+            code = None
+        if code == "invalid_grant":
+            raise OAuthAuthorizationRequired("Google requiere nueva autorizacion (invalid_grant).") from error
         raise RuntimeError(f"Google OAuth rechazó la autorización (HTTP {error.code}): {detail}") from error
 
 
