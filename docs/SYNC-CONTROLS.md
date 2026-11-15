@@ -11,13 +11,13 @@ un menú de control. Solo las opciones elegidas afectan al sincronizador.
 ~~~
 
 El estado se actualiza cada cinco segundos. PHP y Cloudflare conservan su estado.
-Salir del menú deja los servicios activos. El sincronizador se ejecuta en segundo
+Salir del menú conserva el estado de los servicios, incluida una parada previa. El sincronizador se ejecuta en segundo
 plano; sus mensajes se añaden a runtime/anime-sync/watcher.log y watcher-error.log.
 
 ## Detener y reiniciar
 
-D solicita una parada ordenada. Durante la espera entre ciclos responde en menos
-de un segundo. Si está procesando, termina el ciclo antes de salir para conservar
+D solicita una parada ordenada. Durante la espera entre ciclos comprueba la solicitud cada pocas
+décimas de segundo. Si está procesando, termina el ciclo antes de salir para conservar
 las transacciones y la cola de Sheets. R espera esa parada y después inicia otro
 proceso; no crea un segundo escritor mientras el anterior siga activo.
 
