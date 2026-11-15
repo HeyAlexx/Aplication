@@ -58,19 +58,25 @@ if not exist "%ALTOIDSS_TOOLCHAIN_CONFIG%" (
 )
 for /f "delims=" %%I in ('powershell.exe -NoProfile -Command "$c=ConvertFrom-Json ([IO.File]::ReadAllText($env:ALTOIDSS_TOOLCHAIN_CONFIG));if($c.schemaVersion -eq 1){$c.phpExecutable}"') do set "PHP_EXE=%%I"
 for /f "delims=" %%I in ('powershell.exe -NoProfile -Command "$c=ConvertFrom-Json ([IO.File]::ReadAllText($env:ALTOIDSS_TOOLCHAIN_CONFIG));if($c.schemaVersion -eq 1){$c.pythonExecutable}"') do set "PYTHON_EXE=%%I"
-if not defined PHP_EXE exit /b 1
 if not defined PYTHON_EXE exit /b 1
-if not exist "%PHP_EXE%" exit /b 1
 if not exist "%PYTHON_EXE%" exit /b 1
+"%PYTHON_EXE%" -B -c "import sys,importlib.metadata;assert sys.version.split()[0]=='3.13.12';assert importlib.metadata.version('openpyxl')=='3.1.5';assert importlib.metadata.version('et_xmlfile')=='2.0.0'"
+if errorlevel 1 (
+    echo [ERROR] Python o sus dependencias no coinciden con el perfil revisado.
+    exit /b 1
+)
+rem Sync-only shortcuts do not start or require PHP, the browser or Cloudflare.
+if /i "%~1"=="--stop-sync" goto sync_stop_once
+if /i "%~1"=="--restart-sync" goto sync_restart_once
+if /i "%~1"=="--authorize-sync" goto sync_authorize_once
+if /i "%~1"=="--sync-menu" goto sync_menu
+
+if not defined PHP_EXE exit /b 1
+if not exist "%PHP_EXE%" exit /b 1
 set "PHP_BIN=%PHP_EXE%"
 "%PHP_EXE%" -r "exit(PHP_VERSION === '8.4.27' && count(array_diff(['curl','mbstring','openssl','fileinfo','json','session','pdo_sqlite'],get_loaded_extensions())) === 0 ? 0 : 1);"
 if errorlevel 1 (
     echo [ERROR] PHP no coincide con el perfil 8.4.27.
-    exit /b 1
-)
-"%PYTHON_EXE%" -B -c "import sys,importlib.metadata;assert sys.version.split()[0]=='3.13.12';assert importlib.metadata.version('openpyxl')=='3.1.5';assert importlib.metadata.version('et_xmlfile')=='2.0.0'"
-if errorlevel 1 (
-    echo [ERROR] Python o sus dependencias no coinciden con el perfil revisado.
     exit /b 1
 )
 if /i "%~1"=="--check-runtime" (
@@ -129,13 +135,9 @@ set "TUNNEL_RUNNING="
 powershell.exe -NoProfile -Command "if(Get-Process -Name cloudflared -ErrorAction SilentlyContinue){exit 0};exit 1" >nul 2>&1
 if not errorlevel 1 set "TUNNEL_RUNNING=1"
 
-set "SYNC_RUNNING="
-set "SYNC_PID="
-if exist "%APP_DIR%\runtime\anime-sync\watcher.pid" set /p SYNC_PID=<"%APP_DIR%\runtime\anime-sync\watcher.pid"
-if defined SYNC_PID (
-    powershell.exe -NoProfile -Command "if(Get-Process -Id !SYNC_PID! -ErrorAction SilentlyContinue){exit 0};exit 1" >nul 2>&1
-    if not errorlevel 1 set "SYNC_RUNNING=1"
-)
+set "SYNC_STATUS=1"
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" status >nul 2>&1
+set "SYNC_STATUS=!errorlevel!"
 
 if /i "%~1"=="--check" (
     echo [OK] Aplicacion:  %APP_DIR%
@@ -151,10 +153,15 @@ if /i "%~1"=="--check" (
     )
     if /i "%SERVER_STATE%"=="FREE" echo [OK] Servidor:     listo para iniciar
     if /i "%SERVER_STATE%"=="OCCUPIED" echo [ERROR] Servidor: el puerto %PORT% esta ocupado por otra aplicacion
-    if defined SYNC_RUNNING (echo [OK] Sincronizador: activo) else echo [OK] Sincronizador: listo para iniciar
+    if "%SYNC_STATUS%"=="0" echo [OK] Sincronizador: proceso activo
+    if "%SYNC_STATUS%"=="3" echo [OK] Sincronizador: detenido
+    if "%SYNC_STATUS%"=="4" echo [AVISO] Sincronizador: requiere autorizacion de Google
+    if "%SYNC_STATUS%"=="1" echo [AVISO] Sincronizador: requiere revisar su ventana o estado
     if defined TUNNEL_RUNNING (echo [OK] Tunel:        cloudflared esta activo) else echo [OK] Tunel:        listo para iniciar
     echo [OK] Acceso web:   %PUBLIC_URL%
     if /i "%SERVER_STATE%"=="OCCUPIED" exit /b 1
+    if "%SYNC_STATUS%"=="4" goto sync_authorization_required
+    if "%SYNC_STATUS%"=="1" goto sync_control_failed
     exit /b 0
 )
 
@@ -186,12 +193,9 @@ rem Refuse public launch if an existing backend still issues an insecure session
 "%PYTHON_EXE%" "%APP_DIR%\tools\check_session_cookie.py" --url "%HEALTH_URL%"
 if errorlevel 1 goto session_cookie_failed
 
-if defined SYNC_RUNNING (
-    echo [OK] La sincronizacion de Google Sheets ya esta activa.
-) else (
-    echo Iniciando revision automatica de Google Sheets cada 5 minutos ...
-    start "Altoidss - Sincronizacion Drive" /D "%APP_DIR%" "%PYTHON_EXE%" "tools\anime_sync_pipeline.py" --config "config\anime-sync.json" --apply --watch --interval 300
-)
+echo Revisando el proceso de sincronizacion de Google Sheets ...
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" start
+rem A sync authorization failure leaves the application available and the controls accessible.
 
 if defined TUNNEL_RUNNING (
     echo [OK] El tunel de Cloudflare ya esta activo.
@@ -208,12 +212,66 @@ echo [INFO] Origen local de diagnostico: %LOCAL_URL%
 echo [INFO] Inicia sesion por %PUBLIC_URL% usando HTTPS.
 echo [INFO] Solo el correo autorizado en Cloudflare Access puede ingresar.
 echo.
-echo El servidor, el sincronizador y Cloudflare se ejecutan en ventanas separadas.
-echo Cierra esas ventanas cuando quieras detener Altoidss.
-powershell.exe -NoProfile -Command "Start-Sleep -Seconds 6"
-exit /b 0
+echo El servidor y Cloudflare conservan sus ventanas.
+echo El sincronizador guarda sus mensajes en runtime\anime-sync\watcher-error.log.
+goto sync_menu
 
 :session_cookie_failed
 echo [ERROR] El servidor no cumple la politica de cookies para HTTPS publico.
 echo         Reinicia el servidor con -SecureCookies antes de publicar.
+exit /b 1
+
+:sync_menu
+cls
+echo Altoidss - Control del sincronizador
+echo Acceso web: %PUBLIC_URL%
+echo.
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" status
+echo.
+echo [R] Reiniciar sincronizador
+echo [D] Detener sincronizador
+echo [A] Reautorizar Google y reanudar
+echo [S] Salir del menu
+echo.
+echo PHP y el acceso web conservan su estado.
+echo La parada espera a que termine el ciclo en curso.
+choice /C RDASX /N /T 5 /D X /M "Selecciona R, D, A o S: "
+if errorlevel 255 goto sync_control_failed
+if not errorlevel 1 exit /b 0
+if errorlevel 5 goto sync_menu
+if errorlevel 4 exit /b 0
+if errorlevel 3 goto sync_authorize_menu
+if errorlevel 2 goto sync_stop_menu
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" restart
+goto sync_menu_result
+
+:sync_stop_menu
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" stop
+goto sync_menu_result
+
+:sync_authorize_menu
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" authorize
+
+:sync_menu_result
+timeout /t 3 /nobreak >nul
+goto sync_menu
+
+:sync_stop_once
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" stop
+exit /b %errorlevel%
+
+:sync_restart_once
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" restart
+exit /b %errorlevel%
+
+:sync_authorize_once
+"%PYTHON_EXE%" -B "%APP_DIR%\tools\sync_watcher_control.py" authorize
+exit /b %errorlevel%
+
+:sync_authorization_required
+echo [ATENCION] Usa --sync-menu y selecciona A para autorizar Google.
+exit /b 4
+
+:sync_control_failed
+echo [ERROR] No se pudo completar el control del sincronizador.
 exit /b 1
