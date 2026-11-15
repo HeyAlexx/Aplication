@@ -1,5 +1,4 @@
 """Cooperative watcher controls. Never kill a PID or change PHP/Cloudflare processes."""
-from contextlib import contextmanager
 from datetime import datetime, timezone
 import argparse
 import json
