@@ -33,7 +33,8 @@ from sync_anime_workbook import (
     raw_row,
     read_catalog,
 )
-from google_sheets_writeback import read_rows, update_rows
+from google_sheets_writeback import OAuthAuthorizationRequired, read_rows, update_rows
+from sync_watcher_control import WatchSession
 from storage_transaction import atomic_json, commit_collections, file_lock, storage_lock
 from incorporation import FIELDS as INCORPORATION_FIELDS
 
@@ -571,25 +572,32 @@ def main() -> None:
     # One writer per environment, including different worktrees and one-shot runs.
     ownership = file_lock(STATE_DIR / '.watcher.lock', timeout=0) if args.watch or args.apply or args.initialize else nullcontext()
     try:
-        with ownership:
-            if args.watch:
-                LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
-                LOCK_PATH.write_text(str(os.getpid()), encoding="ascii")
+        control = WatchSession(PROJECT_DIR, STATE_DIR, args.config, LOCK_PATH)
+        with ownership, (control if args.watch else nullcontext()):
             while True:
+                if args.watch and control.stop_requested():
+                    break
                 try:
-                    print(json.dumps(process_once(args), ensure_ascii=False), flush=True)
+                    result = process_once(args)
+                    if args.watch:
+                        control.record("RUNNING")
+                    print(json.dumps(result, ensure_ascii=False), flush=True)
+                except OAuthAuthorizationRequired:
+                    if args.watch:
+                        control.record("AUTHORIZATION_REQUIRED")
+                    print(json.dumps({"status": "authorization_required", "message": "Google requiere nueva autorizacion. Usa A en el lanzador."}), file=sys.stderr, flush=True)
+                    raise SystemExit(2)
                 except RuntimeError as error:
                     print(json.dumps({"status": "error", "message": str(error)}, ensure_ascii=False), file=sys.stderr, flush=True)
                     if not args.watch:
                         raise SystemExit(1) from error
+                    control.record("RETRYING")
                 if not args.watch:
                     break
-                time.sleep(args.interval)
+                if control.wait(args.interval):
+                    break
     except RuntimeError as error:
         raise SystemExit(str(error)) from error
-    finally:
-        if args.watch and LOCK_PATH.exists() and LOCK_PATH.read_text(encoding="ascii").strip() == str(os.getpid()):
-            LOCK_PATH.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

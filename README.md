@@ -252,3 +252,8 @@ Consultar docs/RELEASE-IDENTITY.md y seguir el flujo CI/CD antes de instalar.
 El arranque público exige Secure y comprueba los atributos reales antes de iniciar sincronización/túnel.
 El modo HTTP local conserva su configuración separada; las cabeceras de proxy de clientes no deciden la política.
 Consultar docs/SESSION-TRANSPORT.md para SecureCookies, comprobación y límites del HTTPS externo.
+
+
+## Controles del sincronizador
+
+El acceso CMD ofrece reinicio, parada ordenada y reautorización de Google. invalid_grant detiene el watcher automáticamente; los errores temporales conservan sus reintentos. Consultar [SYNC-CONTROLS](docs/SYNC-CONTROLS.md) para el menú, accesos directos y publicación.

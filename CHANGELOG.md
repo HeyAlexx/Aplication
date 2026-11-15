@@ -110,3 +110,11 @@ No hay una etiqueta `v0.1.0` creada por esta preparación. Las funciones futuras
 - Respeta session.cookie_secure y HTTPS nativo sin confiar en cabeceras reenviadas del cliente.
 - El CMD público exige cookies seguras y verifica el backend existente antes de continuar; PS admite SecureCookies por proceso.
 - Añade regresiones de atributos, login/logout y frontal TLS local con backend HTTP; mantiene pendiente la comprobación externa autorizada.
+
+
+## Control del sincronizador y recuperación OAuth
+
+- Añade menú CMD y accesos directos para detener, reiniciar y reautorizar Google.
+- Usa parada cooperativa, bloqueo e identidad de instancia; conserva el ciclo en curso y evita duplicados.
+- invalid_grant termina el watcher y solicita consentimiento; valida lectura antes de reanudar.
+- Conserva los reintentos de fallos temporales y el estado de PHP/Cloudflare.
