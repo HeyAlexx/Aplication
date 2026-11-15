@@ -107,6 +107,8 @@ def token_request(values: dict[str, str]) -> dict[str, object]:
         if code == "invalid_grant":
             raise OAuthAuthorizationRequired("Google requiere nueva autorizacion (invalid_grant).") from error
         raise RuntimeError(f"Google OAuth rechazó la autorización (HTTP {error.code}): {detail}") from error
+    except (URLError, TimeoutError) as error:
+        raise RuntimeError("No se pudo contactar Google OAuth; se reintentara la conexion.") from error
 
 
 def save_token(path: Path, token: dict[str, object]) -> None:

@@ -10,7 +10,7 @@ import tempfile
 import time
 import unittest
 from unittest.mock import patch
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 
 TOOLS=Path(__file__).resolve().parents[1]/"tools"
 sys.path.insert(0,str(TOOLS))
@@ -187,6 +187,11 @@ class OAuthWatcherTests(unittest.TestCase):
                 with patch.object(google,"urlopen",side_effect=error):
                     with self.assertRaises(kind) as caught:google.token_request({"grant_type":"refresh_token"})
                 if status==503:self.assertNotIsInstance(caught.exception,google.OAuthAuthorizationRequired)
+        for error in [URLError("fixture unavailable"),TimeoutError("fixture timeout")]:
+            with self.subTest(error=type(error).__name__):
+                with patch.object(google,"urlopen",side_effect=error):
+                    with self.assertRaises(RuntimeError) as caught:google.token_request({"grant_type":"refresh_token"})
+                self.assertNotIsInstance(caught.exception,google.OAuthAuthorizationRequired)
 
     def run_watcher(self,effects):
         import anime_sync_pipeline as pipeline
