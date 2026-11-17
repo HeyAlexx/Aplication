@@ -257,3 +257,7 @@ Consultar docs/SESSION-TRANSPORT.md para SecureCookies, comprobación y límites
 ## Controles del sincronizador
 
 El acceso CMD ofrece reinicio, parada ordenada y reautorización de Google. invalid_grant detiene el watcher automáticamente; los errores temporales conservan sus reintentos. Consultar [SYNC-CONTROLS](docs/SYNC-CONTROLS.md) para el menú, accesos directos y publicación.
+
+La [selección de fuentes](docs/SYNC-SOURCES.md) documenta la precedencia OAuth,
+exportación y Excel, y la retirada revisada de referencias obsoletas de la configuración
+local. Un fallo de Google no activa automáticamente una fuente histórica.
