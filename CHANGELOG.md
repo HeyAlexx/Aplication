@@ -4,6 +4,12 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### Selección de fuentes de sincronización
+
+- Ejemplo de Excel relativo al entorno, sin una unidad histórica predeterminada.
+- Precedencia OAuth/exportación/Excel y retirada acotada de una referencia local documentadas.
+- Regresiones aisladas para selección y errores sin fallback; no cambia el despacho del pipeline.
+
 ### Runtime y pruebas reproducibles
 
 - Perfil PHP 8.4.27 independiente de XAMPP, con artefacto/CA verificados y preparación sin activación.
