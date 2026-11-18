@@ -1,5 +1,4 @@
 """Nueva entrega: Git limpio, ZIP reproducible, aislamiento y HTTP real con fixtures."""
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -127,6 +126,11 @@ class DemoDistributionTests(unittest.TestCase):
 
     def test_inherited_storage_is_ignored_and_external_files_unchanged(self):
         bundle, app = self.unpack('isolated-demo')
+        initial_descriptor = (bundle / 'fixture-storage.json').read_bytes()
+        preflight = subprocess.run([sys.executable, '-B', str(app / 'tools/run_demo.py'),
+            '--php', PHP, '--check'], capture_output=True, text=True, timeout=30, check=True)
+        self.assertEqual(json.loads(preflight.stdout)['status'], 'DEMO_CHECK_PASSED')
+        self.assertEqual((bundle / 'fixture-storage.json').read_bytes(), initial_descriptor)
         outside = self.root / 'outside-state.json'
         outside.write_text('EXTERNAL_STATE_MUST_NOT_CHANGE', encoding='utf-8')
         with socket.socket() as probe:

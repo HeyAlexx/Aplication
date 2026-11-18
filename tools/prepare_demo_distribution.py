@@ -3,7 +3,6 @@ import argparse
 import hashlib
 import http.cookiejar
 import json
-import os
 from pathlib import Path
 import secrets
 import socket
