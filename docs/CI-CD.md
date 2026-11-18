@@ -21,6 +21,10 @@ marca y la autorizacion para trabajar no sustituyen las verificaciones del pipel
    comprueba paginas, JS, CSS, imagenes, lectura aislada y privacidad por HTTP.
    No consulta proveedores ni inicia Google Sheets. Los resumenes de Actions
    muestran los resultados del build y staging; el artefacto dura 14 dias.
+   Build tambien genera `demo-SHA` mediante `prepare_demo_distribution.py`; staging
+   prueba ese mismo ZIP con cuentas efimeras y datos ficticios, sin reconstruirlo.
+   Se conservan seis artefactos: cuatro QA, codigo y demo. Ver
+   [distribucion nueva y limites](DEMO-DISTRIBUTION.md).
 5. Revisar el PR y los resultados del SHA que se va a integrar. Tras el merge,
    esperar tambien el CI del nuevo SHA de `main`: las pruebas de un SHA anterior
    no validan automaticamente el resultado del merge.
