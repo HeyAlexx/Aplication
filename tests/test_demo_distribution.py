@@ -1,6 +1,8 @@
 """Nueva entrega: Git limpio, ZIP reproducible, aislamiento y HTTP real con fixtures."""
+import http.cookiejar
 import json
 import os
+import secrets
 from pathlib import Path
 import shutil
 import socket
@@ -17,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from prepare_demo_distribution import build, smoke
 from qa import public_code
-from run_demo import check, start, stop
+from run_demo import check, environment, start, stop
 
 PHP = os.environ.get('PHP_BIN') or shutil.which('php')
 GIT = shutil.which('git')
@@ -166,6 +168,62 @@ class DemoDistributionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 smoke(archive, PHP)
         self.assertFalse((self.root / 'escape.txt').exists())
+
+    def test_session_name_setting_preserves_default_and_rejects_invalid_names(self):
+        code = '$c=require $argv[1];echo json_encode($c["session_name"]);'
+        args = [PHP, '-r', code, str(self.source / 'api/config/app.php')]
+        default = subprocess.run(args, env=environment(), capture_output=True, text=True, encoding='utf-8', check=True)
+        self.assertEqual(json.loads(default.stdout), 'altoidss_session')
+        custom = subprocess.run(args, env={**environment(), 'ALTOIDSS_SESSION_NAME': 'DemoSession123'},
+            capture_output=True, text=True, encoding='utf-8', check=True)
+        self.assertEqual(json.loads(custom.stdout), 'DemoSession123')
+        for name in ('123', 'bad;Path=/', 'bad.name', 'A' * 65):
+            with self.subTest(name=name):
+                result = subprocess.run(args, env={**environment(), 'ALTOIDSS_SESSION_NAME': name},
+                    capture_output=True, text=True, encoding='utf-8')
+                self.assertNotEqual(result.returncode, 0)
+
+    def test_two_demos_keep_sessions_separate_in_the_same_browser(self):
+        _, app_a = self.unpack('session-demo-a')
+        _, app_b = self.unpack('session-demo-b')
+        cookies = http.cookiejar.CookieJar()
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), urllib.request.HTTPCookieProcessor(cookies))
+        def free_port():
+            with socket.socket() as probe:
+                probe.bind(('127.0.0.1', 0))
+                return probe.getsockname()[1]
+        def request(port, route, payload=None):
+            raw = None if payload is None else json.dumps(payload).encode()
+            query = urllib.request.Request(f'http://127.0.0.1:{port}/api/index.php?route=' + route,
+                raw, {'Content-Type': 'application/json'})
+            with opener.open(query, timeout=5) as response:
+                return json.load(response)['data']
+        def wait(port):
+            for _ in range(60):
+                try:
+                    return request(port, '/auth/session')
+                except OSError:
+                    time.sleep(.1)
+            self.fail('Demo session server did not start')
+        port_a = free_port()
+        server_a = start(app_a, PHP, port_a)
+        server_b = None
+        try:
+            self.assertFalse(wait(port_a)['isAuthenticated'])
+            user_a = {'name': 'QA A', 'email': 'qa-a@example.invalid', 'password': secrets.token_urlsafe(24)}
+            self.assertTrue(request(port_a, '/auth/register', user_a)['isAuthenticated'])
+            port_b = free_port()
+            server_b = start(app_b, PHP, port_b)
+            self.assertFalse(wait(port_b)['isAuthenticated'])
+            user_b = {'name': 'QA B', 'email': 'qa-b@example.invalid', 'password': secrets.token_urlsafe(24)}
+            self.assertTrue(request(port_b, '/auth/register', user_b)['isAuthenticated'])
+            self.assertEqual(request(port_a, '/auth/session')['name'], 'QA A')
+            self.assertEqual(request(port_b, '/auth/session')['name'], 'QA B')
+            self.assertEqual(len([cookie for cookie in cookies if cookie.name.startswith('ALTOIDSSDEMO')]), 2)
+        finally:
+            if server_b is not None:
+                stop(server_b)
+            stop(server_a)
 
     def test_exact_zip_passes_http_privacy_and_authentication(self):
         result = smoke(self.output / 'demo.zip', PHP)

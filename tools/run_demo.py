@@ -73,8 +73,8 @@ def check(app, php):
 def start(app, php, port):
     if not 1024 <= port <= 65535:
         raise ValueError('El puerto debe estar entre 1024 y 65535.')
-    manifest, executable, profile = check(app, php)
-    app = app.absolute()
+    _, executable, _ = check(app, php)
+    app = app.resolve()
     bundle = app.parent
     for name in ('fixture-catalog', 'fixture-sync-state', 'Aplicacion/backups/sessions'):
         inside(bundle, name).mkdir(parents=True, exist_ok=True)
@@ -84,6 +84,8 @@ def start(app, php, port):
         'syncStateDir': str(bundle / 'fixture-sync-state')}, indent=2) + '\n', encoding='utf-8')
     env = environment()
     env['ALTOIDSS_STORAGE_CONFIG'] = str(descriptor)
+    # Ports do not isolate cookies: avoid overwriting another local app's cookie.
+    env['ALTOIDSS_SESSION_NAME'] = 'ALTOIDSSDEMO' + hashlib.sha256((str(app) + '|' + str(port)).encode()).hexdigest()[:20]
     command = [executable, '-d', 'expose_php=Off', '-d', 'date.timezone=America/Costa_Rica',
         '-d', 'session.cookie_secure=0', '-d', 'session.cookie_httponly=1',
         '-d', 'session.cookie_samesite=Lax', '-S', f'127.0.0.1:{port}',
@@ -113,7 +115,7 @@ if __name__ == '__main__':
             raise ValueError('Indique --php con la ruta de su PHP validado; no se descarga ni instala automáticamente.')
         app = Path(__file__).resolve().parents[1]
         if args.check:
-            manifest, executable, profile = check(app, args.php)
+            manifest, _, profile = check(app, args.php)
             print(json.dumps({'status': 'DEMO_CHECK_PASSED', 'commit': manifest['commit'], 'php': profile['version']}))
         else:
             server = start(app, args.php, args.port)

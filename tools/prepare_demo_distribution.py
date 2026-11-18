@@ -81,6 +81,7 @@ El registro crea un usuario normal, sin administrador predeterminado.
 
 Mantenga juntas todas las carpetas. El launcher verifica código, regenera su descriptor
 y limita PHP a loopback. No copie configuración, OAuth o secretos de otros entornos.
+Cada carpeta/puerto usa su propio nombre de sesión para evitar interferencia accidental.
 El perfil HTTP local no es el perfil HTTPS de producción. La privacidad por servidor
 se prueba con el PHP integrado y su router; no se certifica una publicación Apache.
 Los .htaccess son una defensa adicional solo cuando el servidor los respeta.

@@ -51,6 +51,14 @@ es un control de integridad local, no una firma contra un atacante que cambie to
 el paquete. Regenera el descriptor para las carpetas propias y descarta variables
 heredadas de almacenamiento/proveedores. PHP escucha únicamente en 127.0.0.1.
 
+Cada carpeta/puerto recibe un nombre de sesión propio mediante
+`ALTOIDSS_SESSION_NAME`. Sin esa variable, la aplicación conserva `altoidss_session`.
+La opción acepta letras, dígitos y guion bajo, empieza por letra y tiene hasta 64
+caracteres; valores inválidos detienen el arranque. Esto evita sobrescribir por
+accidente la cookie de otra versión local; no establece una frontera de confianza
+contra servicios maliciosos del mismo host, pues las cookies no se aíslan por puerto.
+Fuente: [RFC 6265, sección 8.5](https://www.rfc-editor.org/rfc/rfc6265#section-8.5).
+
 Es HTTP local: la cookie Secure no se activa y no sustituye el perfil HTTPS público.
 No inicia Sheets, túneles ni navegador. Las búsquedas externas pueden contactar
 proveedores si el usuario las elige; el smoke no las usa. No se certifica Apache:
