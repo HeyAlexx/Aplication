@@ -4,13 +4,18 @@ $secretsPath = __DIR__ . DIRECTORY_SEPARATOR . 'secrets.local.php';
 $secrets = is_file($secretsPath) ? require $secretsPath : [];
 $malClientPath = __DIR__ . DIRECTORY_SEPARATOR . 'mal-client-id.local.txt';
 $malClientId = is_file($malClientPath) ? trim((string) file_get_contents($malClientPath)) : '';
+$sessionName = getenv('ALTOIDSS_SESSION_NAME');
+$sessionName = $sessionName === false || $sessionName === '' ? 'altoidss_session' : $sessionName;
+if (!preg_match('/^[A-Za-z][A-Za-z0-9_]{0,63}$/D', $sessionName)) {
+    throw new RuntimeException('Nombre de sesión configurado inválido.');
+}
 
 return [
     'app_name' => 'Altoidss',
     'data_dir' => dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'data',
     'backup_dir' => dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'backups',
     'session_dir' => dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'backups' . DIRECTORY_SEPARATOR . 'sessions',
-    'session_name' => 'altoidss_session',
+    'session_name' => $sessionName,
     'watchmode_api_key' => getenv('WATCHMODE_API_KEY') ?: ($secrets['watchmode_api_key'] ?? ''),
     'watchmode_base_url' => 'https://api.watchmode.com/v1',
     'myanimelist_client_id' => getenv('MAL_CLIENT_ID') ?: ($secrets['myanimelist_client_id'] ?? $malClientId),

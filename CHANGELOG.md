@@ -4,6 +4,13 @@ Este archivo registra cambios relevantes para quien usa o mantiene Altoidss. Los
 
 ## Sin publicar — 0.1.0-dev
 
+### Distribución nueva de demostración
+
+- Generador por SHA con datos ficticios y sin cuentas, contraseñas u OAuth precargados.
+- Arranque loopback con router y comprobación de manifiesto, separado de instalaciones operativas.
+- Nombre de sesión propio por carpeta/puerto de demo; el nombre habitual se conserva si no se configura otro.
+- ZIP reproducible y pruebas HTTP del mismo artefacto en staging; la entrega histórica se conserva.
+
 ### Selección de fuentes de sincronización
 
 - Ejemplo de Excel relativo al entorno, sin una unidad histórica predeterminada.
