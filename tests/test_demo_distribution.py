@@ -171,7 +171,7 @@ class DemoDistributionTests(unittest.TestCase):
     def test_zip_aliases_and_case_collisions_are_refused_before_extraction(self):
         cases = [('Aplicacion//unsafe.php',), ('Aplicacion/./unsafe.php',),
                  ('Aplicacion/js/site.js', 'Aplicacion/JS/site.js'), ('Aplicacion/NUL.json',),
-                 ('Aplicacion/config./secret.json',), ('Aplicacion/COM¹.txt',)]
+                 ('Aplicacion/config./secret.json',), ('Aplicacion/COM¹.txt',), ('C:/escape.txt',)]
         for number, names in enumerate(cases):
             archive = self.root / ('alias-' + str(number) + '.zip')
             with zipfile.ZipFile(archive, 'w') as z:

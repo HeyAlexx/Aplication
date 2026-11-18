@@ -12,7 +12,7 @@ import subprocess
 
 def inside(root, name):
     path = PurePosixPath(name)
-    if not name or path.as_posix() != name or path.is_absolute() or '..' in path.parts or ntpath.isreserved(name) or '\\' in name:
+    if not name or path.as_posix() != name or path.is_absolute() or '..' in path.parts or ':' in name or ntpath.isreserved(name) or '\\' in name:
         raise ValueError('Ruta no permitida en la demostración.')
     target = root / name
     if target.resolve() != target.absolute() or not target.resolve().is_relative_to(root):
