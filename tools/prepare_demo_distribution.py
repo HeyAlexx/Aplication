@@ -55,13 +55,15 @@ def build(output, source=ROOT):
         if not (exported / 'tools/run_demo.py').is_file():
             raise ValueError('El SHA debe incluir el launcher revisado; haga commit antes de construir.')
         descriptor, hashes = fixture(exported, bundle / 'Aplicacion')
+        for path in (bundle / 'Aplicacion/data').glob('*.json'):
+            path.write_bytes(path.read_bytes().replace(b'\r\n', b'\n'))
         # Los paths absolutos del generador de fixtures no se distribuyen.
         descriptor.write_text(json.dumps({'environment': 'isolated-demo',
-            'catalogDir': 'fixture-catalog', 'syncStateDir': 'fixture-sync-state'}, indent=2) + '\n', encoding='utf-8')
+            'catalogDir': 'fixture-catalog', 'syncStateDir': 'fixture-sync-state'}, indent=2) + '\n', encoding='utf-8', newline='\n')
         for name in ('Aplicacion/data', 'Aplicacion/backups', 'fixture-catalog', 'fixture-sync-state'):
-            (bundle / name / '.htaccess').write_text('Require all denied\n', encoding='utf-8')
-        (bundle / '.htaccess').write_text('Require all denied\n', encoding='utf-8')
-        (bundle / 'Iniciar-Demo.cmd').write_text('@echo off\nsetlocal\npython -B "%~dp0Aplicacion\\tools\\run_demo.py" %*\nexit /b %errorlevel%\n', encoding='utf-8')
+            (bundle / name / '.htaccess').write_bytes(b'Require all denied\n')
+        (bundle / '.htaccess').write_bytes(b'Require all denied\n')
+        (bundle / 'Iniciar-Demo.cmd').write_bytes(b'@echo off\r\nsetlocal\r\npython -B "%~dp0Aplicacion\\tools\\run_demo.py" %*\r\nexit /b %errorlevel%\r\n')
         (bundle / 'LEEME.md').write_text(f'''# Altoidss — demostración aislada
 
 Fuente: {commit}. Datos ficticios, sin cuentas o contraseñas precargadas.
@@ -85,7 +87,7 @@ se prueba con el PHP integrado y su router; no se certifica una publicación Apa
 Los .htaccess son una defensa adicional solo cuando el servidor los respeta.
 Las búsquedas externas de la interfaz pueden consultar proveedores si usted las usa;
 la construcción y el smoke no hacen esas consultas.
-''', encoding='utf-8')
+''', encoding='utf-8', newline='\n')
         payloads = {p.relative_to(bundle).as_posix(): p.read_bytes() for p in bundle.rglob('*') if p.is_file()}
         manifest = {'schema': 1, 'kind': 'altoidss-isolated-demo', 'commit': commit,
             'codeHashes': dict(sorted(hashes.items())), 'files': {name: digest(data) for name, data in sorted(payloads.items())},

@@ -65,6 +65,9 @@ class DemoDistributionTests(unittest.TestCase):
         with zipfile.ZipFile(second / 'demo.zip') as archive:
             for name in ('usuarios', 'perfiles', 'configuraciones', 'favoritos', 'historial'):
                 self.assertEqual(json.loads(archive.read('Aplicacion/data/' + name + '.json')), [])
+                self.assertEqual(archive.read('Aplicacion/data/' + name + '.json'), b'[]\n')
+            self.assertNotIn(b'\r\n', archive.read('fixture-storage.json'))
+            self.assertIn(b'\r\n', archive.read('Iniciar-Demo.cmd'))
             descriptor = json.loads(archive.read('fixture-storage.json'))
             self.assertEqual(descriptor['catalogDir'], 'fixture-catalog')
             self.assertNotIn(str(self.root), archive.read('fixture-storage.json').decode())
