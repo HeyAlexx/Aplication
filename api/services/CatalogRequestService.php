@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/AccessPolicy.php';
 
 final class CatalogRequestService
 {
@@ -19,8 +20,8 @@ final class CatalogRequestService
     private function admin(): array
     {
         $actor = ($this->authorize)();
-        if (!($actor['isAuthenticated'] ?? false) || ($actor['role'] ?? '') !== 'admin') {
-            throw new ApiException('Esta acción requiere un administrador.', 403);
+        if (!AccessPolicy::sessionAllows($actor, 'catalog.review')) {
+            throw new ApiException('Esta acción requiere permiso de revisión.', 403);
         }
         return $actor;
     }
@@ -37,6 +38,9 @@ final class CatalogRequestService
     public function favorite(array $session, string $id, array $client): void
     {
         $identity = ExternalCatalogService::identity($id);
+        if (!AccessPolicy::sessionAllows($session, 'catalog.propose')) {
+            throw new ApiException('La cuenta no puede proponer contenido.', 403);
+        }
         if (!(($session['isAuthenticated'] ?? false)) || ($session['id'] ?? '') === '') {
             throw new ApiException('Debe iniciar sesión.', 401);
         }
@@ -64,6 +68,9 @@ final class CatalogRequestService
             $currentUser = ($this->authorizeUser)();
             if (!($currentUser['isAuthenticated'] ?? false) || ($currentUser['id'] ?? '') !== $session['id']) {
                 throw new ApiException('La sesión ya no permite esta operación.',401);
+            }
+            if (!AccessPolicy::sessionAllows($currentUser, 'catalog.propose')) {
+                throw new ApiException('La cuenta ya no puede proponer contenido.', 403);
             }
             $current = $this->catalog->stored($id);
             if ($current !== null && ($current['status'] ?? '') === 'Oculto') {
@@ -142,10 +149,14 @@ final class CatalogRequestService
         if (!in_array($decision,['approve','reject'],true)) { throw new ApiException('Decisión inválida.'); }
         $claim = bin2hex(random_bytes(16));
         $request = $this->storage->transaction(function () use ($requestId,$decision,$actor,$claim): array {
-            $this->admin();
+            $actor = $this->admin();
             $rows = $this->storage->read(self::FILE);
             foreach ($rows as $index=>$row) {
                 if (($row['id']??'')!==$requestId) { continue; }
+                if ($decision === 'approve' && (!is_string($row['userId'] ?? null)
+                    || $row['userId'] === '' || $row['userId'] === $actor['id'])) {
+                    throw new ApiException('La propuesta debe aprobarla otra persona autorizada.', 403);
+                }
                 if (($row['status']??'') === 'approved' && $decision==='approve') { return $row; }
                 if (($row['status']??'') === 'rejected' && $decision==='reject') { return $row; }
                 if (!in_array($row['status']??'',['pending','approving'],true)) {
@@ -185,14 +196,23 @@ final class CatalogRequestService
                 foreach ($rows as $row) {
                     if (($row['id']??'')===$requestId && ($row['status']??'')==='approving'
                         && hash_equals((string)($row['claim']['token']??''),$claim)
-                        && (int)($row['claim']['expiresAt']??0)>time()) { return $actor; }
+                        && (int)($row['claim']['expiresAt']??0)>time()) {
+                        if (($row['userId'] ?? '') === '' || $row['userId'] === $actor['id']) {
+                            throw new ApiException('La propuesta debe aprobarla otra persona autorizada.', 403);
+                        }
+                        return $actor;
+                    }
                 }
                 throw new ApiException('La solicitud cambió; actualice la revisión.',409);
             });
             return $this->storage->transaction(function () use ($requestId,$claim,$actor,$imported): array {
+                $actor = $this->admin();
                 $rows=$this->storage->read(self::FILE);
                 foreach ($rows as $index=>$row) {
                     if (($row['id']??'')!==$requestId) { continue; }
+                    if (($row['userId'] ?? '') === '' || $row['userId'] === $actor['id']) {
+                        throw new ApiException('La propuesta debe aprobarla otra persona autorizada.', 403);
+                    }
                     if (!hash_equals((string)($row['claim']['token']??''),$claim)) {
                         throw new ApiException('La aprobación se reanudó desde otra petición.',409);
                     }

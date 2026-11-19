@@ -88,7 +88,7 @@ try {
         );
     }
     if ($method === 'POST' && $route === '/content') {
-        $authService->requireAdmin();
+        $authService->requirePermission('catalog.create');
         Response::success($catalogService->create($payload), 201, ['csrfToken' => $authService->csrfToken()]);
     }
     if (preg_match('#^/content/([^/]+)$#', $route, $matches)) {
@@ -97,7 +97,7 @@ try {
             $item = $catalogService->find($id);
             $item === null ? Response::error('El contenido no existe.', 404) : Response::success($item);
         }
-        $authService->requireAdmin();
+        $authService->requirePermission($method === 'DELETE' ? 'catalog.hide' : 'catalog.update');
         if ($method === 'PUT') {
             Response::success($catalogService->update($id, $payload), 200, ['csrfToken' => $authService->csrfToken()]);
         }
@@ -109,16 +109,16 @@ try {
 
     if ($method === 'GET' && $route === '/news') {
         $session = $authService->session();
-        $canManageNews = ($session['isAuthenticated'] ?? false) && ($session['role'] ?? '') === 'admin';
+        $canManageNews = AccessPolicy::sessionAllows($session, 'news.manage');
         Response::success($canManageNews ? $newsService->all() : $newsService->published(),
             200, ['csrfToken' => $authService->csrfToken()]);
     }
     if ($method === 'POST' && $route === '/news') {
-        $authService->requireAdmin();
+        $authService->requirePermission('news.manage');
         Response::success($newsService->create($payload), 201, ['csrfToken' => $authService->csrfToken()]);
     }
     if (preg_match('#^/news/([^/]+)$#', $route, $matches)) {
-        $authService->requireAdmin();
+        $authService->requirePermission('news.manage');
         $id = rawurldecode($matches[1]);
         if ($method === 'PUT') {
             Response::success($newsService->update($id, $payload), 200, ['csrfToken' => $authService->csrfToken()]);
@@ -145,7 +145,7 @@ try {
         Response::success($catalogRequests->all(), 200, ['csrfToken'=>$authService->csrfToken()]);
     }
     if ($method === 'POST' && preg_match('#^/catalog/requests/([^/]+)$#', $route, $matches)) {
-        $authService->requireAdmin();
+        $authService->requirePermission('catalog.review');
         Response::success($catalogRequests->decide($matches[1], (string) ($payload['decision'] ?? '')),
             200, ['csrfToken'=>$authService->csrfToken()]);
     }
@@ -173,11 +173,11 @@ try {
         Response::success($userService->dashboard($authService->session()), 200, ['csrfToken' => $authService->csrfToken()]);
     }
     if ($method === 'GET' && $route === '/reviews/anime') {
-        $authService->requireAdmin();
+        $authService->requirePermission('anime.review');
         Response::success($animeReviewService->all(), 200, ['csrfToken' => $authService->csrfToken()]);
     }
     if ($method === 'PUT' && preg_match('#^/reviews/anime/([^/]+)$#', $route, $matches)) {
-        $session = $authService->requireAdmin();
+        $session = $authService->requirePermission('anime.review');
         Response::success(
             $animeReviewService->decide(rawurldecode($matches[1]), $payload, $session),
             200,
@@ -185,7 +185,7 @@ try {
         );
     }
     if ($method === 'POST' && preg_match('#^/reviews/anime/([^/]+)/source$#', $route, $matches)) {
-        $authService->requireAdmin();
+        $authService->requirePermission('anime.review');
         $sourceUrl = trim((string) ($payload['sourceUrl'] ?? ''));
         Response::success([
             'candidate' => $animeReviewService->sourceCandidate(
@@ -195,7 +195,7 @@ try {
         ], 200, ['csrfToken' => $authService->csrfToken()]);
     }
     if ($method === 'GET' && $route === '/export') {
-        $authService->requireAdmin();
+        $authService->requirePermission('data.export');
         Response::success([
             'contents' => $catalogService->all(),
             'news' => $newsService->all(),

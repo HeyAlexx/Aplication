@@ -35,10 +35,24 @@ try {
        $s->write('usuarios.json',$users);
      });
    }
+   if($provider['revokePermissionsDuringResolve']??false){
+     $s->transaction(function()use($s,$session):void{
+       $users=$s->read('usuarios.json');
+       foreach($users as &$u){if($u['id']===$session['id'])$u['permissionOverrides']=['catalog.review'=>false];}unset($u);
+       $s->write('usuarios.json',$users);
+     });
+   }
+   if($provider['revokeProposalDuringResolve']??false){
+     $s->transaction(function()use($s,$session):void{
+       $users=$s->read('usuarios.json');
+       foreach($users as &$u){if($u['id']===$session['id'])$u['permissionOverrides']=['catalog.propose'=>false];}unset($u);
+       $s->write('usuarios.json',$users);
+     });
+   }
    if(!isset($provider['items'][$id]))throw new ApiException('Fixture title missing',404);
    return $provider['items'][$id];
  };
- $requests=new CatalogRequestService($s,$catalog,$resolver,fn()=>$auth->requireAdmin(),fn()=>$auth->requireUser());
+ $requests=new CatalogRequestService($s,$catalog,$resolver,fn()=>$auth->requirePermission('catalog.review'),fn()=>$auth->requireUser());
  $users=new UserService($s,$catalog,$requests);
  $id=$input['id']??'';
  $result=match($input['action']){
@@ -49,6 +63,7 @@ try {
    'decide'=>$requests->decide($id,$input['decision']),
    'reset'=>(new AccountSecurityService($s))->change($id,$input['password']??null),
    'directImport'=>$catalog->importExternal($id,$input['payload']??[]),
+   'directCreate'=>$catalog->create($input['payload']??[]),
    default=>throw new ApiException('Unknown fixture operation'),
  };
  echo json_encode(['status'=>200,'data'=>$result],JSON_THROW_ON_ERROR);
