@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/AccessPolicy.php';
 
 final class CredentialService
 {
@@ -31,8 +32,7 @@ final class CredentialService
 
     public static function active(array $account): bool
     {
-        return ($account['status'] ?? '') === 'Activo'
-            && in_array($account['role'] ?? '', ['admin', 'usuario'], true);
+        return AccessPolicy::active($account);
     }
 }
 

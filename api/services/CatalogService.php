@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/SheetWritebackService.php';
+require_once __DIR__ . '/AccessPolicy.php';
 
 final class CatalogService
 {
@@ -80,6 +81,13 @@ final class CatalogService
         $file = $this->fileForType($item['type']);
         $items = $this->storage->read($file);
         $item['id'] = $this->resolveNewId($payload, $item['type']);
+        // A pending external proposal must go through independent review, not direct CRUD.
+        foreach ($this->storage->read('catalog-solicitudes.json') as $request) {
+            if (($request['contentId'] ?? '') === $item['id']
+                && in_array($request['status'] ?? '', ['pending', 'approving'], true)) {
+                throw new ApiException('Este título requiere resolver su propuesta pendiente.', 409);
+            }
+        }
         $item['createdAt'] = date(DATE_ATOM);
         $items[] = $item;
         $this->storage->write($file, $items);
@@ -170,7 +178,7 @@ final class CatalogService
     {
         return $this->storage->transaction(function () use ($id, $payload, $authorize): array {
             $actor = $authorize ? $authorize() : [];
-            if (!($actor['isAuthenticated'] ?? false) || ($actor['role'] ?? '') !== 'admin') {
+            if (!AccessPolicy::sessionAllows($actor, 'catalog.review')) {
                 throw new ApiException('La incorporación requiere aprobación administrativa.', 403);
             }
             return $this->importExternalInTransaction($id, $payload);

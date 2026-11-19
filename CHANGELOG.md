@@ -131,3 +131,12 @@ No hay una etiqueta `v0.1.0` creada por esta preparación. Las funciones futuras
 - Usa parada cooperativa, bloqueo e identidad de instancia; conserva el ciclo en curso y evita duplicados.
 - invalid_grant termina el watcher y solicita consentimiento; valida lectura antes de reanudar.
 - Conserva los reintentos de fallos temporales y el estado de PHP/Cloudflare.
+# Authorization compatibility (batch 09)
+
+- Separate server capabilities, account approval state and operator-configured master
+  identity without migrating real accounts. Preserve legacy defaults explicitly.
+- Enforce effective permissions on administrative routes and external review commits;
+  prevent author self-approval and bypass by direct creation of the same pending ID.
+- Prepare protected-account and appointment decisions; full management UI, notifications,
+  suspension lifecycle and private-catalog transition remain separate work.
+- Add synthetic policy/HTTP/revocation tests. See `docs/ACCESS-COMPATIBILITY.md` for limits.

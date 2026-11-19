@@ -16,6 +16,8 @@ return [
     'backup_dir' => dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'backups',
     'session_dir' => dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'backups' . DIRECTORY_SEPARATOR . 'sessions',
     'session_name' => $sessionName,
+    // Operator-only preparation; no account is promoted by default or by registration.
+    'access_policy' => $secrets['access_policy'] ?? [],
     'watchmode_api_key' => getenv('WATCHMODE_API_KEY') ?: ($secrets['watchmode_api_key'] ?? ''),
     'watchmode_base_url' => 'https://api.watchmode.com/v1',
     'myanimelist_client_id' => getenv('MAL_CLIENT_ID') ?: ($secrets['myanimelist_client_id'] ?? $malClientId),

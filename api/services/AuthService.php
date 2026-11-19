@@ -6,10 +6,12 @@ final class AuthService
 {
     private JsonStorage $storage;
     private ?array $sessionCache = null;
+    private AccessPolicy $accessPolicy;
 
-    public function __construct(JsonStorage $storage, private ?LoginLimiter $limiter = null)
+    public function __construct(JsonStorage $storage, private ?LoginLimiter $limiter = null, array $accessConfig = [])
     {
         $this->storage = $storage;
+        $this->accessPolicy = new AccessPolicy($accessConfig);
         $this->csrfToken();
     }
 
@@ -43,7 +45,8 @@ final class AuthService
         }
         $_SESSION['auth']['seenAt'] = $now;
         $_SESSION['user'] = array_merge($session, ['name'=>$current['name'], 'email'=>$current['email'],
-            'role'=>$current['role'], 'profileMode'=>$current['role'] === 'admin' ? 'admin' : 'user']);
+            'role'=>$current['role'], 'profileMode'=>$current['role'] === 'admin' ? 'admin' : 'user',
+            'permissions'=>$this->accessPolicy->permissions($current)]);
         return $this->sessionCache = $_SESSION['user'];
     }
 
@@ -165,6 +168,15 @@ final class AuthService
         return $session;
     }
 
+    public function requirePermission(string $permission): array
+    {
+        $session = $this->requireUser();
+        if (!AccessPolicy::sessionAllows($session, $permission)) {
+            throw new ApiException('La cuenta no tiene permiso para esta acción.', 403);
+        }
+        return $session;
+    }
+
     public function assertCsrf(): void
     {
         $provided = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
@@ -193,6 +205,7 @@ final class AuthService
             'email' => $user['email'],
             'role' => $user['role'],
             'profileMode' => $user['role'] === 'admin' ? 'admin' : 'user',
+            'permissions' => $this->accessPolicy->permissions($user),
             'isAuthenticated' => true,
             'loginAt' => date(DATE_ATOM),
         ];
@@ -209,6 +222,7 @@ final class AuthService
             'email' => '',
             'role' => 'visitante',
             'profileMode' => 'visitor',
+            'permissions' => [],
             'isAuthenticated' => false,
         ];
     }

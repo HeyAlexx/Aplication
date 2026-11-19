@@ -40,7 +40,7 @@ require_once __DIR__ . '/services/CatalogRequestService.php';
 $storage = new JsonStorage($config['data_dir'], $config['backup_dir']);
 $catalogService = new CatalogService($storage);
 $authState = new JsonStorage($config['backup_dir'] . '/security', $config['backup_dir'] . '/security-backups');
-$authService = new AuthService($storage, new LoginLimiter($authState));
+$authService = new AuthService($storage, new LoginLimiter($authState), $config['access_policy']);
 $newsService = new NewsService($storage);
 $watchmodeService = new WatchmodeService($config['watchmode_api_key'], $config['watchmode_base_url']);
 $jikanService = new JikanService(
@@ -53,5 +53,5 @@ $animeReviewService = new AnimeReviewService($storage);
 $externalCatalog = new ExternalCatalogService($jikanService, $watchmodeService);
 $catalogRequests = new CatalogRequestService($storage, $catalogService,
     fn(string $id): array => $externalCatalog->resolve($id),
-    fn(): array => $authService->requireAdmin(), fn(): array => $authService->requireUser());
+    fn(): array => $authService->requirePermission('catalog.review'), fn(): array => $authService->requireUser());
 $userService = new UserService($storage, $catalogService, $catalogRequests);
