@@ -142,3 +142,11 @@ class ContentReviewPermissionTests(unittest.TestCase):
         f.provider['revokePermissionsDuringResolve'] = True; f.save_provider()
         self.assertEqual(f.command('decide', actor='admin', id=row['id'], decision='approve')['status'], 403)
         self.assertEqual(f.hashes(), before)
+
+    def test_proposal_permission_revoked_during_lookup_creates_no_activity(self):
+        f = self.f; before = f.hashes()
+        f.provider['revokeProposalDuringResolve'] = True; f.save_provider()
+        self.assertEqual(f.command('favorite')['status'], 403)
+        self.assertEqual(f.read('favoritos'), [])
+        self.assertEqual(f.read('catalog-solicitudes'), [])
+        self.assertEqual(f.hashes(), before)

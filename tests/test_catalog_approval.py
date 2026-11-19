@@ -42,6 +42,13 @@ try {
        $s->write('usuarios.json',$users);
      });
    }
+   if($provider['revokeProposalDuringResolve']??false){
+     $s->transaction(function()use($s,$session):void{
+       $users=$s->read('usuarios.json');
+       foreach($users as &$u){if($u['id']===$session['id'])$u['permissionOverrides']=['catalog.propose'=>false];}unset($u);
+       $s->write('usuarios.json',$users);
+     });
+   }
    if(!isset($provider['items'][$id]))throw new ApiException('Fixture title missing',404);
    return $provider['items'][$id];
  };

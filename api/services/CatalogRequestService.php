@@ -69,6 +69,9 @@ final class CatalogRequestService
             if (!($currentUser['isAuthenticated'] ?? false) || ($currentUser['id'] ?? '') !== $session['id']) {
                 throw new ApiException('La sesión ya no permite esta operación.',401);
             }
+            if (!AccessPolicy::sessionAllows($currentUser, 'catalog.propose')) {
+                throw new ApiException('La cuenta ya no puede proponer contenido.', 403);
+            }
             $current = $this->catalog->stored($id);
             if ($current !== null && ($current['status'] ?? '') === 'Oculto') {
                 throw new ApiException('El contenido no está disponible.',404);
